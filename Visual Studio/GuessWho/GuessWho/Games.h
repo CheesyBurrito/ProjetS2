@@ -1,10 +1,13 @@
 #pragma once
 #include "CharacterManager.h"
+#include "Board.h"
 
 class Games
 {
 private:
 	CharacterManager characterManager;
+	Board boardPlayer1;
+	Board boardPlayer2;
 public:
 	Games();
 	~Games();

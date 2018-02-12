@@ -14,10 +14,11 @@ CharacterManager::~CharacterManager()
 
 bool CharacterManager::generateCharacters()
 {
-	characterVector.push_back(new Character());
-	characterVector.push_back(new Character());
-	characterVector.push_back(new Character());
-	characterVector.push_back(new Character(101, 1, 1, 1, 1, 1, 1, 1, 1, "William"));
+	for(int i = 0; i < 10; i++)
+	{
+		characterVector.push_back(new Character(i, propertiesEyesIndex[rand() % 3], propertiesHairColorIndex[rand() % 5], propertiesHairPhysiqueIndex[rand() % 2], propertiesGender[rand() % 1], propertiesSkinColorIndex[rand() % 2], propertiesAccessoriesIndex[rand() % 4], propertiesFacialHairIndex[rand() % 3], propertiesAgeIndex[rand() % 1], "William"));
+	}
+	
 	return true;
 }
 

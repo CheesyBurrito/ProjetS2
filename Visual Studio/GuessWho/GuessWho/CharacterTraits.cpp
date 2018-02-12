@@ -141,19 +141,19 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	{
 		return "Favoris";
 	}
-	case 13:
+	case 12:
 	{
 		return "Homme";
 	}
-	case 14:
+	case 13:
 	{
 		return "Femme";
 	}
-	case 15:
+	case 14:
 	{
 		return "Etudiant";
 	}
-	case 16:
+	case 15:
 	{
 		return "Professeur";
 	}

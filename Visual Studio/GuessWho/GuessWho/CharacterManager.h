@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <cstdlib>
 #include <vector>
 #include "Character.h"
 using namespace std;
@@ -12,6 +13,15 @@ private:
 	bool isLoaded = false;
 	int numCharacterHidden = 0;
 	int totalCharacter = 5;
+
+	int propertiesEyesIndex[4] = { 0, 1, 2, 3 }; //Possible values for the eyes color
+	int propertiesHairColorIndex[6] = { 0, 4, 5, 6, 7, 9 }; //Possible values for the hair color
+	int propertiesHairPhysiqueIndex[3] = {1, 2, 3}; //Possible values for the hair physique
+	int propertiesSkinColorIndex[3] = {6, 7, 8};
+	int propertiesAccessoriesIndex[5] = { 0, 5, 6, 7, 8 };
+	int propertiesFacialHairIndex[4] = {8, 9, 10, 11};
+	int propertiesAgeIndex[2] = {14, 15};
+	int propertiesGender[2] = {12, 13};
 
 	enum physicalTraitsColor {Brun, Vert, Bleu, Rouge, Roux, Blond, Noir, Blanc, Basane, Autre};
 	enum physicalTraits {Rien, Chauve, Court, Long, Piercing, Chapeau, Lunette, Tattoo, Rase, BarbePleine, Moustache, Favoris, Homme, Femme, Etudiant, Professeur};
