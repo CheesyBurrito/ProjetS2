@@ -30,6 +30,17 @@ void CharacterManager::printProperties()
 	}
 }
 
+bool CharacterManager::exportCharacters(string path)
+{
+	for (int i = 0; i < characterVector.size(); i++)
+	{
+		if (characterVector.at(i)->exportCharacter(path) == false)
+			return false;
+	}
+
+	return true;
+}
+
 bool CharacterManager::is_is_shuffle() const
 {
 	return isShuffle;

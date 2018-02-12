@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Character.h"
 
-
 Character::Character()
 {
 	ID = -1;
@@ -33,6 +32,32 @@ void Character::printProperties()
 {
 	cout << "ID: " << ID << " ";
 	characterTraits -> printProperties();
+}
+
+bool Character::exportCharacter(string path) 
+{
+	if (ID == -1)//Cant export character that doesnt have properties
+		return false;
+
+	ofstream file(path + to_string(ID) + ".txt"); //Exports to path/ID.txt
+
+	if (file.is_open()) {
+		file << ID << endl;
+		file << characterTraits->getEyes() << endl;
+		file << characterTraits->getHairColor() << endl;
+		file << characterTraits->getHairCharacteristics() << endl;
+		file << characterTraits->getGender() << endl;
+		file << characterTraits->getSkinColor() << endl;
+		file << characterTraits->getAccessories() << endl;
+		file << characterTraits->getFacialHair() << endl;
+		file << characterTraits->getAge() << endl;
+		file << characterTraits->getName() << endl;
+	}
+
+	else //Unable to open file
+		return false;
+
+	return true;
 }
 
 int Character::get_id() const

@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <fstream>
+#include <iostream>
 #include "CharacterTraits.h"
 using namespace std;
 
@@ -18,6 +20,7 @@ public:
 
 	//General Methods
 	void printProperties();
+	bool exportCharacter(string path);
 
 	//Setter and Getters
 	int get_id() const;

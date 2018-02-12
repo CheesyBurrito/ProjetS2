@@ -24,4 +24,5 @@ void Games::gameLoop()
 
 	//Render
 	characterManager.printProperties();
+	characterManager.exportCharacters("Ressources/CharacterFiles/");
 }

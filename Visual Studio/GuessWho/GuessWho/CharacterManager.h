@@ -35,6 +35,7 @@ private:
 	//General Methods
 	bool generateCharacters(); //Generates the Characters for the game
 	void printProperties(); //This function prints all the properties of the Objects in the vector
+	bool exportCharacters(string path); //Exports all characters in vector to files
 
 	//Setters and Getters
 
