@@ -12,6 +12,8 @@
 *.db
 *.ilk
 *.pdb
+*.obj
+*.tlog
 
 # Precompiled Headers
 *.gch
