@@ -32,10 +32,13 @@ void CharacterManager::printProperties()
 
 bool CharacterManager::exportCharacters(string path)
 {
+	ofstream file(path + "characterList.txt"); //Exports a list containing all files (used when importing characters)
+
 	for (int i = 0; i < characterVector.size(); i++)
 	{
 		if (characterVector.at(i)->exportCharacter(path) == false)
 			return false;
+		file << characterVector.at(i)->get_id() << endl;
 	}
 
 	return true;
