@@ -22,6 +22,53 @@ Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics
 	characterTraits = new CharacterTraits(eyes1, hairColor1, hairCharacteristics1, gender1, skinColor1, accessories1, facialHair1, age1, name1);
 }
 
+Character::Character(string path)
+{
+	characterTraits = new CharacterTraits();
+
+	cout << path << endl;
+
+	ifstream file(path);
+
+	int tmp;
+	string name;
+
+	if (file.is_open()) {
+
+		file >> ID;
+
+		file >> tmp;
+		characterTraits->set_eyes(tmp);
+
+		file >> tmp;
+		characterTraits->set_hair_color(tmp);
+
+		file >> tmp;
+		characterTraits->set_hair_characteristics(tmp);
+
+		file >> tmp;
+		characterTraits->set_gender(tmp);
+
+		file >> tmp;
+		characterTraits->set_skin_color(tmp);
+
+		file >> tmp;
+		characterTraits->set_accessories(tmp);
+
+		file >> tmp;
+		characterTraits->set_facial_hair(tmp);
+
+		file >> tmp;
+		characterTraits->set_age(tmp);
+
+		file >> name;
+		characterTraits->set_name(name);
+	}
+
+	else
+		this->ID = -1; //If unable to load, put ID to -1 
+}
+
 
 Character::~Character()
 {
@@ -56,6 +103,8 @@ bool Character::exportCharacter(string path)
 
 	else //Unable to open file
 		return false;
+
+	file.close();
 
 	return true;
 }

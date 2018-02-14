@@ -34,14 +34,48 @@ bool CharacterManager::exportCharacters(string path)
 {
 	ofstream file(path + "characterList.txt"); //Exports a list containing all files (used when importing characters)
 
-	for (int i = 0; i < characterVector.size(); i++)
-	{
-		if (characterVector.at(i)->exportCharacter(path) == false)
-			return false;
-		file << characterVector.at(i)->get_id() << endl;
+	if (file.is_open()) {
+
+		for (int i = 0; i < characterVector.size(); i++)
+		{
+			if (characterVector.at(i)->exportCharacter(path) == false)
+				return false;
+			file << characterVector.at(i)->get_id() << endl;
+		}
+
+		file.close();
+
+		return true;
 	}
 
-	return true;
+	return false;
+}
+
+bool CharacterManager::importCharacters(string path) 
+{
+	ifstream file(path + "characterList.txt");
+
+	vector<string> characterIDs;
+	int i = 0;
+	string currentID;
+
+	if (file.is_open()) {
+
+		while (getline(file, currentID)) { //Loads IDs from file
+			characterIDs.push_back(currentID); 
+			i++;
+		}
+
+		file.close();
+
+		for (int j = 0; j < i; j++) { //Creates characters for each loaded ID
+			characterVector.push_back(new Character(path + characterIDs[j] + ".txt"));
+		}
+
+		return true;
+	}
+
+	return false;
 }
 
 bool CharacterManager::is_is_shuffle() const
