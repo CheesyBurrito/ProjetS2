@@ -9,6 +9,7 @@ private:
 	Player *playerOfBoard;
 public:
 	Board();
+	Board(CharacterManager &characterManager1, Player &playerBoard1);
 	~Board();
 };
 

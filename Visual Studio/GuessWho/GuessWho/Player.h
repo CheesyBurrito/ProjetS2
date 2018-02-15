@@ -8,6 +8,7 @@ private:
 	Character * characterSelected;
 public:
 	Player();
+	Player(Character &characterSelected1);
 	~Player();
 };
 

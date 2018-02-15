@@ -6,6 +6,12 @@ Player::Player()
 {
 }
 
+Player::Player(Character& characterSelected1)
+{
+	characterSelected = &characterSelected1;
+}
+
+
 
 Player::~Player()
 {
