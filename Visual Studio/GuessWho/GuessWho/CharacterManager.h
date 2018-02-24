@@ -18,7 +18,7 @@ private:
 	int propertiesHairColorIndex[6] = { 0, 4, 5, 6, 7, 9 }; //Possible values for the hair color
 	int propertiesHairPhysiqueIndex[3] = {1, 2, 3}; //Possible values for the hair physique
 	int propertiesSkinColorIndex[3] = {6, 7, 8};
-	int propertiesAccessoriesIndex[5] = { 0, 5, 6, 7, 8 };
+	int propertiesAccessoriesIndex[5] = { 0, 4, 5, 6, 7 };
 	int propertiesFacialHairIndex[4] = {8, 9, 10, 11};
 	int propertiesAgeIndex[2] = {14, 15};
 	int propertiesGender[2] = {12, 13};
@@ -33,6 +33,7 @@ private:
 	~CharacterManager();
 
 	//General Methods
+	void addCharacter(Character*);
 	bool generateCharacters(); //Generates the Characters for the game
 	void printProperties(); //This function prints all the properties of the Objects in the vector
 	bool exportCharacters(string path); //Exports all characters in vector to files

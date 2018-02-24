@@ -4,12 +4,18 @@
 
 CharacterManager::CharacterManager()
 {
-	generateCharacters();
+	//generateCharacters();
 }
 
 
 CharacterManager::~CharacterManager()
 {
+}
+
+
+void CharacterManager::addCharacter(Character *c)
+{
+	characterVector.push_back(c);
 }
 
 bool CharacterManager::generateCharacters()
