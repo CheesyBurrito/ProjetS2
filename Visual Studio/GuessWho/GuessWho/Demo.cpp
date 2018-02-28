@@ -7,16 +7,16 @@ Demo::Demo()
 	idCounter = 0;
 }
 
-
 Demo::~Demo()
 {
 }
 
 void Demo::start() {
-	int choice;
+	int choice = -1;
 	string choice_str;
+	bool demoEnd = false;
 
-	while (1) {
+	while (!demoEnd) {
 		cout << string(50, '\n');
 
 		cout << "***********GUESS WHO : GESTIONNAIRE DE PERSONNAGES***********" << endl << endl;
@@ -27,9 +27,13 @@ void Demo::start() {
 		cout << "4 : Importer des personnages" << endl;
 		cout << "5 : Quitter" << endl;
 		cout << ">> ";
-		cin >> choice;
 
+		choice = inputVerification();
+		
 		switch (choice) {
+		default:
+			break;
+
 		case 1: //Add
 			this->addCharacter();
 			break;
@@ -56,9 +60,7 @@ void Demo::start() {
 			break;
 
 		case 5: //Exit
-			return;
-			break;
-		default:
+			demoEnd = true;
 			break;
 		}
 	}
@@ -144,3 +146,18 @@ void Demo::addCharacter()
 
 	characterManager.addCharacter(new Character(idCounter++, eyes, hairColor, hairCharacteristics, gender, skinColor, accessories, facialHair, age, name));
 }
+
+int Demo::inputVerification()
+{
+	int input = -1;
+	cin >> input;
+
+	if(cin.fail())
+	{
+		cin.clear();
+		cin.ignore();
+		cout << "Entree invalide!" << endl;
+	}
+	return input;
+}
+

@@ -9,6 +9,7 @@ private:
 public:
 	void start();
 	void addCharacter();
+	int inputVerification();
 	Demo();
 	~Demo();
 };

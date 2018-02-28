@@ -16,6 +16,7 @@
 *.tlog
 *log
 *.idb
+*.opendb
 
 # Precompiled Headers
 *.gch
