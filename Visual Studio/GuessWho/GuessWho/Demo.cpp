@@ -121,12 +121,16 @@ void Demo::addCharacter()
 	cin >> skinColor;
 
 	numOfAccessories = -1;
-	while (numOfAccessories > 3 || numOfAccessories < 1)
+	while (numOfAccessories > 3 || numOfAccessories < 0)
 	{
 		cout << string(50, '\n');
-		cout << "Enter the number of accessories (Min: 1, Max: 3):" << endl;
+		cout << "Entre le nombre d'accessoire (Min: 0, Max: 3):" << endl;
 		cout << ">> ";
 		cin >> numOfAccessories;
+	}
+	if(numOfAccessories == 0)
+	{
+		accessories.push_back(0);
 	}
 	
 	for(int i = 0; i < numOfAccessories; i++)

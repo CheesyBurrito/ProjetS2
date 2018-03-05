@@ -136,7 +136,6 @@ bool Character::importCharacterFromFile(string path)
 		
 }
 
-
 int Character::get_id() const
 {
 	return ID;
