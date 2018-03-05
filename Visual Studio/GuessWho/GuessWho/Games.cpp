@@ -54,8 +54,17 @@ void Games::preperationGame()
 	copyCharacterManagerToPlayer(player1);
 	copyCharacterManagerToPlayer(player2);
 
+	playerPreperations(player1);
+	playerPreperations(player2);
+
 	
 }
+
+void Games::playerPreperations(Player player)
+{
+	
+}
+
 
 void Games::inputGame()
 {

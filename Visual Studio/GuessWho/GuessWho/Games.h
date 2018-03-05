@@ -24,8 +24,10 @@ public:
 	void renderGame(); //Called to render the graphical elements of the game
 	void preperationGame(); //Called before the start of the game, used to initialize the game's elements and the pre-input preperation
 	void copyCharacterManagerToPlayer(Player player);
-	//Setters and Getters
+	void playerPreperations(Player player);
 
+
+	//Setters and Getters
 	bool is_game_over() const;
 	void set_game_over(bool game_over);
 	CharacterManager get_character_manager() const;
