@@ -15,13 +15,14 @@ private:
 public:
 	Character();
 	Character(int ID1);
-	Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, int accessories1, int facialHair1, int age1, string name1);
+	Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, vector<int> accessories1, int facialHair1, int age1, string name1);
 	Character(string path); //Instanciates character from file
 	~Character();
 
 	//General Methods
 	void printProperties();
 	bool exportCharacter(string path);
+	bool importCharacterFromFile(string path);
 
 	//Setter and Getters
 	int get_id() const;

@@ -14,6 +14,7 @@ private:
 	int numCharacterHidden = 0;
 	int totalCharacter = 5;
 
+
 	int propertiesEyesIndex[4] = { 0, 1, 2, 3 }; //Possible values for the eyes color
 	int propertiesHairColorIndex[6] = { 0, 4, 5, 6, 7, 9 }; //Possible values for the hair color
 	int propertiesHairPhysiqueIndex[3] = {1, 2, 3}; //Possible values for the hair physique

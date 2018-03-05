@@ -15,7 +15,7 @@ Character::Character(int ID1)
 	characterTraits = new CharacterTraits();
 }
 
-Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, int accessories1, int facialHair1, int age1, string name1)
+Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, vector<int> accessories1, int facialHair1, int age1, string name1)
 {
 	ID = ID1;
 	picturePath = "Insert Path to dummy Picture";
@@ -25,48 +25,8 @@ Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics
 Character::Character(string path)
 {
 	characterTraits = new CharacterTraits();
-
-	cout << path << endl;
-
-	ifstream file(path);
-
-	int tmp;
-	string name;
-
-	if (file.is_open()) {
-
-		file >> ID;
-
-		file >> tmp;
-		characterTraits->set_eyes(tmp);
-
-		file >> tmp;
-		characterTraits->set_hair_color(tmp);
-
-		file >> tmp;
-		characterTraits->set_hair_characteristics(tmp);
-
-		file >> tmp;
-		characterTraits->set_gender(tmp);
-
-		file >> tmp;
-		characterTraits->set_skin_color(tmp);
-
-		file >> tmp;
-		characterTraits->set_accessories(tmp);
-
-		file >> tmp;
-		characterTraits->set_facial_hair(tmp);
-
-		file >> tmp;
-		characterTraits->set_age(tmp);
-
-		file >> name;
-		characterTraits->set_name(name);
-	}
-
-	else
-		this->ID = -1; //If unable to load, put ID to -1 
+	importCharacterFromFile(path);
+	
 }
 
 
@@ -95,7 +55,13 @@ bool Character::exportCharacter(string path)
 		file << characterTraits->getHairCharacteristics() << endl;
 		file << characterTraits->getGender() << endl;
 		file << characterTraits->getSkinColor() << endl;
-		file << characterTraits->getAccessories() << endl;
+		file << characterTraits->get_num_of_accessories_on_character() << endl;
+
+		for(int i = 0; i < characterTraits->get_num_of_accessories_on_character(); i++)
+		{
+			file << characterTraits->getAccessories().at(i) << endl;
+		}
+
 		file << characterTraits->getFacialHair() << endl;
 		file << characterTraits->getAge() << endl;
 		file << characterTraits->getName() << endl;
@@ -108,6 +74,68 @@ bool Character::exportCharacter(string path)
 
 	return true;
 }
+
+bool Character::importCharacterFromFile(string path)
+{
+	cout << path << endl;
+
+	ifstream file(path);
+
+	int tmp;
+	string name;
+
+	if (file.is_open()) {
+
+		file >> ID;
+
+		file >> tmp;
+		characterTraits->set_eyes(tmp);
+
+		file >> tmp;
+		characterTraits->set_hair_color(tmp);
+
+		file >> tmp;
+		characterTraits->set_hair_characteristics(tmp);
+
+		file >> tmp;
+		characterTraits->set_gender(tmp);
+
+		file >> tmp;
+		characterTraits->set_skin_color(tmp);
+
+		file >> tmp;
+		characterTraits->set_num_of_accessories_on_character(tmp);
+
+		for(int i = 0; i < characterTraits->get_num_of_accessories_on_character(); i++)
+		{
+			file >> tmp;
+			characterTraits->addNewAccessory(tmp);
+		}
+		
+
+		file >> tmp;
+		characterTraits->set_facial_hair(tmp);
+
+		file >> tmp;
+		characterTraits->set_age(tmp);
+
+		file >> name;
+		characterTraits->set_name(name);
+
+		return true;
+	}
+
+	else
+	{
+		this->ID = -1; //If unable to load, put ID to -1 
+		return false;
+	}
+
+	//Forces a return, even if this statement should not be reached
+	return false;
+		
+}
+
 
 int Character::get_id() const
 {

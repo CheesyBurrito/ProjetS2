@@ -18,11 +18,12 @@ void CharacterManager::addCharacter(Character *c)
 	characterVector.push_back(c);
 }
 
+//Has to be updated to implement the use of vector based accessories indexing
 bool CharacterManager::generateCharacters()
 {
 	for(int i = 0; i < 10; i++)
 	{
-		characterVector.push_back(new Character(i, propertiesEyesIndex[rand() % 3], propertiesHairColorIndex[rand() % 5], propertiesHairPhysiqueIndex[rand() % 2], propertiesGender[rand() % 1], propertiesSkinColorIndex[rand() % 2], propertiesAccessoriesIndex[rand() % 4], propertiesFacialHairIndex[rand() % 3], propertiesAgeIndex[rand() % 1], "William"));
+		//characterVector.push_back(new Character(i, propertiesEyesIndex[rand() % 3], propertiesHairColorIndex[rand() % 5], propertiesHairPhysiqueIndex[rand() % 2], propertiesGender[rand() % 1], propertiesSkinColorIndex[rand() % 2], propertiesAccessoriesIndex[rand() % 4], propertiesFacialHairIndex[rand() % 3], propertiesAgeIndex[rand() % 1], "William"));
 	}
 	
 	return true;

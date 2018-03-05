@@ -69,7 +69,9 @@ void Demo::start() {
 void Demo::addCharacter()
 {
 	string name;
-	int eyes, hairColor, hairCharacteristics, gender, skinColor, accessories, facialHair, age;
+	//Initialize all values to a valid one, than can be handled by code
+	int eyes, hairColor, hairCharacteristics, gender, skinColor, numOfAccessories, accessory, facialHair, age = -1;
+	vector<int> accessories;
 
 	cout << string(50, '\n');
 	cout << "Nom du personnage :" << endl << ">> ";
@@ -118,15 +120,28 @@ void Demo::addCharacter()
 	cout << ">> ";
 	cin >> skinColor;
 
-	cout << string(50, '\n');
-	cout << "Accessoires :" << endl;
-	cout << "0 : Rien" << endl;
-	cout << "4 : Piercing" << endl;
-	cout << "5 : Chapeau" << endl;
-	cout << "6 : Lunettes" << endl;
-	cout << "7 : Tatoo" << endl;
-	cout << ">> ";
-	cin >> accessories;
+	numOfAccessories = -1;
+	while (numOfAccessories > 3 || numOfAccessories < 1)
+	{
+		cout << string(50, '\n');
+		cout << "Enter the number of accessories (Min: 1, Max: 3):" << endl;
+		cout << ">> ";
+		cin >> numOfAccessories;
+	}
+	
+	for(int i = 0; i < numOfAccessories; i++)
+	{
+		cout << string(50, '\n');
+		cout << "Accessoires #" << i << ": " << endl;
+		cout << "0 : Rien" << endl;
+		cout << "4 : Piercing" << endl;
+		cout << "5 : Chapeau" << endl;
+		cout << "6 : Lunettes" << endl;
+		cout << "7 : Tatoo" << endl;
+		cout << ">> ";
+		cin >> accessory;
+		accessories.push_back(accessory);
+	}
 
 	cout << string(50, '\n');
 	cout << "Pilosite faciale :" << endl;
