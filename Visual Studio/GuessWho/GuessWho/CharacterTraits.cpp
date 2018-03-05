@@ -50,7 +50,15 @@ string CharacterTraits::printAccessories()
 	for(int i = 0; i < accessories.size(); i++)
 	{
 		accessoriesString += printPhysicalTraitsProperties(accessories.at(i));
-		accessoriesString += ", ";
+		if(i == accessories.size() - 1)
+		{
+			
+		}
+		else
+		{
+			accessoriesString += ", ";
+		}
+		
 	}
 
 	return accessoriesString;
