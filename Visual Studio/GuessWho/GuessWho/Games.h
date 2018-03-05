@@ -12,6 +12,8 @@ private:
 	CharacterManager characterManager;
 	Player player1;
 	Player player2;
+	enum gameStateEnum { Pause, player1Turn, player2Turn }; //Indicates the possible states of the game
+	int gameState = 1; //Indicates the current state of the game
 public:
 	Games();
 	~Games();
@@ -19,12 +21,12 @@ public:
 	//General Methods
 	void gameLoop(); //Called by start to enter the game loop
 	void start(); //Called to start the game
-	void inputGame(); //Called to register the inputs of the game
-	void calculationGame(); //Called after the input to do the calculation absed on the input
-	void renderGame(); //Called to render the graphical elements of the game
+	void inputGame(Player &player); //Called to register the inputs of the game
+	void calculationGame(Player &player); //Called after the input to do the calculation absed on the input
+	void renderGame(Player &player); //Called to render the graphical elements of the game
 	void preperationGame(); //Called before the start of the game, used to initialize the game's elements and the pre-input preperation
 	void copyCharacterManagerToPlayer(Player player);
-	void playerPreperations(Player player);
+	void playerPreperations(Player &player);
 
 
 	//Setters and Getters

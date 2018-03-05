@@ -54,7 +54,6 @@ private:
 	void set_total_character(int total_character);
 	string get_path_to_file() const;
 	void set_path_to_file(string path_to_file);
-
 	vector<Character*> get_character_vector() const;
 };
 

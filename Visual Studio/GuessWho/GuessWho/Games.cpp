@@ -32,14 +32,48 @@ void Games::gameLoop()
 
 	while (!gameOver)
 	{
-		//Input
-		inputGame();
+		//Check Game State
+		switch(gameState)
+		{
+		case 0:
+			{
+				//TODO Implement when the game is paused
+		}break;
 
-		//Calculations
-		calculationGame();
+		case 1:
+			{
+			//Input
+			inputGame(player1);
 
-		//Render
-		renderGame();
+			//Calculations
+			calculationGame(player1);
+
+			//Render
+			renderGame(player1);
+
+			gameState = player2Turn;
+		}break;
+
+		case 2:
+			{
+			//Input
+			inputGame(player2);
+
+			//Calculations
+			calculationGame(player2);
+
+			//Render
+			renderGame(player2);
+
+			gameState = player1Turn;
+		}break;
+
+		default:{
+			cout << "Invalid game state!" << endl;
+		}break;
+		}
+
+		
 	}
 
 
@@ -56,40 +90,52 @@ void Games::preperationGame()
 
 	playerPreperations(player1);
 	playerPreperations(player2);
-
-	
 }
 
-void Games::playerPreperations(Player player)
+void Games::playerPreperations(Player &player)
 {
+	string playerName;
+	cout << "Veuiller entrer votre nom: " << endl;
+	cin >> playerName;
+
+	player.set_name_of_player(playerName);
+
+	char isAI = -1;
+	cout << "Est-ce que ce joueur est une IA? [y/n]" << endl;
+	cin >> isAI;
+
+	if(isAI == 'y')
+	{
+		player.set_is_cpu(true);
+	}
 	
+	int charID;
+	cout << "Veuiller entrer l'ID de votre personnage: " << endl;
+	cin >> charID;
+	player.characterSelection(charID);
+	cout << player.get_character_selected()->get_id() << endl;
 }
 
-
-void Games::inputGame()
+void Games::inputGame(Player &player)
 {
 	int input = 0;
 	cin >> input;
+	if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore();
+		cout << "Entree invalide!" << endl;
+	}
 }
 
-void Games::calculationGame()
+void Games::calculationGame(Player &player)
 {
 	
 }
 
-void Games::renderGame()
+void Games::renderGame(Player &player)
 {
-	//characterManager.printProperties();
-	//characterManager.exportCharacters("Ressources/CharacterFiles/");
-	//characterManager.clearCharacterVector();
-	//characterManager.importCharacters("Ressources/CharacterFiles/");
-	//characterManager.printProperties();
-
-	cout << "Player 1" << endl;
-	player1.get_board_of_player()->get_character_manager()->printProperties();
-
-	cout << "Player 2" << endl;
-	player2.get_board_of_player()->get_character_manager()->printProperties();
+	player.get_board_of_player()->get_character_manager()->printProperties();
 }
 
 void Games::copyCharacterManagerToPlayer(Player player)

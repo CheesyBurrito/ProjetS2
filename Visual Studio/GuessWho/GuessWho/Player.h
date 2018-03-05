@@ -6,7 +6,7 @@ class Player
 {
 private:
 	bool isCPU = false;
-	string nameOfPlayer = "Unitialized";
+	string nameOfPlayer = "Uninitialized";
 	Character *characterSelected;
 	Board* boardOfPlayer = new Board();
 
@@ -18,7 +18,7 @@ public:
 	~Player();
 
 	//General methods
-
+	bool characterSelection(int characterID);
 	//Setter and Getters
 
 	bool is_is_cpu() const;

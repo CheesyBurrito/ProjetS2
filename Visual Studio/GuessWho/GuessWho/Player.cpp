@@ -20,6 +20,24 @@ Player::~Player()
 {
 }
 
+bool Player::characterSelection(int characterID)
+{
+	for(int i = 0; i < boardOfPlayer->get_character_manager()->get_total_character(); i++)
+	{
+		if(characterID == boardOfPlayer->get_character_manager()->get_character_vector().at(i)->get_id())
+		{
+			set_character_selected(boardOfPlayer->get_character_manager()->get_character_vector().at(i));
+			return true;
+		}
+		else
+		{
+			continue;
+		}
+	}
+	return false;
+}
+
+
 bool Player::is_is_cpu() const
 {
 	return isCPU;
@@ -37,7 +55,7 @@ string Player::get_name_of_player() const
 
 void Player::set_name_of_player(string name_of_player)
 {
-	nameOfPlayer = move(name_of_player);
+	nameOfPlayer = name_of_player;
 }
 
 Character* Player::get_character_selected() const
