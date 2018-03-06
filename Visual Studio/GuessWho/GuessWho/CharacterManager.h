@@ -42,6 +42,7 @@ private:
 	bool importCharacters(string path); //Import all characters in the character Manager
 	void clearCharacterVector(); //Deletes all elements of the vector, to reset the characters
 	void shuffleCharacters(); //Shuffles all of the characters present in the vector
+	bool smartCharacterCreation(); // Generates characters that have logical traits, ie bald and white haire
 
 	//Setters and Getters
 	bool is_is_shuffle() const;

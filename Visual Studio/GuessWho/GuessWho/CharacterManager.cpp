@@ -32,7 +32,7 @@ string CharacterManager::addCharacter(Character *c)
 	return "Character successfully added";
 }
 
-//Has to be updated to implement the use of vector based accessories indexing
+//Has to be updated to implement the use of vector based accessories indexing COMPLETED
 bool CharacterManager::generateCharacters()
 {
 	for(int i = 0; i < 20; i++)
@@ -121,11 +121,16 @@ void CharacterManager::shuffleCharacters()
 	random_shuffle(characterVector.begin(), characterVector.end());
 }
 
+bool CharacterManager::smartCharacterCreation()
+{
+	
+}
+
+
 vector<Character*> CharacterManager::get_character_vector() const
 {
 	return characterVector;
 }
-
 
 bool CharacterManager::is_is_shuffle() const
 {
