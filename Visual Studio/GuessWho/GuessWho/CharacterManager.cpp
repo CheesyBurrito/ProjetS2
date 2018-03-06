@@ -121,6 +121,7 @@ void CharacterManager::shuffleCharacters()
 	random_shuffle(characterVector.begin(), characterVector.end());
 }
 
+//TODO Implement the method
 bool CharacterManager::smartCharacterCreation()
 {
 	
