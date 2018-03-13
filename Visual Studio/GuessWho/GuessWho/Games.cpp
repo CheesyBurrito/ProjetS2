@@ -26,6 +26,9 @@ void Games::gameLoop()
 	 * 1.2.1 - Each player must have a deep copy of the charactermanager
 	 * 1.3 - Game initializes the boards
 	 * 2 - Starts the game
+	 * 3 - Player asks question
+	 * 4 - Based on answer, player removes characters (as of now it will be automatically done)
+	 * 5 - Change player
 	 */
 	//Preperations for the game
 	preperationGame();
@@ -42,14 +45,15 @@ void Games::gameLoop()
 
 		case 1:
 			{
+
+			//Render
+			renderGame(player1);
+
 			//Input
 			inputGame(player1);
 
 			//Calculations
 			calculationGame(player1);
-
-			//Render
-			renderGame(player1);
 
 			gameState = player2Turn;
 		}break;
@@ -118,8 +122,14 @@ void Games::playerPreperations(Player &player)
 
 void Games::inputGame(Player &player)
 {
+	cout << "Quelle est votre choix pour une propriete?" << endl;
+	cout << "0 - Yeux" << endl << "1 - Cheveux" << endl 
+	<< "2 - Traits Cheveux" << endl << "3 - Couleur de peau" << endl 
+	<< "4 - Accessoires" << endl << "5 - Poils faciaux" << endl
+		<< "6 - Age" << endl << "7 - Genre" << endl;
 	int input = 0;
 	cin >> input;
+	player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
 	if (cin.fail())
 	{
 		cin.clear();

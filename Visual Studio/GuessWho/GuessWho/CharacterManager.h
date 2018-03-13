@@ -43,7 +43,9 @@ private:
 	void clearCharacterVector(); //Deletes all elements of the vector, to reset the characters
 	void shuffleCharacters(); //Shuffles all of the characters present in the vector
 	bool smartCharacterCreation(); // Generates characters that have logical traits, ie bald and white haire
-
+	void propertyPrinter(int propertyID);
+	string printPhysicalTraitsColorProperties(int colorIndex);
+	string printPhysicalTraitsProperties(int traitIndex);
 	//Setters and Getters
 	bool is_is_shuffle() const;
 	void set_is_shuffle(bool is_shuffle);

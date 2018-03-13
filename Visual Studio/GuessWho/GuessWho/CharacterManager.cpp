@@ -101,7 +101,7 @@ bool CharacterManager::importCharacters(string path)
 		file.close();
 
 		for (int j = 0; j < i; j++) { //Creates characters for each loaded ID
-			cout << addCharacter(new Character(path + characterIDs[j] + ".txt")) << endl;
+			addCharacter(new Character(path + characterIDs[j] + ".txt"));
 		}
 		isLoaded = true;
 		return true;
@@ -124,7 +124,186 @@ void CharacterManager::shuffleCharacters()
 //TODO Implement the method
 bool CharacterManager::smartCharacterCreation()
 {
-	
+	return true;
+}
+
+void CharacterManager::propertyPrinter(int propertyID)
+{
+	switch (propertyID)
+	{
+	case 0: {
+		for (int i = 0; i < 4; i++)
+		{
+			cout << propertiesEyesIndex[i] << " - " << printPhysicalTraitsColorProperties(propertiesEyesIndex[i]) << endl;
+		}
+	}break;
+	case 1: {
+		for (int i = 0; i < 6; i++)
+		{
+			cout << propertiesHairColorIndex[i] << " - " << printPhysicalTraitsColorProperties(propertiesHairColorIndex[i]) << endl;
+		}
+	}break;
+	case 2: {
+		for (int i = 0; i < 3; i++)
+		{
+			cout << propertiesHairPhysiqueIndex[i] << " - " << printPhysicalTraitsProperties(propertiesHairPhysiqueIndex[i]) << endl;
+		}
+	}break;
+	case 3: {
+		for (int i = 0; i < 3; i++)
+		{
+			cout << propertiesSkinColorIndex[i] << " - " << printPhysicalTraitsColorProperties(propertiesSkinColorIndex[i]) << endl;
+		}
+	}break;
+	case 4: {
+		for (int i = 0; i < 5; i++)
+		{
+			cout << propertiesAccessoriesIndex[i] << " - " << printPhysicalTraitsProperties(propertiesAccessoriesIndex[i]) << endl;
+		}
+	}break;
+	case 5: {
+		for (int i = 0; i < 4; i++)
+		{
+			cout << propertiesFacialHairIndex[i] << " - " << printPhysicalTraitsProperties(propertiesFacialHairIndex[i]) << endl;
+		}
+	}break;
+	case 6: {
+		for (int i = 0; i < 2; i++)
+		{
+			cout << propertiesAgeIndex[i] << " - " << printPhysicalTraitsProperties(propertiesAgeIndex[i]) << endl;
+		}
+	}break;
+	case 7:{
+		for (int i = 0; i < 2; i++)
+		{
+			cout << propertiesGender[i] << " - " << printPhysicalTraitsProperties(propertiesGender[i]) << endl;
+		}
+	}break;
+	}
+
+}
+
+string CharacterManager::printPhysicalTraitsColorProperties(int colorIndex)
+{
+	switch (colorIndex)
+	{
+	case 0:
+	{
+		return "Brun";
+	}
+	case 1:
+	{
+		return "Vert";
+	}
+	case 2:
+	{
+		return "Bleu";
+	}
+	case 3:
+	{
+		return "Rouge";
+	}
+	case 4:
+	{
+		return "Roux";
+	}
+	case 5:
+	{
+		return "Blond";
+	}
+	case 6:
+	{
+		return "Noir";
+	}
+	case 7:
+	{
+		return "Blanc";
+	}
+	case 8:
+	{
+		return "Basane";
+	}
+	case 9:
+	{
+		return "Autre";
+	}
+	default:
+	{
+		return "Invalid property value!";
+	}
+	}
+}
+
+string CharacterManager::printPhysicalTraitsProperties(int traitIndex)
+{
+	switch (traitIndex)
+	{
+	case 0:
+	{
+		return "Rien";
+	}
+	case 1:
+	{
+		return "Chauve";
+	}
+	case 2:
+	{
+		return "Court";
+	}
+	case 3:
+	{
+		return "Long";
+	}
+	case 4:
+	{
+		return "Piercing";
+	}
+	case 5:
+	{
+		return "Chapeau";
+	}
+	case 6:
+	{
+		return "Lunette";
+	}
+	case 7:
+	{
+		return "Tattoo";
+	}
+	case 8:
+	{
+		return "Rase";
+	}
+	case 9:
+	{
+		return "Barbe Plein";
+	}
+	case 10:
+	{
+		return "Moustache";
+	}
+	case 11:
+	{
+		return "Favoris";
+	}
+	case 12:
+	{
+		return "Homme";
+	}
+	case 13:
+	{
+		return "Femme";
+	}
+	case 14:
+	{
+		return "Etudiant";
+	}
+	case 15:
+	{
+		return "Professeur";
+	}
+	}
+	return "Invalid property value!";
 }
 
 
