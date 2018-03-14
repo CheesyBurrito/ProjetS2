@@ -21,13 +21,13 @@ public:
 	//General Methods
 	void gameLoop(); //Called by start to enter the game loop
 	void start(); //Called to start the game
-	void inputGame(Player &player); //Called to register the inputs of the game
+	void inputGame(Player &player, Player &otherPlayer); //Called to register the inputs of the game
 	void calculationGame(Player &player); //Called after the input to do the calculation absed on the input
 	void renderGame(Player &player); //Called to render the graphical elements of the game
 	void preperationGame(); //Called before the start of the game, used to initialize the game's elements and the pre-input preperation
 	void copyCharacterManagerToPlayer(Player player); //Called when a copy of the character manager has to be done
 	void playerPreperations(Player &player); //Prepares the player object, by modifying the name and if it is an AI
-	
+	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer);
 
 
 	//Setters and Getters

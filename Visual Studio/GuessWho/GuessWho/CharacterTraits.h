@@ -40,8 +40,8 @@ public:
 	string printPhysicalTraitsColorProperties(int colorIndex);
 	string printPhysicalTraitsProperties(int traitIndex);
 	string printAccessories();
-	//Returns a string to allow to show an error message in case of failure
-	string addNewAccessory(int accessoryIndex);
+	string addNewAccessory(int accessoryIndex); //Returns a string to allow to show an error message in case of failure
+	bool hasAccessory(int accessoryIndex);
 
 	//Getters
 	int getEyes();

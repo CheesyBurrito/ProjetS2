@@ -9,7 +9,7 @@ class Character
 {
 private:
 	int ID;
-	bool isHidden = true;
+	bool isHidden = false;
 	string picturePath;
 	CharacterTraits* characterTraits;
 public:

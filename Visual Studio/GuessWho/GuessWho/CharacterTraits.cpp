@@ -201,6 +201,22 @@ string CharacterTraits::addNewAccessory(int accessoryIndex)
 	return "Accessory added!";
 }
 
+bool CharacterTraits::hasAccessory(int accessoryIndex)
+{
+	for(int i = 0; i < numOfAccessoriesOnCharacter; i++)
+	{
+		if(accessories.at(i) == accessoryIndex)
+		{
+			return true;
+		}
+		else
+		{
+			continue;
+		}
+	}
+	return false;
+}
+
 
 int CharacterTraits::getEyes()
 {

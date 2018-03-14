@@ -8,11 +8,9 @@ CharacterManager::CharacterManager()
 	//generateCharacters();
 }
 
-
 CharacterManager::~CharacterManager()
 {
 }
-
 
 string CharacterManager::addCharacter(Character *c)
 {
@@ -57,7 +55,15 @@ void CharacterManager::printProperties()
 {
 	for(int i = 0; i < characterVector.size(); i++)
 	{
-		characterVector.at(i) -> printProperties();
+		if(!characterVector.at(i)->is_is_hidden())
+		{
+			continue;
+		}
+		else
+		{
+			characterVector.at(i)->printProperties();
+		}
+		
 	}
 }
 
@@ -306,6 +312,107 @@ string CharacterManager::printPhysicalTraitsProperties(int traitIndex)
 	return "Invalid property value!";
 }
 
+void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, int propertyID)
+{
+	for (int i = 0; i < totalCharacter; i++)
+	{
+		switch (characteristicsSlected)
+		{
+		case 0:
+		{
+			if (characterVector.at(i)->get_character_traits()->getEyes() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 1:
+		{
+			if (characterVector.at(i)->get_character_traits()->getHairColor() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 2:
+		{
+			if (characterVector.at(i)->get_character_traits()->getHairCharacteristics() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 3:
+		{
+			if (characterVector.at(i)->get_character_traits()->getSkinColor() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 4:
+		{
+			if (characterVector.at(i)->get_character_traits()->hasAccessory(propertyID))
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 5:
+		{
+			if (characterVector.at(i)->get_character_traits()->getFacialHair() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 6:
+		{
+			if (characterVector.at(i)->get_character_traits()->getAge() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		case 7:
+		{
+			if (characterVector.at(i)->get_character_traits()->getGender() == propertyID)
+			{
+				characterVector.at(i)->set_is_hidden(true);
+			}
+			else
+			{
+
+			}
+		}break;
+		default:
+		{
+			cout << "Hey, this should not show up, CharacterManager.cpp -> hideCharacterAfterQuestion method" << endl;
+		}break;
+		}
+	}
+}
 
 vector<Character*> CharacterManager::get_character_vector() const
 {

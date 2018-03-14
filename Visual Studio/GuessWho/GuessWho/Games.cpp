@@ -50,7 +50,7 @@ void Games::gameLoop()
 			renderGame(player1);
 
 			//Input
-			inputGame(player1);
+			inputGame(player1, player2);
 
 			//Calculations
 			calculationGame(player1);
@@ -60,14 +60,14 @@ void Games::gameLoop()
 
 		case 2:
 			{
+			//Render
+			renderGame(player2);
+
 			//Input
-			inputGame(player2);
+			inputGame(player2, player1);
 
 			//Calculations
 			calculationGame(player2);
-
-			//Render
-			renderGame(player2);
 
 			gameState = player1Turn;
 		}break;
@@ -120,8 +120,9 @@ void Games::playerPreperations(Player &player)
 	cout << player.get_character_selected()->get_id() << endl;
 }
 
-void Games::inputGame(Player &player)
+void Games::inputGame(Player &player, Player &otherPlayer)
 {
+	cout << player.get_name_of_player() << endl;
 	cout << "Quelle est votre choix pour une propriete?" << endl;
 	cout << "0 - Yeux" << endl << "1 - Cheveux" << endl 
 	<< "2 - Traits Cheveux" << endl << "3 - Couleur de peau" << endl 
@@ -129,7 +130,12 @@ void Games::inputGame(Player &player)
 		<< "6 - Age" << endl << "7 - Genre" << endl;
 	int input = 0;
 	cin >> input;
+	int characteristicsSlected = input;
 	player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
+	cin >> input;
+	
+	searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
+
 	if (cin.fail())
 	{
 		cin.clear();
@@ -151,6 +157,105 @@ void Games::renderGame(Player &player)
 void Games::copyCharacterManagerToPlayer(Player player)
 {
 	player.get_board_of_player()->initializeCharacterManagerBoard(characterManager);
+}
+
+void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer)
+{
+	switch (characteristicsSlected)
+	{
+	case 0:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getEyes() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 1:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getHairColor() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 2:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getHairCharacteristics() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 3:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getSkinColor() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 4:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->hasAccessory(input))
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 5:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getFacialHair() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 6:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getAge() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	case 7:
+	{
+		if (otherPlayer.get_character_selected()->get_character_traits()->getGender() == input)
+		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else
+		{
+			cout << "Implement when a property has not been found" << endl;
+		}
+	}break;
+	default:
+	{
+		cout << "Hey, this should not show up, Games.cpp -> searchPlayerCharacteristics method" << endl;
+	}break;
+	}
 }
 
 bool Games::is_game_over() const
