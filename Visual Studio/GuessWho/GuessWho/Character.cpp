@@ -77,7 +77,7 @@ bool Character::exportCharacter(string path)
 
 bool Character::importCharacterFromFile(string path)
 {
-	cout << path << endl;
+	//cout << path << endl;
 
 	ifstream file(path);
 

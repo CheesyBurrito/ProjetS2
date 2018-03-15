@@ -28,7 +28,7 @@ public:
 	void copyCharacterManagerToPlayer(Player player); //Called when a copy of the character manager has to be done
 	void playerPreperations(Player &player); //Prepares the player object, by modifying the name and if it is an AI
 	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer);
-
+	void checkEndGameConditions(Player player); //Method to check if the end game has been met
 
 	//Setters and Getters
 	bool is_game_over() const;

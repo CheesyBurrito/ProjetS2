@@ -56,6 +56,7 @@ void Games::gameLoop()
 			calculationGame(player1);
 
 			gameState = player2Turn;
+			checkEndGameConditions(player1);
 		}break;
 
 		case 2:
@@ -70,18 +71,28 @@ void Games::gameLoop()
 			calculationGame(player2);
 
 			gameState = player1Turn;
+			checkEndGameConditions(player2);
 		}break;
 
 		default:{
 			cout << "Invalid game state!" << endl;
 		}break;
 		}
-
 		
+		cout << "Game Completed" << endl;
 	}
 
 
 }
+
+void Games::checkEndGameConditions(Player player)
+{
+	if(player.get_board_of_player()->get_character_manager()->get_num_character_hidden() == 19)
+	{
+		gameOver = true;
+	}
+}
+
 
 void Games::preperationGame()
 {
@@ -123,18 +134,32 @@ void Games::playerPreperations(Player &player)
 void Games::inputGame(Player &player, Player &otherPlayer)
 {
 	cout << player.get_name_of_player() << endl;
+	cout << "Nombre de personage caches: " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 	cout << "Quelle est votre choix pour une propriete?" << endl;
 	cout << "0 - Yeux" << endl << "1 - Cheveux" << endl 
 	<< "2 - Traits Cheveux" << endl << "3 - Couleur de peau" << endl 
 	<< "4 - Accessoires" << endl << "5 - Poils faciaux" << endl
-		<< "6 - Age" << endl << "7 - Genre" << endl;
+		<< "6 - Age" << endl << "7 - Genre" << endl << "8 - Deviner tout de suite" << endl;
 	int input = 0;
 	cin >> input;
-	int characteristicsSlected = input;
-	player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
-	cin >> input;
+    int characteristicsSlected = input;
+	if(input == 8)
+	{
+		cout << "Enter the character ID: " << endl;
+		cin >> input;
+		searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
+		
+	}
+	else
+	{
+		cin >> input;
+		player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
+	}
 	
-	searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
+	
+	
+	
+	
 
 	if (cin.fail())
 	{
@@ -171,7 +196,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 1:
@@ -182,7 +207,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 2:
@@ -193,7 +218,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 3:
@@ -204,7 +229,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 4:
@@ -215,7 +240,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 5:
@@ -226,7 +251,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 6:
@@ -237,7 +262,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
 	case 7:
@@ -248,8 +273,15 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
-			cout << "Implement when a property has not been found" << endl;
+			//cout << "Implement when a property has not been found" << endl;
 		}
+	}break;
+	case 8:
+		{
+			if(otherPlayer.get_character_selected()->get_id() == input)
+			{
+				gameOver = true;
+			}
 	}break;
 	default:
 	{
