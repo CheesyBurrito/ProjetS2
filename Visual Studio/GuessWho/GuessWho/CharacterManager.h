@@ -42,7 +42,7 @@ private:
 	bool importCharacters(string path); //Import all characters in the character Manager
 	void clearCharacterVector(); //Deletes all elements of the vector, to reset the characters
 	void shuffleCharacters(); //Shuffles all of the characters present in the vector
-	bool smartCharacterCreation(); // Generates characters that have logical traits, ie bald and white haire
+	bool smartCharacterCreation(const Character *c); // Generates characters that have logical traits, ie bald and white haire
 	void propertyPrinter(int propertyID);
 	string printPhysicalTraitsColorProperties(int colorIndex);
 	string printPhysicalTraitsProperties(int traitIndex);

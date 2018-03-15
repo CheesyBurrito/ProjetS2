@@ -128,35 +128,35 @@ void CharacterManager::shuffleCharacters()
 }
 
 //TODO Implement the method
-bool CharacterManager::smartCharacterCreation(Character *c)
+bool CharacterManager::smartCharacterCreation(const Character *c)
 {
 	//No color hair for someone bald and without facial hair
-	if (c->characterTraits->getHairCharacteristics() == 1 && c->characterTraits->getFacialHair() == 8)
+	if (c->get_character_traits()->getHairCharacteristics() == 1 && c->get_character_traits()->getFacialHair() == 8)
 	{
-		if (c->characterTraits->getHairColor() != 9)
+		if (c->get_character_traits()->getHairColor() != 9)
 			return false;
 	}
 
 	//No facial hair for a woman
-	if (c->characterTraits->getGender() == 13)
+	if (c->get_character_traits()->getGender() == 13)
 	{
-		if (c->characterTraits->getFacialHair() != 8)
+		if (c->get_character_traits()->getFacialHair() != 8)
 			return false;
 	}
 
 	//Same accessories when more then one 
 	//We can implement something in the generation of character to solve that
-	if (c->characterTraits->getAccessories().size() != 1)
+	if (c->get_character_traits()->getAccessories().size() != 1)
 	{
-		if (c->characterTraits->getAccessories().at(0) == c->characterTraits->getAccessories().at(1))
+		if (c->get_character_traits()->getAccessories().at(0) == c->get_character_traits()->getAccessories().at(1))
 			return false;
 
-		if (c->characterTraits->getAccessories().size() == 3)
+		if (c->get_character_traits()->getAccessories().size() == 3)
 		{
-			if (c->characterTraits->g etAccessories().at(0) == c->characterTraits->getAccessories().at(2))
+			if (c->get_character_traits()->getAccessories().at(0) == c->get_character_traits()->getAccessories().at(2))
 				return false;
 
-			if (c->characterTraits->g etAccessories().at(1) == c->characterTraits->getAccessories().at(2))
+			if (c->get_character_traits()->getAccessories().at(1) == c->get_character_traits()->getAccessories().at(2))
 				return false;
 		}
 	}
