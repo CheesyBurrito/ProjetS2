@@ -1,5 +1,6 @@
 #pragma once
 #include "CommunicationFPGA.h"
+#include <windows.h>
 
 #define STATUS_LOCAL 0
 #define STATUS_CONNECTED 1
@@ -16,6 +17,8 @@ private:
 	int burstDelay; //Delay between each burst (minimum time between 2 phonemes)
 	int rawData[READINGS_PER_BURST][4];
 	int phonemeThreshold[4][4][2]; //Threshold for each phoneme x[phoneme][channel][min/max]
+	bool phonemeDetected;
+	void printRead();
 
 	// numeros de registres correspondants pour les echanges FPGA <-> PC  ...
 	unsigned const int nreg_lect_stat_btn = 0;  // fpga -> PC  Statut et BTN lus FPGA -> PC
