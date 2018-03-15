@@ -205,7 +205,7 @@ bool CharacterTraits::hasAccessory(int accessoryIndex)
 {
 	for(int i = 0; i < numOfAccessoriesOnCharacter; i++)
 	{
-		if(accessories.at(i) == accessoryIndex)
+		if(accessories.at(i) != accessoryIndex)
 		{
 			return true;
 		}

@@ -43,9 +43,9 @@ bool CharacterManager::generateCharacters()
 		}
 		for (int k = 0; k < numAccessoryRand; k++)
 		{
-			generateAttribute.push_back(propertiesAccessoriesIndex[ 1 + rand() % 3]);
+			generateAttribute.push_back(propertiesAccessoriesIndex[ 1 + rand() % 4]);
 		}
-		characterVector.push_back(new Character(i, propertiesEyesIndex[rand() % 3], propertiesHairColorIndex[rand() % 5], propertiesHairPhysiqueIndex[rand() % 2], propertiesGender[rand() % 1], propertiesSkinColorIndex[rand() % 2], generateAttribute, propertiesFacialHairIndex[rand() % 3], propertiesAgeIndex[rand() % 1], "William"));
+		characterVector.push_back(new Character(i, propertiesEyesIndex[rand() % 4], propertiesHairColorIndex[rand() % 5], propertiesHairPhysiqueIndex[rand() % 3], propertiesGender[rand() % 2], propertiesSkinColorIndex[rand() % 3], generateAttribute, propertiesFacialHairIndex[rand() % 4], propertiesAgeIndex[rand() % 2], "William"));
 	}
 	isLoaded = true;
 	return true;
@@ -55,7 +55,7 @@ void CharacterManager::printProperties()
 {
 	for(int i = 0; i < characterVector.size(); i++)
 	{
-		if(!characterVector.at(i)->is_is_hidden())
+		if(characterVector.at(i)->is_is_hidden())
 		{
 			continue;
 		}
@@ -351,9 +351,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		{
 		case 0:
 		{
-			if (characterVector.at(i)->get_character_traits()->getEyes() == propertyID)
+			if(characterVector.at(i)->is_is_hidden())
+			{
+				
+			}
+			else if (characterVector.at(i)->get_character_traits()->getEyes() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -362,9 +367,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 1:
 		{
-			if (characterVector.at(i)->get_character_traits()->getHairColor() == propertyID)
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->getHairColor() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -373,9 +383,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 2:
 		{
-			if (characterVector.at(i)->get_character_traits()->getHairCharacteristics() == propertyID)
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->getHairCharacteristics() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -384,9 +399,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 3:
 		{
-			if (characterVector.at(i)->get_character_traits()->getSkinColor() == propertyID)
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->getSkinColor() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -395,9 +415,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 4:
 		{
-			if (characterVector.at(i)->get_character_traits()->hasAccessory(propertyID))
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->hasAccessory(propertyID))
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -406,9 +431,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 5:
 		{
-			if (characterVector.at(i)->get_character_traits()->getFacialHair() == propertyID)
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->getFacialHair() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -417,9 +447,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 6:
 		{
-			if (characterVector.at(i)->get_character_traits()->getAge() == propertyID)
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->getAge() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
@@ -428,9 +463,14 @@ void CharacterManager::hideCharacterAfterQuestion(int characteristicsSlected, in
 		}break;
 		case 7:
 		{
-			if (characterVector.at(i)->get_character_traits()->getGender() == propertyID)
+			if (characterVector.at(i)->is_is_hidden())
+			{
+
+			}
+			else if (characterVector.at(i)->get_character_traits()->getGender() != propertyID)
 			{
 				characterVector.at(i)->set_is_hidden(true);
+				numCharacterHidden++;
 			}
 			else
 			{
