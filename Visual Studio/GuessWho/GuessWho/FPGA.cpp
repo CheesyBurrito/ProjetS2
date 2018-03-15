@@ -1,8 +1,28 @@
 #include "stdafx.h"
 #include "FPGA.h"
 
+/*Loops until button is pushed, then returns the detected phoneme
+Returns -1 if no phoneme is detected
+Returns -2 if there was a card error (You shouldn't phoneme methods once -2 was returned it won't work until software and hardware reset)
+*/
+int FPGA::getPhoneme() {
+	readLoop();
+
+	if (cardStatus)
+		return convertDataToPhoneme();
+
+	return -2;
+
+}
+
+//Returns the position of a phoneme in the vector if detected, if not, returns -1
 int FPGA::convertDataToPhoneme() {
-	return 0;
+
+	for (int i = 0; i < phonemes.size(); i++) { //foreach phoneme
+		if (phonemes[i].isPhoneme(rawData))
+			return i;
+	}
+	return -1;
 }
 
 void FPGA::printRead() {
@@ -32,6 +52,10 @@ void FPGA::readLoop() {
 
 	if (!cardStatus) //If loop was exited because of communication error, print so user can know
 		cout << "ERREUR COMMUNICATION FPGA" << endl;
+}
+
+void FPGA::addPhoneme(int min[4], int max[4], float percentage){
+	phonemes.push_back(Phoneme(min, max, percentage));
 }
 
 bool FPGA::switchToConnected() {

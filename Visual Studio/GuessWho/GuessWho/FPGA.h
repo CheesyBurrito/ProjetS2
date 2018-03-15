@@ -1,10 +1,12 @@
 #pragma once
 #include "CommunicationFPGA.h"
+#include "Phoneme.h"
+#include "stdafx.h"
 #include <windows.h>
+#include <vector>
 
 #define STATUS_LOCAL 0
 #define STATUS_CONNECTED 1
-#define READINGS_PER_BURST 10
 
 class FPGA
 {
@@ -16,9 +18,9 @@ private:
 	int readingDelay; //Delay between each reading in a burst to average the 4 channels (~10ms)
 	int burstDelay; //Delay between each burst (minimum time between 2 phonemes)
 	int rawData[READINGS_PER_BURST][4];
-	int phonemeThreshold[4][4][2]; //Threshold for each phoneme x[phoneme][channel][min/max]
+	vector<Phoneme> phonemes;
+	
 	bool phonemeDetected;
-	void printRead();
 
 	// numeros de registres correspondants pour les echanges FPGA <-> PC  ...
 	unsigned const int nreg_lect_stat_btn = 0;  // fpga -> PC  Statut et BTN lus FPGA -> PC
@@ -34,10 +36,14 @@ private:
 	unsigned const int nreg_ecri_led = 10;      // PC -> fpga (donnees leds)
 
 public:
+	void addPhoneme(int min[4], int max[4], float percentage);
 	bool switchToConnected();
 	bool readData();
 	int convertDataToPhoneme();
 	void readLoop();
+	void printRead();
+
+	int getPhoneme();
 
 	FPGA(int delay=500);
 	~FPGA();
