@@ -1,12 +1,61 @@
 #include "stdafx.h"
 #include "FPGA.h"
 
-int FPGA::convertDataToPhoneme() {
+/*Loops until button is pushed, then returns the detected phoneme
+Returns -1 if no phoneme is detected
+Returns -2 if there was a card error (You shouldn't phoneme methods once -2 was returned it won't work until software and hardware reset)
+*/
+int FPGA::getPhoneme() {
+	readLoop();
+
+	if (cardStatus)
+		return convertDataToPhoneme();
+
+	return -2;
 
 }
 
-void FPGA::readLoop() {
+//Returns the position of a phoneme in the vector if detected, if not, returns -1
+int FPGA::convertDataToPhoneme() {
 
+	for (int i = 0; i < phonemes.size(); i++) { //foreach phoneme
+		if (phonemes[i].isPhoneme(rawData))
+			return i;
+	}
+	return -1;
+}
+
+void FPGA::printRead() {
+	for (int i = 0; i < READINGS_PER_BURST; ++i) {
+		cout << rawData[i][0] << '\t' << rawData[i][1] << '\t'
+			<< rawData[i][2] << '\t' << rawData[i][3] << '\t' << endl;
+	}
+}
+
+void FPGA::readLoop() {
+	//TODO : CHANGE LOOP TO INFINITE LOOP WHEN THREADED
+	phonemeDetected = false;
+	int btnValue = 0;
+	while(!phonemeDetected && cardStatus){
+		if (cardStatus)
+			cardStatus = fpgaCard.lireRegistre(nreg_lect_stat_btn, btnValue); //Reading buttons
+
+		if (cardStatus && (btnValue & 1)) { //If button 1 was pressed read value from DAC
+			readData();
+			convertDataToPhoneme();
+			printRead();
+			phonemeDetected = true;
+		}
+
+		Sleep(500); //Time before trying to see if button pressed
+	}
+
+	if (!cardStatus) //If loop was exited because of communication error, print so user can know
+		cout << "ERREUR COMMUNICATION FPGA" << endl;
+}
+
+void FPGA::addPhoneme(int min[4], int max[4], float percentage){
+	phonemes.push_back(Phoneme(min, max, percentage));
 }
 
 bool FPGA::switchToConnected() {
@@ -36,6 +85,8 @@ bool FPGA::readData() {
 			cardStatus = fpgaCard.lireRegistre(nreg_lect_can3, rawData[i][3]);
 		else
 			return false;
+
+		Sleep(burstDelay);
 	}
 
 	return true;
@@ -47,7 +98,7 @@ FPGA::FPGA(int delay)
 	cardStatus = fpgaCard.estOk();
 	readingDelay = 10;
 	burstDelay = delay;
-
+	phonemeDetected = false;
 }
 
 
