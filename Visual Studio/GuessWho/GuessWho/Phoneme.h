@@ -1,5 +1,4 @@
 #pragma once
-#include "FPGA.h"
 #include "stdafx.h"
 
 class Phoneme
