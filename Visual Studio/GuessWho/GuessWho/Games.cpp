@@ -97,7 +97,8 @@ void Games::checkEndGameConditions(Player player)
 void Games::preperationGame()
 {
 	
-	characterManager.generateCharacters();
+	//characterManager.generateCharacters();
+	characterManager.importCharacters("Ressources/CharacterFiles/");
 	characterManager.shuffleCharacters();
 	characterManager.exportCharacters("Ressources/CharacterFiles/");//This line is crucial, because it allows the other character manger to know what is the order
 	copyCharacterManagerToPlayer(player1);
@@ -152,8 +153,10 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 	}
 	else
 	{
-		cin >> input;
 		player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
+		cin >> input;
+		searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
+		
 	}
 	
 	
@@ -197,6 +200,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		else
 		{
 			//cout << "Implement when a property has not been found" << endl;
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 		}
 	}break;
 	case 1:
@@ -207,6 +211,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -218,6 +223,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -229,6 +235,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -240,6 +247,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -251,6 +259,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -262,6 +271,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -273,6 +283,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		}
 		else
 		{
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
