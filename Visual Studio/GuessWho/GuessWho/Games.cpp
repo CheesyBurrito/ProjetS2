@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Games.h"
+#include <time.h>
 
 
 Games::Games()
 {
+	srand(time(NULL));
 }
 
 Games::~Games()
@@ -121,16 +123,19 @@ void Games::playerPreperations(Player &player)
 	cout << "Est-ce que ce joueur est une IA? [y/n]" << endl;
 	cin >> isAI;
 
-	if(isAI == 'y')
+	if(isAI == 'y') //If player is bot, a character from the vector is chosen at random
 	{
+		int randomIndex = rand() % (player.get_board_of_player()->get_character_manager()->get_total_character());
+		player.characterSelection(player.get_board_of_player()->get_character_manager()->get_character_vector().at(randomIndex)->get_id());
 		player.set_is_cpu(true);
 	}
-	
-	int charID;
-	cout << "Veuiller entrer l'ID de votre personnage: " << endl;
-	cin >> charID;
-	player.characterSelection(charID);
-	cout << player.get_character_selected()->get_id() << endl;
+	else { //Only human player choses a character
+		int charID;
+		cout << "Veuiller entrer l'ID de votre personnage: " << endl;
+		cin >> charID;
+		player.characterSelection(charID);
+		cout << player.get_character_selected()->get_id() << endl;
+	}
 }
 
 void Games::inputGame(Player &player, Player &otherPlayer)
