@@ -2,6 +2,7 @@
 #include "CharacterManager.h"
 #include "Board.h"
 #include "Player.h"
+#include <vector>
 using namespace std;
 
 class Games
@@ -14,6 +15,7 @@ private:
 	Player player2;
 	enum gameStateEnum { Pause, player1Turn, player2Turn }; //Indicates the possible states of the game
 	int gameState = 1; //Indicates the current state of the game
+	string winner;
 public:
 	Games();
 	~Games();

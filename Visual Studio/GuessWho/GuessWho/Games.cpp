@@ -78,10 +78,10 @@ void Games::gameLoop()
 			cout << "Invalid game state!" << endl;
 		}break;
 		}
-		
-		cout << "Game Completed" << endl;
 	}
 
+	cout << "Gagnant : " << winner << endl;
+	cin >> winner;
 
 }
 
@@ -90,6 +90,7 @@ void Games::checkEndGameConditions(Player player)
 	if(player.get_board_of_player()->get_character_manager()->get_num_character_hidden() == 19)
 	{
 		gameOver = true;
+		winner = player.get_name_of_player();
 	}
 }
 
@@ -134,41 +135,53 @@ void Games::playerPreperations(Player &player)
 
 void Games::inputGame(Player &player, Player &otherPlayer)
 {
-	cout << player.get_name_of_player() << endl;
-	cout << "Nombre de personage caches: " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
-	cout << "Quelle est votre choix pour une propriete?" << endl;
-	cout << "0 - Yeux" << endl << "1 - Cheveux" << endl 
-	<< "2 - Traits Cheveux" << endl << "3 - Couleur de peau" << endl 
-	<< "4 - Accessoires" << endl << "5 - Poils faciaux" << endl
-		<< "6 - Age" << endl << "7 - Genre" << endl << "8 - Deviner tout de suite" << endl;
-	int input = 0;
-	cin >> input;
-    int characteristicsSlected = input;
-	if(input == 8)
-	{
-		cout << "Enter the character ID: " << endl;
-		cin >> input;
-		searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
-		
-	}
-	else
-	{
-		player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
-		cin >> input;
-		searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
-		
-	}
-	
-	
-	
-	
-	
 
-	if (cin.fail())
-	{
-		cin.clear();
-		cin.ignore();
-		cout << "Entree invalide!" << endl;
+	if (player.is_is_cpu()) {
+		vector<int> question;
+		question = player.cpuQuestionGeneretor(50);
+
+		searchPlayerCharacteristicsQuestion(question[0], question[1], player, otherPlayer);
+	}
+
+	else {
+
+		cout << player.get_name_of_player() << endl;
+		cout << "Nombre de personage caches (vous): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
+		cout << "Nombre de personage caches (autre joueur): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
+		cout << "Quelle est votre choix pour une propriete?" << endl;
+		cout << "0 - Yeux" << endl << "1 - Cheveux" << endl
+			<< "2 - Traits Cheveux" << endl << "3 - Couleur de peau" << endl
+			<< "4 - Accessoires" << endl << "5 - Poils faciaux" << endl
+			<< "6 - Age" << endl << "7 - Genre" << endl << "8 - Deviner tout de suite" << endl;
+		int input = 0;
+		cin >> input;
+		int characteristicsSlected = input;
+		if (input == 8)
+		{
+			cout << "Enter the character ID: " << endl;
+			cin >> input;
+			searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
+
+		}
+		else
+		{
+			player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
+			cin >> input;
+			searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
+
+		}
+
+
+
+
+
+
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore();
+			cout << "Entree invalide!" << endl;
+		}
 	}
 }
 
@@ -179,7 +192,8 @@ void Games::calculationGame(Player &player)
 
 void Games::renderGame(Player &player)
 {
-	player.get_board_of_player()->get_character_manager()->printProperties();
+	if(!player.is_is_cpu()) //Shouldn't display board of cpu
+		player.get_board_of_player()->get_character_manager()->printProperties();
 }
 
 void Games::copyCharacterManagerToPlayer(Player player)
@@ -292,6 +306,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 			if(otherPlayer.get_character_selected()->get_id() == input)
 			{
 				gameOver = true;
+				winner = player.get_name_of_player();
 			}
 	}break;
 	default:
