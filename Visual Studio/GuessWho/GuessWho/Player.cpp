@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include <time.h>
 
 
 Player::Player()
@@ -78,8 +79,9 @@ void Player::set_board_of_player(Board* board_of_player)
 	boardOfPlayer = board_of_player;
 }
 
-vector<int> Player::cpuQuestionGeneretor(int target)
+vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 {
+	srand(time(NULL));
 	int i, j;
 	int rand_num1, rand_num2;
 	int difference = 100;
@@ -92,26 +94,23 @@ vector<int> Player::cpuQuestionGeneretor(int target)
 	int numPlayerVisible = totalCharacter - numCharacterHidden;
 
 	//If there are two characters left, take a guess
-	if(numPlayerVisible <= 2)
+	if(numPlayerVisible <= 2 || player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() > 17)
 	{
-		int randomCharacter = rand() % numPlayerVisible;
-		bool goodCharacter = false;
-
-		if (randomCharacter == 1) //Will choose first available character
-			goodCharacter = true;
+		int randomCharacter = rand() % numPlayerVisible + 1;
+		int counter = 0;
 
 		question.at(0) = 8;
 		for (i = 0; i < totalCharacter; i++) 
 		{
-			if (characters.at(i)->is_is_hidden() == false) {
-				if (goodCharacter == true)
+			if (characters.at(i)->is_is_hidden() == false) 
+			{
+				counter++;
+				if (counter == randomCharacter)
 					question.at(1) = characters.at(i)->get_id();
-				else //If rand was 2, it will take the character next iteration
-					goodCharacter = true;
 			}
 		}
 	}
-	else 
+	else
 	{
 		//Initialize the value to 0
 		int characterTraitsCounter[8][16];
@@ -155,9 +154,9 @@ vector<int> Player::cpuQuestionGeneretor(int target)
 			}
 		}
 
-		if (target == -1) 
+		if (target == -1)
 		{
-			while (questionOk == false) 
+			while (questionOk == false)
 			{
 				rand_num1 = rand() % 8;
 				for (i = 0; i < 16; i++)
@@ -171,7 +170,7 @@ vector<int> Player::cpuQuestionGeneretor(int target)
 				{
 					while (questionOk == false)
 					{
-						rand_num2 = rand () % 16;
+						rand_num2 = rand() % 16;
 						if (characterTraitsCounter[rand_num1][rand_num2] > 0 && characterTraitsCounter[rand_num1][rand_num2] < 100)
 						{
 							question.at(0) = rand_num1;
@@ -181,7 +180,7 @@ vector<int> Player::cpuQuestionGeneretor(int target)
 					}
 				}
 			}
-		}	
+		}
 	}
 
 	return question;

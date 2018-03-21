@@ -29,6 +29,6 @@ public:
 	void set_character_selected(Character* character_selected);
 	Board* get_board_of_player() const;
 	void set_board_of_player(Board* board_of_player);
-	vector<int> cpuQuestionGeneretor(int target);
+	vector<int> cpuQuestionGeneretor(int target,Player player2);
 };
 
