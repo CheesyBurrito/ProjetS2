@@ -37,8 +37,8 @@ public:
 	//General Methods
 	//TODO: Implement the print method
 	void printProperties();
-	string printPhysicalTraitsColorProperties(int colorIndex);
-	string printPhysicalTraitsProperties(int traitIndex);
+	static string printPhysicalTraitsColorProperties(int colorIndex);
+	static string printPhysicalTraitsProperties(int traitIndex);
 	string printAccessories();
 	string addNewAccessory(int accessoryIndex); //Returns a string to allow to show an error message in case of failure
 	bool hasAccessory(int accessoryIndex);
