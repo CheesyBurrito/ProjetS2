@@ -91,14 +91,24 @@ vector<int> Player::cpuQuestionGeneretor(int target)
 	int numCharacterHidden = get_board_of_player()->get_character_manager()->get_num_character_hidden();
 	int numPlayerVisible = totalCharacter - numCharacterHidden;
 
-	//If there is only one visible character, Guess who
-	if(numPlayerVisible == 1)
+	//If there are two characters left, take a guess
+	if(numPlayerVisible <= 2)
 	{
+		int randomCharacter = rand() % numPlayerVisible;
+		bool goodCharacter = false;
+
+		if (randomCharacter == 1) //Will choose first available character
+			goodCharacter = true;
+
 		question.at(0) = 8;
 		for (i = 0; i < totalCharacter; i++) 
 		{
-			if (characters.at(i)->is_is_hidden() == false)
-				question.at(1) = characters.at(i)->get_id();
+			if (characters.at(i)->is_is_hidden() == false) {
+				if (goodCharacter == true)
+					question.at(1) = characters.at(i)->get_id();
+				else //If rand was 2, it will take the character next iteration
+					goodCharacter = true;
+			}
 		}
 	}
 	else 

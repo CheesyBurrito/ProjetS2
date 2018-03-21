@@ -627,6 +627,16 @@ void CharacterManager::hideCharacterAfterQuestionOpposite(int characteristicsSle
 	}
 }
 
+void CharacterManager::hideCharacter(int characterID) {
+	for (int i = 0; i < characterVector.size(); i++) {
+		if (characterVector.at(i)->get_id() == characterID) {
+			characterVector.at(i)->set_is_hidden(true);
+			numCharacterHidden++;
+
+		}
+	}
+}
+
 vector<Character*> CharacterManager::get_character_vector() const
 {
 	return characterVector;

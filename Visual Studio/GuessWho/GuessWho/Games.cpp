@@ -265,11 +265,24 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 	cout << question << " (y/n)" << endl;
 	cin >> answer;
 
-	if (answer == 'y') {
-		player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+	if (characteristicsSlected == 8) {
+		if (answer == 'y')
+		{
+			gameOver = true;
+			winner = player.get_name_of_player();
+		}
+		else {
+			player.get_board_of_player()->get_character_manager()->hideCharacter(input);
+		}
 	}
+
 	else {
-		player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+		if (answer == 'y') {
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+		}
+		else {
+			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+		}
 	}
 
 }
@@ -380,6 +393,9 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 			{
 				gameOver = true;
 				winner = player.get_name_of_player();
+			}
+			else {
+				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 			}
 	}break;
 	default:

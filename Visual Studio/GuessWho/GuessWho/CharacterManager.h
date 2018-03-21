@@ -48,6 +48,7 @@ private:
 	string printPhysicalTraitsProperties(int traitIndex);
 	void hideCharacterAfterQuestion(int characteristicsSlected, int propertyID);
 	void hideCharacterAfterQuestionOpposite(int characteristicsSlected, int propertyID);
+	void hideCharacter(int characterID);
 	//Setters and Getters
 	bool is_is_shuffle() const;
 	void set_is_shuffle(bool is_shuffle);
