@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "Games.h"
-#include <time.h>
-
-using namespace std;
 
 Games::Games()
 {
@@ -41,12 +38,12 @@ void Games::gameLoop()
 		//Check Game State
 		switch(gameState)
 		{
-		case 0:
+		case Pause:
 			{
 				//TODO Implement when the game is paused
 		}break;
 
-		case 1:
+		case player1Turn:
 			{
 
 			//Render
@@ -58,11 +55,15 @@ void Games::gameLoop()
 			//Calculations
 			calculationGame(player1);
 
-			gameState = player2Turn;
+			if(gameState == player1Turn)
+			{
+				gameState = player2Turn;
+			}
+			
 			//checkEndGameConditions(player1);
 		}break;
 
-		case 2:
+		case player2Turn:
 			{
 			//Render
 			renderGame(player2);
@@ -73,8 +74,17 @@ void Games::gameLoop()
 			//Calculations
 			calculationGame(player2);
 
-			gameState = player1Turn;
+			if (gameState == player2Turn)
+			{
+				gameState = player1Turn;
+			}
+
 			//checkEndGameConditions(player2);
+		}break;
+		
+		case CardReadingError:
+			{
+			cout << "Error reading the FPGA card, please restart the program and verify the connection!" << endl;
 		}break;
 
 		default:{
@@ -96,7 +106,6 @@ void Games::checkEndGameConditions(Player player)
 		winner = player.get_name_of_player();
 	}
 }
-
 
 void Games::preperationGame()
 {
@@ -143,6 +152,7 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 {
 
 	if (player.is_is_cpu()) {
+		//No need to read fpga here
 		vector<int> question;
 		question = player.cpuQuestionGeneretor(-1, otherPlayer);
 
@@ -160,34 +170,28 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 			<< "4 - Accessoires" << endl << "5 - Poils faciaux" << endl
 			<< "6 - Age" << endl << "7 - Genre" << endl << "8 - Deviner tout de suite" << endl;
 		int input = 0;
-		cin >> input;
+		input = fpgaCommunicationInputHandler();
+		/*
+		if(input == fpgaCommunication.FPGA_READING_ERROR)
+		{
+			return;
+		}*/
 		int characteristicsSlected = input;
 		if (input == 8)
 		{
 			cout << "Enter the character ID: " << endl;
-			cin >> input;
+			input = fpgaCommunicationInputHandler();
 			searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
 
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
-			cin >> input;
+			input = fpgaCommunicationInputHandler();
 			searchPlayerCharacteristicsQuestion(characteristicsSlected, input, player, otherPlayer);
 
 		}
-
-
-
-
-
-
-		if (cin.fail())
-		{
-			cin.clear();
-			cin.ignore();
-			cout << "Entree invalide!" << endl;
-		}
+		
 	}
 }
 
@@ -405,6 +409,56 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 	}
 }
 
+int Games::fpgaCommunicationInputHandler()
+{
+	cout << "Parler dans le micro pour entendre votre belle voix et controler le menu! AFFICHER ICI LES PHONEMES ET LEUR FONCTION!!!" << endl;
+	int fpgaReadingInput = 0; 
+	int userVoiceInput = 0;
+
+	do
+	{
+		fpgaReadingInput = fpgaCommunication.getPhoneme();
+		cout << fpgaReadingInput << endl;
+		if(fpgaReadingInput == fpgaCommunication.FPGA_UP_VALUE)
+		{
+			cout << "Vous montez dans le menu" << endl;
+			userVoiceInput++;
+		}
+		if (fpgaReadingInput == fpgaCommunication.FPGA_DOWN_VALUE)
+		{
+			cout << "Vous descendez dans le menu" << endl;
+			userVoiceInput--;
+		}
+		if (fpgaReadingInput == fpgaCommunication.FPGA_RETURN_VALUE)
+		{
+			cout << "Vous retournez en arriere" << endl;
+			//TODO: Implement return go back value for menus
+		}
+		cout << "Current choice: " << userVoiceInput << endl;
+	} while (fpgaReadingInput != fpgaCommunication.FPGA_READING_ERROR && fpgaCommunication.FPGA_END_STATEMENT_VALUE != fpgaReadingInput);
+
+	if (fpgaReadingInput == fpgaCommunication.FPGA_READING_ERROR)
+	{
+		//gameState = CardReadingError;
+		cout << "Entrer manuellement la valeur: " << endl;
+		cin >> userVoiceInput;
+		//userVoiceInput = fpgaCommunication.FPGA_READING_ERROR;
+		
+		if(userVoiceInput == 20)
+		{
+			gameOver = true;
+		}
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore();
+			cout << "Entree invalide!" << endl;
+			userVoiceInput = -1;
+		}
+	}
+	return userVoiceInput;
+}
+
 bool Games::is_game_over() const
 {
 	return gameOver;
@@ -424,4 +478,3 @@ void Games::set_character_manager(CharacterManager character_manager)
 {
 	characterManager = move(character_manager);
 }
-

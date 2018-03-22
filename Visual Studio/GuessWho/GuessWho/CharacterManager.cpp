@@ -127,7 +127,6 @@ void CharacterManager::shuffleCharacters()
 	random_shuffle(characterVector.begin(), characterVector.end());
 }
 
-//TODO Implement the method
 bool CharacterManager::smartCharacterCreation(const Character *c)
 {
 	//No color hair for someone bald and without facial hair

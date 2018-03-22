@@ -13,11 +13,13 @@ class FPGA
 
 private:
 	CommunicationFPGA fpgaCard;
+	
 	int cardMode; //Local or connected
 	bool cardStatus;
 	int readingDelay; //Delay between each reading in a burst to average the 4 channels (~10ms)
 	int burstDelay; //Delay between each burst (minimum time between 2 phonemes)
 	int rawData[READINGS_PER_BURST][4];
+	
 	vector<Phoneme> phonemes;
 	
 	bool phonemeDetected;
@@ -36,6 +38,12 @@ private:
 	unsigned const int nreg_ecri_led = 10;      // PC -> fpga (donnees leds)
 
 public:
+	const int FPGA_READING_ERROR = -2;
+	const int FPGA_NO_READING = -1;
+	const int FPGA_UP_VALUE = 0;//Please change this value to the correct one, this is suppose to represent when the user wants to go UP in the menu
+	const int FPGA_DOWN_VALUE = 1; //Please change this value to the correct one, this is suppose to represent when the user wants to go DOWN in the menu
+	const int FPGA_RETURN_VALUE = 2; //Please change this value to the correct one, this is suppose to represent when the user wants to go BACK in the menu
+	const int FPGA_END_STATEMENT_VALUE = 3; //Please change this value to the correct one, this is suppose to represent when the user indicates that no more input will be done for this round
 	void addPhoneme(int min[4], int max[4], float percentage);
 	bool switchToConnected();
 	bool readData();

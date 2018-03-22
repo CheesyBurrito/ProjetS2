@@ -11,7 +11,7 @@ int FPGA::getPhoneme() {
 	if (cardStatus)
 		return convertDataToPhoneme();
 
-	return -2;
+	return FPGA_READING_ERROR;
 
 }
 
@@ -22,7 +22,7 @@ int FPGA::convertDataToPhoneme() {
 		if (phonemes[i].isPhoneme(rawData))
 			return i;
 	}
-	return -1;
+	return FPGA_NO_READING;
 }
 
 void FPGA::printRead() {
@@ -92,7 +92,6 @@ bool FPGA::readData() {
 	return true;
 }
 
-
 FPGA::FPGA(int delay)
 {
 	cardStatus = fpgaCard.estOk();
@@ -100,7 +99,6 @@ FPGA::FPGA(int delay)
 	burstDelay = delay;
 	phonemeDetected = false;
 }
-
 
 FPGA::~FPGA()
 {

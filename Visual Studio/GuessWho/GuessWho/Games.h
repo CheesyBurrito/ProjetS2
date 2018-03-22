@@ -3,19 +3,21 @@
 #include "Board.h"
 #include "Player.h"
 #include <vector>
-using namespace std;
+#include "FPGA.h"
+#include <time.h>
 
 class Games
 {
 private:
-	//Indicates if the is over. When the value is true, the game ends
-	bool gameOver = false;
+	
+	bool gameOver = false; //Indicates if the is over. When the value is true, the game ends
 	CharacterManager characterManager;
 	Player player1;
 	Player player2;
-	enum gameStateEnum { Pause, player1Turn, player2Turn }; //Indicates the possible states of the game
+	enum gameStateEnum { Pause, player1Turn, player2Turn, CardReadingError }; //Indicates the possible states of the game
 	int gameState = 1; //Indicates the current state of the game
 	string winner;
+	FPGA fpgaCommunication;
 public:
 	Games();
 	~Games();
@@ -29,10 +31,11 @@ public:
 	void preperationGame(); //Called before the start of the game, used to initialize the game's elements and the pre-input preperation
 	void copyCharacterManagerToPlayer(Player player); //Called when a copy of the character manager has to be done
 	void playerPreperations(Player &player); //Prepares the player object, by modifying the name and if it is an AI
-	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer);
+	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer); //Search for the characters with the specific characteristic
 	void checkEndGameConditions(Player player); //Method to check if the end game has been met
 	void answerBotQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer); //Method that will ask the user to answer a bots question
-
+	int fpgaCommunicationInputHandler(); //Method to read the input of the player, if fails, will switch to manual mode
+	
 	//Setters and Getters
 	bool is_game_over() const;
 	void set_game_over(bool game_over);
