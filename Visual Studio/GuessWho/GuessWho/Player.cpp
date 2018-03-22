@@ -94,7 +94,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	int numPlayerVisible = totalCharacter - numCharacterHidden;
 
 	//If there are two characters left, take a guess
-	if(numPlayerVisible <= 2 || player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() > 17)
+	if(numPlayerVisible < 2 || player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() > 18)
 	{
 		int randomCharacter = rand() % numPlayerVisible + 1;
 		int counter = 0;

@@ -153,10 +153,14 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 
 	if (player.is_is_cpu()) {
 		//No need to read fpga here
+
+		cout << "Nombre de personage caches (AI): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
+		cout << "Nombre de personage caches (vous): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		vector<int> question;
-		question = player.cpuQuestionGeneretor(-1, otherPlayer);
+		question = player.cpuQuestionGeneretor(50, otherPlayer);
 
 		answerBotQuestion(question[0], question[1], player, otherPlayer);
+
 	}
 
 	else {
@@ -276,6 +280,8 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 			winner = player.get_name_of_player();
 		}
 		else {
+			gameOver = true;
+			winner = otherPlayer.get_name_of_player();
 			player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 		}
 	}
@@ -399,6 +405,8 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 				winner = player.get_name_of_player();
 			}
 			else {
+				gameOver = true;
+				winner = otherPlayer.get_name_of_player();
 				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 			}
 	}break;
