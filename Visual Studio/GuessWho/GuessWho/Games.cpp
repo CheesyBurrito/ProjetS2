@@ -4,6 +4,7 @@
 Games::Games()
 {
 	srand(time(NULL));
+	fpgaCommunication.loadPhonemesFromFile("Phonemes.csv");
 }
 
 Games::~Games()

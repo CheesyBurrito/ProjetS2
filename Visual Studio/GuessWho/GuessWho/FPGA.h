@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <windows.h>
 #include <vector>
+#include <string>
 
 #define STATUS_LOCAL 0
 #define STATUS_CONNECTED 1
@@ -50,6 +51,7 @@ public:
 	int convertDataToPhoneme();
 	void readLoop();
 	void printRead();
+	bool loadPhonemesFromFile(string filename);
 
 	int getPhoneme();
 

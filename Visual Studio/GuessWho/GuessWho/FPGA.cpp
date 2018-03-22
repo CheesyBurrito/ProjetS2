@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FPGA.h"
+#include <fstream>
 
 /*Loops until button is pushed, then returns the detected phoneme
 Returns -1 if no phoneme is detected
@@ -90,6 +91,45 @@ bool FPGA::readData() {
 	}
 
 	return true;
+}
+
+bool FPGA::loadPhonemesFromFile(string filename) {
+	ifstream file(filename);
+	if (!file.is_open())
+		return 0;
+
+	int min[4];
+	int max[4];
+	float percentage;
+
+	string line;
+	getline(file, line); //Read header line
+
+	for (int i = 0; i < 4; i++) { //For each phoneme
+		for (int j = 0; j < 4; j++) {//For each channel
+			getline(file, line, ';'); //Channel#
+
+			getline(file, line, ';'); //Min
+			min[j] = stoi(line);			
+
+			if (j == 0) {
+				getline(file, line, ';'); //Max
+				max[j] = stoi(line);
+
+				getline(file, line);//Percentage
+				percentage = stof(line);
+			}
+			else {
+				getline(file, line); //Max
+				max[j] = stoi(line);
+			}
+		}
+
+		this->addPhoneme(min, max, percentage);
+
+	}
+
+	file.close();
 }
 
 FPGA::FPGA(int delay)
