@@ -6,10 +6,11 @@ class Player
 {
 private:
 	bool isCPU = false;
+	int numTurn = 0;
 	string nameOfPlayer = "Uninitialized";
 	Character *characterSelected;
 	Board* boardOfPlayer = new Board();
-	int numTurn = 0;
+	
 
 public:
 	//Constructor and Deconstructor
@@ -20,8 +21,9 @@ public:
 
 	//General methods
 	bool characterSelection(int characterID);
-	//Setter and Getters
+	void upNumTurn();
 
+	//Setter and Getters
 	bool is_is_cpu() const;
 	void set_is_cpu(bool is_cpu);
 	string get_name_of_player() const;
@@ -32,6 +34,6 @@ public:
 	void set_board_of_player(Board* board_of_player);
 	vector<int> cpuQuestionGeneretor(int target,Player player2);
 	int getNumTurn() const;
-	void upNumTurn();
+	
 };
 

@@ -34,18 +34,7 @@ void Games::gameLoop()
 	 //Preperations for the game
 	preperationGame();
 
-	int randStart = rand() % 2 + 1;
-	gameState = (randStart);
-	if (randStart == 1)
-	{
-		cout << player1.get_name_of_player() << " commence la partie!" << endl;
-		player1.upNumTurn();
-	}
-	else
-	{
-		cout << player2.get_name_of_player() << " commence la partie!" << endl;
-		player2.upNumTurn();
-	}
+	
 	while (!gameOver)
 	{
 		//Check Game State
@@ -146,6 +135,21 @@ void Games::preperationGame()
 	playerPreperations(player1);
 	cout << "Joueur2 :" << endl;
 	playerPreperations(player2);
+
+	//Sets a random character to start the game
+	int randStart = rand() % 2 + 1;
+	gameState = (randStart);
+	if (randStart == 1)
+	{
+		cout << player1.get_name_of_player() << " commence la partie!" << endl;
+		player1.upNumTurn();
+	}
+	else
+	{
+		cout << player2.get_name_of_player() << " commence la partie!" << endl;
+		player2.upNumTurn();
+	}
+
 }
 
 void Games::playerPreperations(Player &player)

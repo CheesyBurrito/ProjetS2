@@ -15,7 +15,7 @@ private:
 	Player player1;
 	Player player2;
 	enum gameStateEnum { Pause, player1Turn, player2Turn, CardReadingError }; //Indicates the possible states of the game
-	int gameState = 1; //Indicates the current state of the game
+	int gameState =player1Turn; //Indicates the current state of the game
 	int tie = 0;
 	string winner;
 	FPGA fpgaCommunication;
