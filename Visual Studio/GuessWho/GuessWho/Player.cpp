@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-#include <time.h>
+
 
 
 Player::Player()
@@ -38,47 +38,6 @@ bool Player::characterSelection(int characterID)
 	return false;
 }
 
-
-bool Player::is_is_cpu() const
-{
-	return isCPU;
-}
-
-void Player::set_is_cpu(bool is_cpu)
-{
-	isCPU = is_cpu;
-}
-
-string Player::get_name_of_player() const
-{
-	return nameOfPlayer;
-}
-
-void Player::set_name_of_player(string name_of_player)
-{
-	nameOfPlayer = name_of_player;
-}
-
-Character* Player::get_character_selected() const
-{
-	return characterSelected;
-}
-
-void Player::set_character_selected(Character* character_selected)
-{
-	characterSelected = character_selected;
-}
-
-Board* Player::get_board_of_player() const
-{
-	return boardOfPlayer;
-}
-
-void Player::set_board_of_player(Board* board_of_player)
-{
-	boardOfPlayer = board_of_player;
-}
-
 vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 {
 	srand(time(NULL));
@@ -87,7 +46,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	int difference = 100;
 	bool questionOk = false;
 	bool continueOk = false;
-	vector<int> question (2,0);
+	vector<int> question(2, 0);
 	vector<Character*> characters = get_board_of_player()->get_character_manager()->get_character_vector();
 	int totalCharacter = get_board_of_player()->get_character_manager()->get_total_character();
 	int numCharacterHidden = get_board_of_player()->get_character_manager()->get_num_character_hidden();
@@ -186,14 +145,59 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	return question;
 }
 
+void Player::upNumTurn()
+{
+	numTurn++;
+}
+
+
+bool Player::is_is_cpu() const
+{
+	return isCPU;
+}
+
+void Player::set_is_cpu(bool is_cpu)
+{
+	isCPU = is_cpu;
+}
+
+string Player::get_name_of_player() const
+{
+	return nameOfPlayer;
+}
+
+void Player::set_name_of_player(string name_of_player)
+{
+	nameOfPlayer = name_of_player;
+}
+
+Character* Player::get_character_selected() const
+{
+	return characterSelected;
+}
+
+void Player::set_character_selected(Character* character_selected)
+{
+	characterSelected = character_selected;
+}
+
+Board* Player::get_board_of_player() const
+{
+	return boardOfPlayer;
+}
+
+void Player::set_board_of_player(Board* board_of_player)
+{
+	boardOfPlayer = board_of_player;
+}
+
+
+
 int Player::getNumTurn() const
 {
 	return numTurn;
 }
 
-void Player::upNumTurn()
-{
-	numTurn++;
-}
+
 
 

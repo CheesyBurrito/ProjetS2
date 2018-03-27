@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "Board.h"
+#include <time.h>
 
 class Player
 {
@@ -22,6 +23,7 @@ public:
 	//General methods
 	bool characterSelection(int characterID);
 	void upNumTurn();
+	vector<int> cpuQuestionGeneretor(int target, Player player2);
 
 	//Setter and Getters
 	bool is_is_cpu() const;
@@ -32,7 +34,6 @@ public:
 	void set_character_selected(Character* character_selected);
 	Board* get_board_of_player() const;
 	void set_board_of_player(Board* board_of_player);
-	vector<int> cpuQuestionGeneretor(int target,Player player2);
 	int getNumTurn() const;
 	
 };
