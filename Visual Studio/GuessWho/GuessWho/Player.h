@@ -9,7 +9,7 @@ private:
 	string nameOfPlayer = "Uninitialized";
 	Character *characterSelected;
 	Board* boardOfPlayer = new Board();
-	int numTurn = 1;
+	int numTurn = 0;
 
 public:
 	//Constructor and Deconstructor
@@ -31,7 +31,7 @@ public:
 	Board* get_board_of_player() const;
 	void set_board_of_player(Board* board_of_player);
 	vector<int> cpuQuestionGeneretor(int target,Player player2);
-	int getNumTurn();
+	int getNumTurn() const;
 	void upNumTurn();
 };
 

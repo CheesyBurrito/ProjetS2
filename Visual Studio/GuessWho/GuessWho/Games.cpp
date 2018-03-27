@@ -20,7 +20,7 @@ void Games::gameLoop()
 {
 	/*
 	 * Game Logic order:
-	 * 
+	 *
 	 * 1 - Game prepares required elements before the initial turn
 	 * 1.1 - Game initialises all the characters availbale for the game
 	 * 1.2- Game initializes the Players
@@ -31,17 +31,21 @@ void Games::gameLoop()
 	 * 4 - Based on answer, player removes characters (as of now it will be automatically done)
 	 * 5 - Change player
 	 */
-	//Preperations for the game
+	 //Preperations for the game
 	preperationGame();
 
 	int randStart = rand() % 2 + 1;
 	gameState = (randStart);
 	if (randStart == 1)
+	{
 		cout << player1.get_name_of_player() << " commence la partie!" << endl;
-
+		player1.upNumTurn();
+	}
 	else
+	{
 		cout << player2.get_name_of_player() << " commence la partie!" << endl;
-
+		player2.upNumTurn();
+	}
 	while (!gameOver)
 	{
 		//Check Game State
@@ -64,13 +68,15 @@ void Games::gameLoop()
 			//Calculations
 			calculationGame(player1);
 
+			checkEndGameConditions(player1, player2);
+
 			if(gameState == player1Turn)
 			{
 				gameState = player2Turn;
-				player1.upNumTurn();
+				player2.upNumTurn();
+
 			}
 			
-			checkEndGameConditions(player1,player2);
 		}break;
 
 		case player2Turn:
@@ -84,13 +90,14 @@ void Games::gameLoop()
 			//Calculations
 			calculationGame(player2);
 
+			checkEndGameConditions(player2, player1);
+
 			if (gameState == player2Turn)
 			{
 				gameState = player1Turn;
-				player2.upNumTurn();
+				player1.upNumTurn();
 			}
 
-			checkEndGameConditions(player2,player1);
 		}break;
 		
 		case CardReadingError:
@@ -176,7 +183,6 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 
 	if (player.is_is_cpu()) {
 		//No need to read fpga here
-
 		cout << "Nombre de personage caches (AI): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Nombre de personage caches (vous): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		vector<int> question;
@@ -300,6 +306,7 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 		{
 			tie++;
 			winner = player.get_name_of_player();
+			player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 		}
 		else {
 			gameOver = true;
@@ -425,6 +432,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 			{
 				tie++;
 				winner = player.get_name_of_player();
+				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 			}
 			else {
 				gameOver = true;

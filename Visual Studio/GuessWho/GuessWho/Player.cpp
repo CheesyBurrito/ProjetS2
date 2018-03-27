@@ -94,15 +94,15 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	int numPlayerVisible = totalCharacter - numCharacterHidden;
 
 	//If there are two characters left, take a guess
-	if(numPlayerVisible < 2 || player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() > 18)
+	if (numPlayerVisible < 2 || player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() > 19)
 	{
 		int randomCharacter = rand() % numPlayerVisible + 1;
 		int counter = 0;
 
 		question.at(0) = 8;
-		for (i = 0; i < totalCharacter; i++) 
+		for (i = 0; i < totalCharacter; i++)
 		{
-			if (characters.at(i)->is_is_hidden() == false) 
+			if (characters.at(i)->is_is_hidden() == false)
 			{
 				counter++;
 				if (counter == randomCharacter)
@@ -186,7 +186,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	return question;
 }
 
-int Player::getNumTurn()
+int Player::getNumTurn() const
 {
 	return numTurn;
 }
