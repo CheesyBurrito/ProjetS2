@@ -320,7 +320,7 @@ string CharacterManager::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 11:
 	{
-		return "Favoris";
+		return "Bouc";
 	}
 	case 12:
 	{

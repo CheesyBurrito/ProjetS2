@@ -34,6 +34,14 @@ void Games::gameLoop()
 	//Preperations for the game
 	preperationGame();
 
+	int randStart = rand() % 2 + 1;
+	gameState = (randStart);
+	if (randStart == 1)
+		cout << player1.get_name_of_player() << " commence la partie!" << endl;
+
+	else
+		cout << player2.get_name_of_player() << " commence la partie!" << endl;
+
 	while (!gameOver)
 	{
 		//Check Game State
@@ -59,9 +67,10 @@ void Games::gameLoop()
 			if(gameState == player1Turn)
 			{
 				gameState = player2Turn;
+				player1.upNumTurn();
 			}
 			
-			//checkEndGameConditions(player1);
+			checkEndGameConditions(player1,player2);
 		}break;
 
 		case player2Turn:
@@ -78,9 +87,10 @@ void Games::gameLoop()
 			if (gameState == player2Turn)
 			{
 				gameState = player1Turn;
+				player2.upNumTurn();
 			}
 
-			//checkEndGameConditions(player2);
+			checkEndGameConditions(player2,player1);
 		}break;
 		
 		case CardReadingError:
@@ -93,18 +103,25 @@ void Games::gameLoop()
 		}break;
 		}
 	}
-
-	cout << "Gagnant : " << winner << endl;
+	if(winner == "Tie")
+		cout << "Nous avons une egalite!" << endl;
+	else
+		cout << "Gagnant : " << winner << endl;
 	cin >> winner;
 
 }
 
-void Games::checkEndGameConditions(Player player)
+void Games::checkEndGameConditions(Player player, Player otherPlayer)
 {
-	if(player.get_board_of_player()->get_character_manager()->get_num_character_hidden() == 19)
+	if (tie == 2)
 	{
 		gameOver = true;
-		winner = player.get_name_of_player();
+		winner = "Tie";
+	}
+	else if(winner == player.get_name_of_player())
+	{
+		if(player.getNumTurn() == otherPlayer.getNumTurn())
+			gameOver = true;
 	}
 }
 
@@ -118,31 +135,36 @@ void Games::preperationGame()
 	copyCharacterManagerToPlayer(player1);
 	copyCharacterManagerToPlayer(player2);
 
+	cout << "Joueur1 :" << endl;
 	playerPreperations(player1);
+	cout << "Joueur2 :" << endl;
 	playerPreperations(player2);
 }
 
 void Games::playerPreperations(Player &player)
 {
-	string playerName;
-	cout << "Veuiller entrer votre nom: " << endl;
-	cin >> playerName;
-
-	player.set_name_of_player(playerName);
-
 	char isAI = -1;
 	cout << "Est-ce que ce joueur est une IA? [y/n]" << endl;
 	cin >> isAI;
 
 	if(isAI == 'y') //If player is bot, a character from the vector is chosen at random
 	{
+		player.set_name_of_player("AI");
 		int randomIndex = rand() % (player.get_board_of_player()->get_character_manager()->get_total_character());
 		player.characterSelection(player.get_board_of_player()->get_character_manager()->get_character_vector().at(randomIndex)->get_id());
 		player.set_is_cpu(true);
+
 	}
 	else { //Only human player choses a character
 		int charID;
-		cout << "Veuiller entrer l'ID de votre personnage: " << endl;
+
+		string playerName;
+		cout << "Veuillez entrer votre nom: " << endl;
+		cin >> playerName;
+
+		player.set_name_of_player(playerName);
+
+		cout << "Veuillez entrer l'ID de votre personnage: " << endl;
 		cin >> charID;
 		player.characterSelection(charID);
 		cout << player.get_character_selected()->get_id() << endl;
@@ -165,8 +187,7 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 	}
 
 	else {
-
-		cout << player.get_name_of_player() << endl;
+		cout << player.get_name_of_player() << " | tour : " << player.getNumTurn() <<  endl;
 		cout << "Nombre de personage caches (vous): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Nombre de personage caches (autre joueur): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Quelle est votre choix pour une propriete?" << endl;
@@ -248,17 +269,17 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 		break;
 
 	case 5:
-		question += "Est-ce que votre personnage a une/des ";
+		question += "Est-ce que votre personnage a un(e)/des ";
 		question += CharacterTraits::printPhysicalTraitsProperties(input);
 		break;
 
 	case 6:
-		question += "Est-ce que votre personnage est un ";
+		question += "Est-ce que votre personnage est un(e) ";
 		question += CharacterTraits::printPhysicalTraitsProperties(input);
 		break;
 
 	case 7:
-		question += "Est-ce que votre personnage est un ";
+		question += "Est-ce que votre personnage est un(e) ";
 		question += CharacterTraits::printPhysicalTraitsProperties(input);
 		break;
 
@@ -277,7 +298,7 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 	if (characteristicsSlected == 8) {
 		if (answer == 'y')
 		{
-			gameOver = true;
+			tie++;
 			winner = player.get_name_of_player();
 		}
 		else {
@@ -402,7 +423,7 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		{
 			if(otherPlayer.get_character_selected()->get_id() == input)
 			{
-				gameOver = true;
+				tie++;
 				winner = player.get_name_of_player();
 			}
 			else {
@@ -449,7 +470,7 @@ int Games::fpgaCommunicationInputHandler()
 	if (fpgaReadingInput == fpgaCommunication.FPGA_READING_ERROR)
 	{
 		//gameState = CardReadingError;
-		cout << "Entrer manuellement la valeur: " << endl;
+		cout << "Entrez manuellement la valeur: " << endl;
 		cin >> userVoiceInput;
 		//userVoiceInput = fpgaCommunication.FPGA_READING_ERROR;
 		

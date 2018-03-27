@@ -16,6 +16,7 @@ private:
 	Player player2;
 	enum gameStateEnum { Pause, player1Turn, player2Turn, CardReadingError }; //Indicates the possible states of the game
 	int gameState = 1; //Indicates the current state of the game
+	int tie = 0;
 	string winner;
 	FPGA fpgaCommunication;
 public:
@@ -32,7 +33,7 @@ public:
 	void copyCharacterManagerToPlayer(Player player); //Called when a copy of the character manager has to be done
 	void playerPreperations(Player &player); //Prepares the player object, by modifying the name and if it is an AI
 	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer); //Search for the characters with the specific characteristic
-	void checkEndGameConditions(Player player); //Method to check if the end game has been met
+	void checkEndGameConditions(Player player,Player otherPlayer); //Method to check if the end game has been met
 	void answerBotQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer); //Method that will ask the user to answer a bots question
 	int fpgaCommunicationInputHandler(); //Method to read the input of the player, if fails, will switch to manual mode
 	

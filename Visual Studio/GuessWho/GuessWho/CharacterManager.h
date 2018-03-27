@@ -26,7 +26,7 @@ private:
 	int propertiesGender[2] = {12, 13};
 
 	enum physicalTraitsColor {Brun, Vert, Bleu, Rouge, Roux, Blond, Noir, Blanc, Basane, Autre};
-	enum physicalTraits {Rien, Chauve, Court, Long, Piercing, Chapeau, Lunette, Tattoo, Rase, BarbePleine, Moustache, Favoris, Homme, Femme, Etudiant, Professeur};
+	enum physicalTraits {Rien, Chauve, Court, Long, Piercing, Chapeau, Lunette, Tattoo, Rase, BarbePleine, Moustache, Bouc, Homme, Femme, Etudiant, Professeur};
 	vector<Character*> characterVector;
 	public:
 	//Constructor

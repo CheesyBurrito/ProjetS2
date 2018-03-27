@@ -186,4 +186,14 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	return question;
 }
 
+int Player::getNumTurn()
+{
+	return numTurn;
+}
+
+void Player::upNumTurn()
+{
+	numTurn++;
+}
+
 

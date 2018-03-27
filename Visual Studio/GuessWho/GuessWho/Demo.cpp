@@ -152,7 +152,7 @@ void Demo::addCharacter()
 	cout << "8 : Rase" << endl;
 	cout << "9 : Barbe" << endl;
 	cout << "10 : Moustache" << endl;
-	cout << "11 : Favoris" << endl;
+	cout << "11 : Bouc" << endl;
 	cout << ">> ";
 	cin >> facialHair;
 
