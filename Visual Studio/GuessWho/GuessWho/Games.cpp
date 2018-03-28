@@ -339,11 +339,13 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getEyes() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			//cout << "Implement when a property has not been found" << endl;
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 		}
 	}break;
 	case 1:
@@ -351,10 +353,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getHairColor() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -363,10 +367,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getHairCharacteristics() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -375,10 +381,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getSkinColor() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -387,10 +395,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->hasAccessory(input))
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -399,10 +409,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getFacialHair() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -411,10 +423,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getAge() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -423,10 +437,12 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 		if (otherPlayer.get_character_selected()->get_character_traits()->getGender() == input)
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(characteristicsSlected, input);
+			cout << "Oui" << endl;
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(characteristicsSlected, input);
+			cout << "Non" << endl;
 			//cout << "Implement when a property has not been found" << endl;
 		}
 	}break;
@@ -437,11 +453,13 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 				tie++;
 				winner = player.get_name_of_player();
 				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
+				cout << "Oui" << endl;
 			}
 			else {
 				gameOver = true;
 				winner = otherPlayer.get_name_of_player();
 				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
+				cout << "Non" << endl;
 			}
 	}break;
 	default:
