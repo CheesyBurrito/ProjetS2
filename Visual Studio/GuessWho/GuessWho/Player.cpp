@@ -53,19 +53,40 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	int numPlayerVisible = totalCharacter - numCharacterHidden;
 
 	//If there are two characters left, take a guess
-	if (numPlayerVisible < 2 || player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() > 19)
+	if (numPlayerVisible == 1)
 	{
-		int randomCharacter = rand() % numPlayerVisible + 1;
-		int counter = 0;
-
 		question.at(0) = 8;
 		for (i = 0; i < totalCharacter; i++)
 		{
 			if (characters.at(i)->is_is_hidden() == false)
+				question.at(1) = characters.at(i)->get_id();
+		}
+	}
+	else if (player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() >= totalCharacter - 1)
+	{
+		bool randOk = false;
+		int randomCharacter = rand() % numPlayerVisible + 1;
+		int counter = 0;
+
+		if (player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() == totalCharacter)
+			randOk = true;
+		else
+		{
+			if(getNumTurn() != player2.getNumTurn())
+				randOk = true;
+		}
+
+		if (randOk == true)
+		{
+			question.at(0) = 8;
+			for (i = 0; i < totalCharacter; i++)
 			{
-				counter++;
-				if (counter == randomCharacter)
-					question.at(1) = characters.at(i)->get_id();
+				if (characters.at(i)->is_is_hidden() == false)
+				{
+					counter++;
+					if (counter == randomCharacter)
+						question.at(1) = characters.at(i)->get_id();
+				}
 			}
 		}
 	}
