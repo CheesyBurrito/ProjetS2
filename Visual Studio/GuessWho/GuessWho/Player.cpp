@@ -23,6 +23,12 @@ Player::~Player()
 
 bool Player::characterSelection(int characterID)
 {
+	if (characterID == -1) 
+	{
+		int randomIndex = rand() % boardOfPlayer->get_character_manager()->get_total_character();
+		characterID = boardOfPlayer->get_character_manager()->get_character_vector().at(randomIndex)->get_id();
+	}
+
 	for(int i = 0; i < boardOfPlayer->get_character_manager()->get_total_character(); i++)
 	{
 		if(characterID == boardOfPlayer->get_character_manager()->get_character_vector().at(i)->get_id())
@@ -72,7 +78,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 			randOk = true;
 		else
 		{
-			if(getNumTurn() != player2.getNumTurn())
+			if(get_num_turn() != player2.get_num_turn())
 				randOk = true;
 		}
 
@@ -166,11 +172,15 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	return question;
 }
 
-void Player::upNumTurn()
+void Player::up_num_turn()
 {
 	numTurn++;
 }
 
+void Player::up_num_win()
+{
+	numWin++;
+}
 
 bool Player::is_is_cpu() const
 {
@@ -212,13 +222,25 @@ void Player::set_board_of_player(Board* board_of_player)
 	boardOfPlayer = board_of_player;
 }
 
+void Player::set_num_turn(int turn)
+{
+	numTurn = turn;
+}
 
-
-int Player::getNumTurn() const
+int Player::get_num_turn() const
 {
 	return numTurn;
 }
 
+void Player::set_num_win(int win)
+{
+	numWin = win;
+}
+
+int Player::get_num_win() const
+{
+	return numWin;
+}
 
 
 

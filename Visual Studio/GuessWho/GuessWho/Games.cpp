@@ -32,79 +32,113 @@ void Games::gameLoop()
 	 * 5 - Change player
 	 */
 	 //Preperations for the game
-	preperationGame();
-
-	
-	while (!gameOver)
+	while (restart)
 	{
-		//Check Game State
-		switch(gameState)
+		if(numOfGamesPlayed != 0)
+			reinitializeBoard(player1, player2);
+		preperationGame();
+
+		while (!gameOver)
 		{
-		case Pause:
+			//Check Game State
+			switch (gameState)
+			{
+			case Pause:
 			{
 				//TODO Implement when the game is paused
-		}break;
+			}break;
 
-		case player1Turn:
+			case player1Turn:
 			{
 
-			//Render
-			renderGame(player1);
+				//Render
+				renderGame(player1);
 
-			//Input
-			inputGame(player1, player2);
+				//Input
+				inputGame(player1, player2);
 
-			//Calculations
-			calculationGame(player1);
+				//Calculations
+				calculationGame(player1);
 
-			checkEndGameConditions(player1, player2);
+				checkEndGameConditions(player1, player2);
 
-			if(gameState == player1Turn)
+				if (gameState == player1Turn)
+				{
+					gameState = player2Turn;
+					player2.up_num_turn();
+
+				}
+
+			}break;
+
+			case player2Turn:
 			{
-				gameState = player2Turn;
-				player2.upNumTurn();
+				//Render
+				renderGame(player2);
 
+				//Input
+				inputGame(player2, player1);
+
+				//Calculations
+				calculationGame(player2);
+
+				checkEndGameConditions(player2, player1);
+
+				if (gameState == player2Turn)
+				{
+					gameState = player1Turn;
+					player1.up_num_turn();
+				}
+
+			}break;
+
+			case CardReadingError:
+			{
+				cout << "Error reading the FPGA card, please restart the program and verify the connection!" << endl;
+			}break;
+
+			default: {
+				cout << "Invalid game state!" << endl;
+			}break;
 			}
-			
-		}break;
-
-		case player2Turn:
-			{
-			//Render
-			renderGame(player2);
-
-			//Input
-			inputGame(player2, player1);
-
-			//Calculations
-			calculationGame(player2);
-
-			checkEndGameConditions(player2, player1);
-
-			if (gameState == player2Turn)
-			{
-				gameState = player1Turn;
-				player1.upNumTurn();
-			}
-
-		}break;
-		
-		case CardReadingError:
-			{
-			cout << "Error reading the FPGA card, please restart the program and verify the connection!" << endl;
-		}break;
-
-		default:{
-			cout << "Invalid game state!" << endl;
-		}break;
 		}
-	}
-	if(winner == "Tie")
-		cout << "Nous avons une egalite!" << endl;
-	else
-		cout << "Gagnant : " << winner << endl;
-	cin >> winner;
 
+		if (winner == "Tie")
+			cout << "Nous avons une egalite!" << endl;
+		else
+			cout << "Gagnant : " << winner << endl;
+
+		numOfGamesPlayed++;
+
+		if (numOfGames == numOfGamesPlayed)
+		{
+			if (player1.get_num_win() > player2.get_num_win())
+				cout << player1.get_name_of_player() << " a gagné " << player1.get_num_win() << " - " << player2.get_num_win() << endl;
+			else if (player1.get_num_win() < player2.get_num_win())
+				cout << player2.get_name_of_player() << " a gagné " << player2.get_num_win() << " - " << player1.get_num_win() << endl;
+			else
+				cout << "Nous avons une egalite! " << player2.get_num_win() << " - " << player1.get_num_win() << endl;
+
+			char reset;
+			cout << "Voulez-vous rejouer? [y/n]" << endl;
+			cin >> reset;
+
+			if (reset == 'y')
+			{
+				restart = true;
+				reinitialize(player1,player2);
+				reinitializeBoard(player1, player2);
+			}
+			else
+				restart = false;
+		}
+		else
+		{
+			cout << player1.get_name_of_player() << " " << player1.get_num_win() << " - " << player2.get_num_win() << " " << player2.get_name_of_player() << endl;
+			restart = true;
+		}
+
+	}
 }
 
 void Games::checkEndGameConditions(Player player, Player otherPlayer)
@@ -116,7 +150,7 @@ void Games::checkEndGameConditions(Player player, Player otherPlayer)
 	}
 	else if(winner == player.get_name_of_player())
 	{
-		if(player.getNumTurn() == otherPlayer.getNumTurn())
+		if(player.get_num_turn() == otherPlayer.get_num_turn())
 			gameOver = true;
 	}
 }
@@ -131,6 +165,12 @@ void Games::preperationGame()
 	copyCharacterManagerToPlayer(player1);
 	copyCharacterManagerToPlayer(player2);
 
+	if (numOfGames == 0)
+	{
+		cout << "Combien de partie(s) voulez-vous jouer?" << endl;
+		cin >> numOfGames;
+	}
+
 	cout << "Joueur1 :" << endl;
 	playerPreperations(player1);
 	cout << "Joueur2 :" << endl;
@@ -138,16 +178,16 @@ void Games::preperationGame()
 
 	//Sets a random character to start the game
 	int randStart = rand() % 2 + 1;
-	gameState = (randStart);
+	gameState = randStart;
 	if (randStart == 1)
 	{
 		cout << player1.get_name_of_player() << " commence la partie!" << endl;
-		player1.upNumTurn();
+		player1.up_num_turn();
 	}
 	else
 	{
 		cout << player2.get_name_of_player() << " commence la partie!" << endl;
-		player2.upNumTurn();
+		player2.up_num_turn();
 	}
 
 }
@@ -155,8 +195,19 @@ void Games::preperationGame()
 void Games::playerPreperations(Player &player)
 {
 	char isAI = -1;
-	cout << "Est-ce que ce joueur est une IA? [y/n]" << endl;
-	cin >> isAI;
+	if (player.get_name_of_player() == "AI")
+	{
+		isAI = 'y';
+	}
+	else if (player.get_name_of_player() != "Uninitialized")
+	{
+		isAI = 'n';
+	}
+	else
+	{
+		cout << "Est-ce que ce joueur est une IA? [y/n]" << endl;
+		cin >> isAI;
+	}
 
 	if(isAI == 'y') //If player is bot, a character from the vector is chosen at random
 	{
@@ -169,11 +220,14 @@ void Games::playerPreperations(Player &player)
 	else { //Only human player choses a character
 		int charID;
 
-		string playerName;
-		cout << "Veuillez entrer votre nom: " << endl;
-		cin >> playerName;
+		if (player.get_name_of_player() == "Uninitialized")
+		{
+			string playerName;
+			cout << "Veuillez entrer votre nom: " << endl;
+			cin >> playerName;
 
-		player.set_name_of_player(playerName);
+			player.set_name_of_player(playerName);
+		}
 
 		cout << "Veuillez entrer l'ID de votre personnage: " << endl;
 		cin >> charID;
@@ -182,11 +236,39 @@ void Games::playerPreperations(Player &player)
 	}
 }
 
+void Games::reinitializeBoard(Player &player1, Player &player2)
+{
+	for (int i = 0; i < player1.get_board_of_player()->get_character_manager()->get_total_character(); i++)
+	{
+		player1.get_board_of_player()->get_character_manager()->get_character_vector().at(i)->set_is_hidden(false);
+		player2.get_board_of_player()->get_character_manager()->get_character_vector().at(i)->set_is_hidden(false);
+	}
+	player1.get_board_of_player()->get_character_manager()->set_num_character_hidden(0);
+	player2.get_board_of_player()->get_character_manager()->set_num_character_hidden(0);
+	player1.set_num_turn(0);
+	player2.set_num_turn(0);
+	tie = 0;
+	gameOver = false;
+	winner = "";
+}
+
+void Games::reinitialize(Player &player1, Player &player2)
+{
+	player1.set_name_of_player("Uninitialized");
+	player2.set_name_of_player("Uninitialized");
+	player1.set_num_win(0);
+	player2.set_num_win(0);
+	numOfGames = 0;
+	numOfGamesPlayed = 0;
+	gameOver = false;
+}
+
 void Games::inputGame(Player &player, Player &otherPlayer)
 {
 
 	if (player.is_is_cpu()) {
 		//No need to read fpga here
+		cout << player.get_name_of_player() << " | tour : " << player.get_num_turn() << endl;
 		cout << "Nombre de personage caches (AI): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Nombre de personage caches (vous): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		vector<int> question;
@@ -197,7 +279,7 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 	}
 
 	else {
-		cout << player.get_name_of_player() << " | tour : " << player.getNumTurn() <<  endl;
+		cout << player.get_name_of_player() << " | tour : " << player.get_num_turn() <<  endl;
 		cout << "Nombre de personage caches (vous): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Nombre de personage caches (autre joueur): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Quelle est votre choix pour une propriete?" << endl;
@@ -310,11 +392,13 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 		{
 			tie++;
 			winner = player.get_name_of_player();
+			player.up_num_win();
 			player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 		}
 		else {
 			gameOver = true;
 			winner = otherPlayer.get_name_of_player();
+			otherPlayer.up_num_win();
 			player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 		}
 	}
@@ -452,12 +536,14 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 			{
 				tie++;
 				winner = player.get_name_of_player();
+				player.up_num_win();
 				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 				cout << "Oui" << endl;
 			}
 			else {
 				gameOver = true;
 				winner = otherPlayer.get_name_of_player();
+				otherPlayer.up_num_win();
 				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 				cout << "Non" << endl;
 			}
@@ -527,6 +613,36 @@ bool Games::is_game_over() const
 void Games::set_game_over(bool game_over)
 {
 	gameOver = game_over;
+}
+
+bool Games::is_restart() const
+{
+	return restart;
+}
+
+void Games::set_restart(bool restart_)
+{
+	restart = restart_;
+}
+
+int Games::get_num_of_games() const
+{
+	return numOfGames;
+}
+
+void Games::set_num_of_games(int num_of_games)
+{
+	numOfGames = num_of_games;
+}
+
+int Games::get_num_of_games_played() const
+{
+	return numOfGamesPlayed;
+}
+
+void Games::set_num_of_games_played(int num_of_games_played)
+{
+	numOfGamesPlayed = num_of_games_played;
 }
 
 CharacterManager Games::get_character_manager() const
