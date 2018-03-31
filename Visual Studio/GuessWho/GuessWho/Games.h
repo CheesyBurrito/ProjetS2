@@ -33,12 +33,12 @@ public:
 	void calculationGame(Player &player); //Called after the input to do the calculation absed on the input
 	void renderGame(Player &player); //Called to render the graphical elements of the game
 	void preperationGame(); //Called before the start of the game, used to initialize the game's elements and the pre-input preperation
-	void reinitializeBoard(Player &player1, Player &player2);//restart the game with the same player
-	void reinitialize(Player &player1, Player &player2);//restart the game with the same player
+	void reinitializeBoard();//restart the game with new board
+	void reinitialize();//restart the game with the same player
 	void copyCharacterManagerToPlayer(Player player); //Called when a copy of the character manager has to be done
 	void playerPreperations(Player &player); //Prepares the player object, by modifying the name and if it is an AI
 	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer); //Search for the characters with the specific characteristic
-	void checkEndGameConditions(Player player,Player otherPlayer); //Method to check if the end game has been met
+	void checkEndGameConditions(Player &player,Player &otherPlayer); //Method to check if the end game has been met
 	void answerBotQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer); //Method that will ask the user to answer a bots question
 	int fpgaCommunicationInputHandler(); //Method to read the input of the player, if fails, will switch to manual mode
 	
