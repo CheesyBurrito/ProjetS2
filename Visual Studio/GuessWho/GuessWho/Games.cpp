@@ -35,7 +35,7 @@ void Games::gameLoop()
 	while (restart)
 	{
 		if(numOfGamesPlayed != 0)
-			reinitializeBoard(player1, player2);
+			reinitializeBoard();
 		preperationGame();
 
 		while (!gameOver)
@@ -113,9 +113,9 @@ void Games::gameLoop()
 		if (numOfGames == numOfGamesPlayed)
 		{
 			if (player1.get_num_win() > player2.get_num_win())
-				cout << player1.get_name_of_player() << " a gagné " << player1.get_num_win() << " - " << player2.get_num_win() << endl;
+				cout << player1.get_name_of_player() << " a gagne " << player1.get_num_win() << " - " << player2.get_num_win() << endl;
 			else if (player1.get_num_win() < player2.get_num_win())
-				cout << player2.get_name_of_player() << " a gagné " << player2.get_num_win() << " - " << player1.get_num_win() << endl;
+				cout << player2.get_name_of_player() << " a gagne " << player2.get_num_win() << " - " << player1.get_num_win() << endl;
 			else
 				cout << "Nous avons une egalite! " << player2.get_num_win() << " - " << player1.get_num_win() << endl;
 
@@ -126,8 +126,8 @@ void Games::gameLoop()
 			if (reset == 'y')
 			{
 				restart = true;
-				reinitialize(player1,player2);
-				reinitializeBoard(player1, player2);
+				reinitialize();
+				reinitializeBoard();
 			}
 			else
 				restart = false;
@@ -141,17 +141,22 @@ void Games::gameLoop()
 	}
 }
 
-void Games::checkEndGameConditions(Player player, Player otherPlayer)
+void Games::checkEndGameConditions(Player &player, Player &otherPlayer)
 {
 	if (tie == 2)
 	{
 		gameOver = true;
 		winner = "Tie";
+		player.up_num_win();
+		otherPlayer.up_num_win();
 	}
 	else if(winner == player.get_name_of_player())
 	{
-		if(player.get_num_turn() == otherPlayer.get_num_turn())
+		if (player.get_num_turn() == otherPlayer.get_num_turn())
+		{
 			gameOver = true;
+			player.up_num_win();
+		}
 	}
 }
 
@@ -236,7 +241,7 @@ void Games::playerPreperations(Player &player)
 	}
 }
 
-void Games::reinitializeBoard(Player &player1, Player &player2)
+void Games::reinitializeBoard()
 {
 	for (int i = 0; i < player1.get_board_of_player()->get_character_manager()->get_total_character(); i++)
 	{
@@ -252,7 +257,7 @@ void Games::reinitializeBoard(Player &player1, Player &player2)
 	winner = "";
 }
 
-void Games::reinitialize(Player &player1, Player &player2)
+void Games::reinitialize()
 {
 	player1.set_name_of_player("Uninitialized");
 	player2.set_name_of_player("Uninitialized");
@@ -392,7 +397,6 @@ void Games::answerBotQuestion(int characteristicsSlected, int input, Player& pla
 		{
 			tie++;
 			winner = player.get_name_of_player();
-			player.up_num_win();
 			player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 		}
 		else {
@@ -536,7 +540,6 @@ void Games::searchPlayerCharacteristicsQuestion(int characteristicsSlected, int 
 			{
 				tie++;
 				winner = player.get_name_of_player();
-				player.up_num_win();
 				player.get_board_of_player()->get_character_manager()->hideCharacter(input);
 				cout << "Oui" << endl;
 			}

@@ -49,7 +49,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	srand(time(NULL));
 	int i, j;
 	int rand_num1, rand_num2;
-	int difference = 100;
+	float difference = 100;
 	bool questionOk = false;
 	bool continueOk = false;
 	vector<int> question(2, 0);
@@ -99,7 +99,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	else
 	{
 		//Initialize the value to 0
-		int characterTraitsCounter[8][16];
+		float characterTraitsCounter[8][16];
 		for (i = 0; i < 8; i++)
 		{
 			for (j = 0; j < 16; j++)
@@ -126,8 +126,9 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 		for (i = 0; i < 8; i++)
 		{
 			for (j = 0; j < 16; j++)
-			{
-				characterTraitsCounter[i][j] *= 100 / numPlayerVisible;
+			{	
+				characterTraitsCounter[i][j] /= numPlayerVisible;
+				characterTraitsCounter[i][j] *= 100;
 				if (target != -1)
 				{
 					if (abs(characterTraitsCounter[i][j] - target) < difference && characterTraitsCounter[i][j] > 0 && characterTraitsCounter[i][j] < 100)
