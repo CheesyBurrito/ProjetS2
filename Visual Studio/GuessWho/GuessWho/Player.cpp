@@ -52,6 +52,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	float difference = 100;
 	bool questionOk = false;
 	bool continueOk = false;
+	bool askQuestion = true;
 	vector<int> question(2, 0);
 	vector<Character*> characters = get_board_of_player()->get_character_manager()->get_character_vector();
 	int totalCharacter = get_board_of_player()->get_character_manager()->get_total_character();
@@ -61,6 +62,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	//If there are two characters left, take a guess
 	if (numPlayerVisible == 1)
 	{
+		askQuestion = false;
 		question.at(0) = 8;
 		for (i = 0; i < totalCharacter; i++)
 		{
@@ -80,10 +82,12 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 		{
 			if(get_num_turn() != player2.get_num_turn())
 				randOk = true;
+				
 		}
 
 		if (randOk == true)
 		{
+			askQuestion = false;
 			question.at(0) = 8;
 			for (i = 0; i < totalCharacter; i++)
 			{
@@ -96,7 +100,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 			}
 		}
 	}
-	else
+	if(askQuestion == true)
 	{
 		//Initialize the value to 0
 		float characterTraitsCounter[8][16];
@@ -125,10 +129,12 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 		//Put the value in pourcentage
 		for (i = 0; i < 8; i++)
 		{
+			cout << endl;
 			for (j = 0; j < 16; j++)
 			{	
-				characterTraitsCounter[i][j] /= numPlayerVisible;
-				characterTraitsCounter[i][j] *= 100;
+				characterTraitsCounter[i][j] /= (float)numPlayerVisible;
+				characterTraitsCounter[i][j] *= 100.0;
+				cout << characterTraitsCounter[i][j] << " ";
 				if (target != -1)
 				{
 					if (abs(characterTraitsCounter[i][j] - target) < difference && characterTraitsCounter[i][j] > 0 && characterTraitsCounter[i][j] < 100)
