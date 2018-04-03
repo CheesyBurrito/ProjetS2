@@ -18,6 +18,8 @@ class MainWindow : public QMainWindow
 		~MainWindow();
 	public slots:
 		void openMenu();
+		void onePlayerWindow();
+		void twoPlayersWindow();
 	private:
 		StartWindow *start;
 		MenuWindow *menu;

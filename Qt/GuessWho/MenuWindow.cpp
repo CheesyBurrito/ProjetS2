@@ -5,14 +5,13 @@ MenuWindow::MenuWindow() : QWidget()
 	
 	setWindowTitle("Guess Who?");
 	setWindowFlags(Qt::WindowStaysOnTopHint);
-	setStyleSheet("background-image: url(:/Photos/Photos/menu_logo.png)");
+	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	quitButton = new QPushButton("Quitter", this);
 	quitButton->setFlat(true);
 	quitButton->setStyleSheet("color : white");
 	quitButton->setCursor(Qt::PointingHandCursor);
 	quitButton->setFont(QFont("Walkway Bold", 30));
-
 
 	onePlayer = new QPushButton("1 joueur", this);
 	onePlayer->setFlat(true);
@@ -26,35 +25,42 @@ MenuWindow::MenuWindow() : QWidget()
 	twoPlayers->setCursor(Qt::PointingHandCursor);
 	twoPlayers->setFont(QFont("Walkway Bold", 30));
 
-	layoutPrincipal = new QHBoxLayout;
-	QVBoxLayout *layout = new  QVBoxLayout;
-	QFormLayout *layout1 = new QFormLayout;
-	QFormLayout *layout2 = new QFormLayout;
-	QFormLayout *layout3 = new QFormLayout;
-	QFormLayout *layout4 = new QFormLayout;
+	layoutPrincipal = new QGridLayout;
+	
+	image = new QLabel;
+	QPixmap logo("./Photos/logo.png");
+	image->setPixmap(logo.scaled(1536,1080,Qt::KeepAspectRatio));
 
-	QLabel *nothing = new QLabel("", this);
-	nothing->setPixmap(QPixmap(""));
-	layout1->addWidget(nothing);
-	layout2->addWidget(nothing);
-	layout3->addWidget(nothing);
-	layout4->addWidget(nothing);
-
-	layout->addLayout(layout3);
-	layout->addWidget(onePlayer);
-	layout->addWidget(twoPlayers);
-	layout->addWidget(quitButton);
-	layout->addLayout(layout4);
-
-	layoutPrincipal->addLayout(layout1);
-	layoutPrincipal->addLayout(layout2);
-	layoutPrincipal->addLayout(layout);
+	layoutPrincipal->addWidget(image, 0, 0, 12, 4);
+	layoutPrincipal->addWidget(onePlayer, 5, 4);
+	layoutPrincipal->addWidget(twoPlayers, 6, 4);
+	layoutPrincipal->addWidget(quitButton, 7, 4);
+	
 	setLayout(layoutPrincipal);
 
 }
 
 MenuWindow::~MenuWindow()
 {
+
+}
+
+void MenuWindow::onePlayerWindow()
+{
+	delete quitButton;
+	delete onePlayer;
+	delete twoPlayers;
+	joueur1 = new QLineEdit;
+
+}
+
+void MenuWindow::twoPlayersWindow()
+{
+	delete quitButton;
+	delete onePlayer;
+	delete twoPlayers;
+	joueur1 = new QLineEdit;
+	joueur2 = new QLineEdit;
 
 }
 

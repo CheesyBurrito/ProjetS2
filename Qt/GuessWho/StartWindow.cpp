@@ -5,7 +5,7 @@ StartWindow::StartWindow() : QWidget()
 {
     setWindowTitle("Guess Who?");
 	setWindowFlags( Qt::WindowStaysOnTopHint);
-	setStyleSheet("background-image: url(:/Photos/Photos/header_logo.png)");
+	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	quitButton = new QPushButton("Appuyez pour commencer!",this);
 	quitButton->setFlat(true);
@@ -14,24 +14,13 @@ StartWindow::StartWindow() : QWidget()
 	quitButton->setFont(QFont("Walkway Bold", 30));
 
     layoutPrincipal = new QVBoxLayout;
-	layout = new QFormLayout;
-
-	image = new QLabel("",this);
-	QPixmap pix("");
-	image->setPixmap(pix);
-	layout->addWidget(image);
-	
-	layoutPrincipal->addLayout(layout);
-    layoutPrincipal->addWidget(quitButton);
+    layoutPrincipal->addWidget(quitButton,0,0,Qt::AlignBottom);
     setLayout(layoutPrincipal);
-
-	//connect(quitButton, SIGNAL(clicked()), this, SLOT());
 }
 
 StartWindow::~StartWindow()
 {
 	delete quitButton;
-	delete layout;
 	delete layoutPrincipal;
 }
 

@@ -5,5 +5,5 @@ HEADERS     += StartWindow.h MenuWindow.h MainWindow.h
 SOURCES     += GuessWho.cpp StartWindow.cpp MenuWindow.cpp MainWindow.cpp
 INCLUDEPATH += ../GuessWhoLib
 QT += widgets
-RESOURCES     = resources.qrc
+RESOURCES     =
 win32:RC_ICONS += OhmBoys.ico

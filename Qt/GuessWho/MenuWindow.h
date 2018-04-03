@@ -16,6 +16,8 @@ class MenuWindow : public QWidget
 	public:
 		MenuWindow();
 		~MenuWindow();
+		void onePlayerWindow();
+		void twoPlayersWindow();
 		QPushButton* getQuitButton();
 		QPushButton* getOnePlayerButton();
 		QPushButton* getTwoPlayersButton();
@@ -23,7 +25,12 @@ class MenuWindow : public QWidget
 		QPushButton *quitButton;
 		QPushButton *onePlayer;
 		QPushButton *twoPlayers;
-		QHBoxLayout *layoutPrincipal;
+
+		QGridLayout *layoutPrincipal;
+		QLabel *image;
+
+		QLineEdit *joueur1;
+		QLineEdit *joueur2;
 
 };
 #endif 

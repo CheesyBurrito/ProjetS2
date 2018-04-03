@@ -22,7 +22,18 @@ void MainWindow::openMenu()
 	setCentralWidget(menu);
 	start->close();
 	delete start;
-	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(close()));
-	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(close()));
+	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
+	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
 	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
+}
+
+void MainWindow::onePlayerWindow()
+{
+	menu->onePlayerWindow();
+}
+
+
+void MainWindow::twoPlayersWindow()
+{
+	menu->twoPlayersWindow();
 }

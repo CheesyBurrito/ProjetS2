@@ -19,10 +19,7 @@ class StartWindow : public QWidget
 		~StartWindow();
 		QPushButton* getButton();
 	private:
-        QLabel *image;
 		QPushButton *quitButton;
-        QFormLayout *layout;
 		QVBoxLayout *layoutPrincipal;
-
 };
 #endif 
