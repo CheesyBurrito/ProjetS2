@@ -6,19 +6,14 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 {
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	layout = new QGridLayout(this);
-	int h = parent->height() - 100;
+	grid = new CharacterGrid(this, parent->height()*0.9);
 
-	QPixmap logo("./Photos/claudette.png");
-	for (int i = 0; i < 20; i++) {
-		images.push_back(new QLabel);
-		images.at(i)->setPixmap(logo.scaled(300, h/4, Qt::KeepAspectRatio));
-	}
+	layout->addWidget(grid, 0, 0);
+	layout->setRowStretch(0, 90);
+	layout->setRowStretch(1, 10);
 
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 4; j++) {
-			layout->addWidget(images.at(5*j+i), j, i, Qt::AlignCenter);
-		}
-	}
+	layout->setColumnStretch(0, 80);
+	layout->setColumnStretch(1, 20);
 
 	this->setLayout(layout);
 }

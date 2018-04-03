@@ -1,8 +1,8 @@
 TEMPLATE     = vcapp
 TARGET       = GuessWho
 CONFIG      += warn_on qt debug_and_release windows console
-HEADERS     += StartWindow.h MenuWindow.h MainWindow.h GameWindow.h
-SOURCES     += GuessWho.cpp StartWindow.cpp MenuWindow.cpp MainWindow.cpp GameWindow.cpp
+HEADERS     += StartWindow.h MenuWindow.h MainWindow.h GameWindow.h CharacterGrid.h LowerBar.h SideMenu.h
+SOURCES     += GuessWho.cpp StartWindow.cpp MenuWindow.cpp MainWindow.cpp GameWindow.cpp CharacterGrid.cpp LowerBar.cpp SideMenu.cpp
 INCLUDEPATH += ../GuessWhoLib
 QT += widgets
 RESOURCES     =
