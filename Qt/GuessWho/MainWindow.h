@@ -8,6 +8,7 @@
 
 #include "MenuWindow.h"
 #include "StartWindow.h"
+#include "GameWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -23,6 +24,7 @@ class MainWindow : public QMainWindow
 	private:
 		StartWindow *start;
 		MenuWindow *menu;
+		GameWindow *game;
 };
 	
 #endif 

@@ -14,7 +14,7 @@ StartWindow::StartWindow() : QWidget()
 	quitButton->setFont(QFont("Walkway Bold", 30));
 
     layoutPrincipal = new QVBoxLayout;
-    layoutPrincipal->addWidget(quitButton,0,0,Qt::AlignBottom);
+    layoutPrincipal->addWidget(quitButton,0,Qt::AlignBottom);
     setLayout(layoutPrincipal);
 }
 
