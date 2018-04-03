@@ -1,8 +1,9 @@
 #include "MenuWindow.h"
 
-MenuWindow::MenuWindow() : QWidget()
+MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
 {
-	
+	int widthImage = parent->width() * 3 / 4;
+
 	setWindowTitle("Guess Who?");
 	setWindowFlags(Qt::WindowStaysOnTopHint);
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
@@ -27,9 +28,9 @@ MenuWindow::MenuWindow() : QWidget()
 
 	layoutPrincipal = new QGridLayout;
 	
-	image = new QLabel;
+	image = new QLabel(this);
 	QPixmap logo("./Photos/logo.png");
-	image->setPixmap(logo.scaled(1536,1080,Qt::KeepAspectRatio));
+	image->setPixmap(logo.scaled(widthImage,1080,Qt::KeepAspectRatio));
 
 	layoutPrincipal->addWidget(image, 0, 0, 12, 4);
 	layoutPrincipal->addWidget(onePlayer, 5, 4);
@@ -42,7 +43,8 @@ MenuWindow::MenuWindow() : QWidget()
 
 MenuWindow::~MenuWindow()
 {
-
+	delete image;
+	delete layoutPrincipal;
 }
 
 void MenuWindow::onePlayerWindow()
@@ -51,7 +53,7 @@ void MenuWindow::onePlayerWindow()
 	delete onePlayer;
 	delete twoPlayers;
 	joueur1 = new QLineEdit;
-
+	layoutPrincipal->addWidget(joueur1, 5, 4);
 }
 
 void MenuWindow::twoPlayersWindow()
@@ -61,6 +63,10 @@ void MenuWindow::twoPlayersWindow()
 	delete twoPlayers;
 	joueur1 = new QLineEdit;
 	joueur2 = new QLineEdit;
+	nom1 = new QLabel("Nom du Joueur1", this);
+	//layoutPrincipal->addWidget(QLabel("Nom du Joueur1",this), 5, 3);
+	layoutPrincipal->addWidget(joueur1, 5, 4);
+	layoutPrincipal->addWidget(joueur2, 6, 4);
 
 }
 

@@ -14,7 +14,7 @@
 class MenuWindow : public QWidget
 {
 	public:
-		MenuWindow();
+		MenuWindow(QWidget* parent);
 		~MenuWindow();
 		void onePlayerWindow();
 		void twoPlayersWindow();
@@ -28,6 +28,8 @@ class MenuWindow : public QWidget
 
 		QGridLayout *layoutPrincipal;
 		QLabel *image;
+		QLabel *nom1;
+		QLabel *nom2;
 
 		QLineEdit *joueur1;
 		QLineEdit *joueur2;

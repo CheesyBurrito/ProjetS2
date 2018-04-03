@@ -2,10 +2,10 @@
 
 MainWindow::MainWindow() : QMainWindow()
 {
+	showFullScreen();
 	setWindowTitle("Guess Who?");
-	setWindowFlags(Qt::WindowStaysOnTopHint);
 
-	start = new StartWindow();
+	start = new StartWindow(this);
 	setCentralWidget(start);
 	QObject::connect(start->getButton(), SIGNAL(clicked()), this, SLOT(openMenu()));
 
@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::openMenu()
 {
-	menu = new MenuWindow();
+	menu = new MenuWindow(this);
 	setCentralWidget(menu);
 	start->close();
 	delete start;
