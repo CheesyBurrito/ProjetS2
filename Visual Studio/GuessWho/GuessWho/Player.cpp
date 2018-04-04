@@ -129,12 +129,11 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 		//Put the value in pourcentage
 		for (i = 0; i < 8; i++)
 		{
-			cout << endl;
 			for (j = 0; j < 16; j++)
 			{	
 				characterTraitsCounter[i][j] /= (float)numPlayerVisible;
 				characterTraitsCounter[i][j] *= 100.0;
-				cout << characterTraitsCounter[i][j] << " ";
+
 				if (target != -1)
 				{
 					if (abs(characterTraitsCounter[i][j] - target) < difference && characterTraitsCounter[i][j] > 0 && characterTraitsCounter[i][j] < 100)

@@ -44,11 +44,11 @@ void FPGA::readLoop() {
 		if (cardStatus && (btnValue & 1)) { //If button 1 was pressed read value from DAC
 			readData();
 			convertDataToPhoneme();
-			printRead();
+			//printRead();
 			phonemeDetected = true;
 		}
 
-		Sleep(500); //Time before trying to see if button pressed
+		Sleep(100); //Time before trying to see if button pressed
 	}
 
 	if (!cardStatus) //If loop was exited because of communication error, print so user can know
