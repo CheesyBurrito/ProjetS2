@@ -71,8 +71,8 @@ void MainWindow::showDialog()
 
 void MainWindow::gameWindow()
 {
-	//game = new MenuGame(this);
-	//setCentralWidget(game);
+	game = new GameWindow(this);
+	setCentralWidget(game);
 	numberGames = menu->getNumberGames();
 
 	if (numberPlayer == 2)
