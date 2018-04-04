@@ -1,4 +1,6 @@
 #include "CharacterGrid.h"
+#include <QDebug>
+#include <string>
 
 
 
@@ -7,10 +9,11 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidg
 	characterGrid = new QGridLayout(this);
 	gridHeight = height;
 
-	QPixmap logo("./Photos/claudette.png");
 	for (int i = 0; i < 20; i++) {
 		images.push_back(new QLabel);
+		QPixmap logo("./Photos/Characters/" + QString::number(i) + ".png");
 		images.at(i)->setPixmap(logo.scaled(300, gridHeight / 4, Qt::KeepAspectRatio));
+		images.at(i)->setStyleSheet("background: transparent;");
 	}
 
 	for (int i = 0; i < 5; i++) {
