@@ -4,7 +4,7 @@ MainWindow::MainWindow() : QMainWindow()
 {
 	showFullScreen();
 	setWindowTitle("Guess Who?");
-	setStyleSheet("background:black;");
+	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	start = new StartWindow(this);
 	setCentralWidget(start);
@@ -14,7 +14,7 @@ MainWindow::MainWindow() : QMainWindow()
 
 MainWindow::~MainWindow()
 {
-	delete menu;
+	//delete menu;
 	//delete game;
 }
 

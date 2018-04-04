@@ -21,8 +21,8 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidg
 
 	int pictureWidth = 0.715*(gridHeight / 4);
 
-	characterGrid->setColumnMinimumWidth(0, (windowWidth-300-5*pictureWidth)/2);
-	characterGrid->setColumnMinimumWidth(6, (windowWidth - 300 - 5 * pictureWidth) / 2);
+	characterGrid->setColumnMinimumWidth(0, (windowWidth-300-5*pictureWidth-50)/2);
+	characterGrid->setColumnMinimumWidth(6, (windowWidth - 300 - 5 * pictureWidth-50) / 2);
 
 	characterGrid->setContentsMargins(0, 0, 0, 0);
 	characterGrid->setSpacing(0);
