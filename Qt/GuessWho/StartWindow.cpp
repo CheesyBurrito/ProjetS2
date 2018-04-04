@@ -2,7 +2,7 @@
 
 StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
 {
-	int widthImage = parent->width() * 9/ 10;
+	int widthImage = parent->width() * 8/ 9;
 
     setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
@@ -16,10 +16,16 @@ StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
 	image = new QLabel(this);
 	QPixmap logo("./Photos/logo.png");
 	image->setPixmap(logo.scaled(widthImage, 1080, Qt::KeepAspectRatio));
+	image->setStyleSheet("background: transparent;");
 
     layoutPrincipal = new QGridLayout(this);
-	layoutPrincipal->addWidget(image,0,0,Qt::AlignCenter);
-    layoutPrincipal->addWidget(quitButton,1,0);
+	layoutPrincipal->addWidget(image,0,0,10,1,Qt::AlignCenter);
+    layoutPrincipal->addWidget(quitButton,10,0);
+
+	layoutPrincipal->setRowStretch(0, 50);
+	layoutPrincipal->setRowStretch(10,30);
+	layoutPrincipal->setRowStretch(11, 30);
+
     setLayout(layoutPrincipal);
 }
 

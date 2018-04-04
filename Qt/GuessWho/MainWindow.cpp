@@ -4,6 +4,7 @@ MainWindow::MainWindow() : QMainWindow()
 {
 	showFullScreen();
 	setWindowTitle("Guess Who?");
+	setStyleSheet("background:black;");
 
 	start = new StartWindow(this);
 	setCentralWidget(start);
@@ -57,9 +58,14 @@ void MainWindow::optionsWindow()
 {
 	menu->optionsWindow();
 	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
-	QObject::connect(menu->getListCharacterButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
-	QObject::connect(menu->getExportCharacterButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+	QObject::connect(menu->getCreateNewListButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+	QObject::connect(menu->getChangeListButton(), SIGNAL(clicked()), this, SLOT(showDialog()));
 	QObject::connect(menu->getBackButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+}
+
+void MainWindow::showDialog()
+{
+	menu->showDialog();
 }
 
 void MainWindow::gameWindow()

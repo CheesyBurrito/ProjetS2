@@ -2,7 +2,7 @@
 
 MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
 {
-	widthImage = parent->width() * 4/ 6;
+	widthImage = parent->width() * 2/ 3;
 
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
@@ -190,17 +190,17 @@ void MenuWindow::optionsWindow()
 		addCharacter->setCursor(Qt::PointingHandCursor);
 		addCharacter->setFont(QFont("Walkway Bold", 30));
 
-	listCharacter = new QPushButton("Lister les personnages", this);
-		listCharacter->setFlat(true);
-		listCharacter->setStyleSheet("background: transparent; color : white");
-		listCharacter->setCursor(Qt::PointingHandCursor);
-		listCharacter->setFont(QFont("Walkway Bold", 30));
+	createNewList = new QPushButton("Créer une nouvelle liste", this);
+		createNewList->setFlat(true);
+		createNewList->setStyleSheet("background: transparent; color : white");
+		createNewList->setCursor(Qt::PointingHandCursor);
+		createNewList->setFont(QFont("Walkway Bold", 30));
 
-	exportCharacter = new QPushButton("Exporter les personnages", this);
-		exportCharacter->setFlat(true);
-		exportCharacter->setStyleSheet("background: transparent; color : white");
-		exportCharacter->setCursor(Qt::PointingHandCursor);
-		exportCharacter->setFont(QFont("Walkway Bold", 30));
+	changeList = new QPushButton("Changer de liste", this);
+		changeList->setFlat(true);
+		changeList->setStyleSheet("background: transparent; color : white");
+		changeList->setCursor(Qt::PointingHandCursor);
+		changeList->setFont(QFont("Walkway Bold", 30));
 		
 	back = new QPushButton("Retour", this);
 		back->setFlat(true);
@@ -209,17 +209,23 @@ void MenuWindow::optionsWindow()
 		back->setFont(QFont("Walkway Bold", 30));
 	
 	layoutPrincipal->addWidget(addCharacter, 4, 4, Qt::AlignLeft);
-		layoutPrincipal->addWidget(listCharacter, 5, 4, Qt::AlignLeft);
-		layoutPrincipal->addWidget(exportCharacter, 6, 4, Qt::AlignLeft);
+		layoutPrincipal->addWidget(createNewList, 5, 4, Qt::AlignLeft);
+		layoutPrincipal->addWidget(changeList, 6, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(back, 7, 4, Qt::AlignLeft);
 }
 
+void MenuWindow::showDialog()
+{
+	fileDialog = new QFileDialog;
+	fileDialog->saveState();
+
+}
 
 void MenuWindow::deleteOptionsWindow()
 {
 	delete addCharacter;
-	delete listCharacter;
-	delete exportCharacter;
+	delete createNewList;
+	delete changeList;
 	delete back;
 }
 
@@ -265,14 +271,14 @@ QPushButton* MenuWindow::getAddCharacterButton()
 	return addCharacter;
 }
 
-QPushButton* MenuWindow::getListCharacterButton()
+QPushButton* MenuWindow::getCreateNewListButton()
 {
-	return listCharacter;
+	return createNewList;
 }
 
-QPushButton* MenuWindow::getExportCharacterButton()
+QPushButton* MenuWindow::getChangeListButton()
 {
-	return exportCharacter;
+	return changeList;
 }
 
 QPushButton* MenuWindow::getBackButton()

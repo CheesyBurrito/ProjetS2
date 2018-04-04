@@ -11,6 +11,7 @@
 #include <QPixmap>
 #include <QLCDNumber>
 #include <QSlider>
+#include <QFileDialog>
 
 class MenuWindow : public QWidget
 {
@@ -21,6 +22,7 @@ class MenuWindow : public QWidget
 		void twoPlayersWindow();
 		void optionsWindow();
 		void startMenu();
+		void showDialog();
 		void deleteOptionsWindow();
 		void deletePlayersWindow();
 		
@@ -30,8 +32,8 @@ class MenuWindow : public QWidget
 		QPushButton* getQuitButton();
 
 		QPushButton* getAddCharacterButton();
-		QPushButton* getListCharacterButton();
-		QPushButton* getExportCharacterButton();
+		QPushButton* getCreateNewListButton();
+		QPushButton* getChangeListButton();
 		QPushButton* getBackButton();
 		QPushButton* getOkButton();
 
@@ -54,9 +56,10 @@ class MenuWindow : public QWidget
 
 		//menu2
 		QPushButton *addCharacter;
-		QPushButton *listCharacter;
-		QPushButton *exportCharacter;
+		QPushButton *createNewList;
+		QPushButton *changeList;
 		QPushButton *back;
+		QFileDialog *fileDialog;
 		
 		//menu3
 		QLabel *nom1;

@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
 		void twoPlayersWindow();
 		void optionsWindow();
 		void gameWindow();
+		void showDialog();
 	private:
 		StartWindow *start;
 		MenuWindow *menu;
