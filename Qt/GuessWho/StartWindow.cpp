@@ -5,12 +5,11 @@ StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
 	int widthImage = parent->width() * 9/ 10;
 
     setWindowTitle("Guess Who?");
-	setWindowFlags( Qt::WindowStaysOnTopHint);
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	quitButton = new QPushButton("Appuyez pour commencer!",this);
 	quitButton->setFlat(true);
-	quitButton->setStyleSheet("color : white");
+	quitButton->setStyleSheet("background: transparent; color : white");
 	quitButton->setCursor(Qt::PointingHandCursor);
 	quitButton->setFont(QFont("Walkway Bold", 30));
 
@@ -20,7 +19,7 @@ StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
 
     layoutPrincipal = new QGridLayout(this);
 	layoutPrincipal->addWidget(image,0,0,Qt::AlignCenter);
-    layoutPrincipal->addWidget(quitButton,1,0,Qt::AlignBottom);
+    layoutPrincipal->addWidget(quitButton,1,0);
     setLayout(layoutPrincipal);
 }
 

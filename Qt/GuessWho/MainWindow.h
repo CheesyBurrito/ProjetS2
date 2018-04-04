@@ -1,13 +1,13 @@
-#include <QMainWindow>
-#include <QVBoxLayout>
-#include <QFormLayout>
-#include <QWidget>
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMainWindow>
+#include <QWidget>
+#include <QDebug>
 #include "MenuWindow.h"
 #include "StartWindow.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -18,11 +18,18 @@ class MainWindow : public QMainWindow
 		~MainWindow();
 	public slots:
 		void openMenu();
+		void menuWindow();
 		void onePlayerWindow();
 		void twoPlayersWindow();
+		void optionsWindow();
+		void gameWindow();
 	private:
 		StartWindow *start;
 		MenuWindow *menu;
+		QString joueur1Name;
+		QString joueur2Name;
+		int numberGames;
+		int numberPlayer;
 };
 	
 #endif 
