@@ -90,6 +90,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\Charles\Documents\git\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+    <ResourceCompile Include="C:\Users\charl\OneDrive\Documents\git\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
   </ItemGroup>
 </Project>

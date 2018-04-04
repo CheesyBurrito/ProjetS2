@@ -12,7 +12,7 @@ private:
 	int gridHeight;
 
 public:
-	CharacterGrid(QWidget *parent, int height);
+	CharacterGrid(QWidget *parent, int height, int windowWidth);
 	~CharacterGrid();
 };
 

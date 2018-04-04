@@ -12,6 +12,8 @@ class GameWindow : public QWidget
 private:
 	QGridLayout *layout;
 	CharacterGrid *grid;
+	LowerBar *lowerBar;
+	SideMenu *sideMenu;
 	/*QGridLayout *characterGrid;
 	std::vector<QLabel*> images;*/
 	
