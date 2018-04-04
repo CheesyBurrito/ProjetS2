@@ -2,10 +2,11 @@
 
 MainWindow::MainWindow() : QMainWindow()
 {
+	showFullScreen();
 	setWindowTitle("Guess Who?");
-	//setWindowFlags(Qt::WindowStaysOnTopHint);
+	setStyleSheet("background:black;");
 
-	start = new StartWindow();
+	start = new StartWindow(this);
 	setCentralWidget(start);
 	QObject::connect(start->getButton(), SIGNAL(clicked()), this, SLOT(openMenu()));
 
@@ -14,31 +15,81 @@ MainWindow::MainWindow() : QMainWindow()
 MainWindow::~MainWindow()
 {
 	delete menu;
+	//delete game;
 }
 
 void MainWindow::openMenu()
 {
-	/*menu = new MenuWindow();
+
+	menu = new MenuWindow(this);
 	setCentralWidget(menu);
 	start->close();
 	delete start;
 	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
 	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
-	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));*/
+	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
+	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
+}
 
-	game = new GameWindow(this);
-	setCentralWidget(game);
-	start->close();
-	delete start;
+void MainWindow::menuWindow()
+{
+	menu->deleteOptionsWindow();
+	menu->startMenu();
+	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
+	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
+	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
+	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void MainWindow::onePlayerWindow()
 {
+	numberPlayer = 1;
 	menu->onePlayerWindow();
+	QObject::connect(menu->getOkButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
 }
-
 
 void MainWindow::twoPlayersWindow()
 {
+	numberPlayer = 2;
 	menu->twoPlayersWindow();
+	QObject::connect(menu->getOkButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
+}
+
+void MainWindow::optionsWindow()
+{
+	menu->optionsWindow();
+	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+	QObject::connect(menu->getCreateNewListButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+	QObject::connect(menu->getChangeListButton(), SIGNAL(clicked()), this, SLOT(showDialog()));
+	QObject::connect(menu->getBackButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+}
+
+void MainWindow::showDialog()
+{
+	menu->showDialog();
+}
+
+void MainWindow::gameWindow()
+{
+	//game = new MenuGame(this);
+	//setCentralWidget(game);
+	numberGames = menu->getNumberGames();
+
+	if (numberPlayer == 2)
+	{
+		joueur1Name = menu->getJoueur1Name();
+		joueur2Name = menu->getJoueur2Name();
+	}
+	else
+	{
+		joueur1Name = menu->getJoueur1Name();
+		joueur2Name = "AI";
+	}
+	qDebug() << joueur1Name;
+	qDebug() << joueur2Name;
+	qDebug() << numberGames;
+	menu->deletePlayersWindow();
+	menu->close();
+	delete menu;
+
 }

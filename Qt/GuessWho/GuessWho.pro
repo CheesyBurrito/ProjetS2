@@ -5,5 +5,4 @@ HEADERS     += StartWindow.h MenuWindow.h MainWindow.h GameWindow.h CharacterGri
 SOURCES     += GuessWho.cpp StartWindow.cpp MenuWindow.cpp MainWindow.cpp GameWindow.cpp CharacterGrid.cpp LowerBar.cpp SideMenu.cpp
 INCLUDEPATH += ../GuessWhoLib
 QT += widgets
-RESOURCES     =
 win32:RC_ICONS += OhmBoys.ico
