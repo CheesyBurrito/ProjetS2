@@ -20,8 +20,8 @@ private:
 	std::vector<QLabel*> images;*/
 	
 	public slots :
-		void setZoomCursor();
-		void setDefaultCursor();
+		void setZoomMode();
+		void setDefaultMode();
 
 public:
 	GameWindow(QWidget *parent);

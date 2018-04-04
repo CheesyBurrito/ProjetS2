@@ -22,8 +22,8 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 	QPixmap zoomCursorPix("./Photos/zoom.png");
 	zoomCursor = QCursor(zoomCursorPix.scaled(30,30));
 
-	connect(lowerBar->boutonZoom, SIGNAL(clicked()), this, SLOT(setZoomCursor()));
-	connect(lowerBar->boutonNormal, SIGNAL(clicked()), this, SLOT(setDefaultCursor()));
+	connect(lowerBar->getboutonZoom(), SIGNAL(clicked()), this, SLOT(setZoomMode()));
+	connect(lowerBar->getBoutonNormal(), SIGNAL(clicked()), this, SLOT(setDefaultMode()));
 
 	this->setLayout(layout);
 }
@@ -33,10 +33,18 @@ GameWindow::~GameWindow()
 {
 }
 
-void GameWindow::setZoomCursor() {
+void GameWindow::setZoomMode() {
 	this->setCursor(zoomCursor);
+	for (int i = 0; i < grid->getCharacters()->size(); i++){
+		disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+		connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
+	}
 }
 
-void GameWindow::setDefaultCursor() {
+void GameWindow::setDefaultMode() {
 	this->setCursor(Qt::ArrowCursor);
+	for (int i = 0; i < grid->getCharacters()->size(); i++) {
+		disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
+		connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+	}
 }

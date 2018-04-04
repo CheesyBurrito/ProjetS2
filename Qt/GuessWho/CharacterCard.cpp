@@ -23,7 +23,7 @@ CharacterCard::CharacterCard(QWidget *parent, int height, QString path):QPushBut
 
 	this->setMouseTracking(true);
 	connect(this, SIGNAL(clicked()), this, SLOT(flipCard()));
-	connect(this, SIGNAL(doubleClicked()), this, SLOT(zoomCard()));
+	//connect(this, SIGNAL(doubleClicked()), this, SLOT(zoomCard()));
 }
 
 

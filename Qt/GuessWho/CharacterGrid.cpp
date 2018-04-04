@@ -6,11 +6,12 @@
 
 CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidget(parent)
 {
+	images = new std::vector<CharacterCard*>;
 	characterGrid = new QGridLayout(this);
 	gridHeight = height;
 
 	for (int i = 0; i < 20; i++) {
-		images.push_back(new CharacterCard(this, gridHeight / 4, "./Photos/Characters/" + QString::number(i) + ".png"));
+		images->push_back(new CharacterCard(this, gridHeight / 4, "./Photos/Characters/" + QString::number(i) + ".png"));
 		/*QPixmap logo("./Photos/Characters/" + QString::number(i) + ".png");
 		images.at(i)->setPixmap(logo.scaled(300, gridHeight / 4, Qt::KeepAspectRatio));
 		images.at(i)->setStyleSheet("background: transparent;");*/
@@ -18,7 +19,7 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidg
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 4; j++) {
-			characterGrid->addWidget(images.at(5 * j + i), j, i+1, Qt::AlignCenter);
+			characterGrid->addWidget(images->at(5 * j + i), j, i+1, Qt::AlignCenter);
 		}
 	}
 
@@ -41,4 +42,5 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidg
 
 CharacterGrid::~CharacterGrid()
 {
+	delete images;
 }
