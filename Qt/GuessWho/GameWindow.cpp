@@ -19,6 +19,11 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 
 	//layout->setColumnStretch(0, 80);
 	//layout->setColumnStretch(1, 20);
+	QPixmap zoomCursorPix("./Photos/zoom.png");
+	zoomCursor = QCursor(zoomCursorPix.scaled(30,30));
+
+	connect(lowerBar->boutonZoom, SIGNAL(clicked()), this, SLOT(setZoomCursor()));
+	connect(lowerBar->boutonNormal, SIGNAL(clicked()), this, SLOT(setDefaultCursor()));
 
 	this->setLayout(layout);
 }
@@ -26,4 +31,12 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 
 GameWindow::~GameWindow()
 {
+}
+
+void GameWindow::setZoomCursor() {
+	this->setCursor(zoomCursor);
+}
+
+void GameWindow::setDefaultCursor() {
+	this->setCursor(Qt::ArrowCursor);
 }

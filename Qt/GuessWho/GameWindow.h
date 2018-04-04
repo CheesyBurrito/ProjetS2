@@ -9,14 +9,20 @@
 
 class GameWindow : public QWidget
 {
+	Q_OBJECT
 private:
 	QGridLayout *layout;
 	CharacterGrid *grid;
 	LowerBar *lowerBar;
 	SideMenu *sideMenu;
+	QCursor zoomCursor;
 	/*QGridLayout *characterGrid;
 	std::vector<QLabel*> images;*/
 	
+	public slots :
+		void setZoomCursor();
+		void setDefaultCursor();
+
 public:
 	GameWindow(QWidget *parent);
 	~GameWindow();
