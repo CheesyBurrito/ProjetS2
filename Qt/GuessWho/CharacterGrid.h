@@ -3,12 +3,13 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <vector>
+#include "CharacterCard.h"
 
 class CharacterGrid : public QWidget
 {
 private:
 	QGridLayout * characterGrid;
-	std::vector<QLabel*> images;
+	std::vector<CharacterCard*> images;
 	int gridHeight;
 
 public:
