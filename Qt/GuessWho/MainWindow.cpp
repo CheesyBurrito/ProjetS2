@@ -58,7 +58,7 @@ void MainWindow::twoPlayersWindow()
 void MainWindow::optionsWindow()
 {
 	menu->optionsWindow();
-	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
+	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), this, SLOT(showCharacterWindow()));
 	QObject::connect(menu->getCreateNewListButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
 	QObject::connect(menu->getChangeListButton(), SIGNAL(clicked()), this, SLOT(showDialog()));
 	QObject::connect(menu->getBackButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
@@ -67,6 +67,12 @@ void MainWindow::optionsWindow()
 void MainWindow::showDialog()
 {
 	menu->showDialog();
+	menu->updateList();
+}
+
+void MainWindow::showCharacterWindow()
+{
+	menu->addCharacters();
 }
 
 void MainWindow::gameWindow()
@@ -85,9 +91,6 @@ void MainWindow::gameWindow()
 		joueur1Name = menu->getJoueur1Name();
 		joueur2Name = "AI";
 	}
-	qDebug() << joueur1Name;
-	qDebug() << joueur2Name;
-	qDebug() << numberGames;
 	menu->deletePlayersWindow();
 	menu->close();
 	delete menu;

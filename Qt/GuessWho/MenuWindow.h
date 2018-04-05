@@ -23,9 +23,11 @@ class MenuWindow : public QWidget
 		void optionsWindow();
 		void startMenu();
 		void showDialog();
+		void addCharacters();
 		void deleteOptionsWindow();
 		void deletePlayersWindow();
-		
+		void updateList();
+
 		QPushButton* getOnePlayerButton();
 		QPushButton* getTwoPlayersButton();
 		QPushButton* getOptionsButton();
@@ -39,6 +41,7 @@ class MenuWindow : public QWidget
 
 		QString getJoueur1Name();
 		QString getJoueur2Name();
+		QString getListName();
 		int getNumberGames();
 
 	private:
@@ -59,7 +62,9 @@ class MenuWindow : public QWidget
 		QPushButton *createNewList;
 		QPushButton *changeList;
 		QPushButton *back;
-		QFileDialog *fileDialog;
+		QLineEdit *active_List;
+		QString activeList = "./Ressources/CharacterFiles/characterList.gw";
+		QLabel *list;
 		
 		//menu3
 		QLabel *nom1;
@@ -70,5 +75,7 @@ class MenuWindow : public QWidget
 		QPushButton *ok;
 		QLCDNumber *m_lcd;
 		QSlider *m_slider;
+
+		//menu4
 };
 #endif 

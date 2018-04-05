@@ -25,6 +25,8 @@ class MainWindow : public QMainWindow
 		void optionsWindow();
 		void gameWindow();
 		void showDialog();
+		void showCharacterWindow();
+
 	private:
 		StartWindow *start;
 		MenuWindow *menu;

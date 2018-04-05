@@ -207,18 +207,49 @@ void MenuWindow::optionsWindow()
 		back->setStyleSheet("background: transparent; color : white");
 		back->setCursor(Qt::PointingHandCursor);
 		back->setFont(QFont("Walkway Bold", 30));
-	
+
+	active_List = new QLineEdit(this);
+		active_List->setStyleSheet("background: white;");
+		active_List->setFont(QFont("Walkway Bold", 20));
+		active_List->setText(activeList);
+		active_List->setReadOnly(true);
+
+	list = new QLabel("Liste Active:", this);
+		list->setFont(QFont("Walkway Bold", 20));
+		list->setStyleSheet("background: transparent; color : white");
+
 	layoutPrincipal->addWidget(addCharacter, 4, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(createNewList, 5, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(changeList, 6, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(back, 7, 4, Qt::AlignLeft);
+		layoutPrincipal->addWidget(list, 9, 0,1,4,Qt::AlignRight);
+		layoutPrincipal->addWidget(active_List, 9, 4, 1 ,4);
 }
 
 void MenuWindow::showDialog()
 {
-	fileDialog = new QFileDialog;
-	fileDialog->saveState();
+	QString selfilter = tr("GuessWho Files (*.gw)");
+	activeList = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Photos", tr("GuessWho Files (*.gw)"), &selfilter);
+}
 
+void MenuWindow::updateList()
+{
+	active_List->setText(activeList);
+}
+
+void MenuWindow::addCharacters()
+{
+	/*QWidget *zoomWindow;
+	zoomWindow = new QWidget;
+	QVBoxLayout *zoomLayout = new QVBoxLayout(zoomWindow);
+	QLabel *img = new QLabel(zoomWindow);
+	img->setPixmap(picture);
+	zoomLayout->addWidget(img);
+
+	zoomWindow->setStyleSheet("background-image: url(./Photos/header_logo.png)");
+	zoomWindow->setLayout(zoomLayout);
+	zoomWindow->setWindowFlags(Qt::SplashScreen);
+	zoomWindow->show();*/
 }
 
 void MenuWindow::deleteOptionsWindow()
@@ -227,6 +258,8 @@ void MenuWindow::deleteOptionsWindow()
 	delete createNewList;
 	delete changeList;
 	delete back;
+	delete active_List;
+	delete list;
 }
 
 void MenuWindow::deletePlayersWindow()
@@ -304,4 +337,9 @@ QString MenuWindow::getJoueur2Name()
 int MenuWindow::getNumberGames()
 {
 	return m_lcd->value();
+}
+
+QString MenuWindow::getListName()
+{
+	return activeList;
 }
