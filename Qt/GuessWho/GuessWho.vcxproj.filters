@@ -77,9 +77,6 @@
     <ClInclude Include="SideMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StartWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_CharacterCard.cpp">
@@ -108,6 +105,11 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\Maxime\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+    <ResourceCompile Include="C:\Users\William\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StartWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
