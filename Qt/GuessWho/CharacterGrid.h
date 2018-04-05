@@ -11,6 +11,7 @@ private:
 	QGridLayout * characterGrid;
 	std::vector<CharacterCard*> *images;
 	int gridHeight;
+	CharacterCard* chosenCharacter;
 
 public:
 	CharacterGrid(QWidget *parent, int height, int windowWidth);
