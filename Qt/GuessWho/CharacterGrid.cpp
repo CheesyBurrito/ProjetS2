@@ -4,18 +4,18 @@
 
 
 
-CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidget(parent)
+CharacterGrid::CharacterGrid(QWidget *parent, int height, int width):QWidget(parent)
 {
 	images = new std::vector<CharacterCard*>;
 	characterGrid = new QGridLayout(this);
-	gridHeight = height;
-	chosenCharacter = new CharacterCard(this, gridHeight / 3, "./Photos/Characters/" + QString::number(22) + ".png");
+	gridWidth = width;
+	chosenCharacter = new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(22) + ".png");
 
 	for (int i = 0; i < 21; i++) {
 		if (i != 20)
-			images->push_back(new CharacterCard(this, gridHeight / 3, "./Photos/Characters/" + QString::number(i) + ".png"));
+			images->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png"));
 		else
-			images->push_back(new CharacterCard(this, gridHeight / 3, "./Photos/Characters/" + QString::number(i) + ".png", true));
+			images->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png", true));
 	}
 
 	for (int i = 0; i < 7; i++) {
@@ -46,4 +46,9 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int windowWidth):QWidg
 CharacterGrid::~CharacterGrid()
 {
 	delete images;
+}
+
+int CharacterGrid::getCardHeight()
+{
+	return chosenCharacter->getCardHeight();
 }

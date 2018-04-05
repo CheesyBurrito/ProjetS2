@@ -8,7 +8,8 @@ class CharacterCard : public QPushButton
 {
 	Q_OBJECT
 private:
-	int cardHeigth;
+	int cardWidth;
+	int cardHeight;
 	bool isFlipped = false;
 	bool isChosenCharacter;
 
@@ -34,5 +35,6 @@ public:
 	CharacterCard(QWidget *parent, int height, QString path, bool chosenCharacter = false);
 	~CharacterCard();
 	void setChosenCharacter(QString path);
+	int getCardHeight();
 };
 

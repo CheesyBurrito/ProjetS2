@@ -6,8 +6,8 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 {
 	//setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	layout = new QGridLayout(this);
-	grid = new CharacterGrid(this, parent->height()-100, parent->width());
-	lowerBar = new LowerBar(this, parent->width());
+	grid = new CharacterGrid(this, parent->height()-100, parent->width()-300);
+	lowerBar = new LowerBar(this, parent->width(),parent->height(),grid->getCardHeight());
 	sideMenu = new SideMenu(this, parent->height());
 	layout->addWidget(grid, 0, 0);
 	layout->addWidget(lowerBar, 1, 0);

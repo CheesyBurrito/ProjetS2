@@ -1,20 +1,20 @@
 #pragma once
 #include <QWidget>
 #include <QLabel>
-#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QPushButton>
 
 class LowerBar : public QWidget
 {
 private:
 	QLabel * image;
-	QHBoxLayout * layout;
+	QGridLayout * layout;
 	QPushButton *boutonZoom;
 	QPushButton *boutonNormal;
 
 
 public:
-	LowerBar(QWidget *parent, int windowWidth);
+	LowerBar(QWidget *parent, int windowWidth, int windowHeight, int cardHeight);
 	~LowerBar();
 
 	QPushButton* getboutonZoom(){ return boutonZoom; }

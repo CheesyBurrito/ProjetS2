@@ -2,9 +2,10 @@
 
 
 
-CharacterCard::CharacterCard(QWidget *parent, int height, QString path, bool chosenCharacter):QPushButton(parent)
+CharacterCard::CharacterCard(QWidget *parent, int width, QString path, bool chosenCharacter):QPushButton(parent)
 {
-	cardHeigth = height;
+	cardWidth = width;
+	cardHeight = 1.4*width;
 	isChosenCharacter = chosenCharacter;
 
 	if (isChosenCharacter) {
@@ -27,16 +28,16 @@ CharacterCard::CharacterCard(QWidget *parent, int height, QString path, bool cho
 	else
 		picture.load(path);
 
-	pictureIcon.addPixmap(picture.scaled(0.715*height, height));
+	pictureIcon.addPixmap(picture.scaled(width, cardHeight));
 
 	flippedCard.load("./Photos/turned_card.png");
-	flippedCardIcon.addPixmap(flippedCard.scaled(0.715*height, height));
+	flippedCardIcon.addPixmap(flippedCard.scaled(width, cardHeight));
 
 	
 	this->setIcon(pictureIcon);
 
-	this->setIconSize(QSize(0.715*height,height));
-	this->setFixedSize(QSize(0.715*height, height));
+	this->setIconSize(QSize(width, cardHeight));
+	this->setFixedSize(QSize(width, cardHeight));
 
 	/*QPixmap loopCursorPix("./Photos/zoom.png");
 	QCursor loopCursor(loopCursorPix.scaled(25,25));
@@ -105,6 +106,11 @@ void CharacterCard::setChosenCharacter(QString path) {
 	p.end();
 
 	picture = combined;
-	pictureIcon.addPixmap(picture.scaled(0.715*cardHeigth, cardHeigth));
+	pictureIcon.addPixmap(picture.scaled(cardWidth, cardHeight));
 	this->setIcon(pictureIcon);
+}
+
+int CharacterCard::getCardHeight()
+{
+	return cardHeight;
 }
