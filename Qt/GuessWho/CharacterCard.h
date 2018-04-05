@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QPainter>
 
 class CharacterCard : public QPushButton
 {
@@ -9,6 +10,7 @@ class CharacterCard : public QPushButton
 private:
 	int cardHeigth;
 	bool isFlipped = false;
+	bool isChosenCharacter;
 
 	QPixmap picture;
 	QIcon pictureIcon;
@@ -29,7 +31,8 @@ protected:
 
 
 public:
-	CharacterCard(QWidget *parent, int height, QString path);
+	CharacterCard(QWidget *parent, int height, QString path, bool chosenCharacter = false);
 	~CharacterCard();
+	void setChosenCharacter(QString path);
 };
 

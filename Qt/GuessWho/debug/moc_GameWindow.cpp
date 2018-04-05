@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GameWindow_t {
     QByteArrayData data[4];
-    char stringdata0[43];
+    char stringdata0[39];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,12 +32,12 @@ struct qt_meta_stringdata_GameWindow_t {
 static const qt_meta_stringdata_GameWindow_t qt_meta_stringdata_GameWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "GameWindow"
-QT_MOC_LITERAL(1, 11, 13), // "setZoomCursor"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 16) // "setDefaultCursor"
+QT_MOC_LITERAL(1, 11, 11), // "setZoomMode"
+QT_MOC_LITERAL(2, 23, 0), // ""
+QT_MOC_LITERAL(3, 24, 14) // "setDefaultMode"
 
     },
-    "GameWindow\0setZoomCursor\0\0setDefaultCursor"
+    "GameWindow\0setZoomMode\0\0setDefaultMode"
 };
 #undef QT_MOC_LITERAL
 
@@ -71,8 +71,8 @@ void GameWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         GameWindow *_t = static_cast<GameWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->setZoomCursor(); break;
-        case 1: _t->setDefaultCursor(); break;
+        case 0: _t->setZoomMode(); break;
+        case 1: _t->setDefaultMode(); break;
         default: ;
         }
     }

@@ -6,7 +6,7 @@
 
 class LowerBar : public QWidget
 {
-public:
+private:
 	QLabel * image;
 	QHBoxLayout * layout;
 	QPushButton *boutonZoom;
@@ -16,5 +16,8 @@ public:
 public:
 	LowerBar(QWidget *parent, int windowWidth);
 	~LowerBar();
+
+	QPushButton* getboutonZoom(){ return boutonZoom; }
+	QPushButton* getBoutonNormal(){ return boutonNormal; }
 };
 

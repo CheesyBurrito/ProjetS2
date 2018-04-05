@@ -108,6 +108,10 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ResourceCompile Include="C:\Users\Maxime\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+=======
+    <ResourceCompile Include="C:\Users\Charles\Documents\git\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+>>>>>>> master
   </ItemGroup>
 </Project>
