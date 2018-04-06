@@ -9,13 +9,13 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int width):QWidget(par
 	images = new std::vector<CharacterCard*>;
 	characterGrid = new QGridLayout(this);
 	gridWidth = width;
-	chosenCharacter = new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(22) + ".png");
+	chosenCharacter = new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(22) + ".png", "./Ressources/CharacterFiles/"+to_string(22)+".txt");
 
 	for (int i = 0; i < 21; i++) {
 		if (i != 20)
-			images->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png"));
+			images->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png", "./Ressources/CharacterFiles/" + to_string(i) + ".txt"));
 		else
-			images->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png", true));
+			images->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png", "./Ressources/CharacterFiles/" + to_string(i) + ".txt", true));
 	}
 
 	for (int i = 0; i < 7; i++) {

@@ -33,6 +33,9 @@
     <ClCompile Include="CharacterGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterTraits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,6 +49,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SideMenu.cpp">
@@ -62,6 +68,9 @@
     <ClInclude Include="CharacterGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterTraits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="GameWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -74,9 +83,12 @@
     <ClInclude Include="MenuWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SideMenu.h">
+    <CustomBuild Include="PauseMenu.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
+    <CustomBuild Include="SideMenu.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="StartWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -100,6 +112,18 @@
     <ClCompile Include="release\moc_MainWindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_PauseMenu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_PauseMenu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_SideMenu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_SideMenu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -108,6 +132,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\Maxime\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+    <ResourceCompile Include="C:\Users\charl\OneDrive\Documents\git\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
   </ItemGroup>
 </Project>
