@@ -3,10 +3,18 @@
 
 PauseMenu::PauseMenu(QWidget* parent)
 {
+	layout = new QGridLayout(this);
+	quitButton = new QPushButton("Quitter", this);
+	resumeButton = new QPushButton("Retourner au jeu", this);
+	cancelGameButton = new QPushButton("Retourner au menu", this);
+
 	this->setFixedSize(200, 200);
 	this->setWindowFlag(Qt::WindowStaysOnTopHint);
 	this->setWindowFlag(Qt::FramelessWindowHint);
-
+	layout->addWidget(cancelGameButton, 0, 0);
+	layout->addWidget(quitButton, 1, 0);
+	layout->addWidget(resumeButton, 2, 0);
+	this->setLayout(layout);
 }
 
 

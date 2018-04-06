@@ -36,6 +36,9 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 
 	connect(parent, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
 	connect(pauseMenu, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
+	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), pauseMenu, SLOT(close()));
+	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(close()));
+	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
 	this->setLayout(layout);
 	//pauseMenu->show();
@@ -69,10 +72,12 @@ void GameWindow::setDefaultMode() {
 void GameWindow::togglePauseMenu() {
 	if (isPaused) {
 		pauseMenu->hide();
+		this->setEnabled(true);
 		isPaused = false;
 	}
 	else {
 		pauseMenu->show();
+		this->setEnabled(false);
 		isPaused = true;
 	}
 }
