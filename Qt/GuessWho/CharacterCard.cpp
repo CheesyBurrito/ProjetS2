@@ -2,11 +2,13 @@
 
 
 
-CharacterCard::CharacterCard(QWidget *parent, int width, QString path, bool chosenCharacter):QPushButton(parent)
+CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string characterPath, bool chosenCharacter):QPushButton(parent)
 {
 	cardWidth = width;
 	cardHeight = 1.4*width;
 	isChosenCharacter = chosenCharacter;
+
+	traits.importCharacterFromFile(characterPath);
 
 	if (isChosenCharacter) {
 		QImage background("./Photos/header_logo.png");
@@ -44,7 +46,7 @@ CharacterCard::CharacterCard(QWidget *parent, int width, QString path, bool chos
 	this->setCursor(loopCursor);*/
 
 	this->setMouseTracking(true);
-	connect(this, SIGNAL(clicked()), this, SLOT(flipCard()));
+	//connect(this, SIGNAL(clicked()), this, SLOT(flipCard()));
 	//connect(this, SIGNAL(doubleClicked()), this, SLOT(zoomCard()));
 }
 
@@ -68,7 +70,7 @@ void CharacterCard::flipCard() {
 
 void CharacterCard::enterEvent(QEvent* e)
 {
-	emit hovered();
+	emit hovered(this->traits.convertPropertiesToString());
 
 	QWidget::enterEvent(e);
 }

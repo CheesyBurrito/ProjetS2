@@ -25,6 +25,12 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 	connect(lowerBar->getboutonZoom(), SIGNAL(clicked()), this, SLOT(setZoomMode()));
 	connect(lowerBar->getBoutonNormal(), SIGNAL(clicked()), this, SLOT(setDefaultMode()));
 
+	//Connects slots and signals for the character cards
+	for (int i = 0; i < grid->getCharacters()->size(); i++) {
+		connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+		connect(this->grid->getCharacters()->at(i), SIGNAL(hovered(std::string)), this->sideMenu, SLOT(setTraits(std::string)));
+	}
+
 	this->setLayout(layout);
 }
 

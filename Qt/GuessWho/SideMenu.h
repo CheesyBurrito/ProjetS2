@@ -1,13 +1,21 @@
 #pragma once
 #include <QWidget>
 #include <QLabel>
-#include <QHBoxLayout>
+#include <QGridLayout>
+#include <string>
 
 class SideMenu : public QWidget
 {
+	Q_OBJECT
+
 private:
 	QLabel * image;
-	QHBoxLayout * layout;
+	QLabel * characteristics;
+	QGridLayout * layout;
+
+public slots:
+	void setTraits(std::string newTraits);
+
 public:
 	SideMenu(QWidget *parent, int windowHeight);
 	~SideMenu();

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'CharacterCard.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.10.0)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.10.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'CharacterCard.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.10.0. It"
+#error "This file was generated using the moc from 5.10.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_CharacterCard_t {
-    QByteArrayData data[6];
-    char stringdata0[55];
+    QByteArrayData data[8];
+    char stringdata0[74];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,13 +34,15 @@ static const qt_meta_stringdata_CharacterCard_t qt_meta_stringdata_CharacterCard
 QT_MOC_LITERAL(0, 0, 13), // "CharacterCard"
 QT_MOC_LITERAL(1, 14, 7), // "hovered"
 QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 13), // "doubleClicked"
-QT_MOC_LITERAL(4, 37, 8), // "flipCard"
-QT_MOC_LITERAL(5, 46, 8) // "zoomCard"
+QT_MOC_LITERAL(3, 23, 11), // "std::string"
+QT_MOC_LITERAL(4, 35, 6), // "traits"
+QT_MOC_LITERAL(5, 42, 13), // "doubleClicked"
+QT_MOC_LITERAL(6, 56, 8), // "flipCard"
+QT_MOC_LITERAL(7, 65, 8) // "zoomCard"
 
     },
-    "CharacterCard\0hovered\0\0doubleClicked\0"
-    "flipCard\0zoomCard"
+    "CharacterCard\0hovered\0\0std::string\0"
+    "traits\0doubleClicked\0flipCard\0zoomCard"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,15 +60,15 @@ static const uint qt_meta_data_CharacterCard[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   34,    2, 0x06 /* Public */,
-       3,    0,   35,    2, 0x06 /* Public */,
+       1,    1,   34,    2, 0x06 /* Public */,
+       5,    0,   37,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   36,    2, 0x0a /* Public */,
-       5,    0,   37,    2, 0x0a /* Public */,
+       6,    0,   38,    2, 0x0a /* Public */,
+       7,    0,   39,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void,
 
  // slots: parameters
@@ -82,7 +84,7 @@ void CharacterCard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         CharacterCard *_t = static_cast<CharacterCard *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->hovered(); break;
+        case 0: _t->hovered((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         case 1: _t->doubleClicked(); break;
         case 2: _t->flipCard(); break;
         case 3: _t->zoomCard(); break;
@@ -91,7 +93,7 @@ void CharacterCard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            typedef void (CharacterCard::*_t)();
+            typedef void (CharacterCard::*_t)(std::string );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&CharacterCard::hovered)) {
                 *result = 0;
                 return;
@@ -105,10 +107,9 @@ void CharacterCard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
             }
         }
     }
-    Q_UNUSED(_a);
 }
 
-const QMetaObject CharacterCard::staticMetaObject = {
+QT_INIT_METAOBJECT const QMetaObject CharacterCard::staticMetaObject = {
     { &QPushButton::staticMetaObject, qt_meta_stringdata_CharacterCard.data,
       qt_meta_data_CharacterCard,  qt_static_metacall, nullptr, nullptr}
 };
@@ -145,9 +146,10 @@ int CharacterCard::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void CharacterCard::hovered()
+void CharacterCard::hovered(std::string _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1

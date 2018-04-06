@@ -1,6 +1,6 @@
 #include <windows.h>
 
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\William\\Documents\\GitHub\\ProjetS2\\Qt\\GuessWho\\OhmBoys.ico"
+IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\charl\\OneDrive\\Documents\\git\\ProjetS2\\Qt\\GuessWho\\OhmBoys.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0
