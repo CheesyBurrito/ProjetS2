@@ -12,8 +12,8 @@ LowerBar::LowerBar(QWidget *parent, int windowWidth, int windowHeight,int cardHe
 	boutonNormal->setStyleSheet("background: green");
 	
 	QPixmap logo("./Photos/Red.png");
-	image->setPixmap(logo.scaled(windowWidth-300, windowHeight-3*cardHeight));
-	layout->addWidget(image,0,0,6,20);
+	image->setPixmap(logo.scaled(windowWidth-300, 100));
+	layout->addWidget(image,0,0,6,20,Qt::AlignBottom);
 
 	//this->setStyleSheet("background-image: url(./Photos/Red.png)");
 	//this->setFixedHeight(100); 

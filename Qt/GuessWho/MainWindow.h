@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
 	public slots:
 		void openMenu();
 		void menuWindow();
+		void menuWindowFromGame();
 		void onePlayerWindow();
 		void twoPlayersWindow();
 		void optionsWindow();

@@ -10,6 +10,9 @@ MainWindow::MainWindow() : QMainWindow()
 	setCentralWidget(start);
 	QObject::connect(start->getButton(), SIGNAL(clicked()), this, SLOT(openMenu()));
 
+	game = new GameWindow(this);
+	menu = new MenuWindow(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -20,8 +23,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::openMenu()
 {
-
-	menu = new MenuWindow(this);
 	setCentralWidget(menu);
 	start->close();
 	delete start;
@@ -34,6 +35,17 @@ void MainWindow::openMenu()
 void MainWindow::menuWindow()
 {
 	menu->deleteOptionsWindow();
+	menu->startMenu();
+	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
+	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
+	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
+	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
+}
+
+void MainWindow::menuWindowFromGame()
+{
+	game->close();
+	setCentralWidget(menu);
 	menu->startMenu();
 	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
 	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
@@ -77,7 +89,6 @@ void MainWindow::showCharacterWindow()
 
 void MainWindow::gameWindow()
 {
-	game = new GameWindow(this);
 	setCentralWidget(game);
 	numberGames = menu->getNumberGames();
 

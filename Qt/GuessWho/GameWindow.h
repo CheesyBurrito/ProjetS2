@@ -8,6 +8,7 @@
 #include <vector>
 #include "PauseMenu.h"
 #include <QKeyEvent>
+#include "PauseMenu.h"
 
 class GameWindow : public QWidget
 {

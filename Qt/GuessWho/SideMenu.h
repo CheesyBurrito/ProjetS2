@@ -10,6 +10,7 @@ class SideMenu : public QWidget
 
 private:
 	QLabel * image;
+	QLabel * image2;
 	QLabel * characteristics;
 	QGridLayout * layout;
 
@@ -17,7 +18,7 @@ public slots:
 	void setTraits(std::string newTraits);
 
 public:
-	SideMenu(QWidget *parent, int windowHeight);
+	SideMenu(QWidget *parent, int windowHeight, int windowWidth);
 	~SideMenu();
 };
 

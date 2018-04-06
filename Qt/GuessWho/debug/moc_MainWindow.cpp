@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[11];
-    char stringdata0[138];
+    QByteArrayData data[12];
+    char stringdata0[157];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,16 +36,18 @@ QT_MOC_LITERAL(1, 11, 16), // "escapeKeyPressed"
 QT_MOC_LITERAL(2, 28, 0), // ""
 QT_MOC_LITERAL(3, 29, 8), // "openMenu"
 QT_MOC_LITERAL(4, 38, 10), // "menuWindow"
-QT_MOC_LITERAL(5, 49, 15), // "onePlayerWindow"
-QT_MOC_LITERAL(6, 65, 16), // "twoPlayersWindow"
-QT_MOC_LITERAL(7, 82, 13), // "optionsWindow"
-QT_MOC_LITERAL(8, 96, 10), // "gameWindow"
-QT_MOC_LITERAL(9, 107, 10), // "showDialog"
-QT_MOC_LITERAL(10, 118, 19) // "showCharacterWindow"
+QT_MOC_LITERAL(5, 49, 18), // "menuWindowFromGame"
+QT_MOC_LITERAL(6, 68, 15), // "onePlayerWindow"
+QT_MOC_LITERAL(7, 84, 16), // "twoPlayersWindow"
+QT_MOC_LITERAL(8, 101, 13), // "optionsWindow"
+QT_MOC_LITERAL(9, 115, 10), // "gameWindow"
+QT_MOC_LITERAL(10, 126, 10), // "showDialog"
+QT_MOC_LITERAL(11, 137, 19) // "showCharacterWindow"
 
     },
     "MainWindow\0escapeKeyPressed\0\0openMenu\0"
-    "menuWindow\0onePlayerWindow\0twoPlayersWindow\0"
+    "menuWindow\0menuWindowFromGame\0"
+    "onePlayerWindow\0twoPlayersWindow\0"
     "optionsWindow\0gameWindow\0showDialog\0"
     "showCharacterWindow"
 };
@@ -57,7 +59,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,22 +67,24 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x06 /* Public */,
+       1,    0,   64,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   60,    2, 0x0a /* Public */,
-       4,    0,   61,    2, 0x0a /* Public */,
-       5,    0,   62,    2, 0x0a /* Public */,
-       6,    0,   63,    2, 0x0a /* Public */,
-       7,    0,   64,    2, 0x0a /* Public */,
-       8,    0,   65,    2, 0x0a /* Public */,
-       9,    0,   66,    2, 0x0a /* Public */,
-      10,    0,   67,    2, 0x0a /* Public */,
+       3,    0,   65,    2, 0x0a /* Public */,
+       4,    0,   66,    2, 0x0a /* Public */,
+       5,    0,   67,    2, 0x0a /* Public */,
+       6,    0,   68,    2, 0x0a /* Public */,
+       7,    0,   69,    2, 0x0a /* Public */,
+       8,    0,   70,    2, 0x0a /* Public */,
+       9,    0,   71,    2, 0x0a /* Public */,
+      10,    0,   72,    2, 0x0a /* Public */,
+      11,    0,   73,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -102,12 +106,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->escapeKeyPressed(); break;
         case 1: _t->openMenu(); break;
         case 2: _t->menuWindow(); break;
-        case 3: _t->onePlayerWindow(); break;
-        case 4: _t->twoPlayersWindow(); break;
-        case 5: _t->optionsWindow(); break;
-        case 6: _t->gameWindow(); break;
-        case 7: _t->showDialog(); break;
-        case 8: _t->showCharacterWindow(); break;
+        case 3: _t->menuWindowFromGame(); break;
+        case 4: _t->onePlayerWindow(); break;
+        case 5: _t->twoPlayersWindow(); break;
+        case 6: _t->optionsWindow(); break;
+        case 7: _t->gameWindow(); break;
+        case 8: _t->showDialog(); break;
+        case 9: _t->showCharacterWindow(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -148,13 +153,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }
