@@ -17,6 +17,9 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight) :QWidget(parent)
 	characteristics->setText("");
 	characteristics->setFixedSize(300, 200);
 	characteristics->setAttribute(Qt::WA_TranslucentBackground);
+	characteristics->setAlignment(Qt::AlignCenter);
+	characteristics->setStyleSheet("background:transparent; color:white");
+	characteristics->setFont(QFont("Walkway Bold", 14));
 	layout->addWidget(characteristics, 1, 0);
 
 	this->setFixedWidth(300);

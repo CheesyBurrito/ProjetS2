@@ -8,6 +8,7 @@
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
+#include <QKeyEvent>
 
 
 class MainWindow : public QMainWindow
@@ -17,6 +18,8 @@ class MainWindow : public QMainWindow
 	public:
 		MainWindow();
 		~MainWindow();
+		void keyPressEvent(QKeyEvent *event);
+
 	public slots:
 		void openMenu();
 		void menuWindow();
@@ -26,6 +29,9 @@ class MainWindow : public QMainWindow
 		void gameWindow();
 		void showDialog();
 		void showCharacterWindow();
+
+	signals:
+		void escapeKeyPressed();
 
 	private:
 		StartWindow *start;

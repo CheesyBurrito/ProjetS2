@@ -25,14 +25,15 @@ CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string ch
 
 		picture = combined;
 		//picture.load("./Photos/emptyFrame.png");
+		flippedCard.load("./Photos/red_turned_card.png");
 	}
 
-	else
+	else {
 		picture.load(path);
+		flippedCard.load("./Photos/turned_card.png");
+	}
 
 	pictureIcon.addPixmap(picture.scaled(width, cardHeight));
-
-	flippedCard.load("./Photos/turned_card.png");
 	flippedCardIcon.addPixmap(flippedCard.scaled(width, cardHeight));
 
 	
@@ -58,19 +59,18 @@ CharacterCard::~CharacterCard()
 void CharacterCard::flipCard() {
 	QPixmap pixmap;
 
-	if (!isChosenCharacter) { //Can't flip the chose character
 		if (isFlipped)
 			this->setIcon(pictureIcon);
 		else
 			this->setIcon(flippedCardIcon);
 
 		isFlipped = !isFlipped;
-	}
 }
 
 void CharacterCard::enterEvent(QEvent* e)
 {
-	emit hovered(this->traits.convertPropertiesToString());
+	if(!isFlipped && this->traits.getEyes() != -1) //TODO : CHANGE TRAIT FOR CHARACTER WHEN CLASS IS IMPLEMENTED
+		emit hovered(this->traits.convertPropertiesToString());
 
 	QWidget::enterEvent(e);
 }
@@ -81,17 +81,19 @@ void CharacterCard::mouseDoubleClickEvent(QMouseEvent* event) {
 
 void CharacterCard::zoomCard() {
 
-	QWidget *zoomWindow;
-	zoomWindow = new QWidget;
-	QVBoxLayout *zoomLayout = new QVBoxLayout(zoomWindow);
-	QLabel *img = new QLabel(zoomWindow);
-	img->setPixmap(picture);
-	zoomLayout->addWidget(img);
+	if (!isFlipped) {
+		QWidget *zoomWindow;
+		zoomWindow = new QWidget;
+		QVBoxLayout *zoomLayout = new QVBoxLayout(zoomWindow);
+		QLabel *img = new QLabel(zoomWindow);
+		img->setPixmap(picture);
+		zoomLayout->addWidget(img);
 
-	zoomWindow->setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	zoomWindow->setLayout(zoomLayout);
-	zoomWindow->setWindowFlags(Qt::SplashScreen);
-	zoomWindow->show();
+		zoomWindow->setStyleSheet("background-image: url(./Photos/header_logo.png)");
+		zoomWindow->setLayout(zoomLayout);
+		zoomWindow->setWindowFlags(Qt::SplashScreen);
+		zoomWindow->show();
+	}
 }
 
 void CharacterCard::setChosenCharacter(QString path) {

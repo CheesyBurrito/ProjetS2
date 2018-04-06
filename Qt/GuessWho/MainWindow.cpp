@@ -96,3 +96,9 @@ void MainWindow::gameWindow()
 	delete menu;
 
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+	if (event->key() == Qt::Key_Escape) {
+		emit escapeKeyPressed();
+	}
+}

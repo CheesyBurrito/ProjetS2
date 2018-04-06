@@ -9,6 +9,7 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 	grid = new CharacterGrid(this, parent->height()-100, parent->width()-300);
 	lowerBar = new LowerBar(this, parent->width(),parent->height(),grid->getCardHeight());
 	sideMenu = new SideMenu(this, parent->height());
+	pauseMenu = new PauseMenu(this);
 	layout->addWidget(grid, 0, 0);
 	layout->addWidget(lowerBar, 1, 0);
 	layout->addWidget(sideMenu, 0, 1, 2, 1);
@@ -26,12 +27,18 @@ GameWindow::GameWindow(QWidget *parent):QWidget(parent)
 	connect(lowerBar->getBoutonNormal(), SIGNAL(clicked()), this, SLOT(setDefaultMode()));
 
 	//Connects slots and signals for the character cards
-	for (int i = 0; i < grid->getCharacters()->size(); i++) {
+	for (int i = 0; i < grid->getCharacters()->size()-1; i++) {
 		connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 		connect(this->grid->getCharacters()->at(i), SIGNAL(hovered(std::string)), this->sideMenu, SLOT(setTraits(std::string)));
 	}
+	connect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
+	connect(this->grid->getCharacters()->at(20), SIGNAL(hovered(std::string)), this->sideMenu, SLOT(setTraits(std::string)));
+
+	connect(parent, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
+	connect(pauseMenu, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
 
 	this->setLayout(layout);
+	//pauseMenu->show();
 }
 
 
@@ -41,16 +48,32 @@ GameWindow::~GameWindow()
 
 void GameWindow::setZoomMode() {
 	this->setCursor(zoomCursor);
-	for (int i = 0; i < grid->getCharacters()->size(); i++){
+	for (int i = 0; i < grid->getCharacters()->size()-1; i++){
 		disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 		connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
 	}
+	disconnect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
+	connect(this->grid->getCharacters()->at(20), SIGNAL(clicked()), this->grid->getCharacters()->at(20), SLOT(zoomCard()));
 }
 
 void GameWindow::setDefaultMode() {
 	this->setCursor(Qt::ArrowCursor);
-	for (int i = 0; i < grid->getCharacters()->size(); i++) {
+	for (int i = 0; i < grid->getCharacters()->size()-1; i++) {
 		disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
 		connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 	}
+	disconnect(this->grid->getCharacters()->at(20), SIGNAL(clicked()), this->grid->getCharacters()->at(20), SLOT(zoomCard()));
+	connect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 }
+
+void GameWindow::togglePauseMenu() {
+	if (isPaused) {
+		pauseMenu->hide();
+		isPaused = false;
+	}
+	else {
+		pauseMenu->show();
+		isPaused = true;
+	}
+}
+

@@ -51,6 +51,9 @@
     <ClCompile Include="MenuWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SideMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,6 +83,9 @@
     <ClInclude Include="MenuWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="PauseMenu.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="SideMenu.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -104,6 +110,12 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_MainWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_PauseMenu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_PauseMenu.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_SideMenu.cpp">
