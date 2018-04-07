@@ -1,4 +1,5 @@
 #include "MenuWindow.h"
+#include <QDebug>
 
 MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
 {
@@ -31,34 +32,23 @@ void MenuWindow::startMenu()
 	layoutPrincipal->setColumnStretch(5, 10);
 	layoutPrincipal->setColumnStretch(6, 0);
 
-	onePlayer = new QPushButton("1 joueur", this);
-		onePlayer->setFlat(true);
-		onePlayer->setStyleSheet("background: transparent; color : white");
-		onePlayer->setCursor(Qt::PointingHandCursor);
-		onePlayer->setFont(QFont("Walkway Bold", 30));
-
-	twoPlayers = new QPushButton("2 joueurs", this);
-		twoPlayers->setFlat(true);
-		twoPlayers->setStyleSheet("background: transparent; color : white");
-		twoPlayers->setCursor(Qt::PointingHandCursor);
-		twoPlayers->setFont(QFont("Walkway Bold", 30));
-
-	quitButton = new QPushButton("Quitter", this);
-		quitButton->setFlat(true);
-		quitButton->setStyleSheet("background: transparent; color : white");
-		quitButton->setCursor(Qt::PointingHandCursor);
-		quitButton->setFont(QFont("Walkway Bold", 30));
-
-	optionsButton = new QPushButton("Options", this);
-		optionsButton->setFlat(true);
-		optionsButton->setStyleSheet("background: transparent; color : white");
-		optionsButton->setCursor(Qt::PointingHandCursor);
-		optionsButton->setFont(QFont("Walkway Bold", 30));
+	onePlayer = new MenuButton(this," 1 joueur");
+	twoPlayers = new MenuButton(this, " 2 joueurs");
+	optionsButton = new MenuButton(this, " Options");
+	quitButton = new MenuButton(this, " Quitter");
 
 	layoutPrincipal->addWidget(onePlayer, 4, 4, Qt::AlignLeft);
 	layoutPrincipal->addWidget(twoPlayers, 5, 4, Qt::AlignLeft);
 	layoutPrincipal->addWidget(optionsButton,6, 4, Qt::AlignLeft);
 	layoutPrincipal->addWidget(quitButton, 7, 4, Qt::AlignLeft);
+
+	layoutPrincipal->setContentsMargins(0, 0, 0, 0);
+	layoutPrincipal->setSpacing(0);
+
+	QObject::connect(onePlayer, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
+	QObject::connect(twoPlayers, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
+	QObject::connect(optionsButton, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
+	QObject::connect(quitButton, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
 }
 
 void MenuWindow::onePlayerWindow()
@@ -94,6 +84,7 @@ void MenuWindow::onePlayerWindow()
 		ok->setFont(QFont("Walkway Bold", 30));
 
 	m_lcd = new QLCDNumber(this);
+		m_lcd->setFixedHeight(50);
 		m_lcd->setSegmentStyle(QLCDNumber::Flat);
 		m_lcd->setStyleSheet("background: white;");
 		m_lcd->display(1);
@@ -111,6 +102,8 @@ void MenuWindow::onePlayerWindow()
 	layoutPrincipal->addWidget(m_lcd, 6, 5);
 	layoutPrincipal->addWidget(m_slider, 7, 5);
 	layoutPrincipal->addWidget(ok, 8, 5, Qt::AlignRight);
+
+	layoutPrincipal->setSpacing(10);
 }
 
 void MenuWindow::twoPlayersWindow()
@@ -155,6 +148,7 @@ void MenuWindow::twoPlayersWindow()
 		ok->setFont(QFont("Walkway Bold", 30));
 
 	m_lcd = new QLCDNumber(this);
+		m_lcd->setFixedHeight(50);
 		m_lcd->setSegmentStyle(QLCDNumber::Flat);
 		m_lcd->setStyleSheet("background: white;");
 		m_lcd->display(1);
@@ -175,6 +169,8 @@ void MenuWindow::twoPlayersWindow()
 	layoutPrincipal->addWidget(m_slider, 7, 5);
 	layoutPrincipal->addWidget(ok, 8, 5,Qt::AlignRight);
 
+	layoutPrincipal->setSpacing(10);
+
 }
 
 void MenuWindow::optionsWindow()
@@ -184,29 +180,17 @@ void MenuWindow::optionsWindow()
 	delete optionsButton;
 	delete quitButton;
 
-	addCharacter = new QPushButton("Ajouter un personnage", this);
-		addCharacter->setFlat(true);
-		addCharacter->setStyleSheet("background: transparent; color : white");
-		addCharacter->setCursor(Qt::PointingHandCursor);
-		addCharacter->setFont(QFont("Walkway Bold", 30));
+	addCharacter = new MenuButton(this," Ajouter un personnage");
+		addCharacter->setToolTip("Le personnage sera ajouté à la liste active");
 
-	createNewList = new QPushButton("Créer une nouvelle liste", this);
-		createNewList->setFlat(true);
-		createNewList->setStyleSheet("background: transparent; color : white");
-		createNewList->setCursor(Qt::PointingHandCursor);
-		createNewList->setFont(QFont("Walkway Bold", 30));
+	createNewList = new MenuButton(this, " Créer une nouvelle liste");
+		createNewList->setToolTip("La nouvelle liste deviendra la liste active");
 
-	changeList = new QPushButton("Changer de liste", this);
-		changeList->setFlat(true);
-		changeList->setStyleSheet("background: transparent; color : white");
-		changeList->setCursor(Qt::PointingHandCursor);
-		changeList->setFont(QFont("Walkway Bold", 30));
-		
-	back = new QPushButton("Retour", this);
-		back->setFlat(true);
-		back->setStyleSheet("background: transparent; color : white");
-		back->setCursor(Qt::PointingHandCursor);
-		back->setFont(QFont("Walkway Bold", 30));
+	changeList = new MenuButton(this, " Changer de liste");
+		changeList->setToolTip("La liste choisie deviendra la liste active");
+
+	back = new MenuButton(this, " Retour");
+		back->setToolTip(" Retourner au menu principal");
 
 	active_List = new QLineEdit(this);
 		active_List->setStyleSheet("background: white;");
@@ -224,17 +208,38 @@ void MenuWindow::optionsWindow()
 		layoutPrincipal->addWidget(back, 7, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(list, 9, 0,1,4,Qt::AlignRight);
 		layoutPrincipal->addWidget(active_List, 9, 4, 1 ,4);
+
+	connect(addCharacter, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(createNewList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(changeList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(back, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
 }
 
 void MenuWindow::showDialog()
 {
 	QString selfilter = tr("GuessWho Files (*.gw)");
-	activeList = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Photos", tr("GuessWho Files (*.gw)"), &selfilter);
+	QString fileDialog = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Photos", tr("GuessWho Files (*.gw)"), &selfilter);
+	if (fileDialog != "")
+	{
+		activeList = fileDialog;
+	}
+	active_List->setText(activeList);
 }
 
-void MenuWindow::updateList()
+void MenuWindow::setMenuHoveredButton()
 {
-	active_List->setText(activeList);
+	onePlayer->setIsSelected(false);
+	twoPlayers->setIsSelected(false);
+	optionsButton->setIsSelected(false);
+	quitButton->setIsSelected(false);
+}
+
+void MenuWindow::setOptionsHoveredButton()
+{
+	addCharacter->setIsSelected(false);
+	createNewList->setIsSelected(false);
+	changeList->setIsSelected(false);
+	back->setIsSelected(false);
 }
 
 void MenuWindow::addCharacters()
@@ -276,52 +281,6 @@ void MenuWindow::deletePlayersWindow()
 		delete joueur2;
 	}
 
-}
-
-
-QPushButton* MenuWindow::getOnePlayerButton()
-{
-	return onePlayer;
-}
-
-QPushButton* MenuWindow::getTwoPlayersButton()
-{
-	return twoPlayers;
-}
-
-QPushButton* MenuWindow::getOptionsButton()
-{
-	return optionsButton;
-}
-
-QPushButton* MenuWindow::getQuitButton()
-{
-	return quitButton;
-}
-
-QPushButton* MenuWindow::getAddCharacterButton()
-{
-	return addCharacter;
-}
-
-QPushButton* MenuWindow::getCreateNewListButton()
-{
-	return createNewList;
-}
-
-QPushButton* MenuWindow::getChangeListButton()
-{
-	return changeList;
-}
-
-QPushButton* MenuWindow::getBackButton()
-{
-	return back;
-}
-
-QPushButton* MenuWindow::getOkButton()
-{
-	return ok;
 }
 
 QString MenuWindow::getJoueur1Name()

@@ -72,22 +72,12 @@ void MainWindow::twoPlayersWindow()
 void MainWindow::optionsWindow()
 {
 	menu->optionsWindow();
-	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), this, SLOT(showCharacterWindow()));
+	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), menu, SLOT(addCharacters()));
 	QObject::connect(menu->getCreateNewListButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
-	QObject::connect(menu->getChangeListButton(), SIGNAL(clicked()), this, SLOT(showDialog()));
+	QObject::connect(menu->getChangeListButton(), SIGNAL(clicked()), menu, SLOT(showDialog()));
 	QObject::connect(menu->getBackButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
 }
 
-void MainWindow::showDialog()
-{
-	menu->showDialog();
-	menu->updateList();
-}
-
-void MainWindow::showCharacterWindow()
-{
-	menu->addCharacters();
-}
 
 void MainWindow::gameWindow()
 {

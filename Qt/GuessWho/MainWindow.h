@@ -4,7 +4,6 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include <QDebug>
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
@@ -29,8 +28,6 @@ class MainWindow : public QMainWindow
 		void twoPlayersWindow();
 		void optionsWindow();
 		void gameWindow();
-		void showDialog();
-		void showCharacterWindow();
 		void quitGame();
 
 	signals:

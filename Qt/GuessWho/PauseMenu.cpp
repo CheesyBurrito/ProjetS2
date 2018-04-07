@@ -11,9 +11,9 @@ PauseMenu::PauseMenu(QWidget* parent)
 	this->setFixedSize(200, 200);
 	this->setWindowFlag(Qt::WindowStaysOnTopHint);
 	this->setWindowFlag(Qt::FramelessWindowHint);
-	layout->addWidget(cancelGameButton, 0, 0);
-	layout->addWidget(quitButton, 1, 0);
-	layout->addWidget(resumeButton, 2, 0);
+	layout->addWidget(resumeButton, 0, 0);
+	layout->addWidget(cancelGameButton, 1, 0);
+	layout->addWidget(quitButton, 2, 0);
 	this->setLayout(layout);
 }
 
