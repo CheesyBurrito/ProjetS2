@@ -9,8 +9,6 @@ MainWindow::MainWindow() : QMainWindow()
 	start = new StartWindow(this);
 	setCentralWidget(start);
 	QObject::connect(start->getButton(), SIGNAL(clicked()), this, SLOT(openMenu()));
-
-	game = new GameWindow(this);
 	menu = new MenuWindow(this);
 
 }
@@ -23,6 +21,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::openMenu()
 {
+
 	setCentralWidget(menu);
 	start->close();
 	delete start;
@@ -44,6 +43,8 @@ void MainWindow::menuWindow()
 
 void MainWindow::menuWindowFromGame()
 {
+	menu = new MenuWindow(this);
+	menu->startMenu();
 	game->close();
 	setCentralWidget(menu);
 	menu->startMenu();
@@ -51,6 +52,7 @@ void MainWindow::menuWindowFromGame()
 	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
 	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
 	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
+	delete game;
 }
 
 void MainWindow::onePlayerWindow()
@@ -89,6 +91,7 @@ void MainWindow::showCharacterWindow()
 
 void MainWindow::gameWindow()
 {
+	game = new GameWindow(this);
 	setCentralWidget(game);
 	numberGames = menu->getNumberGames();
 
@@ -117,8 +120,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 void MainWindow::quitGame() {
 	this->game->getPauseMenu()->hide();
 	int answer = QMessageBox::question(NULL, "Quitter la partie", "Voulez-vous vraiment quitter la partie", QMessageBox::Yes | QMessageBox::No);
-	if (answer == 0) { //Yes
-
+	if (answer == QMessageBox::Yes) { //Yes
+		this->game->getPauseMenu()->close();
+		this->menuWindowFromGame();
 	}
 	else { //No
 		this->game->getPauseMenu()->show();
