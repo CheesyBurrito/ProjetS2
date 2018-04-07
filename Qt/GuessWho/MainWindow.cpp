@@ -21,7 +21,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::openMenu()
 {
-
 	setCentralWidget(menu);
 	start->close();
 	delete start;
@@ -44,10 +43,8 @@ void MainWindow::menuWindow()
 void MainWindow::menuWindowFromGame()
 {
 	menu = new MenuWindow(this);
-	menu->startMenu();
 	game->close();
 	setCentralWidget(menu);
-	menu->startMenu();
 	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
 	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
 	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
