@@ -113,3 +113,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 		emit escapeKeyPressed();
 	}
 }
+
+void MainWindow::quitGame() {
+	this->game->getPauseMenu()->hide();
+	int answer = QMessageBox::question(NULL, "Quitter la partie", "Voulez-vous vraiment quitter la partie", QMessageBox::Yes | QMessageBox::No);
+	if (answer == 0) { //Yes
+
+	}
+	else { //No
+		this->game->getPauseMenu()->show();
+	}
+}

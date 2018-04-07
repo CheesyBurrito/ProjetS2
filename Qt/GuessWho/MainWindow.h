@@ -9,6 +9,7 @@
 #include "StartWindow.h"
 #include "GameWindow.h"
 #include <QKeyEvent>
+#include <QMessageBox>
 
 
 class MainWindow : public QMainWindow
@@ -30,6 +31,7 @@ class MainWindow : public QMainWindow
 		void gameWindow();
 		void showDialog();
 		void showCharacterWindow();
+		void quitGame();
 
 	signals:
 		void escapeKeyPressed();

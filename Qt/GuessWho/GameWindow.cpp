@@ -41,7 +41,7 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 	connect(pauseMenu, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
 	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), pauseMenu, SLOT(close()));
 	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(close()));
-	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), this, SLOT());
+	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
 	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
 	this->setLayout(layout);

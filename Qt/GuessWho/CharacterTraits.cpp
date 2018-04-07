@@ -104,9 +104,9 @@ string CharacterTraits::convertPropertiesToString()
 	output += "Yeux : " + printPhysicalTraitsColorProperties(eyes) + "\n";
 	output += "Cheveux : " + printPhysicalTraitsProperties(hairCharacteristics) + ", " + printPhysicalTraitsColorProperties(hairColor) + "\n";
 	output += "Accessoires : " + printAccessories() + "\n";
-	output += "Genre : " + printPhysicalTraitsProperties(gender) + "\n";
+	output += "Sexe : " + printPhysicalTraitsProperties(gender) + "\n";
 	output += "Age : " + printPhysicalTraitsProperties(age) + "\n";
-	output += "Pilosite : " + printPhysicalTraitsProperties(facialHair) + "\n";
+	output += "Pilosité : " + printPhysicalTraitsProperties(facialHair) + "\n";
 	output += "Couleur de peau : " + printPhysicalTraitsColorProperties(skinColor) + "\n";
 
 	return output;
@@ -174,7 +174,7 @@ string CharacterTraits::printPhysicalTraitsColorProperties(int colorIndex)
 	}
 	case 8:
 	{
-		return "Basane";
+		return "Basané";
 	}
 	case 9:
 	{
@@ -201,11 +201,11 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 2:
 	{
-		return "Court";
+		return "Courts";
 	}
 	case 3:
 	{
-		return "Long";
+		return "Longs";
 	}
 	case 4:
 	{
@@ -217,7 +217,7 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 6:
 	{
-		return "Lunette";
+		return "Lunettes";
 	}
 	case 7:
 	{
@@ -225,11 +225,11 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 8:
 	{
-		return "Rase";
+		return "Rasé";
 	}
 	case 9:
 	{
-		return "Barbe Plein";
+		return "Barbe";
 	}
 	case 10:
 	{
@@ -249,11 +249,11 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 14:
 	{
-		return "Etudiant";
+		return "Étudiant";
 	}
 	case 15:
 	{
-		return "Professeur";
+		return "Personnel";
 	}
 	}
 	return "Invalid property value!";

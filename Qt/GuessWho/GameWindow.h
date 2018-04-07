@@ -32,5 +32,6 @@ private:
 public:
 	GameWindow(QWidget *parent);
 	~GameWindow();
+	PauseMenu* getPauseMenu() { return pauseMenu; }
 };
 
