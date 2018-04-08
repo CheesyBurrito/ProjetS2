@@ -12,10 +12,15 @@
 
 class StartWindow : public QWidget
 {
+	Q_OBJECT
+
+	signals:
+		void keyPressed();
 	public:
 		StartWindow(QWidget* parent);
 		~StartWindow();
-		QPushButton* getButton();
+		void keyPressEvent(QKeyEvent *event);
+	
 	private:
 		QLabel * image;
 		QPushButton *quitButton;

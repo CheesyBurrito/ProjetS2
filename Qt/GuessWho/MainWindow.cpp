@@ -7,8 +7,8 @@ MainWindow::MainWindow() : QMainWindow()
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	start = new StartWindow(this);
+	connect(start, SIGNAL(keyPressed()), this, SLOT(openMenu()));
 	setCentralWidget(start);
-	QObject::connect(start->getButton(), SIGNAL(clicked()), this, SLOT(openMenu()));
 	menu = new MenuWindow(this);
 
 }

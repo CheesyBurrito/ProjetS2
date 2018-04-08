@@ -13,6 +13,7 @@
 #include <QSlider>
 #include <QFileDialog>
 #include "MenuButton.h"
+#include "AddCharacter.h"
 
 class MenuWindow : public QWidget
 {
@@ -23,6 +24,7 @@ class MenuWindow : public QWidget
 		void setOptionsHoveredButton();
 		void showDialog();
 		void addCharacters();
+		void set_Menu();
 
 	signals:
 		void hovered();
@@ -36,6 +38,9 @@ class MenuWindow : public QWidget
 		void optionsWindow();
 		void deleteOptionsWindow();
 		void deletePlayersWindow();
+
+		AddCharacter *AddCharacterWindow;
+		std::vector<QString> *character;
 
 		MenuButton* getOnePlayerButton() { return onePlayer; }
 		MenuButton* getTwoPlayersButton() { return twoPlayers; }

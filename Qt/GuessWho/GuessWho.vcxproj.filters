@@ -63,6 +63,9 @@
     <ClCompile Include="StartWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AddCharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CharacterCard.h">
@@ -95,9 +98,9 @@
     <CustomBuild Include="SideMenu.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="StartWindow.h">
+    <CustomBuild Include="StartWindow.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_CharacterCard.cpp">
@@ -142,6 +145,12 @@
     <ClCompile Include="release\moc_SideMenu.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_StartWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_StartWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -151,5 +160,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="C:\Users\Maxime\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AddCharacter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -244,17 +244,16 @@ void MenuWindow::setOptionsHoveredButton()
 
 void MenuWindow::addCharacters()
 {
-	/*QWidget *zoomWindow;
-	zoomWindow = new QWidget;
-	QVBoxLayout *zoomLayout = new QVBoxLayout(zoomWindow);
-	QLabel *img = new QLabel(zoomWindow);
-	img->setPixmap(picture);
-	zoomLayout->addWidget(img);
-
-	zoomWindow->setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	zoomWindow->setLayout(zoomLayout);
-	zoomWindow->setWindowFlags(Qt::SplashScreen);
-	zoomWindow->show();*/
+	character = new std::vector<QString>;
+	AddCharacterWindow = new AddCharacter(this);
+	AddCharacterWindow->show();
+	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), AddCharacterWindow, SLOT(close()));
+	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), this, SLOT(set_Menu()));
+	disconnect(addCharacter, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	disconnect(createNewList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	disconnect(changeList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	disconnect(back, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	this->setDisabled(true);
 }
 
 void MenuWindow::deleteOptionsWindow()
@@ -281,6 +280,15 @@ void MenuWindow::deletePlayersWindow()
 		delete joueur2;
 	}
 
+}
+
+void MenuWindow::set_Menu()
+{
+	setDisabled(false);
+	connect(addCharacter, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(createNewList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(changeList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(back, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
 }
 
 QString MenuWindow::getJoueur1Name()

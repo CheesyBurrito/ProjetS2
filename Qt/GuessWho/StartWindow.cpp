@@ -7,10 +7,8 @@ StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
     setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
-	quitButton = new QPushButton("Appuyez pour commencer!",this);
-	quitButton->setFlat(true);
+	quitButton = new QPushButton("Appuyez sur une touche pour commencer!",this);
 	quitButton->setStyleSheet("background: transparent; color : white");
-	quitButton->setCursor(Qt::PointingHandCursor);
 	quitButton->setFont(QFont("Walkway Bold", 30));
 
 	image = new QLabel(this);
@@ -20,7 +18,7 @@ StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
 
     layoutPrincipal = new QGridLayout(this);
 	layoutPrincipal->addWidget(image,0,0,10,1,Qt::AlignCenter);
-    layoutPrincipal->addWidget(quitButton,10,0);
+    layoutPrincipal->addWidget(quitButton,10,0,Qt::AlignCenter);
 
 	layoutPrincipal->setRowStretch(0, 50);
 	layoutPrincipal->setRowStretch(10,30);
@@ -36,8 +34,7 @@ StartWindow::~StartWindow()
 	delete image;
 }
 
-
-QPushButton* StartWindow::getButton()
+void StartWindow::keyPressEvent(QKeyEvent *event) 
 {
-	return quitButton;
+	emit keyPressed();
 }
