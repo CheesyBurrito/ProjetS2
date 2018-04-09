@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MenuWindow_t {
-    QByteArrayData data[8];
-    char stringdata0[99];
+    QByteArrayData data[10];
+    char stringdata0[118];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,15 +35,17 @@ QT_MOC_LITERAL(0, 0, 10), // "MenuWindow"
 QT_MOC_LITERAL(1, 11, 7), // "hovered"
 QT_MOC_LITERAL(2, 19, 0), // ""
 QT_MOC_LITERAL(3, 20, 20), // "setMenuHoveredButton"
-QT_MOC_LITERAL(4, 41, 23), // "setOptionsHoveredButton"
-QT_MOC_LITERAL(5, 65, 10), // "showDialog"
-QT_MOC_LITERAL(6, 76, 13), // "addCharacters"
-QT_MOC_LITERAL(7, 90, 8) // "set_Menu"
+QT_MOC_LITERAL(4, 41, 11), // "MenuButton*"
+QT_MOC_LITERAL(5, 53, 6), // "button"
+QT_MOC_LITERAL(6, 60, 23), // "setOptionsHoveredButton"
+QT_MOC_LITERAL(7, 84, 10), // "showDialog"
+QT_MOC_LITERAL(8, 95, 13), // "addCharacters"
+QT_MOC_LITERAL(9, 109, 8) // "set_Menu"
 
     },
     "MenuWindow\0hovered\0\0setMenuHoveredButton\0"
-    "setOptionsHoveredButton\0showDialog\0"
-    "addCharacters\0set_Menu"
+    "MenuButton*\0button\0setOptionsHoveredButton\0"
+    "showDialog\0addCharacters\0set_Menu"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,18 +66,18 @@ static const uint qt_meta_data_MenuWindow[] = {
        1,    0,   44,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   45,    2, 0x0a /* Public */,
-       4,    0,   46,    2, 0x0a /* Public */,
-       5,    0,   47,    2, 0x0a /* Public */,
-       6,    0,   48,    2, 0x0a /* Public */,
-       7,    0,   49,    2, 0x0a /* Public */,
+       3,    1,   45,    2, 0x0a /* Public */,
+       6,    1,   48,    2, 0x0a /* Public */,
+       7,    0,   51,    2, 0x0a /* Public */,
+       8,    0,   52,    2, 0x0a /* Public */,
+       9,    0,   53,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -90,12 +92,30 @@ void MenuWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->hovered(); break;
-        case 1: _t->setMenuHoveredButton(); break;
-        case 2: _t->setOptionsHoveredButton(); break;
+        case 1: _t->setMenuHoveredButton((*reinterpret_cast< MenuButton*(*)>(_a[1]))); break;
+        case 2: _t->setOptionsHoveredButton((*reinterpret_cast< MenuButton*(*)>(_a[1]))); break;
         case 3: _t->showDialog(); break;
         case 4: _t->addCharacters(); break;
         case 5: _t->set_Menu(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MenuButton* >(); break;
+            }
+            break;
+        case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MenuButton* >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
@@ -107,7 +127,6 @@ void MenuWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject MenuWindow::staticMetaObject = {
@@ -140,7 +159,7 @@ int MenuWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 6)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 6;
     }
     return _id;

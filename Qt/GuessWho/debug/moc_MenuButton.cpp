@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MenuButton_t {
-    QByteArrayData data[3];
-    char stringdata0[20];
+    QByteArrayData data[4];
+    char stringdata0[32];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,10 +33,11 @@ static const qt_meta_stringdata_MenuButton_t qt_meta_stringdata_MenuButton = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MenuButton"
 QT_MOC_LITERAL(1, 11, 7), // "hovered"
-QT_MOC_LITERAL(2, 19, 0) // ""
+QT_MOC_LITERAL(2, 19, 0), // ""
+QT_MOC_LITERAL(3, 20, 11) // "MenuButton*"
 
     },
-    "MenuButton\0hovered\0"
+    "MenuButton\0hovered\0\0MenuButton*"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,10 +55,10 @@ static const uint qt_meta_data_MenuButton[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x06 /* Public */,
+       1,    1,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 3,    2,
 
        0        // eod
 };
@@ -68,20 +69,30 @@ void MenuButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MenuButton *_t = static_cast<MenuButton *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->hovered(); break;
+        case 0: _t->hovered((*reinterpret_cast< MenuButton*(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 0:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MenuButton* >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            typedef void (MenuButton::*_t)();
+            typedef void (MenuButton::*_t)(MenuButton * );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MenuButton::hovered)) {
                 *result = 0;
                 return;
             }
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject MenuButton::staticMetaObject = {
@@ -114,16 +125,17 @@ int MenuButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 1;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 1)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 1;
     }
     return _id;
 }
 
 // SIGNAL 0
-void MenuButton::hovered()
+void MenuButton::hovered(MenuButton * _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
