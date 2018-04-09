@@ -14,16 +14,13 @@ class StartWindow : public QWidget
 {
 	Q_OBJECT
 
-	signals:
-		void keyPressed();
 	public:
 		StartWindow(QWidget* parent);
 		~StartWindow();
-		void keyPressEvent(QKeyEvent *event);
 	
 	private:
 		QLabel * image;
-		QPushButton *quitButton;
+		QLabel *quitButton;
 		QGridLayout *layoutPrincipal;
 };
 #endif 

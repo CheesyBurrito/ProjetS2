@@ -40,3 +40,8 @@
 *.exe
 *.out
 *.app
+*.vcxproj
+
+*.filters
+
+*.rc

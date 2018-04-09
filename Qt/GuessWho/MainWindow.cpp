@@ -8,7 +8,7 @@ MainWindow::MainWindow() : QMainWindow()
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	start = new StartWindow(this);
-	connect(start, SIGNAL(keyPressed()), this, SLOT(openMenu()));
+	connect(this, SIGNAL(keyPressed()), this, SLOT(openMenu()));
 	setCentralWidget(start);
 	menu = new MenuWindow(this);
 
@@ -22,6 +22,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::openMenu()
 {
+	disconnect(this, SIGNAL(keyPressed()), this, SLOT(openMenu()));
 	setCentralWidget(menu);
 	start->close();
 	delete start;
@@ -100,6 +101,7 @@ void MainWindow::gameWindow()
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
+	emit keyPressed();
 	if (event->key() == Qt::Key_Escape) {
 		emit escapeKeyPressed();
 	}
