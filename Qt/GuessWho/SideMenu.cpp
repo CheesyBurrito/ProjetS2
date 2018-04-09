@@ -19,7 +19,8 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(
 
 	
 	characteristics->setText("");
-	characteristics->setMaximumWidth(280);
+	characteristics->setMaximumWidth(200);
+	characteristics->setWordWrap(true);
 	characteristics->setAttribute(Qt::WA_TranslucentBackground);
 	characteristics->setAlignment(Qt::AlignLeft);
 	characteristics->setStyleSheet("background:transparent; color:white");

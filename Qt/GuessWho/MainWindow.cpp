@@ -2,7 +2,8 @@
 
 MainWindow::MainWindow() : QMainWindow()
 {
-	showFullScreen();
+	//showFullScreen();
+	show();
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 

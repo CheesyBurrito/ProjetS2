@@ -11,6 +11,7 @@ private:
 	QGridLayout * layout;
 	QPushButton *boutonZoom;
 	QPushButton *boutonNormal;
+	QLabel *infoText;
 
 
 public:
