@@ -60,6 +60,9 @@
     <ClCompile Include="PauseMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QuestionMenuBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SideMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="PauseMenu.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QuestionMenuBar.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="SideMenu.h">
@@ -142,6 +148,12 @@
     <ClCompile Include="release\moc_PauseMenu.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_QuestionMenuBar.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_QuestionMenuBar.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_SideMenu.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -162,6 +174,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\charl\OneDrive\Documents\git\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+    <ResourceCompile Include="C:\Users\William\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
   </ItemGroup>
 </Project>

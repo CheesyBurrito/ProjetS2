@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <string>
+#include "QuestionMenuBar.h"
 
 class SideMenu : public QWidget
 {
@@ -13,6 +14,7 @@ private:
 	QLabel * image2;
 	QLabel * characteristics;
 	QGridLayout * layout;
+	QuestionMenuBar * questionMenuBar;
 
 public slots:
 	void setTraits(std::string newTraits);
