@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QPainter>
+#include "CharacterTraits.h"
 
 class CharacterCard : public QPushButton
 {
@@ -18,12 +19,15 @@ private:
 	QPixmap flippedCard;
 	QIcon flippedCardIcon;
 
+	//TODO:REPLACE TRAITS BY COMPLETE CHARACTER WHEN ADDING THE GAME TO THE UI
+	CharacterTraits traits;
+
 public slots:
 	void flipCard();
 	void zoomCard();
 
 signals:
-	void hovered();
+	void hovered(std::string traits);
 	void doubleClicked();
 
 protected:
@@ -32,7 +36,7 @@ protected:
 
 
 public:
-	CharacterCard(QWidget *parent, int height, QString path, bool chosenCharacter = false);
+	CharacterCard(QWidget *parent, int height, QString path, string characterPath, bool chosenCharacter = false);
 	~CharacterCard();
 	void setChosenCharacter(QString path);
 	int getCardHeight();

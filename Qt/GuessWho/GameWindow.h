@@ -6,6 +6,9 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <vector>
+#include "PauseMenu.h"
+#include <QKeyEvent>
+#include "PauseMenu.h"
 
 class GameWindow : public QWidget
 {
@@ -16,15 +19,19 @@ private:
 	LowerBar *lowerBar;
 	SideMenu *sideMenu;
 	QCursor zoomCursor;
+	PauseMenu *pauseMenu;
+	bool isPaused = false;
 	/*QGridLayout *characterGrid;
 	std::vector<QLabel*> images;*/
 	
 	public slots :
 		void setZoomMode();
 		void setDefaultMode();
+		void togglePauseMenu();
 
 public:
 	GameWindow(QWidget *parent);
 	~GameWindow();
+	PauseMenu* getPauseMenu() { return pauseMenu; }
 };
 

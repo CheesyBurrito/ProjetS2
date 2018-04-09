@@ -12,13 +12,15 @@
 
 class StartWindow : public QWidget
 {
+	Q_OBJECT
+
 	public:
 		StartWindow(QWidget* parent);
 		~StartWindow();
-		QPushButton* getButton();
+	
 	private:
 		QLabel * image;
-		QPushButton *quitButton;
+		QLabel *quitButton;
 		QGridLayout *layoutPrincipal;
 };
 #endif 

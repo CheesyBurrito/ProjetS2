@@ -12,32 +12,46 @@
 #include <QLCDNumber>
 #include <QSlider>
 #include <QFileDialog>
+#include "MenuButton.h"
+#include "AddCharacter.h"
 
 class MenuWindow : public QWidget
 {
+	Q_OBJECT
+
+	public slots:
+		void setMenuHoveredButton(MenuButton *button);
+		void setOptionsHoveredButton(MenuButton *button);
+		void showDialog();
+		void addCharacters();
+		void set_Menu();
+
+	signals:
+		void hovered();
+
 	public:
 		MenuWindow(QWidget* parent);
 		~MenuWindow();
+		void startMenu();
 		void onePlayerWindow();
 		void twoPlayersWindow();
 		void optionsWindow();
-		void startMenu();
-		void showDialog();
-		void addCharacters();
 		void deleteOptionsWindow();
 		void deletePlayersWindow();
-		void updateList();
 
-		QPushButton* getOnePlayerButton();
-		QPushButton* getTwoPlayersButton();
-		QPushButton* getOptionsButton();
-		QPushButton* getQuitButton();
+		AddCharacter *AddCharacterWindow;
+		std::vector<QString> *character;
 
-		QPushButton* getAddCharacterButton();
-		QPushButton* getCreateNewListButton();
-		QPushButton* getChangeListButton();
-		QPushButton* getBackButton();
-		QPushButton* getOkButton();
+		MenuButton* getOnePlayerButton() { return onePlayer; }
+		MenuButton* getTwoPlayersButton() { return twoPlayers; }
+		MenuButton* getOptionsButton() { return optionsButton; }
+		MenuButton* getQuitButton() { return quitButton; }
+
+		MenuButton* getAddCharacterButton() { return addCharacter; }
+		MenuButton* getCreateNewListButton() { return createNewList; }
+		MenuButton* getChangeListButton() { return changeList; }
+		MenuButton* getBackButton() { return back; }
+		QPushButton* getOkButton() { return ok; }
 
 		QString getJoueur1Name();
 		QString getJoueur2Name();
@@ -45,23 +59,22 @@ class MenuWindow : public QWidget
 		int getNumberGames();
 
 	private:
-
 		QGridLayout * layoutPrincipal;
 		QLabel *image;
 		int widthImage;
 		int numberPlayer;
 
 		//menu1
-		QPushButton *onePlayer;
-		QPushButton *twoPlayers;
-		QPushButton *optionsButton;
-		QPushButton *quitButton;
+		MenuButton *onePlayer;
+		MenuButton *twoPlayers;
+		MenuButton *optionsButton;
+		MenuButton *quitButton;
 
 		//menu2
-		QPushButton *addCharacter;
-		QPushButton *createNewList;
-		QPushButton *changeList;
-		QPushButton *back;
+		MenuButton *addCharacter;
+		MenuButton *createNewList;
+		MenuButton *changeList;
+		MenuButton *back;
 		QLineEdit *active_List;
 		QString activeList = "./Ressources/CharacterFiles/characterList.gw";
 		QLabel *list;
@@ -75,7 +88,5 @@ class MenuWindow : public QWidget
 		QPushButton *ok;
 		QLCDNumber *m_lcd;
 		QSlider *m_slider;
-
-		//menu4
 };
 #endif 
