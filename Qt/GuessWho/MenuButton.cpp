@@ -26,6 +26,7 @@ void MenuButton::setIsSelected(bool selected)
 
 void MenuButton::enterEvent(QEvent* e)
 {
-	emit hovered(this);
+	emit hovered();
+	setIsSelected(true);
 	QWidget::enterEvent(e);
 }

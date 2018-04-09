@@ -14,7 +14,7 @@ class MenuButton : public QPushButton
 		bool isSelected;
 
 	signals:
-		void hovered(MenuButton*);
+		void hovered();
 
 	protected:
 		virtual void enterEvent(QEvent* e);

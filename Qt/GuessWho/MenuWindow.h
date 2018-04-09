@@ -20,8 +20,8 @@ class MenuWindow : public QWidget
 	Q_OBJECT
 
 	public slots:
-		void setMenuHoveredButton(MenuButton *button);
-		void setOptionsHoveredButton(MenuButton *button);
+		void setMenuHoveredButton();
+		void setOptionsHoveredButton();
 		void showDialog();
 		void addCharacters();
 		void set_Menu();
