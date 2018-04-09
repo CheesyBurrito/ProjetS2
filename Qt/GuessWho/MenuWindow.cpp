@@ -45,10 +45,10 @@ void MenuWindow::startMenu()
 	layoutPrincipal->setContentsMargins(0, 0, 0, 0);
 	layoutPrincipal->setSpacing(0);
 
-	QObject::connect(onePlayer, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
-	QObject::connect(twoPlayers, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
-	QObject::connect(optionsButton, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
-	QObject::connect(quitButton, SIGNAL(hovered()), this, SLOT(setMenuHoveredButton()));
+	QObject::connect(onePlayer, SIGNAL(hovered(MenuButton*)), this, SLOT(setMenuHoveredButton(MenuButton*)));
+	QObject::connect(twoPlayers, SIGNAL(hovered(MenuButton*)), this, SLOT(setMenuHoveredButton(MenuButton*)));
+	QObject::connect(optionsButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setMenuHoveredButton(MenuButton*)));
+	QObject::connect(quitButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setMenuHoveredButton(MenuButton*)));
 }
 
 void MenuWindow::onePlayerWindow()
@@ -209,10 +209,10 @@ void MenuWindow::optionsWindow()
 		layoutPrincipal->addWidget(list, 9, 0,1,4,Qt::AlignRight);
 		layoutPrincipal->addWidget(active_List, 9, 4, 1 ,4);
 
-	connect(addCharacter, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	connect(createNewList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	connect(changeList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	connect(back, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	connect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	connect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	connect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
 }
 
 void MenuWindow::showDialog()
@@ -226,20 +226,22 @@ void MenuWindow::showDialog()
 	active_List->setText(activeList);
 }
 
-void MenuWindow::setMenuHoveredButton()
+void MenuWindow::setMenuHoveredButton(MenuButton *button)
 {
 	onePlayer->setIsSelected(false);
 	twoPlayers->setIsSelected(false);
 	optionsButton->setIsSelected(false);
 	quitButton->setIsSelected(false);
+	button->setIsSelected(true);
 }
 
-void MenuWindow::setOptionsHoveredButton()
+void MenuWindow::setOptionsHoveredButton(MenuButton *button)
 {
 	addCharacter->setIsSelected(false);
 	createNewList->setIsSelected(false);
 	changeList->setIsSelected(false);
 	back->setIsSelected(false);
+	button->setIsSelected(true);
 }
 
 void MenuWindow::addCharacters()
@@ -249,10 +251,10 @@ void MenuWindow::addCharacters()
 	AddCharacterWindow->show();
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), AddCharacterWindow, SLOT(close()));
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), this, SLOT(set_Menu()));
-	disconnect(addCharacter, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	disconnect(createNewList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	disconnect(changeList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	disconnect(back, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	disconnect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	disconnect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	disconnect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	disconnect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
 	this->setDisabled(true);
 }
 
@@ -285,10 +287,10 @@ void MenuWindow::deletePlayersWindow()
 void MenuWindow::set_Menu()
 {
 	setDisabled(false);
-	connect(addCharacter, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	connect(createNewList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	connect(changeList, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
-	connect(back, SIGNAL(hovered()), this, SLOT(setOptionsHoveredButton()));
+	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	connect(createNewList, SIGNAL(hovered(MenuButton *)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	connect(changeList, SIGNAL(hovered(MenuButton *)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
+	connect(back, SIGNAL(hovered(MenuButton *)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
 }
 
 QString MenuWindow::getJoueur1Name()
