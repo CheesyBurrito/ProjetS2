@@ -2,12 +2,13 @@
 
 StartWindow::StartWindow(QWidget* parent) : QWidget(parent)
 {
+	//setFocusPolicy(Qt::StrongFocus);
 	int widthImage = parent->width() * 8/ 9;
 
     setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
-	quitButton = new QPushButton("Appuyez sur une touche pour commencer!",this);
+	quitButton = new QLabel("Appuyez sur une touche pour commencer!",this);
 	quitButton->setStyleSheet("background: transparent; color : white");
 	quitButton->setFont(QFont("Walkway Bold", 30));
 
@@ -32,9 +33,4 @@ StartWindow::~StartWindow()
 	delete quitButton;
 	delete layoutPrincipal;
 	delete image;
-}
-
-void StartWindow::keyPressEvent(QKeyEvent *event) 
-{
-	emit keyPressed();
 }

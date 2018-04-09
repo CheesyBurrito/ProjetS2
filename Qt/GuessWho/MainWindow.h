@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow
 
 	signals:
 		void escapeKeyPressed();
+		void keyPressed();
 
 	private:
 		StartWindow *start;
