@@ -21,13 +21,13 @@ private:
 	QCursor zoomCursor;
 	PauseMenu *pauseMenu;
 	bool isPaused = false;
+	bool zoomMode = false;
 	/*QGridLayout *characterGrid;
 	std::vector<QLabel*> images;*/
 	
 	public slots :
-		void setZoomMode();
-		void setDefaultMode();
 		void togglePauseMenu();
+		void toggleZoomMode();
 
 public:
 	GameWindow(QWidget *parent);

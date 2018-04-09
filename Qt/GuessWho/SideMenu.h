@@ -2,7 +2,10 @@
 #include <QWidget>
 #include <QLabel>
 #include <QGridLayout>
+#include <QVBoxLayout>
 #include <string>
+#include <QPushButton>
+#include <QIcon>
 
 class SideMenu : public QWidget
 {
@@ -13,12 +16,23 @@ private:
 	QLabel * image2;
 	QLabel * characteristics;
 	QGridLayout * layout;
+	QVBoxLayout * scoreLayout;
+
+	QIcon zoomModeIcon;
+	QIcon normalModeIcon;
+	QPushButton * zoomButton;
+	bool zoomMode = false;
+
+	QLabel * nbHiddenCharactersLabel;
 
 public slots:
 	void setTraits(std::string newTraits);
+	void switchZoomIcon();
 
 public:
 	SideMenu(QWidget *parent, int windowHeight, int windowWidth);
 	~SideMenu();
+
+	QPushButton* getZoomButton() { return zoomButton; }
 };
 

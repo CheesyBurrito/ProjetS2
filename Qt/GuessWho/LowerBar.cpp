@@ -6,10 +6,6 @@ LowerBar::LowerBar(QWidget *parent, int windowWidth, int windowHeight,int cardHe
 {
 	image = new QLabel(this);
 	layout = new QGridLayout(this);
-	boutonZoom = new QPushButton("Mode Zoom", this);
-	boutonZoom->setStyleSheet("background: green");
-	boutonNormal = new QPushButton("Mode Normal", this);
-	boutonNormal->setStyleSheet("background: green");
 	
 	infoText = new QLabel(this);
 	infoText->setText("Charles, est-ce que votre personnage porte un chapeau?");
@@ -26,10 +22,6 @@ LowerBar::LowerBar(QWidget *parent, int windowWidth, int windowHeight,int cardHe
 
 	//this->setStyleSheet("background-image: url(./Photos/Red.png)");
 	//this->setFixedHeight(100); 
-
-	layout->addWidget(boutonZoom,2,14,2,2);
-	layout->addWidget(boutonNormal,2,17,2,2);
-
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 	this->setLayout(layout);

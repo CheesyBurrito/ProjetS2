@@ -57,7 +57,6 @@ CharacterCard::~CharacterCard()
 }
 
 void CharacterCard::flipCard() {
-	QPixmap pixmap;
 
 		if (isFlipped)
 			this->setIcon(pictureIcon);
