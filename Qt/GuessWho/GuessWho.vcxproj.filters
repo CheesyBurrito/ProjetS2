@@ -83,9 +83,9 @@
     <CustomBuild Include="GameWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="LowerBar.h">
+    <CustomBuild Include="LowerBar.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <CustomBuild Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -116,6 +116,12 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_GameWindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_LowerBar.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_LowerBar.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_MainWindow.cpp">

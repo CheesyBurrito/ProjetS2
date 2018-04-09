@@ -29,6 +29,9 @@ public slots:
 	void setTraits(std::string newTraits);
 	void switchZoomIcon();
 
+signals:
+	void lowerBarTest(std::string, int);
+
 public:
 	SideMenu(QWidget *parent, int windowHeight, int windowWidth);
 	~SideMenu();

@@ -81,6 +81,9 @@ void SideMenu::setTraits(std::string newTraits) {
 
 
 void SideMenu::switchZoomIcon() {
+
+	emit lowerBarTest("TEST", zoomMode);
+
 	if (zoomMode)
 		zoomButton->setIcon(zoomModeIcon);
 	else

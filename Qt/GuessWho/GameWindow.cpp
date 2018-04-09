@@ -44,6 +44,8 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
 	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
+	connect(sideMenu, SIGNAL(lowerBarTest(std::string, int)), lowerBar, SLOT(changeText(std::string, int)));
+
 	this->setLayout(layout);
 	//pauseMenu->show();
 }
