@@ -68,9 +68,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AddCharacter.h">
+    <CustomBuild Include="AddCharacter.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
     <CustomBuild Include="CharacterCard.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -106,6 +106,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug\moc_AddCharacter.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_AddCharacter.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_CharacterCard.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -168,6 +174,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\charl\OneDrive\Documents\git\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
+    <ResourceCompile Include="C:\Users\Maxime\Documents\GitHub\ProjetS2\Qt\GuessWho\GuessWho_resource.rc" />
   </ItemGroup>
 </Project>
