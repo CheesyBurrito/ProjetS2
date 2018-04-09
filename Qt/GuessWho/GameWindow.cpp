@@ -6,7 +6,7 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 {
 	//setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	layout = new QGridLayout(this);
-	grid = new CharacterGrid(this, parent->height()-100, parent->width()-300);
+	grid = new CharacterGrid(this, parent->height()-100, parent->width()-320);
 	grid->setStyleSheet("background: transparent;");
 	lowerBar = new LowerBar(this, parent->width(),parent->height(),grid->getCardHeight());
 	lowerBar->setStyleSheet("background: transparent;");
