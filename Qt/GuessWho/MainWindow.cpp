@@ -107,12 +107,24 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 	}
 }
 
+void MainWindow::returnToMenu() {
+	this->game->getPauseMenu()->hide();
+	int answer = QMessageBox::question(NULL, "Quitter la partie", "Ceci entraînera la fin de la partie, voulez-vous vraiment quitter?", QMessageBox::Yes | QMessageBox::No);
+	if (answer == QMessageBox::Yes) { //Yes
+		this->game->getPauseMenu()->close();
+		this->menuWindowFromGame();
+	}
+	else { //No
+		this->game->getPauseMenu()->show();
+	}
+}
+
 void MainWindow::quitGame() {
 	this->game->getPauseMenu()->hide();
 	int answer = QMessageBox::question(NULL, "Quitter la partie", "Voulez-vous vraiment quitter la partie", QMessageBox::Yes | QMessageBox::No);
 	if (answer == QMessageBox::Yes) { //Yes
+		this->close();
 		this->game->getPauseMenu()->close();
-		this->menuWindowFromGame();
 	}
 	else { //No
 		this->game->getPauseMenu()->show();

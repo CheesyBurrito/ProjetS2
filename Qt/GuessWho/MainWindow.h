@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow
 		void twoPlayersWindow();
 		void optionsWindow();
 		void gameWindow();
+		void returnToMenu();
 		void quitGame();
 
 	signals:

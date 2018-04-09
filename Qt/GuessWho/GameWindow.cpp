@@ -39,9 +39,9 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 
 	connect(parent, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
 	connect(pauseMenu, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
-	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), pauseMenu, SLOT(close()));
-	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(close()));
-	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
+	//connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), pauseMenu, SLOT(close()));
+	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
+	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(returnToMenu()));
 	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
 	connect(sideMenu, SIGNAL(lowerBarTest(std::string, int)), lowerBar, SLOT(changeText(std::string, int)));
