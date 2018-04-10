@@ -67,15 +67,16 @@ void CharacterManager::printProperties()
 	}
 }
 
-bool CharacterManager::exportCharacters(string path)
+bool CharacterManager::exportCharacters(string saveName)
 {
-	ofstream file(path + "characterList.txt"); //Exports a list containing all files (used when importing characters)
-
+	//Exports a list containing all files (used when importing characters)
+	//ofstream file(pathToFile + saveName + fileExtension); 
+	ofstream file(saveName);
 	if (file.is_open()) {
 
 		for (int i = 0; i < characterVector.size(); i++)
 		{
-			if (characterVector.at(i)->exportCharacter(path) == false)
+			if (characterVector.at(i)->exportCharacter(saveName) == false)
 				return false;
 			file << characterVector.at(i)->get_id() << endl;
 		}
@@ -90,12 +91,23 @@ bool CharacterManager::exportCharacters(string path)
 
 bool CharacterManager::importCharacters(string path) 
 {
-	pathToFile = path;
-	ifstream file(path + "characterList.txt");
+	//pathToFile = path;
+
+	//ifstream file(path + fileName + fileExtension);
+	ifstream file(path);
 
 	vector<string> characterIDs;
 	int i = 0;
 	string currentID;
+
+	//Removes the .gw from the path
+	size_t foundExtension = path.find(fileExtension);
+	if (foundExtension != std::string::npos)
+	{
+		path.erase(foundExtension, fileExtension.length());
+	}
+
+	pathToFile = path;
 
 	if (file.is_open()) {
 
@@ -107,7 +119,7 @@ bool CharacterManager::importCharacters(string path)
 		file.close();
 
 		for (int j = 0; j < i; j++) { //Creates characters for each loaded ID
-			addCharacter(new Character(path + characterIDs[j] + ".txt"));
+			addCharacter(new Character(path + characterIDs[j] + characterFilesExtension));
 		}
 		isLoaded = true;
 		return true;

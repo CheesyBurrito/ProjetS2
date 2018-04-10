@@ -61,7 +61,7 @@ class MenuWindow : public QWidget
 		QString getJoueur1Name() { return joueur1->text();}
 		QString getJoueur1_2Name() { return joueur1_2->text(); }
 		QString getJoueur2Name() { return joueur2->text(); }
-		QString getListName() { return activeList; }
+		QString getActiveList() { return activeList; }
 		int getNumberGames() { return m_lcd->value(); }
 		int getNumberGames_2() { return m_lcd_2->value(); }
 		int getNumberPlayer() { return numberPlayer; }

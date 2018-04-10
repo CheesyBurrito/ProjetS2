@@ -2,21 +2,49 @@
 
 MainWindow::MainWindow() : QMainWindow()
 {
-	//showFullScreen();
-	show();
-	setWindowTitle("Guess Who?");
-	setStyleSheet("background-image: url(./Photos/header_logo.png)");
-
-	start = new StartWindow(this);
-	connect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
-	setCentralWidget(start);
-	menu = new MenuWindow(this);
-
+	constructorLogic();
 }
 
 MainWindow::~MainWindow()
 {
 	delete menu;
+}
+
+void MainWindow::constructorLogic()
+{
+	creatingObjects();
+	connectSignals();
+	settingWidgets();
+	settingMainWindow();
+}
+
+void MainWindow::creatingObjects()
+{
+	//Creating the objects for the GUI and Game
+	start = new StartWindow(this);
+	gameLogic = new Games();
+	menu = new MenuWindow(this);
+}
+
+void MainWindow::connectSignals()
+{
+	//Connecting the signals
+	connect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
+}
+
+void MainWindow::settingWidgets()
+{
+	//Setting the widgets
+	setCentralWidget(start);
+}
+
+void MainWindow::settingMainWindow()
+{
+	//Setting the MainWindow
+	setWindowTitle("Guess Who?");
+	setStyleSheet("background-image: url(./Photos/header_logo.png)");
+	//showFullScreen();
+	show();
 }
 
 void MainWindow::deleteStart()
@@ -35,6 +63,15 @@ void MainWindow::showMenuWindow()
 
 void MainWindow::gameWindow()
 {
+	//cout << menu->getActiveList().toStdString();
+	gameLogic->get_character_manager().importCharacters(menu->getActiveList().toStdString());
+	gameLogic->get_character_manager().shuffleCharacters();
+	gameLogic->get_character_manager().printProperties();
+
+	//This line is crucial, because it allows the other character manger to know what is the order
+	cout << gameLogic->get_character_manager().exportCharacters(menu->getActiveList().toStdString());
+	gameLogic->get_character_manager().printProperties();
+	cout << gameLogic->get_character_manager().get_character_vector().size();
 	takeCentralWidget();
 	game = new GameWindow(this);
 	setCentralWidget(game);

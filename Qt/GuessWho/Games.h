@@ -16,7 +16,7 @@ private:
 	Player player1;
 	Player player2;
 	enum gameStateEnum { Pause, player1Turn, player2Turn, CardReadingError }; //Indicates the possible states of the game
-	int gameState =player1Turn; //Indicates the current state of the game
+	int gameState = player1Turn; //Indicates the current state of the game
 	int tie = 0;
 	int numOfGames = 0;
 	int numOfGamesPlayed = 0;
@@ -51,7 +51,7 @@ public:
 	void set_num_of_games(int num_of_games);
 	int get_num_of_games_played() const;
 	void set_num_of_games_played(int num_of_games_played);
-	CharacterManager get_character_manager() const;
+	CharacterManager get_character_manager();
 	void set_character_manager(CharacterManager character_manager);
 	Board get_board_player1() const;
 	void set_board_player1(Board board_player1);

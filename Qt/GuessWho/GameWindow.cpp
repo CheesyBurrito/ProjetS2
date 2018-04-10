@@ -1,7 +1,5 @@
 #include "GameWindow.h"
 
-
-
 GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 {
 	//setStyleSheet("background-image: url(./Photos/header_logo.png)");
@@ -50,7 +48,6 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 	//pauseMenu->show();
 }
 
-
 GameWindow::~GameWindow()
 {
 }
@@ -93,6 +90,3 @@ void GameWindow::togglePauseMenu() {
 		isPaused = true;
 	}
 }
-
-
-

@@ -648,7 +648,7 @@ void Games::set_num_of_games_played(int num_of_games_played)
 	numOfGamesPlayed = num_of_games_played;
 }
 
-CharacterManager Games::get_character_manager() const
+CharacterManager Games::get_character_manager()
 {
 	return characterManager;
 }
