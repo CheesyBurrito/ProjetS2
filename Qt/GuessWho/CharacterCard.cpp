@@ -1,6 +1,14 @@
 #include "CharacterCard.h"
 
+CharacterCard::CharacterCard(QWidget *parent, int width, Character* character, bool chosenCharacter) {
+	this->character = character;
+	cardWidth = width;
+	cardHeight = 1.4*width;
+	isChosenCharacter = chosenCharacter;
 
+	setupRessources();
+	this->setMouseTracking(true);
+}
 
 CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string characterPath, bool chosenCharacter):QPushButton(parent)
 {
@@ -56,6 +64,40 @@ CharacterCard::~CharacterCard()
 {
 }
 
+void CharacterCard::setupRessources() {
+	//Sets the empty image with a red border for the 21st character
+	if (isChosenCharacter) {
+		QImage background("./Photos/header_logo.png");
+		QImage back("./Photos/BlankCharacter.png");
+
+		QImage front("./Photos/emptyFrame.png");
+
+		QPixmap combined(front.size());
+		QPainter p(&combined);
+		p.drawImage(QPoint(0, 0), background);
+		p.drawImage(QPoint(0, 0), back);
+		p.drawImage(QPoint(0, 0), front);
+		p.end();
+
+		picture = combined;
+		flippedCard.load("./Photos/red_turned_card.png");
+	}
+
+	else {
+		picture.load(QString::fromStdString(character->get_picture_path()));
+		flippedCard.load("./Photos/turned_card.png");
+	}
+
+	pictureIcon.addPixmap(picture.scaled(cardWidth, cardHeight));
+	flippedCardIcon.addPixmap(flippedCard.scaled(cardWidth, cardHeight));
+
+
+	this->setIcon(pictureIcon);
+
+	this->setIconSize(QSize(cardWidth, cardHeight));
+	this->setFixedSize(QSize(cardWidth, cardHeight));
+}
+
 void CharacterCard::flipCard() {
 
 		if (isFlipped)
@@ -68,8 +110,15 @@ void CharacterCard::flipCard() {
 
 void CharacterCard::enterEvent(QEvent* e)
 {
-	if(!isFlipped && this->traits.getEyes() != -1) //TODO : CHANGE TRAIT FOR CHARACTER WHEN CLASS IS IMPLEMENTED
+	//OLD VERSION DELETE WHEN BACK-END IS CONNECTED
+	if(!isFlipped && this->traits.getEyes() != -1)
 		emit hovered(this->traits.convertPropertiesToString());
+
+	//NEW VERSION
+	/*
+	if (!isFlipped && this->traits.getEyes() != -1)
+		emit hovered(this->character->get_character_traits()->convertPropertiesToString());
+	*/
 
 	QWidget::enterEvent(e);
 }
@@ -95,9 +144,10 @@ void CharacterCard::zoomCard() {
 	}
 }
 
-void CharacterCard::setChosenCharacter(QString path) {
+void CharacterCard::setChosenCharacter(Character* character) {
+	this->character = character;
 	QImage background("./Photos/header_logo.png");
-	QImage back(path);
+	QImage back(QString::fromStdString(character->get_picture_path()));
 
 	QImage front("./Photos/emptyFrame.png");
 
