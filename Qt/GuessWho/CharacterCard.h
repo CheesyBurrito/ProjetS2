@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QPainter>
 #include "CharacterTraits.h"
+#include "Character.h"
 
 class CharacterCard : public QPushButton
 {
@@ -18,6 +19,8 @@ private:
 	QIcon pictureIcon;
 	QPixmap flippedCard;
 	QIcon flippedCardIcon;
+
+	Character* character;
 
 	//TODO:REPLACE TRAITS BY COMPLETE CHARACTER WHEN ADDING THE GAME TO THE UI
 	CharacterTraits traits;
@@ -36,9 +39,12 @@ protected:
 
 
 public:
-	CharacterCard(QWidget *parent, int height, QString path, string characterPath, bool chosenCharacter = false);
+	//OLD CONSTRUCTOR DELETE WHEN BACKEND IS CONNECTED
+	CharacterCard(QWidget *parent, int width, QString path, string characterPath, bool chosenCharacter = false);
+	CharacterCard(QWidget *parent, int width, Character* character = NULL, bool chosenCharacter = false);
 	~CharacterCard();
-	void setChosenCharacter(QString path);
+	void setChosenCharacter(Character* character);
+	void setupRessources();
 	int getCardHeight();
 };
 
