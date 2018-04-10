@@ -9,7 +9,7 @@ class CharacterGrid : public QWidget
 {
 private:
 	QGridLayout * characterGrid;
-	std::vector<CharacterCard*> *images;
+	std::vector<CharacterCard*> *characters;
 	int gridWidth;
 	int gridHeight;
 	CharacterCard* chosenCharacter;
@@ -18,12 +18,13 @@ public:
 	CharacterGrid(QWidget *parent, int height, int width);
 	~CharacterGrid();
 
+	void setupCharacters(); //TODO : use character manager to add characters
+	void setupLayouts();
 	void calculateGridDimensions(int height, int width);
 
 	int getGridWidth() { return gridWidth; }
 	int getGridHeight() { return gridHeight; }
-	int getCardHeight();
 
-	std::vector<CharacterCard*>* getCharacters() { return images; }
+	std::vector<CharacterCard*>* getCharacters() { return characters; }
 };
 
