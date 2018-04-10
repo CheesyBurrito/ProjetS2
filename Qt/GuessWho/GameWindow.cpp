@@ -6,11 +6,11 @@ GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 {
 	//setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	layout = new QGridLayout(this);
-	grid = new CharacterGrid(this, parent->height()-100, parent->width()-320);
+	grid = new CharacterGrid(this, parent->height()-100, parent->width()-300);
 	grid->setStyleSheet("background: transparent;");
-	lowerBar = new LowerBar(this, parent->width(),parent->height(),grid->getCardHeight());
+	lowerBar = new LowerBar(this, parent->width(),parent->height()-grid->getGridHeight());
 	lowerBar->setStyleSheet("background: transparent;");
-	sideMenu = new SideMenu(this, parent->height(), parent->width());
+	sideMenu = new SideMenu(this, parent->height(), parent->width()-grid->getGridWidth());
 	sideMenu->setStyleSheet("background: transparent;");
 	pauseMenu = new PauseMenu(this);
 	layout->addWidget(grid, 0, 0);

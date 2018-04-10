@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <string>
 #include <QPushButton>
 #include <QIcon>
@@ -13,11 +14,13 @@ class SideMenu : public QWidget
 	Q_OBJECT
 
 private:
-	QLabel * image;
-	QLabel * image2;
+	QLabel * background;
+	QLabel * cornerBackground;
 	QLabel * characteristics;
 	QGridLayout * layout;
 	QVBoxLayout * scoreLayout;
+	QHBoxLayout * hLayout;
+	QLabel * infoText;
 
 	QIcon zoomModeIcon;
 	QIcon normalModeIcon;
@@ -27,6 +30,8 @@ private:
 	QLabel * nbHiddenCharactersLabel;
 	QuestionMenuBar * questionMenuBar;
 
+	int menuHeight, menuWidth;
+
 public slots:
 	void setTraits(std::string newTraits);
 	void switchZoomIcon();
@@ -35,8 +40,10 @@ signals:
 	void lowerBarTest(std::string, int);
 
 public:
-	SideMenu(QWidget *parent, int windowHeight, int windowWidth);
+	SideMenu(QWidget *parent, int height, int width);
 	~SideMenu();
+
+	void setupLayouts();
 
 	QPushButton* getZoomButton() { return zoomButton; }
 };

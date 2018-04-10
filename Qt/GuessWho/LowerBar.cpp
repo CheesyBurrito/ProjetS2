@@ -2,53 +2,23 @@
 
 
 
-LowerBar::LowerBar(QWidget *parent, int windowWidth, int windowHeight,int cardHeight):QWidget(parent)
+LowerBar::LowerBar(QWidget *parent, int width, int height):QWidget(parent)
 {
-	image = new QLabel(this);
+	background = new QLabel(this);
 	layout = new QGridLayout(this);
-	
+	hLayout = new QHBoxLayout(this);
 	infoText = new QLabel(this);
-	infoText->setText("Charles, est-ce que votre personnage porte un chapeau?");
-	infoText->setAttribute(Qt::WA_TranslucentBackground);
-	infoText->setAlignment(Qt::AlignLeft);
-	infoText->setAlignment(Qt::AlignVCenter);
-	infoText->setStyleSheet("background:transparent; color:white");
-	infoText->setFont(QFont("Walkway Bold", 16));
-	layout->addWidget(infoText, 2, 1, 2, 14);
 
-	QPixmap logo("./Photos/Red.png");
-	image->setPixmap(logo.scaled(windowWidth-300, 100));
-	layout->addWidget(image,0,0,6,20,Qt::AlignBottom);
+	barHeight = height;
+	barWidth = width;
+	
+	QPixmap img("./Photos/Red.png");
+	background->setPixmap(img.scaled(width-300, 100));
 
-	//this->setStyleSheet("background-image: url(./Photos/Red.png)");
-	//this->setFixedHeight(100); 
-	layout->setContentsMargins(0, 0, 0, 0);
-	layout->setSpacing(0);
-	this->setLayout(layout);
-	this->setGeometry(0, 0, windowWidth-300, windowHeight - 3 * cardHeight);
-	//this->setStyleSheet("background-color:black;")
+	setupWidgets();
+	setupLayouts();
 
-	yesButton = new QPushButton("Oui", this);
-		yesButton->setFlat(false);
-		yesButton->setStyleSheet("background: green; color : white");
-		yesButton->setCursor(Qt::PointingHandCursor);
-		yesButton->setFont(QFont("Walkway Bold", 30));
-	noButton = new QPushButton("Non", this);
-		noButton->setFlat(false);
-		noButton->setStyleSheet("background: red; color : white");
-		noButton->setCursor(Qt::PointingHandCursor);
-		noButton->setFont(QFont("Walkway Bold", 30));
-	okButton = new QPushButton("Ok", this);
-		okButton->setFlat(false);
-		okButton->setStyleSheet("background: green; color : white");
-		okButton->setCursor(Qt::PointingHandCursor);
-		okButton->setFont(QFont("Walkway Bold", 30));
-	layout->addWidget(yesButton, 2, 16);
-	layout->addWidget(noButton, 2, 18);
-	layout->addWidget(okButton, 2, 16);
-	yesButton->hide();
-	noButton->hide();
-	okButton->hide();
+	this->setGeometry(0, 0, width - 300, height);
 }
 
 
@@ -78,4 +48,54 @@ void LowerBar::changeText(std::string text, int mode) {
 	default:
 		break;
 	}
+}
+
+void LowerBar::setupWidgets() {
+	infoText->setText("Charles, est-ce que votre personnage porte un chapeau?");
+	infoText->setAttribute(Qt::WA_TranslucentBackground);
+	infoText->setAlignment(Qt::AlignLeft);
+	infoText->setAlignment(Qt::AlignVCenter);
+	infoText->setStyleSheet("background:transparent; color:white");
+	infoText->setFont(QFont("Walkway Bold", 16));
+
+	yesButton = new QPushButton("Oui", this);
+	yesButton->setFlat(false);
+	yesButton->setStyleSheet("background: green; color : white");
+	yesButton->setCursor(Qt::PointingHandCursor);
+	yesButton->setFont(QFont("Walkway Bold", 30));
+
+	noButton = new QPushButton("Non", this);
+	noButton->setFlat(false);
+	noButton->setStyleSheet("background: red; color : white");
+	noButton->setCursor(Qt::PointingHandCursor);
+	noButton->setFont(QFont("Walkway Bold", 30));
+
+	okButton = new QPushButton("Ok", this);
+	okButton->setFlat(false);
+	okButton->setStyleSheet("background: green; color : white");
+	okButton->setCursor(Qt::PointingHandCursor);
+	okButton->setFont(QFont("Walkway Bold", 30));
+
+	yesButton->hide();
+	noButton->hide();
+	okButton->hide();
+}
+
+void LowerBar::setupLayouts() {
+
+	hLayout->addWidget(infoText);
+	hLayout->addWidget(yesButton);
+	hLayout->addWidget(noButton);
+	hLayout->addWidget(okButton);
+
+	layout->setRowMinimumHeight(0, barHeight - 100); //First row is blank space
+	layout->addWidget(background, 1, 0, 1, 2, Qt::AlignBottom); //Image takes all of 2nd row
+	layout->addLayout(hLayout, 1, 1, 1, 1);
+
+	layout->setColumnMinimumWidth(0, 50); //Adds a space before the hBoxLayout
+
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(0);
+
+	this->setLayout(layout);
 }
