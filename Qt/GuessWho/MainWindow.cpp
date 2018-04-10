@@ -11,7 +11,8 @@ MainWindow::MainWindow() : QMainWindow()
 	connect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
 	setCentralWidget(start);
 	menu = new MenuWindow(this);
-
+	connect(menu->getOkButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
+	connect(menu->getOk_2Button(), SIGNAL(clicked()), this, SLOT(gameWindow()));
 }
 
 MainWindow::~MainWindow()
@@ -68,6 +69,7 @@ void MainWindow::returnToMenu() {
 	if (answer == QMessageBox::Yes) { //Yes
 		this->game->getPauseMenu()->close();
 		this->game->close();
+		delete game;
 		this->showMenuWindow();
 	}
 	else { //No

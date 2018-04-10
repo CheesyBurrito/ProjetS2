@@ -57,6 +57,7 @@ class MenuWindow : public QWidget
 		MenuButton* getChangeListButton() { return changeList; }
 		MenuButton* getBackButton() { return back; }
 		QPushButton* getOkButton() { return ok; }
+		QPushButton* getOk_2Button() { return ok_2; }
 
 		QString getJoueur1Name() { return joueur1->text();}
 		QString getJoueur1_2Name() { return joueur1_2->text(); }
@@ -71,6 +72,7 @@ class MenuWindow : public QWidget
 		QGridLayout * layoutPrincipal;
 		QLabel *image;
 		int widthImage;
+		int heightImage;
 		int numberPlayer;
 
 		//menu1

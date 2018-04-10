@@ -3,16 +3,17 @@
 
 MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
 {
-	widthImage = parent->width() * 2/ 3;
+	widthImage = parent->width() - 520;
+	heightImage = parent->height() *2/3;
 
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	
+
 	layoutPrincipal = new QGridLayout;
 
 	image = new QLabel(this);
 	QPixmap logo("./Photos/logo.png");
-	image->setPixmap(logo.scaled(widthImage, 1080, Qt::KeepAspectRatio));
+	image->setPixmap(logo.scaled(widthImage, heightImage, Qt::KeepAspectRatio));
 	layoutPrincipal->addWidget(image, 0, 0, 12, 4);
 
 	setLayout(layoutPrincipal);
@@ -110,6 +111,7 @@ void MenuWindow::createTwoPlayersWindow()
 	layoutPrincipal->setColumnStretch(5, 20);
 	layoutPrincipal->setColumnStretch(6, 10);
 
+
 	joueur1_2 = new QLineEdit;
 		joueur1_2->setStyleSheet("background: white;");
 		joueur1_2->setFont(QFont("Walkway Bold", 20));
@@ -192,7 +194,7 @@ void MenuWindow::createOptionsWindow()
 		layoutPrincipal->addWidget(changeList, 6, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(back, 7, 4, Qt::AlignLeft);
 		layoutPrincipal->addWidget(list, 9, 0,1,4,Qt::AlignRight);
-		layoutPrincipal->addWidget(active_List, 9, 4, 1 ,4);
+		layoutPrincipal->addWidget(active_List, 9, 4, 1 ,1);
 
 	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
 	connect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setOptionsHoveredButton(MenuButton*)));
@@ -287,6 +289,7 @@ void MenuWindow::hideTwoPlayersWindow()
 
 void MenuWindow::showFirstMenu()
 {
+	layoutPrincipal->setColumnStretch(5, 10);
 	layoutPrincipal->setSpacing(0);
 	show();
 	image->show();
@@ -320,6 +323,7 @@ void MenuWindow::showOptionsWindow()
 
 void MenuWindow::showOnePlayerWindow()
 {
+	layoutPrincipal->setColumnStretch(5, 20);
 	layoutPrincipal->setSpacing(10);
 	numberPlayer = 1;
 	hideFirstMenu();
@@ -329,11 +333,12 @@ void MenuWindow::showOnePlayerWindow()
 	m_lcd->show();
 	joueur1->show();
 	ok->show();
-	connect(ok, SIGNAL(clicked()), this->parent(), SLOT(gameWindow()));
+	//connect(ok, SIGNAL(clicked()), this->parent(), SLOT(gameWindow()));
 }
 
 void MenuWindow::showTwoPlayersWindow()
 {
+	layoutPrincipal->setColumnStretch(5, 20);
 	layoutPrincipal->setSpacing(10);
 	numberPlayer = 2;
 	hideFirstMenu();
@@ -345,7 +350,7 @@ void MenuWindow::showTwoPlayersWindow()
 	ok_2->show();
 	nom2->show();
 	joueur2->show();
-	connect(ok_2, SIGNAL(clicked()), this->parent(), SLOT(gameWindow()));
+	//connect(ok_2, SIGNAL(clicked()), this->parent(), SLOT(gameWindow()));
 }
 
 void MenuWindow::set_Menu()
