@@ -17,7 +17,8 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(
 	layout->addWidget(image, 0, 0, 6, 10);
 	layout->addWidget(image2, 6, 0,1,10);
 
-
+	questionMenuBar = new QuestionMenuBar(parent);
+	layout->addWidget(questionMenuBar, 0, 1, 5, 9);
 	
 	characteristics->setText("");
 	characteristics->setMaximumWidth(200);

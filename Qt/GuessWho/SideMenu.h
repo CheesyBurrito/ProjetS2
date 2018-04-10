@@ -4,8 +4,12 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <string>
+<<<<<<< HEAD
 #include <QPushButton>
 #include <QIcon>
+=======
+#include "QuestionMenuBar.h"
+>>>>>>> Search-Tree
 
 class SideMenu : public QWidget
 {
@@ -16,6 +20,7 @@ private:
 	QLabel * image2;
 	QLabel * characteristics;
 	QGridLayout * layout;
+<<<<<<< HEAD
 	QVBoxLayout * scoreLayout;
 
 	QIcon zoomModeIcon;
@@ -24,6 +29,9 @@ private:
 	bool zoomMode = false;
 
 	QLabel * nbHiddenCharactersLabel;
+=======
+	QuestionMenuBar * questionMenuBar;
+>>>>>>> Search-Tree
 
 public slots:
 	void setTraits(std::string newTraits);
