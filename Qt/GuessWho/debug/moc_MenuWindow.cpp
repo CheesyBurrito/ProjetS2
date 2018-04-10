@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MenuWindow_t {
-    QByteArrayData data[10];
-    char stringdata0[118];
+    QByteArrayData data[15];
+    char stringdata0[209];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,12 +40,20 @@ QT_MOC_LITERAL(5, 53, 6), // "button"
 QT_MOC_LITERAL(6, 60, 23), // "setOptionsHoveredButton"
 QT_MOC_LITERAL(7, 84, 10), // "showDialog"
 QT_MOC_LITERAL(8, 95, 13), // "addCharacters"
-QT_MOC_LITERAL(9, 109, 8) // "set_Menu"
+QT_MOC_LITERAL(9, 109, 8), // "set_Menu"
+QT_MOC_LITERAL(10, 118, 13), // "showFirstMenu"
+QT_MOC_LITERAL(11, 132, 17), // "showOptionsWindow"
+QT_MOC_LITERAL(12, 150, 19), // "showOnePlayerWindow"
+QT_MOC_LITERAL(13, 170, 20), // "showTwoPlayersWindow"
+QT_MOC_LITERAL(14, 191, 17) // "hideOptionsWindow"
 
     },
     "MenuWindow\0hovered\0\0setMenuHoveredButton\0"
     "MenuButton*\0button\0setOptionsHoveredButton\0"
-    "showDialog\0addCharacters\0set_Menu"
+    "showDialog\0addCharacters\0set_Menu\0"
+    "showFirstMenu\0showOptionsWindow\0"
+    "showOnePlayerWindow\0showTwoPlayersWindow\0"
+    "hideOptionsWindow"
 };
 #undef QT_MOC_LITERAL
 
@@ -55,7 +63,7 @@ static const uint qt_meta_data_MenuWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,14 +71,19 @@ static const uint qt_meta_data_MenuWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x06 /* Public */,
+       1,    0,   69,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    1,   45,    2, 0x0a /* Public */,
-       6,    1,   48,    2, 0x0a /* Public */,
-       7,    0,   51,    2, 0x0a /* Public */,
-       8,    0,   52,    2, 0x0a /* Public */,
-       9,    0,   53,    2, 0x0a /* Public */,
+       3,    1,   70,    2, 0x0a /* Public */,
+       6,    1,   73,    2, 0x0a /* Public */,
+       7,    0,   76,    2, 0x0a /* Public */,
+       8,    0,   77,    2, 0x0a /* Public */,
+       9,    0,   78,    2, 0x0a /* Public */,
+      10,    0,   79,    2, 0x0a /* Public */,
+      11,    0,   80,    2, 0x0a /* Public */,
+      12,    0,   81,    2, 0x0a /* Public */,
+      13,    0,   82,    2, 0x0a /* Public */,
+      14,    0,   83,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -78,6 +91,11 @@ static const uint qt_meta_data_MenuWindow[] = {
  // slots: parameters
     QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -97,6 +115,11 @@ void MenuWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->showDialog(); break;
         case 4: _t->addCharacters(); break;
         case 5: _t->set_Menu(); break;
+        case 6: _t->showFirstMenu(); break;
+        case 7: _t->showOptionsWindow(); break;
+        case 8: _t->showOnePlayerWindow(); break;
+        case 9: _t->showTwoPlayersWindow(); break;
+        case 10: _t->hideOptionsWindow(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -154,13 +177,13 @@ int MenuWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 11;
     }
     return _id;
 }

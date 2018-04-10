@@ -25,6 +25,11 @@ class MenuWindow : public QWidget
 		void showDialog();
 		void addCharacters();
 		void set_Menu();
+		void showFirstMenu();
+		void showOptionsWindow();
+		void showOnePlayerWindow();
+		void showTwoPlayersWindow();
+		void hideOptionsWindow();
 
 	signals:
 		void hovered();
@@ -32,15 +37,15 @@ class MenuWindow : public QWidget
 	public:
 		MenuWindow(QWidget* parent);
 		~MenuWindow();
-		void startMenu();
-		void onePlayerWindow();
-		void twoPlayersWindow();
-		void optionsWindow();
-		void deleteOptionsWindow();
-		void deletePlayersWindow();
+		void createFirstMenu();
+		void createOnePlayerWindow();
+		void createTwoPlayersWindow();
+		void createOptionsWindow();
+		void hideOnePlayerWindow();
+		void hideTwoPlayersWindow();
+		void hideFirstMenu();
 
 		AddCharacter *AddCharacterWindow;
-		std::vector<QString> *character;
 
 		MenuButton* getOnePlayerButton() { return onePlayer; }
 		MenuButton* getTwoPlayersButton() { return twoPlayers; }
@@ -53,10 +58,14 @@ class MenuWindow : public QWidget
 		MenuButton* getBackButton() { return back; }
 		QPushButton* getOkButton() { return ok; }
 
-		QString getJoueur1Name();
-		QString getJoueur2Name();
-		QString getListName();
-		int getNumberGames();
+		QString getJoueur1Name() { return joueur1->text();}
+		QString getJoueur1_2Name() { return joueur1_2->text(); }
+		QString getJoueur2Name() { return joueur2->text(); }
+		QString getListName() { return activeList; }
+		int getNumberGames() { return m_lcd->value(); }
+		int getNumberGames_2() { return m_lcd_2->value(); }
+		int getNumberPlayer() { return numberPlayer; }
+		
 
 	private:
 		QGridLayout * layoutPrincipal;
@@ -81,12 +90,20 @@ class MenuWindow : public QWidget
 		
 		//menu3
 		QLabel *nom1;
-		QLabel *nom2;
 		QLabel *numGames;
 		QLineEdit *joueur1;
-		QLineEdit *joueur2;
 		QPushButton *ok;
 		QLCDNumber *m_lcd;
 		QSlider *m_slider;
+
+		//menu4
+		QLabel *nom1_2;
+		QLabel *numGames_2;
+		QLineEdit *joueur1_2;
+		QPushButton *ok_2;
+		QLCDNumber *m_lcd_2;
+		QSlider *m_slider_2;
+		QLabel *nom2;
+		QLineEdit *joueur2;
 };
 #endif 

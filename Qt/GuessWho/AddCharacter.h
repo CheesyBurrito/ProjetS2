@@ -9,19 +9,34 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QFileDialog>
+#include <QMessageBox>
+#include <QStyle>
 
 class AddCharacter : public QWidget
 {
 	Q_OBJECT
+		
+signals:
+	void characterIsOk();
 
 public slots:
 	void showDialog();
 	void verifyAddCharacter();
 
 private:
+	int ID;
+	int eyes;
+	int hairColor;
+	int hairCharacteristics;
+	int gender;
+	int skinColor;
+	std::vector<int> accessories;
+	int facialHair;
+	int age;
+	QString name;
+
 	QVBoxLayout * layout;
 	QHBoxLayout *buttons;
-	QLabel *title;
 	
 	QHBoxLayout *nameBox;
 	QLabel *nameLabel;
@@ -36,7 +51,7 @@ private:
 
 	QGroupBox *hairColorBox;
 	QGroupBox *hairTraitsBox;
-	QHBoxLayout *hairColor;
+	QHBoxLayout *hairColorLayout;
 	QRadioButton *brownHair;
 	QRadioButton *redhead;
 	QRadioButton *blond;
@@ -44,12 +59,12 @@ private:
 	QRadioButton *whiteHair;
 	QRadioButton *others;
 
-	QHBoxLayout *hairTraits;
+	QHBoxLayout *hairTraitsLayout;
 	QRadioButton *bald;
 	QRadioButton *shortHair;
 	QRadioButton *longHair;
 
-	QVBoxLayout *accessoriesLayout;
+	QHBoxLayout *accessoriesLayout;
 	QGroupBox *accessoriesBox;
 	QCheckBox *glasses;
 	QCheckBox *hat;

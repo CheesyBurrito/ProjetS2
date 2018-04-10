@@ -21,12 +21,8 @@ class MainWindow : public QMainWindow
 		void keyPressEvent(QKeyEvent *event);
 
 	public slots:
-		void openMenu();
-		void menuWindow();
-		void menuWindowFromGame();
-		void onePlayerWindow();
-		void twoPlayersWindow();
-		void optionsWindow();
+		void deleteStart();
+		void showMenuWindow();
 		void gameWindow();
 		void returnToMenu();
 		void quitGame();

@@ -8,7 +8,7 @@ MainWindow::MainWindow() : QMainWindow()
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	start = new StartWindow(this);
-	connect(this, SIGNAL(keyPressed()), this, SLOT(openMenu()));
+	connect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
 	setCentralWidget(start);
 	menu = new MenuWindow(this);
 
@@ -16,88 +16,43 @@ MainWindow::MainWindow() : QMainWindow()
 
 MainWindow::~MainWindow()
 {
-	//delete menu;
-	//delete game;
+	delete menu;
 }
 
-void MainWindow::openMenu()
+void MainWindow::deleteStart()
 {
-	disconnect(this, SIGNAL(keyPressed()), this, SLOT(openMenu()));
-	setCentralWidget(menu);
+	disconnect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
 	start->close();
 	delete start;
-	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
-	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
-	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
-	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
+	showMenuWindow();
 }
 
-void MainWindow::menuWindow()
+void MainWindow::showMenuWindow()
 {
-	menu->deleteOptionsWindow();
-	menu->startMenu();
-	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
-	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
-	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
-	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
-}
-
-void MainWindow::menuWindowFromGame()
-{
-	menu = new MenuWindow(this);
-	game->close();
 	setCentralWidget(menu);
-	QObject::connect(menu->getOnePlayerButton(), SIGNAL(clicked()), this, SLOT(onePlayerWindow()));
-	QObject::connect(menu->getTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(twoPlayersWindow()));
-	QObject::connect(menu->getOptionsButton(), SIGNAL(clicked()), this, SLOT(optionsWindow()));
-	QObject::connect(menu->getQuitButton(), SIGNAL(clicked()), this, SLOT(close()));
-	delete game;
+	menu->showFirstMenu();
 }
-
-void MainWindow::onePlayerWindow()
-{
-	numberPlayer = 1;
-	menu->onePlayerWindow();
-	QObject::connect(menu->getOkButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
-}
-
-void MainWindow::twoPlayersWindow()
-{
-	numberPlayer = 2;
-	menu->twoPlayersWindow();
-	QObject::connect(menu->getOkButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
-}
-
-void MainWindow::optionsWindow()
-{
-	menu->optionsWindow();
-	QObject::connect(menu->getAddCharacterButton(), SIGNAL(clicked()), menu, SLOT(addCharacters()));
-	QObject::connect(menu->getCreateNewListButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
-	QObject::connect(menu->getChangeListButton(), SIGNAL(clicked()), menu, SLOT(showDialog()));
-	QObject::connect(menu->getBackButton(), SIGNAL(clicked()), this, SLOT(menuWindow()));
-}
-
 
 void MainWindow::gameWindow()
 {
+	takeCentralWidget();
 	game = new GameWindow(this);
 	setCentralWidget(game);
-	numberGames = menu->getNumberGames();
-
-	if (numberPlayer == 2)
+	if (menu->getNumberPlayer() == 2)
 	{
-		joueur1Name = menu->getJoueur1Name();
+		numberGames = menu->getNumberGames_2();
+		joueur1Name = menu->getJoueur1_2Name();
 		joueur2Name = menu->getJoueur2Name();
+		menu->hideTwoPlayersWindow();
 	}
 	else
 	{
+		numberGames = menu->getNumberGames();
 		joueur1Name = menu->getJoueur1Name();
 		joueur2Name = "AI";
+		menu->hideOnePlayerWindow();
 	}
-	menu->deletePlayersWindow();
-	menu->close();
-	delete menu;
-
+	//menu->hide();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -112,7 +67,8 @@ void MainWindow::returnToMenu() {
 	int answer = QMessageBox::question(NULL, "Quitter la partie", "Ceci entraînera la fin de la partie, voulez-vous vraiment quitter?", QMessageBox::Yes | QMessageBox::No);
 	if (answer == QMessageBox::Yes) { //Yes
 		this->game->getPauseMenu()->close();
-		this->menuWindowFromGame();
+		this->game->close();
+		this->showMenuWindow();
 	}
 	else { //No
 		this->game->getPauseMenu()->show();
