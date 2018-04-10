@@ -85,7 +85,7 @@ class MenuWindow : public QWidget
 		MenuButton *changeList;
 		MenuButton *back;
 		QLineEdit *active_List;
-		QString activeList = "./Ressources/CharacterFiles/characterList.gw";
+		QString activeList = "Ressources/CharacterFiles/characterList.gw";
 		QLabel *list;
 		
 		//menu3

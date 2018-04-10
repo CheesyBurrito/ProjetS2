@@ -63,15 +63,16 @@ void MainWindow::showMenuWindow()
 
 void MainWindow::gameWindow()
 {
-	//cout << menu->getActiveList().toStdString();
-	gameLogic->get_character_manager().importCharacters(menu->getActiveList().toStdString());
-	gameLogic->get_character_manager().shuffleCharacters();
-	gameLogic->get_character_manager().printProperties();
+	gameLogic->get_character_manager()->importCharacters(menu->getActiveList().toStdString());
+	gameLogic->get_character_manager()->shuffleCharacters();
+	gameLogic->get_character_manager()->printProperties();
 
 	//This line is crucial, because it allows the other character manger to know what is the order
-	cout << gameLogic->get_character_manager().exportCharacters(menu->getActiveList().toStdString());
-	gameLogic->get_character_manager().printProperties();
-	cout << gameLogic->get_character_manager().get_character_vector().size();
+	cout << gameLogic->get_character_manager()->exportCharacters(menu->getActiveList().toStdString());
+	//gameLogic->get_character_manager().printProperties();
+	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer1(), menu->getActiveList().toStdString());
+	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer2(), menu->getActiveList().toStdString());
+	//gameLogic->getPlayer1Reference()->set_name_of_player(menu->);
 	takeCentralWidget();
 	game = new GameWindow(this);
 	setCentralWidget(game);

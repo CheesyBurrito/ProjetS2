@@ -26,14 +26,13 @@ string CharacterManager::addCharacter(Character *c)
 		}
 	}
 	characterVector.push_back(c);
-
 	return "Character successfully added";
 }
 
 //Has to be updated to implement the use of vector based accessories indexing COMPLETED
 bool CharacterManager::generateCharacters()
 {
-	for(int i = 0; i < 20; i++)
+	for(int i = 0; i < get_total_character(); i++)
 	{
 		vector<int> generateAttribute;
 		int numAccessoryRand = rand() % 4;
@@ -53,17 +52,18 @@ bool CharacterManager::generateCharacters()
 
 void CharacterManager::printProperties()
 {
+	
 	for(int i = 0; i < characterVector.size(); i++)
 	{
 		if(characterVector.at(i)->is_is_hidden())
 		{
 			continue;
+
 		}
 		else
 		{
 			characterVector.at(i)->printProperties();
 		}
-		
 	}
 }
 
@@ -92,8 +92,8 @@ bool CharacterManager::exportCharacters(string saveName)
 bool CharacterManager::importCharacters(string path) 
 {
 	//pathToFile = path;
-
-	//ifstream file(path + fileName + fileExtension);
+	cout << path << endl;
+	//ifstream file(pathToFile + fileName + fileExtension);
 	ifstream file(path);
 
 	vector<string> characterIDs;
@@ -106,11 +106,18 @@ bool CharacterManager::importCharacters(string path)
 	{
 		path.erase(foundExtension, fileExtension.length());
 	}
-
+	
+	foundExtension = path.find(fileName);
+	if (foundExtension != std::string::npos)
+	{
+		path.erase(foundExtension, fileName.length());
+	}
+	
 	pathToFile = path;
-
+	//pathToFile = path;
+	//cout << pathToFile << endl;
 	if (file.is_open()) {
-
+		
 		while (getline(file, currentID)) { //Loads IDs from file
 			characterIDs.push_back(currentID); 
 			i++;
@@ -119,7 +126,7 @@ bool CharacterManager::importCharacters(string path)
 		file.close();
 
 		for (int j = 0; j < i; j++) { //Creates characters for each loaded ID
-			addCharacter(new Character(path + characterIDs[j] + characterFilesExtension));
+			addCharacter(new Character(pathToFile + characterIDs[j] + characterFilesExtension));
 		}
 		isLoaded = true;
 		return true;

@@ -16,10 +16,10 @@ Board::~Board()
 {
 }
 
-void Board::initializeCharacterManagerBoard(CharacterManager characterManager1)
+void Board::initializeCharacterManagerBoard(CharacterManager characterManager1, string path)
 {
 	//This first loads all of the same characters as the original characterManager
-	characterManager->importCharacters("Ressources/CharacterFiles/");
+	characterManager->importCharacters(path);
 	//The sorting will not be necessary as once the characterManager is shuffled, it exports it self
 	/*
 	//Then it applies the same order of the original character manger

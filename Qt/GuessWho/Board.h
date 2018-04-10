@@ -12,7 +12,7 @@ public:
 	~Board();
 
 	//General methods
-	void initializeCharacterManagerBoard(CharacterManager characterManager1);
+	void initializeCharacterManagerBoard(CharacterManager characterManager1, string path);
 
 	//Setters and Getters
 	CharacterManager* get_character_manager() const;

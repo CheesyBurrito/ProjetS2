@@ -167,8 +167,8 @@ void Games::preperationGame()
 	characterManager.importCharacters("Ressources/CharacterFiles/");
 	characterManager.shuffleCharacters();
 	characterManager.exportCharacters("Ressources/CharacterFiles/");//This line is crucial, because it allows the other character manger to know what is the order
-	copyCharacterManagerToPlayer(player1);
-	copyCharacterManagerToPlayer(player2);
+	//copyCharacterManagerToPlayer(player1);
+	//copyCharacterManagerToPlayer(player2);
 
 	if (numOfGames == 0)
 	{
@@ -329,9 +329,9 @@ void Games::renderGame(Player &player)
 		player.get_board_of_player()->get_character_manager()->printProperties();
 }
 
-void Games::copyCharacterManagerToPlayer(Player player)
+void Games::copyCharacterManagerToPlayer(Player player, string path)
 {
-	player.get_board_of_player()->initializeCharacterManagerBoard(characterManager);
+	player.get_board_of_player()->initializeCharacterManagerBoard(characterManager, path);
 }
 
 void Games::answerBotQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer) {
@@ -648,9 +648,9 @@ void Games::set_num_of_games_played(int num_of_games_played)
 	numOfGamesPlayed = num_of_games_played;
 }
 
-CharacterManager Games::get_character_manager()
+CharacterManager* Games::get_character_manager()
 {
-	return characterManager;
+	return &characterManager;
 }
 
 void Games::set_character_manager(CharacterManager character_manager)
