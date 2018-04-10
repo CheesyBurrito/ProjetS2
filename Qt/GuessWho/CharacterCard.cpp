@@ -24,7 +24,6 @@ CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string ch
 		p.end();
 
 		picture = combined;
-		//picture.load("./Photos/emptyFrame.png");
 		flippedCard.load("./Photos/red_turned_card.png");
 	}
 
@@ -42,13 +41,7 @@ CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string ch
 	this->setIconSize(QSize(width, cardHeight));
 	this->setFixedSize(QSize(width, cardHeight));
 
-	/*QPixmap loopCursorPix("./Photos/zoom.png");
-	QCursor loopCursor(loopCursorPix.scaled(25,25));
-	this->setCursor(loopCursor);*/
-
 	this->setMouseTracking(true);
-	//connect(this, SIGNAL(clicked()), this, SLOT(flipCard()));
-	//connect(this, SIGNAL(doubleClicked()), this, SLOT(zoomCard()));
 }
 
 
