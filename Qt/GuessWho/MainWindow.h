@@ -4,12 +4,11 @@
 
 #include <QMainWindow>
 #include <QWidget>
+#include <QKeyEvent>
+#include <QMessageBox>
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
-#include <QKeyEvent>
-#include <QMessageBox>
-
 
 class MainWindow : public QMainWindow
 {

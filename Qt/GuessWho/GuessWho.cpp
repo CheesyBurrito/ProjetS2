@@ -2,9 +2,8 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
-#include "StartWindow.h"
 #include "MainWindow.h"
-#include "MenuWindow.h"
+
 
 int main(int argc, char *argv[])
 {

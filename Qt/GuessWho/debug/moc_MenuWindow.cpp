@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MenuWindow_t {
-    QByteArrayData data[15];
-    char stringdata0[209];
+    QByteArrayData data[6];
+    char stringdata0[77];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,28 +32,16 @@ struct qt_meta_stringdata_MenuWindow_t {
 static const qt_meta_stringdata_MenuWindow_t qt_meta_stringdata_MenuWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MenuWindow"
-QT_MOC_LITERAL(1, 11, 7), // "hovered"
-QT_MOC_LITERAL(2, 19, 0), // ""
-QT_MOC_LITERAL(3, 20, 20), // "setMenuHoveredButton"
-QT_MOC_LITERAL(4, 41, 11), // "MenuButton*"
-QT_MOC_LITERAL(5, 53, 6), // "button"
-QT_MOC_LITERAL(6, 60, 23), // "setOptionsHoveredButton"
-QT_MOC_LITERAL(7, 84, 10), // "showDialog"
-QT_MOC_LITERAL(8, 95, 13), // "addCharacters"
-QT_MOC_LITERAL(9, 109, 8), // "set_Menu"
-QT_MOC_LITERAL(10, 118, 13), // "showFirstMenu"
-QT_MOC_LITERAL(11, 132, 17), // "showOptionsWindow"
-QT_MOC_LITERAL(12, 150, 19), // "showOnePlayerWindow"
-QT_MOC_LITERAL(13, 170, 20), // "showTwoPlayersWindow"
-QT_MOC_LITERAL(14, 191, 17) // "hideOptionsWindow"
+QT_MOC_LITERAL(1, 11, 16), // "createMenuWindow"
+QT_MOC_LITERAL(2, 28, 0), // ""
+QT_MOC_LITERAL(3, 29, 16), // "setOnePlayerGame"
+QT_MOC_LITERAL(4, 46, 17), // "setTwoPlayersGame"
+QT_MOC_LITERAL(5, 64, 12) // "showMainMenu"
 
     },
-    "MenuWindow\0hovered\0\0setMenuHoveredButton\0"
-    "MenuButton*\0button\0setOptionsHoveredButton\0"
-    "showDialog\0addCharacters\0set_Menu\0"
-    "showFirstMenu\0showOptionsWindow\0"
-    "showOnePlayerWindow\0showTwoPlayersWindow\0"
-    "hideOptionsWindow"
+    "MenuWindow\0createMenuWindow\0\0"
+    "setOnePlayerGame\0setTwoPlayersGame\0"
+    "showMainMenu"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,38 +51,20 @@ static const uint qt_meta_data_MenuWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: name, argc, parameters, tag, flags
-       1,    0,   69,    2, 0x06 /* Public */,
+       0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       3,    1,   70,    2, 0x0a /* Public */,
-       6,    1,   73,    2, 0x0a /* Public */,
-       7,    0,   76,    2, 0x0a /* Public */,
-       8,    0,   77,    2, 0x0a /* Public */,
-       9,    0,   78,    2, 0x0a /* Public */,
-      10,    0,   79,    2, 0x0a /* Public */,
-      11,    0,   80,    2, 0x0a /* Public */,
-      12,    0,   81,    2, 0x0a /* Public */,
-      13,    0,   82,    2, 0x0a /* Public */,
-      14,    0,   83,    2, 0x0a /* Public */,
-
- // signals: parameters
-    QMetaType::Void,
+       1,    0,   34,    2, 0x0a /* Public */,
+       3,    0,   35,    2, 0x0a /* Public */,
+       4,    0,   36,    2, 0x0a /* Public */,
+       5,    0,   37,    2, 0x0a /* Public */,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 4,    5,
-    QMetaType::Void, 0x80000000 | 4,    5,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -109,47 +79,14 @@ void MenuWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MenuWindow *_t = static_cast<MenuWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->hovered(); break;
-        case 1: _t->setMenuHoveredButton((*reinterpret_cast< MenuButton*(*)>(_a[1]))); break;
-        case 2: _t->setOptionsHoveredButton((*reinterpret_cast< MenuButton*(*)>(_a[1]))); break;
-        case 3: _t->showDialog(); break;
-        case 4: _t->addCharacters(); break;
-        case 5: _t->set_Menu(); break;
-        case 6: _t->showFirstMenu(); break;
-        case 7: _t->showOptionsWindow(); break;
-        case 8: _t->showOnePlayerWindow(); break;
-        case 9: _t->showTwoPlayersWindow(); break;
-        case 10: _t->hideOptionsWindow(); break;
+        case 0: _t->createMenuWindow(); break;
+        case 1: _t->setOnePlayerGame(); break;
+        case 2: _t->setTwoPlayersGame(); break;
+        case 3: _t->showMainMenu(); break;
         default: ;
         }
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        switch (_id) {
-        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 1:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MenuButton* >(); break;
-            }
-            break;
-        case 2:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 0:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MenuButton* >(); break;
-            }
-            break;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        {
-            typedef void (MenuWindow::*_t)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MenuWindow::hovered)) {
-                *result = 0;
-                return;
-            }
-        }
     }
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject MenuWindow::staticMetaObject = {
@@ -177,21 +114,15 @@ int MenuWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        if (_id < 4)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 4;
     }
     return _id;
-}
-
-// SIGNAL 0
-void MenuWindow::hovered()
-{
-    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

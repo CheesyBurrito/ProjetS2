@@ -11,8 +11,6 @@ MainWindow::MainWindow() : QMainWindow()
 	connect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
 	setCentralWidget(start);
 	menu = new MenuWindow(this);
-	connect(menu->getOkButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
-	connect(menu->getOk_2Button(), SIGNAL(clicked()), this, SLOT(gameWindow()));
 }
 
 MainWindow::~MainWindow()
@@ -25,35 +23,26 @@ void MainWindow::deleteStart()
 	disconnect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
 	start->close();
 	delete start;
+	connect(menu->getOkOnePlayerButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
+	connect(menu->getOkTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
 	showMenuWindow();
 }
 
 void MainWindow::showMenuWindow()
 {
 	setCentralWidget(menu);
-	menu->showFirstMenu();
+	menu->showMainMenu();
 }
 
 void MainWindow::gameWindow()
 {
+	menu->hide();
 	takeCentralWidget();
 	game = new GameWindow(this);
 	setCentralWidget(game);
-	if (menu->getNumberPlayer() == 2)
-	{
-		numberGames = menu->getNumberGames_2();
-		joueur1Name = menu->getJoueur1_2Name();
-		joueur2Name = menu->getJoueur2Name();
-		menu->hideTwoPlayersWindow();
-	}
-	else
-	{
-		numberGames = menu->getNumberGames();
-		joueur1Name = menu->getJoueur1Name();
-		joueur2Name = "AI";
-		menu->hideOnePlayerWindow();
-	}
-	//menu->hide();
+	numberGames = menu->getNumberGames();
+	joueur1Name = menu->getPlayer1Name();
+	joueur2Name = menu->getPlayer2Name();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
