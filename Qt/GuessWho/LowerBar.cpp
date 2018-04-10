@@ -1,24 +1,17 @@
 #include "LowerBar.h"
 
 
-
 LowerBar::LowerBar(QWidget *parent, int width, int height):QWidget(parent)
 {
-	background = new QLabel(this);
-	layout = new QGridLayout(this);
-	hLayout = new QHBoxLayout(this);
-	infoText = new QLabel(this);
-
-	barHeight = height;
-	barWidth = width;
+	this->setStyleSheet("background: transparent;");
 	
-	QPixmap img("./Photos/Red.png");
-	background->setPixmap(img.scaled(width-300, 100));
+	barHeight = height;
+	barWidth = width-300;
 
 	setupWidgets();
 	setupLayouts();
 
-	this->setGeometry(0, 0, width - 300, height);
+	this->setGeometry(0, 0, barWidth, height);
 }
 
 
@@ -51,6 +44,12 @@ void LowerBar::changeText(std::string text, int mode) {
 }
 
 void LowerBar::setupWidgets() {
+	background = new QLabel(this);
+	infoText = new QLabel(this);
+
+	QPixmap img("./Photos/Red.png");
+	background->setPixmap(img.scaled(barWidth, 100));
+
 	infoText->setText("Charles, est-ce que votre personnage porte un chapeau?");
 	infoText->setAttribute(Qt::WA_TranslucentBackground);
 	infoText->setAlignment(Qt::AlignLeft);
@@ -82,6 +81,8 @@ void LowerBar::setupWidgets() {
 }
 
 void LowerBar::setupLayouts() {
+	layout = new QGridLayout(this);
+	hLayout = new QHBoxLayout(this);
 
 	hLayout->addWidget(infoText);
 	hLayout->addWidget(yesButton);

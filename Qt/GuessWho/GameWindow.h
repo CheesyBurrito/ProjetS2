@@ -22,8 +22,8 @@ private:
 	PauseMenu *pauseMenu;
 	bool isPaused = false;
 	bool zoomMode = false;
-	/*QGridLayout *characterGrid;
-	std::vector<QLabel*> images;*/
+	int height, width;
+	QWidget* parent;
 	
 	public slots :
 		void togglePauseMenu();
@@ -32,6 +32,11 @@ private:
 public:
 	GameWindow(QWidget *parent);
 	~GameWindow();
+
+	void setupLayouts();
+	void setupWidgets();
+	void setupConnections();
+
 	PauseMenu* getPauseMenu() { return pauseMenu; }
 };
 

@@ -6,6 +6,7 @@
 
 CharacterGrid::CharacterGrid(QWidget *parent, int height, int width):QWidget(parent)
 {
+	this->setStyleSheet("background: transparent;");
 	images = new std::vector<CharacterCard*>;
 	characterGrid = new QGridLayout(this);
 	calculateGridDimensions(width, height);
