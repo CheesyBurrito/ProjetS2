@@ -8,8 +8,8 @@ CharacterGrid::CharacterGrid(QWidget *parent, int height, int width):QWidget(par
 {
 	images = new std::vector<CharacterCard*>;
 	characterGrid = new QGridLayout(this);
-	gridWidth = width;
-	chosenCharacter = new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(22) + ".png", "./Ressources/CharacterFiles/"+to_string(22)+".txt");
+	calculateGridDimensions(width, height);
+	//chosenCharacter = new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(22) + ".png", "./Ressources/CharacterFiles/"+to_string(22)+".txt");
 
 	for (int i = 0; i < 21; i++) {
 		if (i != 20)
@@ -51,4 +51,19 @@ CharacterGrid::~CharacterGrid()
 int CharacterGrid::getCardHeight()
 {
 	return chosenCharacter->getCardHeight();
+}
+
+void CharacterGrid::calculateGridDimensions(int w, int h) {
+	int tempHeight = 1.4*(w / 7);
+
+	if (tempHeight > h/3) { //Cards don't fit if they occupy all the horizontal space --> make them occupy vertical space instead
+		int cardWidth = 0.715*(h / 3);
+		gridHeight = h;
+		gridWidth = 7 * cardWidth;
+	}
+
+	else {
+		gridWidth = w;
+		gridHeight = 3 * tempHeight;
+	}
 }

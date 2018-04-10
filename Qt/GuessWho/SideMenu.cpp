@@ -2,22 +2,24 @@
 
 
 
-SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(parent)
+SideMenu::SideMenu(QWidget *parent, int height, int width) :QWidget(parent)
 {
-	image = new QLabel(this);
-	image2 = new QLabel(this);
-	characteristics = new QLabel(image);
+	background = new QLabel(this);
+	cornerBackground = new QLabel(this);
+	characteristics = new QLabel(background);
 	layout = new QGridLayout(this);
 	scoreLayout = new QVBoxLayout(this);
+	hLayout = new QHBoxLayout(this);
+
+	menuHeight = height;
+	menuWidth = width;
 
 	QPixmap pix("./Photos/side_menu.png");
-	image->setPixmap(pix.scaled(300, windowHeight-100));
+	background->setPixmap(pix.scaled(300, height-100));
 	QPixmap pix_corner("./Photos/corner_frame.png");
-	image2->setPixmap(pix_corner.scaled(300, 100));
-	layout->addWidget(image, 0, 0, 6, 10);
-	layout->addWidget(image2, 6, 0,1,10);
+	cornerBackground->setPixmap(pix_corner.scaled(300, 100));
 
-
+	questionMenuBar = new QuestionMenuBar(parent);
 	
 	characteristics->setText("");
 	characteristics->setMaximumWidth(200);
@@ -26,7 +28,6 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(
 	characteristics->setAlignment(Qt::AlignLeft);
 	characteristics->setStyleSheet("background:transparent; color:white");
 	characteristics->setFont(QFont("Walkway Bold", 12));
-	layout->addWidget(characteristics, 5, 1,2,9);
 
 	QPixmap img = QPixmap();
 	img.load("./Photos/zoom.png");
@@ -38,7 +39,7 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(
 	zoomButton->setIcon(zoomModeIcon);
 	zoomButton->setIconSize(QSize(50, 50));
 	zoomButton->setFixedSize(50, 50);
-	layout->addWidget(zoomButton, 6, 1, 1, 3);
+
 
 	nbHiddenCharactersLabel = new QLabel(this);
 	nbHiddenCharactersLabel->setText("5/20");
@@ -47,25 +48,20 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(
 	nbHiddenCharactersLabel->setAlignment(Qt::AlignBottom);
 	nbHiddenCharactersLabel->setStyleSheet("background:transparent; color:white");
 	nbHiddenCharactersLabel->setFont(QFont("Walkway Bold", 24));
-	scoreLayout->addWidget(nbHiddenCharactersLabel);
 
-	QLabel* infoText = new QLabel(this);
+	infoText = new QLabel(this);
 	infoText->setText("Adversaire");
 	infoText->setAttribute(Qt::WA_TranslucentBackground);
 	infoText->setAlignment(Qt::AlignRight);
 	infoText->setAlignment(Qt::AlignTop);
 	infoText->setStyleSheet("background:transparent; color:white");
 	infoText->setFont(QFont("Walkway Bold", 12));
-	scoreLayout->addWidget(infoText);
 
-	layout->addLayout(scoreLayout, 6, 4, 1, 5);
+	
+	setupLayouts();
 
-
-	this->setFixedWidth(300);
-	layout->setContentsMargins(0, 0, 0, 0);
-	layout->setSpacing(0);
-	this->setLayout(layout);
-	this->setGeometry(0, 0, 300, windowHeight);
+	//this->setFixedWidth(width);
+	this->setGeometry(0, 0, width, height);
 
 	connect(zoomButton, SIGNAL(clicked()), this, SLOT(switchZoomIcon()));
 }
@@ -73,6 +69,29 @@ SideMenu::SideMenu(QWidget *parent, int windowHeight, int windowWidth) :QWidget(
 
 SideMenu::~SideMenu()
 {
+}
+
+void SideMenu::setupLayouts() {
+	layout->setColumnMinimumWidth(0, menuWidth - 300); //Sets blank space before the actual menubar
+	layout->setColumnMinimumWidth(1, 20); //Moves content away from border
+	layout->addWidget(background, 0, 1, 2, 2);
+	layout->addWidget(cornerBackground, 2, 1, 1, 2);
+
+	questionMenuBar->setMaximumHeight(500);
+
+	hLayout->addWidget(zoomButton);
+	scoreLayout->addWidget(nbHiddenCharactersLabel);
+	scoreLayout->addWidget(infoText);
+	scoreLayout->setAlignment(Qt::AlignHCenter);
+	hLayout->addLayout(scoreLayout);
+
+	layout->addWidget(questionMenuBar, 0, 2);
+	layout->addWidget(characteristics, 1, 2);
+	layout->addLayout(hLayout, 2, 2);
+
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(0);
+	this->setLayout(layout);
 }
 
 void SideMenu::setTraits(std::string newTraits) {
