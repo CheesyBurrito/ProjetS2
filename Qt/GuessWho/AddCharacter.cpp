@@ -338,9 +338,9 @@ void AddCharacter::verifyAddCharacter()
 			dir.mkpath(".");
 		}
 
-		QString newImagePath = QString::fromStdString(saveName) + "/" + QString::number(ID) + ".png";
+		newPicturePath = saveName + "/" + to_string(ID) + ".png";
 
-		QFile::copy(picturePath, newImagePath);
+		QFile::copy(picturePath, QString::fromStdString(newPicturePath));
 	}
 	
 	if (!characterOk)

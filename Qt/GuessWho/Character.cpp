@@ -22,6 +22,13 @@ Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics
 	characterTraits = new CharacterTraits(eyes1, hairColor1, hairCharacteristics1, gender1, skinColor1, accessories1, facialHair1, age1, name1);
 }
 
+Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, vector<int> accessories1, int facialHair1, int age1, string name1, string picturePath1)
+{
+	ID = ID1;
+	picturePath = picturePath1;
+	characterTraits = new CharacterTraits(eyes1, hairColor1, hairCharacteristics1, gender1, skinColor1, accessories1, facialHair1, age1, name1);
+}
+
 Character::Character(string path)
 {
 	characterTraits = new CharacterTraits();
@@ -46,6 +53,7 @@ bool Character::exportCharacter(string path)
 		return false;
 
 	ofstream file(path + "/" + to_string(ID) + ".txt"); //Exports to path/ID.txt
+	picturePath = path + "/" + to_string(ID) + ".png";
 
 	if (file.is_open()) {
 		file << ID << endl;
