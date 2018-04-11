@@ -5,7 +5,6 @@
 
 CharacterManager::CharacterManager()
 {
-	//generateCharacters();
 }
 
 CharacterManager::~CharacterManager()
@@ -29,9 +28,9 @@ string CharacterManager::addCharacter(Character *c)
 	return "Character successfully added";
 }
 
-//Has to be updated to implement the use of vector based accessories indexing COMPLETED
 bool CharacterManager::generateCharacters()
 {
+	//Has to be updated to implement the use of vector based accessories indexing COMPLETED
 	for(int i = 0; i < get_total_character(); i++)
 	{
 		vector<int> generateAttribute;
@@ -70,7 +69,13 @@ void CharacterManager::printProperties()
 bool CharacterManager::exportCharacters(string saveName)
 {
 	//Exports a list containing all files (used when importing characters)
-	//ofstream file(pathToFile + saveName + fileExtension); 
+	
+	//Removes the .gw from the path
+	size_t foundSubstring = saveName.find(fileExtension);
+	if (foundSubstring != std::string::npos)
+	{
+		saveName.erase(foundSubstring, fileExtension.length());
+	}
 	ofstream file(saveName);
 	if (file.is_open()) {
 
@@ -91,9 +96,11 @@ bool CharacterManager::exportCharacters(string saveName)
 
 bool CharacterManager::importCharacters(string path) 
 {
-	//pathToFile = path;
-	cout << path << endl;
 	//ifstream file(pathToFile + fileName + fileExtension);
+
+	//Clears the characterVector to prevent mutliple lists to go in the same vector
+	clearCharacterVector();
+
 	ifstream file(path);
 
 	vector<string> characterIDs;
@@ -101,21 +108,20 @@ bool CharacterManager::importCharacters(string path)
 	string currentID;
 
 	//Removes the .gw from the path
-	size_t foundExtension = path.find(fileExtension);
-	if (foundExtension != std::string::npos)
+	size_t foundSubstring = path.find(fileExtension);
+	if (foundSubstring != std::string::npos)
 	{
-		path.erase(foundExtension, fileExtension.length());
+		path.erase(foundSubstring, fileExtension.length());
 	}
 	
-	foundExtension = path.find(fileName);
-	if (foundExtension != std::string::npos)
+	
+	foundSubstring = path.find(fileName);
+	if (foundSubstring != std::string::npos)
 	{
-		path.erase(foundExtension, fileName.length());
+		path.erase(foundSubstring, fileName.length());
 	}
 	
 	pathToFile = path;
-	//pathToFile = path;
-	//cout << pathToFile << endl;
 	if (file.is_open()) {
 		
 		while (getline(file, currentID)) { //Loads IDs from file
@@ -137,7 +143,19 @@ bool CharacterManager::importCharacters(string path)
 
 void CharacterManager::clearCharacterVector()
 {
-	characterVector.clear();
+	//First checks if vector is empty to prevent deleting null ptrs
+	if(characterVector.size() <= 0)
+	{
+		return;
+	}
+	else
+	{
+		while(0 < characterVector.size())
+		{
+			delete characterVector.back();
+			characterVector.pop_back();
+		}
+	}
 }
 
 void CharacterManager::shuffleCharacters()

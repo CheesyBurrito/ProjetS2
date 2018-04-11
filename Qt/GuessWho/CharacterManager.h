@@ -9,15 +9,10 @@ using namespace std;
 class CharacterManager
 {
 private:
-	bool isShuffle = false;
-	bool isLoaded = false;
-	int numCharacterHidden = 0;
-	int totalCharacter = 20;
-
-	string pathToFile = "Ressources/CharacterFiles/";
-	string fileExtension = ".gw";
-	string characterFilesExtension = ".txt";
-	string fileName = "characterList";
+	bool isShuffle = false; //Indicates if the character list was shuffled
+	bool isLoaded = false; //Indicates if the character list was loaded
+	int numCharacterHidden = 0; //The number of characters hidden in the character list
+	int totalCharacter = 20; //Total number of characters allowed in the game
 
 	int propertiesEyesIndex[4] = { 0, 1, 2, 3 }; //Possible values for the eyes color
 	int propertiesHairColorIndex[6] = { 0, 4, 5, 6, 7, 9 }; //Possible values for the hair color
@@ -28,9 +23,16 @@ private:
 	int propertiesAgeIndex[2] = {14, 15};
 	int propertiesGender[2] = {12, 13};
 
+	string pathToFile = "Ressources/CharacterFiles/";
+	string fileExtension = ".gw";
+	string characterFilesExtension = ".txt";
+	string fileName = "characterList";
+
 	enum physicalTraitsColor {Brun, Vert, Bleu, Rouge, Roux, Blond, Noir, Blanc, Basane, Autre};
 	enum physicalTraits {Rien, Chauve, Court, Long, Piercing, Chapeau, Lunette, Tattoo, Rase, BarbePleine, Moustache, Bouc, Homme, Femme, Etudiant, Professeur};
-	vector<Character*> characterVector;
+	
+	vector<Character*> characterVector; //The vector holding all the characters of the game
+
 	public:
 	//Constructor
 	CharacterManager();
@@ -43,6 +45,10 @@ private:
 	void printProperties(); //This function prints all the properties of the Objects in the vector
 	bool exportCharacters(string saveName); //Exports all characters in vector to files
 	bool importCharacters(string path); //Import all characters in the character Manager
+	/*
+	 *Should only be called during the game for changing the list, and not in the deconstructor
+	 *while running under the Qt environnement
+	*/
 	void clearCharacterVector(); //Deletes all elements of the vector, to reset the characters
 	void shuffleCharacters(); //Shuffles all of the characters present in the vector
 	bool smartCharacterCreation(const Character *c); // Generates characters that have logical traits, ie bald and white haire
@@ -52,6 +58,7 @@ private:
 	void hideCharacterAfterQuestion(int characteristicsSlected, int propertyID);
 	void hideCharacterAfterQuestionOpposite(int characteristicsSlected, int propertyID);
 	void hideCharacter(int characterID);
+
 	//Setters and Getters
 	bool is_is_shuffle() const;
 	void set_is_shuffle(bool is_shuffle);

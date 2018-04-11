@@ -24,6 +24,9 @@ void MainWindow::creatingObjects()
 	start = new StartWindow(this);
 	gameLogic = new Games();
 	menu = new MenuWindow(this);
+	//Loading the default character list
+	gameLogic->get_character_manager()->importCharacters
+	(menu->getOptionsMenu()->getActiveList().toStdString());
 }
 
 void MainWindow::connectSignals()
@@ -69,7 +72,10 @@ void MainWindow::showMenuWindow()
 void MainWindow::gameWindow()
 {
 	//GAME LOGIC *******************
-	gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
+	//gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
+
+	gameLogic->get_character_manager()->importCharacters
+	(menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->get_character_manager()->shuffleCharacters();
 	gameLogic->get_character_manager()->printProperties();
 
