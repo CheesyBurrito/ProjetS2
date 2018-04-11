@@ -652,8 +652,3 @@ CharacterManager* Games::get_character_manager()
 {
 	return &characterManager;
 }
-
-void Games::set_character_manager(CharacterManager character_manager)
-{
-	characterManager = move(character_manager);
-}

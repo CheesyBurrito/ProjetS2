@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QTreeWidgetItem>
 #include "CharacterManager.h"
+#include <array>
 
 class QuestionMenuBar : public QWidget
 {
@@ -13,14 +14,15 @@ class QuestionMenuBar : public QWidget
 private:
 	QVBoxLayout * vboxLayout = new QVBoxLayout;
 	QTreeWidget * treeView = new QTreeWidget;
-	QTreeWidgetItem* hairTreeItem[3];
-	QTreeWidgetItem* eyesTreeItem[1];
+	QTreeWidgetItem* hairTreeItem[12];
+	QTreeWidgetItem* eyesTreeItem[5];
 	QTreeWidgetItem* skinTreeItem[1];
 	QTreeWidgetItem* accessoriesTreeItem[1];
 	QTreeWidgetItem* ageTreeItem[1];
 	QTreeWidgetItem* genderTreeItem[1];
 
-	static CharacterManager characterMangagerDummy;
+	//DOES NOT CONTAIN ANY CHARACTERS, IT IS ONLY THERE TO BE USED FOR ITS METHODS
+	CharacterManager characterMangagerDummy;
 	
 	public slots:
 	void treeWidgetItemClicked(QTreeWidgetItem* item);

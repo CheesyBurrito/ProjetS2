@@ -18,6 +18,17 @@ void QuestionMenuBar::setupTreeView()
 	eyesTreeItem[0]->setText(0, "Yeux");
 	//Setup for all the possible values
 
+	for(int i = 0; i < characterMangagerDummy.propertiesEyesIndexSize; i++)
+	{
+		eyesTreeItem[i + 1] = new QTreeWidgetItem(eyesTreeItem[0]);
+		eyesTreeItem[i + 1]->setText(0, QString::fromStdString(
+			characterMangagerDummy.printPhysicalTraitsColorProperties(
+				characterMangagerDummy.propertiesEyesIndex[i])));
+	}
+	
+	
+
+	
 	
 	//For Hair
 	hairTreeItem[0] = new QTreeWidgetItem(treeView);
@@ -25,10 +36,25 @@ void QuestionMenuBar::setupTreeView()
 
 	hairTreeItem[1] = new QTreeWidgetItem(hairTreeItem[0]);
 	hairTreeItem[1]->setText(0, "Couleur");
+	//Setup ossible values for hair color
+	for (int i = 0; i < characterMangagerDummy.propertiesHairColorIndexSize; i++)
+	{
+		hairTreeItem[i + 2] = new QTreeWidgetItem(hairTreeItem[1]);
+		hairTreeItem[i + 2]->setText(0, QString::fromStdString(
+			characterMangagerDummy.printPhysicalTraitsColorProperties(
+				characterMangagerDummy.propertiesHairColorIndex[i])));
+	}
 
 	hairTreeItem[2] = new QTreeWidgetItem(hairTreeItem[0]);
 	hairTreeItem[2]->setText(0, "Physique");
 	//Setup for all the possible values
+	for (int i = 0; i < characterMangagerDummy.propertiesHairPhysiqueIndexSize; i++)
+	{
+		hairTreeItem[i + 1 + characterMangagerDummy.propertiesHairColorIndexSize] = new QTreeWidgetItem(hairTreeItem[2]);
+		hairTreeItem[i + 1 + characterMangagerDummy.propertiesHairColorIndexSize]->setText(0, QString::fromStdString(
+			characterMangagerDummy.printPhysicalTraitsProperties(
+				characterMangagerDummy.propertiesHairPhysiqueIndex[i])));
+	}
 
 	/*
 	hairTreeItem[3] = new QTreeWidgetItem(hairTreeItem[1]);

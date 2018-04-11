@@ -57,7 +57,6 @@ public:
 	int get_num_of_games_played() const;
 	void set_num_of_games_played(int num_of_games_played);
 	CharacterManager* get_character_manager();
-	void set_character_manager(CharacterManager character_manager);
 	Board get_board_player1() const;
 	void set_board_player1(Board board_player1);
 	Board get_board_player2() const;
