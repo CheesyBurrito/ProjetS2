@@ -111,14 +111,14 @@ void CharacterCard::flipCard() {
 void CharacterCard::enterEvent(QEvent* e)
 {
 	//OLD VERSION DELETE WHEN BACK-END IS CONNECTED
+	/*
 	if(!isFlipped && this->traits.getEyes() != -1)
 		emit hovered(this->traits.convertPropertiesToString());
-
+	*/
 	//NEW VERSION
-	/*
 	if (!isFlipped && this->traits.getEyes() != -1)
 		emit hovered(this->character->get_character_traits()->convertPropertiesToString());
-	*/
+	
 
 	QWidget::enterEvent(e);
 }

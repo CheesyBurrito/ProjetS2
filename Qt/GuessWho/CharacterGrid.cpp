@@ -22,7 +22,7 @@ CharacterGrid::~CharacterGrid()
 }
 
 //OLD VERSION DELETE WHEN BACKEND IS CONNECTED
-void CharacterGrid::setupCharacters() {
+/*void CharacterGrid::setupCharacters() {
 	characters = new std::vector<CharacterCard*>;
 
 	for (int i = 0; i < 21; i++) {
@@ -31,10 +31,10 @@ void CharacterGrid::setupCharacters() {
 		else //21st character has to be the "chosen character" card
 			characters->push_back(new CharacterCard(this, gridWidth / 7, "./Photos/Characters/" + QString::number(i) + ".png", "./Ressources/CharacterFiles/" + to_string(i) + ".txt", true));
 	}
-}
+}*/
 
 //NEW VERSION
-/*
+
 void CharacterGrid::setupCharacters() {
 	characters = new std::vector<CharacterCard*>;
 
@@ -45,7 +45,7 @@ void CharacterGrid::setupCharacters() {
 			characters->push_back(new CharacterCard(this, gridWidth / 7, NULL, true));
 	}
 }
-*/
+
 
 void CharacterGrid::setupLayouts() {
 	characterGrid = new QGridLayout(this);

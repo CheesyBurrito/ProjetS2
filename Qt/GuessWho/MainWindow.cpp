@@ -72,7 +72,13 @@ void MainWindow::showMenuWindow()
 void MainWindow::gameWindow()
 {
 	//GAME LOGIC *******************
-	//gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
+	
+	//Checks if enough characters in the vector if not -> error
+	if (gameLogic->get_character_manager()->get_character_vector().size() < 20) {
+		QMessageBox::critical(NULL, "Erreur", "Il n'y a pas assez de personnages dans la liste (minimum 20)", QMessageBox::Ok);
+		menu->showMainMenu();
+		return;
+	}
 
 	gameLogic->get_character_manager()->shuffleCharacters();
 	gameLogic->get_character_manager()->printProperties();
@@ -88,8 +94,8 @@ void MainWindow::gameWindow()
 	//GUI ************************
 	menu->hide();
 	takeCentralWidget();
-	game = new GameWindow(this);
-	setCentralWidget(game);
+	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1().get_board_of_player()->get_character_manager());
+	setCentralWidget(player1GameWindow);
 	numberGames = menu->getNumberGames();
 	player1Name = menu->getPlayer1Name();
 	player2Name = menu->getPlayer2Name();
@@ -102,28 +108,31 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 	}
 }
 
-void MainWindow::returnToMenu() {
-	this->game->getPauseMenu()->hide();
+void MainWindow::returnToMenu(GameWindow* caller) {
+	caller->getPauseMenu()->hide();
 	int answer = QMessageBox::question(NULL, "Quitter la partie", "Ceci entraînera la fin de la partie, voulez-vous vraiment quitter?", QMessageBox::Yes | QMessageBox::No);
 	if (answer == QMessageBox::Yes) { //Yes
-		this->game->getPauseMenu()->close();
-		this->game->close();
-		delete game;
+		this->player1GameWindow->getPauseMenu()->close();
+		this->player1GameWindow->close();
+		delete player1GameWindow;
+		this->player2GameWindow->getPauseMenu()->close();
+		this->player2GameWindow->close();
+		delete player2GameWindow;
 		this->showMenuWindow();
 	}
 	else { //No
-		this->game->getPauseMenu()->show();
+		caller->getPauseMenu()->show();
 	}
 }
 
-void MainWindow::quitGame() {
-	this->game->getPauseMenu()->hide();
+void MainWindow::quitGame(GameWindow* caller) {
+	caller->getPauseMenu()->hide();
 	int answer = QMessageBox::question(NULL, "Quitter la partie", "Voulez-vous vraiment quitter la partie", QMessageBox::Yes | QMessageBox::No);
 	if (answer == QMessageBox::Yes) { //Yes
 		this->close();
-		this->game->getPauseMenu()->close();
+		caller->getPauseMenu()->close();
 	}
 	else { //No
-		this->game->getPauseMenu()->show();
+		caller->getPauseMenu()->show();
 	}
 }

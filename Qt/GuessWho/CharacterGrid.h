@@ -20,7 +20,7 @@ public:
 	CharacterGrid(QWidget *parent, int height, int width, CharacterManager* characterManager = NULL);
 	~CharacterGrid();
 
-	void setupCharacters(); //TODO : use character manager to add characters
+	void setupCharacters();
 	void setupLayouts();
 	void calculateGridDimensions(int height, int width);
 

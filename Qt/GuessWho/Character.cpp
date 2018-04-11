@@ -53,7 +53,6 @@ bool Character::exportCharacter(string path)
 		return false;
 
 	ofstream file(path + "/" + to_string(ID) + ".txt"); //Exports to path/ID.txt
-	picturePath = path + "/" + to_string(ID) + ".png";
 
 	if (file.is_open()) {
 		file << ID << endl;
@@ -85,6 +84,14 @@ bool Character::exportCharacter(string path)
 bool Character::importCharacterFromFile(string path)
 {
 	//cout << path << endl;
+	string p_path = path;
+	size_t foundSubstring = p_path.find(".txt");
+	if (foundSubstring != std::string::npos)
+	{
+		p_path.erase(foundSubstring, 4);
+	}
+
+	picturePath = p_path + ".png";
 
 	ifstream file(path);
 

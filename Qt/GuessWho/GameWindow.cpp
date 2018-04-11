@@ -1,11 +1,11 @@
 #include "GameWindow.h"
 
 
-
-GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
+GameWindow::GameWindow(QWidget *parent, CharacterManager* characterManager) : QWidget(parent)
 {
 	height = parent->height();
 	width = parent->width();
+	c_manager = characterManager;
 	this->parent = parent;
 
 	setupWidgets();
@@ -37,8 +37,8 @@ void GameWindow::setupConnections() {
 	connect(pauseMenu, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
 
 	//Pause menu
-	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
-	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(returnToMenu()));
+	/*connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
+	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(returnToMenu()));*/
 	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
 	//Test signal
@@ -46,7 +46,7 @@ void GameWindow::setupConnections() {
 }
 
 void GameWindow::setupWidgets() {
-	grid = new CharacterGrid(this, height - 100, width - 300);
+	grid = new CharacterGrid(this, height - 100, width - 300, c_manager);
 	lowerBar = new LowerBar(this, width, height - grid->getGridHeight());
 	sideMenu = new SideMenu(this, height, width - grid->getGridWidth());
 	pauseMenu = new PauseMenu(this);
@@ -106,6 +106,5 @@ void GameWindow::togglePauseMenu() {
 
 	isPaused = !isPaused;
 }
-
 
 

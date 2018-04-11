@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QErrorMessage>
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
@@ -20,6 +21,8 @@ public:
 	MainWindow();
 	~MainWindow();
 	void keyPressEvent(QKeyEvent *event);
+	void returnToMenu(GameWindow* caller);
+	void quitGame(GameWindow* caller);
 
 //Methods that should only be called by the constructor
 protected:
@@ -33,8 +36,6 @@ public slots:
 	void deleteStart();
 	void showMenuWindow();
 	void gameWindow();
-	void returnToMenu();
-	void quitGame();
 
 signals:
 	void escapeKeyPressed();
@@ -45,7 +46,8 @@ private:
 	int numberPlayer;
 	StartWindow *start;
 	MenuWindow *menu;
-	GameWindow *game;
+	GameWindow *player1GameWindow;
+	GameWindow *player2GameWindow;
 	Games *gameLogic;
 	QString player1Name;
 	QString player2Name;

@@ -9,6 +9,7 @@
 #include "PauseMenu.h"
 #include <QKeyEvent>
 #include "PauseMenu.h"
+#include "CharacterManager.h"
 
 class GameWindow : public QWidget
 {
@@ -24,13 +25,13 @@ private:
 	bool zoomMode = false;
 	int height, width;
 	QWidget* parent;
-
+	CharacterManager* c_manager;
 	public slots :
 	void togglePauseMenu();
 	void toggleZoomMode();
 
 public:
-	GameWindow(QWidget *parent);
+	GameWindow(QWidget *parent, CharacterManager* characterManager);
 	~GameWindow();
 
 	void setupLayouts();
@@ -39,4 +40,3 @@ public:
 
 	PauseMenu* getPauseMenu() { return pauseMenu; }
 };
-
