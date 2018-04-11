@@ -23,6 +23,7 @@ class OptionsMenu : public QWidget
 	void addCharacters();
 	void activateOptionsMenu();
 	void createOptionsMenu();
+	void newList();
 
 signals:
 	void hovered(MenuButton*);

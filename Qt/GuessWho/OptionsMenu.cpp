@@ -95,10 +95,25 @@ void OptionsMenu::activateOptionsMenu()
 void OptionsMenu::showDialog()
 {
 	QString selfilter = tr("GuessWho Files (*.gw)");
-	QString fileDialog = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Photos", tr("GuessWho Files (*.gw)"), &selfilter);
-	if (fileDialog != "")
+	QString fileDialog = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Ressources/CharacterFiles", tr("GuessWho Files (*.gw)"), &selfilter);
+	if (fileDialog != "") //The list has been changed
 	{
 		activeList = fileDialog;
+		c_manager->importCharacters(fileDialog.toStdString()); //Change the current list
+	}
+	active_List->setText(activeList);
+}
+
+void OptionsMenu::newList() {
+	QString selfilter = tr("GuessWho Files (*.gw)");
+	QString fileDialog = QFileDialog::getSaveFileName(this, "Enregistrer une liste de personnages", "./Ressources/CharacterFiles", tr("GuessWho Files (*.gw)"), &selfilter);
+	if (fileDialog != "") //The list has been changed
+	{
+		activeList = fileDialog;
+		//Resets the list then exports the empty list to create the file
+		c_manager->clearCharacterVector();
+		c_manager->exportCharacters(fileDialog.toStdString());
+		//c_manager->importCharacters(fileDialog.toStdString()); //Change the current list
 	}
 	active_List->setText(activeList);
 }
