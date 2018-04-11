@@ -37,6 +37,8 @@ private:
 	std::vector<int> accessories;
 	int facialHair;
 	int age;
+	string newPicturePath;
+
 	QString name;
 
 	QVBoxLayout * layout;

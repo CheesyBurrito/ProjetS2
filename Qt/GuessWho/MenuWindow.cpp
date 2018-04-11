@@ -43,8 +43,7 @@ void MenuWindow::createMenuWindow()
 	layout->addWidget(optionsMenu);
 
 	connect(optionsMenu->getAddCharacterButton(), SIGNAL(clicked()), optionsMenu, SLOT(addCharacters()));
-	connect(optionsMenu->getCreateNewListButton(), SIGNAL(clicked()), optionsMenu, SLOT(hide()));
-	connect(optionsMenu->getCreateNewListButton(), SIGNAL(clicked()), mainMenu, SLOT(show()));
+	connect(optionsMenu->getCreateNewListButton(), SIGNAL(clicked()), optionsMenu, SLOT(newList()));
 	connect(optionsMenu->getChangeListButton(), SIGNAL(clicked()), optionsMenu, SLOT(showDialog()));
 	connect(optionsMenu->getBackButton(), SIGNAL(clicked()), optionsMenu, SLOT(hide()));
 	connect(optionsMenu->getBackButton(), SIGNAL(clicked()), mainMenu, SLOT(show()));
