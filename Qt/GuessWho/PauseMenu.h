@@ -4,27 +4,33 @@
 #include <QKeyEvent>
 #include <QGridLayout>
 #include <QPushButton>
+#include "MenuButton.h"
 
 class PauseMenu : public QWidget
 {
 	Q_OBJECT
 
+public slots:
+	void setHoveredButton(MenuButton *button);
+	
 private:
 	QGridLayout * layout;
-	QPushButton * quitButton;
-	QPushButton * resumeButton;
-	QPushButton * cancelGameButton;
+	MenuButton * quitButton;
+	MenuButton * resumeButton;
+	MenuButton * cancelGameButton;
+	QLabel *pauseBackground;
 
 signals :
 	void escapeKeyPressed();
+	void hovered(MenuButton*);
 
 public:
 	PauseMenu(QWidget* parent);
 	~PauseMenu();
 
 	void keyPressEvent(QKeyEvent *event);
-	QPushButton* getQuitButton() { return quitButton; }
-	QPushButton* getResumeButton() { return resumeButton; }
-	QPushButton* getCancelGameButton() { return cancelGameButton; }
+	MenuButton * getQuitButton() { return quitButton; }
+	MenuButton * getResumeButton() { return resumeButton; }
+	MenuButton * getCancelGameButton() { return cancelGameButton; }
 };
 

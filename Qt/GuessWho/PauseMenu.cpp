@@ -3,18 +3,29 @@
 
 PauseMenu::PauseMenu(QWidget* parent)
 {
-	layout = new QGridLayout(this);
-	quitButton = new QPushButton("Quitter", this);
-	resumeButton = new QPushButton("Retourner au jeu", this);
-	cancelGameButton = new QPushButton("Retourner au menu", this);
 
-	this->setFixedSize(200, 200);
+	pauseBackground = new QLabel(this);
+	QPixmap pause_Pix("./Photos/pauseMenu.png");
+	pauseBackground->setPixmap(pause_Pix.scaled(600, 320));
+
+	layout = new QGridLayout(this);
+	quitButton = new MenuButton(this, " Quitter");
+	resumeButton = new MenuButton(this, " Retourner au jeu");
+	cancelGameButton = new MenuButton(this, " Retourner au menu");
+
 	this->setWindowFlag(Qt::WindowStaysOnTopHint);
 	this->setWindowFlag(Qt::FramelessWindowHint);
-	layout->addWidget(resumeButton, 0, 0);
-	layout->addWidget(cancelGameButton, 1, 0);
-	layout->addWidget(quitButton, 2, 0);
+	layout->setAlignment(Qt::AlignCenter);
+	layout->setSpacing(0);
+	layout->addWidget(pauseBackground,0,0,5,1,Qt::AlignCenter);
+	layout->addWidget(resumeButton,1,0, Qt::AlignCenter);
+	layout->addWidget(cancelGameButton,2,0, Qt::AlignCenter);
+	layout->addWidget(quitButton,3,0, Qt::AlignCenter);
 	this->setLayout(layout);
+
+	connect(resumeButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(cancelGameButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(quitButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 }
 
 
@@ -26,4 +37,12 @@ void PauseMenu::keyPressEvent(QKeyEvent *event) {
 	if (event->key() == Qt::Key_Escape) {
 		emit escapeKeyPressed();
 	}
+}
+
+void PauseMenu::setHoveredButton(MenuButton *button)
+{
+	resumeButton->setIsSelected(false);
+	cancelGameButton->setIsSelected(false);
+	quitButton->setIsSelected(false);
+	button->setIsSelected(true);
 }
