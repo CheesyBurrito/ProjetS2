@@ -4,11 +4,11 @@
 
 #include <QMainWindow>
 #include <QWidget>
+#include <QKeyEvent>
+#include <QMessageBox>
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
-#include <QKeyEvent>
-#include <QMessageBox>
 #include "Games.h"
 
 
@@ -47,8 +47,8 @@ private:
 	MenuWindow *menu;
 	GameWindow *game;
 	Games *gameLogic;
-	QString joueur1Name;
-	QString joueur2Name;
+	QString player1Name;
+	QString player2Name;
 	
 };
 	

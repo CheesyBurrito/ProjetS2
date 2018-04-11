@@ -24,8 +24,8 @@ private:
 	QPushButton * noButton;
 	QPushButton * okButton;
 
-	
-	
+
+
 	int barHeight;
 	int barWidth;
 

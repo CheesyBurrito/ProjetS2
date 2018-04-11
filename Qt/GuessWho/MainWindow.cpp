@@ -12,10 +12,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::constructorLogic()
 {
+	settingMainWindow();
 	creatingObjects();
 	connectSignals();
 	settingWidgets();
-	settingMainWindow();
 }
 
 void MainWindow::creatingObjects()
@@ -36,6 +36,7 @@ void MainWindow::settingWidgets()
 {
 	//Setting the widgets
 	setCentralWidget(start);
+	menu->hide();
 }
 
 void MainWindow::settingMainWindow()
@@ -43,6 +44,7 @@ void MainWindow::settingMainWindow()
 	//Setting the MainWindow
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
+	this->setGeometry(100, 100, 1366, 768);
 	//showFullScreen();
 	show();
 }
@@ -52,45 +54,41 @@ void MainWindow::deleteStart()
 	disconnect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
 	start->close();
 	delete start;
+	connect(menu->getOkOnePlayerButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
+	connect(menu->getOkTwoPlayersButton(), SIGNAL(clicked()), this, SLOT(gameWindow()));
 	showMenuWindow();
 }
 
 void MainWindow::showMenuWindow()
 {
+	menu->show();
 	setCentralWidget(menu);
-	menu->showFirstMenu();
+	menu->showMainMenu();
 }
 
 void MainWindow::gameWindow()
 {
-	gameLogic->get_character_manager()->importCharacters(menu->getActiveList().toStdString());
+	//GAME LOGIC *******************
+	gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->get_character_manager()->shuffleCharacters();
 	gameLogic->get_character_manager()->printProperties();
 
 	//This line is crucial, because it allows the other character manger to know what is the order
-	cout << gameLogic->get_character_manager()->exportCharacters(menu->getActiveList().toStdString());
+	cout << gameLogic->get_character_manager()->exportCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
 	//gameLogic->get_character_manager().printProperties();
-	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer1(), menu->getActiveList().toStdString());
-	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer2(), menu->getActiveList().toStdString());
+	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer1(), menu->getOptionsMenu()->getActiveList().toStdString());
+	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer2(), menu->getOptionsMenu()->getActiveList().toStdString());
 	//gameLogic->getPlayer1Reference()->set_name_of_player(menu->);
+
+
+	//GUI ************************
+	menu->hide();
 	takeCentralWidget();
 	game = new GameWindow(this);
 	setCentralWidget(game);
-	if (menu->getNumberPlayer() == 2)
-	{
-		numberGames = menu->getNumberGames_2();
-		joueur1Name = menu->getJoueur1_2Name();
-		joueur2Name = menu->getJoueur2Name();
-		menu->hideTwoPlayersWindow();
-	}
-	else
-	{
-		numberGames = menu->getNumberGames();
-		joueur1Name = menu->getJoueur1Name();
-		joueur2Name = "AI";
-		menu->hideOnePlayerWindow();
-	}
-	//menu->hide();
+	numberGames = menu->getNumberGames();
+	player1Name = menu->getPlayer1Name();
+	player2Name = menu->getPlayer2Name();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -106,6 +104,7 @@ void MainWindow::returnToMenu() {
 	if (answer == QMessageBox::Yes) { //Yes
 		this->game->getPauseMenu()->close();
 		this->game->close();
+		delete game;
 		this->showMenuWindow();
 	}
 	else { //No

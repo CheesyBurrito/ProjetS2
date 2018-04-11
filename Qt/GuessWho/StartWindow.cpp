@@ -34,7 +34,7 @@ void StartWindow::creatingObjects()
 	quitButton = new QLabel("Appuyez sur une touche pour commencer!", this);
 	image = new QLabel(this);
 	logoImage = new QPixmap("./Photos/logo.png");
-	layoutPrincipal = new QGridLayout(this);
+	layoutPrincipal = new QVBoxLayout(this);
 }
 
 void StartWindow::settingObjectsProperties()
@@ -44,25 +44,22 @@ void StartWindow::settingObjectsProperties()
 	//Quit Button
 	quitButton->setStyleSheet("background: transparent; color : white");
 	quitButton->setFont(QFont("Walkway Bold", 30));
+	quitButton->setAlignment(Qt::AlignCenter);
 
 	//Logo Image
 	image->setPixmap(logoImage->scaled(widthImage, heightImage, Qt::KeepAspectRatio));
-	image->setStyleSheet("background: transparent;");
 }
 
 void StartWindow::settingLayout()
 {
 	//Setting the Layout
-	layoutPrincipal->addWidget(image, 0, 0, 10, 1, Qt::AlignCenter);
-	layoutPrincipal->addWidget(quitButton, 10, 0, Qt::AlignCenter);
-
-	layoutPrincipal->setRowStretch(0, 50);
-	layoutPrincipal->setRowStretch(10, 30);
-	layoutPrincipal->setRowStretch(11, 30);
+	layoutPrincipal->addWidget(image, Qt::AlignCenter);
+	layoutPrincipal->addWidget(quitButton, Qt::AlignCenter);
 }
 
 void StartWindow::settingWindow()
 {
+	setFocusPolicy(Qt::StrongFocus);
 	setLayout(layoutPrincipal);
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");

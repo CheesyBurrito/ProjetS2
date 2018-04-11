@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QPixmap>
 
 class StartWindow : public QWidget
@@ -32,7 +32,7 @@ private:
 	QPixmap *logoImage;
 	QLabel * image;
 	QLabel *quitButton;
-	QGridLayout *layoutPrincipal;
+	QVBoxLayout *layoutPrincipal;
 
 };
 #endif 
