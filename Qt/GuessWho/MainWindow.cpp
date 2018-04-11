@@ -139,5 +139,5 @@ void MainWindow::quitGame(GameWindow* caller) {
 
 void MainWindow::questionMenuSetup()
 {
-	game->getSideMenu()->getQuestionMenuBar();
+	player1GameWindow->getSideMenu()->getQuestionMenuBar();
 }
