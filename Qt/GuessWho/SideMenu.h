@@ -13,22 +13,6 @@ class SideMenu : public QWidget
 {
 	Q_OBJECT
 
-		public slots:
-	void setTraits(std::string newTraits);
-	void switchZoomIcon();
-
-signals:
-	void lowerBarTest(std::string, int);
-
-public:
-	SideMenu(QWidget *parent, int height, int width);
-	~SideMenu();
-
-	void setupLayouts();
-	void setupWidgets();
-
-	QPushButton* getZoomButton() { return zoomButton; }
-
 private:
 	QLabel * background;
 	QLabel * cornerBackground;
@@ -44,5 +28,24 @@ private:
 	QLabel * nbHiddenCharactersLabel;
 	QuestionMenuBar * questionMenuBar;
 	int menuHeight, menuWidth;
+
+public slots:
+	void setTraits(std::string newTraits);
+	void switchZoomIcon();
+
+signals:
+	void lowerBarTest(std::string, int);
+
+public:
+	SideMenu(QWidget *parent, int height, int width);
+	~SideMenu();
+
+	void setupLayouts();
+	void setupWidgets();
+
+	QuestionMenuBar* getQuestionMenuBar() { return questionMenuBar; }
+	QPushButton* getZoomButton() { return zoomButton; }
+
+
 };
 

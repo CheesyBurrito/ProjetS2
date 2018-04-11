@@ -39,4 +39,5 @@ public:
 	void setupConnections();
 
 	PauseMenu* getPauseMenu() { return pauseMenu; }
+	SideMenu* getSideMenu() { return sideMenu; }
 };

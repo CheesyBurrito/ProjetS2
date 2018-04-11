@@ -23,6 +23,7 @@ public:
 	void keyPressEvent(QKeyEvent *event);
 	void returnToMenu(GameWindow* caller);
 	void quitGame(GameWindow* caller);
+	void questionMenuSetup();
 
 //Methods that should only be called by the constructor
 protected:
