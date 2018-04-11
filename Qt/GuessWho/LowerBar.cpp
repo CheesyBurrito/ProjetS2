@@ -62,18 +62,21 @@ void LowerBar::setupWidgets() {
 	yesButton->setStyleSheet("background: green; color : white");
 	yesButton->setCursor(Qt::PointingHandCursor);
 	yesButton->setFont(QFont("Walkway Bold", 30));
+	yesButton->setFixedSize(100, 50);
 
 	noButton = new QPushButton("Non", this);
 	noButton->setFlat(false);
 	noButton->setStyleSheet("background: red; color : white");
 	noButton->setCursor(Qt::PointingHandCursor);
 	noButton->setFont(QFont("Walkway Bold", 30));
+	noButton->setFixedSize(100, 50);
 
 	okButton = new QPushButton("Ok", this);
 	okButton->setFlat(false);
 	okButton->setStyleSheet("background: green; color : white");
 	okButton->setCursor(Qt::PointingHandCursor);
 	okButton->setFont(QFont("Walkway Bold", 30));
+	okButton->setFixedSize(100, 50);
 
 	yesButton->hide();
 	noButton->hide();
