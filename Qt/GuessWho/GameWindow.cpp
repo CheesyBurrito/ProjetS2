@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 
 
-GameWindow::GameWindow(QWidget *parent, CharacterManager* characterManager) : QWidget(parent)
+GameWindow::GameWindow(QWidget* parent,  CharacterManager* characterManager) : QWidget(parent)
 {
 	height = parent->height();
 	width = parent->width();
@@ -32,13 +32,9 @@ void GameWindow::setupConnections() {
 	connect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 	connect(this->grid->getCharacters()->at(20), SIGNAL(hovered(std::string)), this->sideMenu, SLOT(setTraits(std::string)));
 
-	//Escape Key
-	connect(parent, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
-	connect(pauseMenu, SIGNAL(escapeKeyPressed()), this, SLOT(togglePauseMenu()));
-
 	//Pause menu
-	/*connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
-	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(returnToMenu()));*/
+	connect(pauseMenu->getQuitButton(), SIGNAL(clicked()), parent, SLOT(quitGame()));
+	connect(pauseMenu->getCancelGameButton(), SIGNAL(clicked()), parent, SLOT(returnToMenu()));
 	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
 	//Test signal

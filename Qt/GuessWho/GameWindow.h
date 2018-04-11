@@ -11,6 +11,7 @@
 #include "PauseMenu.h"
 #include "CharacterManager.h"
 
+
 class GameWindow : public QWidget
 {
 	Q_OBJECT
@@ -31,7 +32,7 @@ private:
 	void toggleZoomMode();
 
 public:
-	GameWindow(QWidget *parent, CharacterManager* characterManager);
+	GameWindow(QWidget* parent,  CharacterManager* characterManager);
 	~GameWindow();
 
 	void setupLayouts();
