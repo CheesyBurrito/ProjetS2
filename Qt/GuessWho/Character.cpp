@@ -29,7 +29,6 @@ Character::Character(string path)
 	
 }
 
-
 Character::~Character()
 {
 	delete characterTraits;

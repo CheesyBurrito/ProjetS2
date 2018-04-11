@@ -74,8 +74,6 @@ void MainWindow::gameWindow()
 	//GAME LOGIC *******************
 	//gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
 
-	gameLogic->get_character_manager()->importCharacters
-	(menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->get_character_manager()->shuffleCharacters();
 	gameLogic->get_character_manager()->printProperties();
 

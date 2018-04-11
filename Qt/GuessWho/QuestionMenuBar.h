@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QTreeWidgetItem>
+#include "CharacterManager.h"
 
 class QuestionMenuBar : public QWidget
 {
@@ -18,6 +19,8 @@ private:
 	QTreeWidgetItem* accessoriesTreeItem[1];
 	QTreeWidgetItem* ageTreeItem[1];
 	QTreeWidgetItem* genderTreeItem[1];
+
+	static CharacterManager characterMangagerDummy;
 	
 	public slots:
 	void treeWidgetItemClicked(QTreeWidgetItem* item);

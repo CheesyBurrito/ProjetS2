@@ -1,6 +1,5 @@
 #include "CharacterTraits.h"
 
-using namespace std;
 
 CharacterTraits::CharacterTraits()
 {
@@ -288,7 +287,6 @@ bool CharacterTraits::hasAccessory(int accessoryIndex)
 	}
 	return false;
 }
-
 
 int CharacterTraits::getEyes()
 {

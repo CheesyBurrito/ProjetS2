@@ -1,7 +1,5 @@
 #include "QuestionMenuBar.h"
 
-
-
 QuestionMenuBar::QuestionMenuBar(QWidget *parent) :QWidget(parent)
 {
 	setupWidgets();
@@ -19,6 +17,7 @@ void QuestionMenuBar::setupTreeView()
 	eyesTreeItem[0] = new QTreeWidgetItem(treeView);
 	eyesTreeItem[0]->setText(0, "Yeux");
 	//Setup for all the possible values
+
 	
 	//For Hair
 	hairTreeItem[0] = new QTreeWidgetItem(treeView);
@@ -71,12 +70,10 @@ void QuestionMenuBar::setupLayout()
 {
 	vboxLayout->addWidget(treeView);
 	this->setLayout(vboxLayout);
-	//this->setStyleSheet("color:white");
 }
 
 void QuestionMenuBar::setupWidgets()
 {
-	
 	setupTreeView();
 	connect(treeView, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(treeWidgetItemClicked(QTreeWidgetItem*)));
 }
