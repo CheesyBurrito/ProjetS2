@@ -127,3 +127,8 @@ void MainWindow::quitGame() {
 		this->game->getPauseMenu()->show();
 	}
 }
+
+void MainWindow::questionMenuSetup()
+{
+	game->getSideMenu()->getQuestionMenuBar();
+}

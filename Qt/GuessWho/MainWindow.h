@@ -20,6 +20,7 @@ public:
 	MainWindow();
 	~MainWindow();
 	void keyPressEvent(QKeyEvent *event);
+	void questionMenuSetup();
 
 //Methods that should only be called by the constructor
 protected:
