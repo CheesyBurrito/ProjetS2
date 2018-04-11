@@ -68,6 +68,7 @@ void CharacterManager::printProperties()
 
 bool CharacterManager::exportCharacters(string saveName)
 {
+	ofstream file(saveName);
 	//Exports a list containing all files (used when importing characters)
 	
 	//Removes the .gw from the path
@@ -76,7 +77,13 @@ bool CharacterManager::exportCharacters(string saveName)
 	{
 		saveName.erase(foundSubstring, fileExtension.length());
 	}
-	ofstream file(saveName);
+
+	//Creates a folder to add all character files
+	QDir dir(QString::fromStdString(saveName + "/"));
+	if (!dir.exists()) {
+		dir.mkpath(".");
+	}
+
 	if (file.is_open()) {
 
 		for (int i = 0; i < characterVector.size(); i++)
@@ -115,11 +122,11 @@ bool CharacterManager::importCharacters(string path)
 	}
 	
 	
-	foundSubstring = path.find(fileName);
+	/*foundSubstring = path.find(fileName);
 	if (foundSubstring != std::string::npos)
 	{
 		path.erase(foundSubstring, fileName.length());
-	}
+	}*/
 	
 	pathToFile = path;
 	if (file.is_open()) {
@@ -132,7 +139,7 @@ bool CharacterManager::importCharacters(string path)
 		file.close();
 
 		for (int j = 0; j < i; j++) { //Creates characters for each loaded ID
-			addCharacter(new Character(pathToFile + characterIDs[j] + characterFilesExtension));
+			addCharacter(new Character(pathToFile + "/" + characterIDs[j] + characterFilesExtension));
 		}
 		isLoaded = true;
 		return true;
@@ -728,3 +735,12 @@ void CharacterManager::set_path_to_file(string path_to_file)
 	pathToFile = std::move(path_to_file);
 }
 
+int CharacterManager::get_next_id() {
+	int maxID = 0;
+	for (int i = 0; i < characterVector.size(); i++) {
+		if (characterVector.at(i)->get_id() > maxID)
+			maxID = characterVector.at(i)->get_id();
+	}
+
+	return maxID+1;
+}

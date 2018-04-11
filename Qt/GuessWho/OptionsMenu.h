@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include "MenuButton.h"
 #include "AddCharacter.h"
+#include "CharacterManager.h"
 
 class OptionsMenu : public QWidget
 {
@@ -27,7 +28,7 @@ signals:
 	void hovered(MenuButton*);
 
 public:
-	OptionsMenu(QWidget* parent);
+	OptionsMenu(QWidget* parent, CharacterManager* characterManager);
 	~OptionsMenu();
 
 	AddCharacter *AddCharacterWindow;
@@ -43,7 +44,7 @@ private:
 	QVBoxLayout * layout;
 	int widthImage;
 	int heightImage;
-
+	CharacterManager* c_manager;
 	MenuButton *addCharacter;
 	MenuButton *createNewList;
 	MenuButton *changeList;

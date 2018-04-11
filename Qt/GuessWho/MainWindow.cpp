@@ -23,7 +23,7 @@ void MainWindow::creatingObjects()
 	//Creating the objects for the GUI and Game
 	start = new StartWindow(this);
 	gameLogic = new Games();
-	menu = new MenuWindow(this);
+	menu = new MenuWindow(this, gameLogic->get_character_manager());
 	//Loading the default character list
 	gameLogic->get_character_manager()->importCharacters
 	(menu->getOptionsMenu()->getActiveList().toStdString());

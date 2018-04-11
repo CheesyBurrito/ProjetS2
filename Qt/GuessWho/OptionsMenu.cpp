@@ -1,7 +1,8 @@
 #include "OptionsMenu.h"
 
-OptionsMenu::OptionsMenu(QWidget* parent) : QWidget(parent)
+OptionsMenu::OptionsMenu(QWidget* parent, CharacterManager* characterManager) : QWidget(parent)
 {
+	c_manager = characterManager;
 	createOptionsMenu();
 }
 
@@ -53,8 +54,8 @@ void OptionsMenu::createOptionsMenu()
 	connect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 	connect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 	connect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	
-	setLayout(layout); 
+
+	setLayout(layout);
 
 	hide();
 }
@@ -70,7 +71,7 @@ void OptionsMenu::setHoveredButton(MenuButton *button)
 
 void OptionsMenu::addCharacters()
 {
-	AddCharacterWindow = new AddCharacter(this);
+	AddCharacterWindow = new AddCharacter(this, c_manager, activeList);
 	AddCharacterWindow->show();
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), AddCharacterWindow, SLOT(close()));
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), this, SLOT(activateOptionsMenu()));

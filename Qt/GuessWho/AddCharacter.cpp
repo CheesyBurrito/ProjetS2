@@ -1,8 +1,11 @@
 #include "AddCharacter.h"
 
 
-AddCharacter::AddCharacter(QWidget* parent) 
+AddCharacter::AddCharacter(QWidget* parent, CharacterManager* characterManager, QString activeList) 
 {
+	c_manager = characterManager;
+	listSavePath = activeList;
+	ID = c_manager->get_next_id();
 	createAddCharacter();
 }
 
@@ -279,13 +282,13 @@ void AddCharacter::verifyAddCharacter()
 	}
 
 	if (shave->isChecked())
-		gender = 8;
+		facialHair = 8;
 	else if (beard->isChecked())
-		gender = 9;
+		facialHair = 9;
 	else if (mustache->isChecked())
-		gender = 10;
+		facialHair = 10;
 	else if (bouc->isChecked())
-		gender = 11;
+		facialHair = 11;
 	else
 	{
 		facialHairBox->setStyleSheet("QGroupBox {color : red} ");
@@ -319,17 +322,36 @@ void AddCharacter::verifyAddCharacter()
 		pictureBox->setStyleSheet("QGroupBox {color : red} ");
 		characterOk = false;
 	}
-	else
+	else //Adds the picture to resource path
 	{
-		//Implement copie picture and change name for ID.png
+		string saveName = listSavePath.toStdString();
+		string fileExtension = ".gw";
+		size_t foundSubstring = saveName.find(fileExtension);
+		if (foundSubstring != std::string::npos)
+		{
+			saveName.erase(foundSubstring, fileExtension.length());
+		}
+
+		//Creates a folder if it does not exist yet
+		QDir dir(QString::fromStdString(saveName + "/"));
+		if (!dir.exists()) {
+			dir.mkpath(".");
+		}
+
+		QString newImagePath = QString::fromStdString(saveName) + "/" + QString::number(ID) + ".png";
+
+		QFile::copy(picturePath, newImagePath);
 	}
 	
 	if (!characterOk)
 		QMessageBox::warning(NULL, "Formulaire incomplet", "Il manque des informations pour la création du personnage!", QMessageBox::Ok);
 	else if(num_accessories == 4)
 		QMessageBox::warning(NULL, "Trop d'accessoires", "Il y a trop d'accessoires! Le maximum est de 3!", QMessageBox::Ok);
-	else
+	else //Character is valid, emit a signal containing the character so it can be added to the current list
 	{
+		 c_manager->addCharacter(new Character(ID, eyes, hairColor, hairCharacteristics, gender, skinColor, accessories, facialHair, age, name.toStdString()));
+		 c_manager->exportCharacters(listSavePath.toStdString());
+
 		this->close();
 		emit characterIsOk();
 	}

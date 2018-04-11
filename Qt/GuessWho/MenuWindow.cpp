@@ -1,7 +1,8 @@
 #include "MenuWindow.h"
 
-MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
+MenuWindow::MenuWindow(QWidget* parent, CharacterManager* characterManager) : QWidget(parent)
 {
+	c_manager = characterManager;
 	widthImage = parent->width() - 520;
 	heightImage = parent->height() * 2 / 3;
 	createMenuWindow();
@@ -24,7 +25,7 @@ void MenuWindow::createMenuWindow()
 	image->setPixmap(logo.scaled(widthImage, heightImage, Qt::KeepAspectRatio));
 
 	mainMenu = new MainMenu(this);
-	optionsMenu = new OptionsMenu(this);
+	optionsMenu = new OptionsMenu(this, c_manager);
 	onePlayerMenu = new OnePlayerMenu(this);
 	twoPlayersMenu = new TwoPlayersMenu(this);
 

@@ -15,6 +15,7 @@
 #include "OptionsMenu.h"
 #include "OnePlayerMenu.h"
 #include "TwoPlayersMenu.h"
+#include "CharacterManager.h"
 
 class MenuWindow : public QWidget
 {
@@ -27,7 +28,7 @@ class MenuWindow : public QWidget
 	void showMainMenu();
 
 public:
-	MenuWindow(QWidget* parent);
+	MenuWindow(QWidget* parent, CharacterManager* characterManager);
 	~MenuWindow();
 	int getNumberGames() { return numberGames; }
 	QString  getPlayer1Name() { return player1Name; }
@@ -46,6 +47,7 @@ private:
 	int widthImage;
 	int heightImage;
 	int numberGames;
+	CharacterManager* c_manager;
 	QString player1Name;
 	QString player2Name;
 };
