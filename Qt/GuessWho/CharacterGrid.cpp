@@ -78,5 +78,5 @@ void CharacterGrid::calculateGridDimensions(int w, int h) {
 }
 
 int CharacterGrid::getNbHiddenCharacters() {
-
+	return 0;
 }

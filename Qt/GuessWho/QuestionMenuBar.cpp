@@ -175,7 +175,7 @@ void QuestionMenuBar::treeWidgetItemClicked()
 	if (item->childCount() == 0)
 	{
 		vector<int> tempVector = { tempConversion->getPropertyCategoryIndex(), tempConversion->getPropertyIndex() };
-		emit(tempVector);
+		emit sendQuestion(tempVector);
 		characterMangagerDummy.propertyPrinterSpecificCharacteristics(tempConversion->getPropertyCategoryIndex(), tempConversion->getPropertyIndex());
 	}
 	else
