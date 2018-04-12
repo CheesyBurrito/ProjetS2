@@ -15,8 +15,7 @@ void AddCharacter::createAddCharacter()
 {
 	this->setMinimumHeight(700);
 	this->setWindowTitle("Ajouter un personnage");
-	this->setWindowFlag(Qt::WindowStaysOnTopHint);
-	this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
+	this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
 
 	layout = new QVBoxLayout(this);
 

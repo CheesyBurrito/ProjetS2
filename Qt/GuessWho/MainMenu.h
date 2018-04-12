@@ -12,11 +12,7 @@ class MainMenu : public QWidget
 	Q_OBJECT
 
 public slots:
-	void setHoveredButton(MenuButton *button);
 	void createMainMenu();
-
-signals:
-	void hovered(MenuButton*);
 
 public:
 	MainMenu(QWidget* parent);

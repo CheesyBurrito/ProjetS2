@@ -4,6 +4,7 @@ MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
 {
 	widthImage = parent->width() - 520;
 	heightImage = parent->height() * 2 / 3;
+
 	createMenuWindow();
 }
 
@@ -27,6 +28,7 @@ void MenuWindow::createMenuWindow()
 	optionsMenu = new OptionsMenu(this);
 	onePlayerMenu = new OnePlayerMenu(this);
 	twoPlayersMenu = new TwoPlayersMenu(this);
+
 
 	layout->addWidget(image);
 	layout->addWidget(mainMenu);
@@ -82,5 +84,5 @@ void MenuWindow::showMainMenu()
 	onePlayerMenu->hide();
 	twoPlayersMenu->hide();
 	mainMenu->show();
-
+	connect(this->parent(), SIGNAL(escapeKeyPressed()), this, SLOT(showMainMenu()));
 }

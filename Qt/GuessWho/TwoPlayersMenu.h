@@ -8,6 +8,7 @@
 #include <QGridLayout>
 #include <QLCDNumber>
 #include <QSlider>
+#include "MenuButton.h"
 
 class TwoPlayersMenu : public QWidget
 {
@@ -35,7 +36,7 @@ private:
 	QLineEdit *player1;
 	QLabel *name2;
 	QLineEdit *player2;
-	QPushButton *ok;
+	MenuButton *ok;
 	QLCDNumber *m_lcd;
 	QSlider *m_slider;
 

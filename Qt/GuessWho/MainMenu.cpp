@@ -21,10 +21,6 @@ void MainMenu::createMainMenu()
 	optionsButton = new MenuButton(this, " Options");
 	quitButton = new MenuButton(this, " Quitter");
 
-	connect(onePlayer, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(twoPlayers, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(optionsButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(quitButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 
 	layout->addWidget(onePlayer);
 	layout->addWidget(twoPlayers);
@@ -32,13 +28,4 @@ void MainMenu::createMainMenu()
 	layout->addWidget(quitButton);
 
 	setLayout(layout);
-}
-
-void MainMenu::setHoveredButton(MenuButton *button)
-{
-	onePlayer->setIsSelected(false);
-	twoPlayers->setIsSelected(false);
-	optionsButton->setIsSelected(false);
-	quitButton->setIsSelected(false);
-	button->setIsSelected(true);
 }

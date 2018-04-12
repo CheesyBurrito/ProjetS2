@@ -11,9 +11,10 @@ OptionsMenu::~OptionsMenu()
 
 void OptionsMenu::createOptionsMenu()
 {
-	layout = new QVBoxLayout;
+	layout = new QFormLayout;
 	layout->setSpacing(0);
 	layout->setAlignment(Qt::AlignCenter);
+	setLayout(layout);
 
 	addCharacter = new MenuButton(this, " Ajouter un personnage");
 	addCharacter->setToolTip("Le personnage sera ajouté à la liste active");
@@ -41,31 +42,45 @@ void OptionsMenu::createOptionsMenu()
 	list->setFont(QFont("Walkway Bold", 20));
 	list->setStyleSheet("background: transparent; color : white");
 
-	layout->addWidget(addCharacter);
-	layout->addWidget(createNewList);
-	layout->addWidget(changeList);
-	layout->addWidget(back);
-	layout->addWidget(emptySpace);
-	layout->addWidget(list);
-	layout->addWidget(active_List);
+	mediaPlayer = new QHBoxLayout(this);
 
-	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	
-	setLayout(layout); 
+	music = new QLabel("Musique", this);
+	music->setFont(QFont("Walkway Bold", 20));
+	music->setStyleSheet("background: transparent; color : white");
+
+	next = new QPushButton(this);
+	next->setFlat(true);
+	next->setStyleSheet("background-image: url(./Photos/next.png);");
+	next->setCursor(Qt::PointingHandCursor);
+	next->setFixedSize(52, 52);
+
+	activeSong = new QLabel("Electro Cabello - Kevin MacLeod", this);
+	activeSong->setFont(QFont("Walkway Bold", 20));
+	activeSong->setStyleSheet("background: transparent; color : white");
+	activeSong->setFixedWidth(450);
+
+	prev = new QPushButton(this);
+	prev->setFlat(true);
+	prev->setStyleSheet("background-image: url(./Photos/prev.png);");
+	prev->setCursor(Qt::PointingHandCursor);
+	prev->setFixedSize(52,52);
+
+	mediaPlayer->addWidget(prev);
+	mediaPlayer->addWidget(activeSong);
+	mediaPlayer->addWidget(next);
+
+	layout->addRow(addCharacter);
+	layout->addRow(createNewList);
+	layout->addRow(changeList);
+	layout->addRow(back);
+	layout->addRow(emptySpace);
+	layout->addRow(list);
+	layout->addRow(active_List);
+	layout->addRow(emptySpace);
+	layout->addRow(music);
+	layout->addRow(mediaPlayer); 
 
 	hide();
-}
-
-void OptionsMenu::setHoveredButton(MenuButton *button)
-{
-	addCharacter->setIsSelected(false);
-	createNewList->setIsSelected(false);
-	changeList->setIsSelected(false);
-	back->setIsSelected(false);
-	button->setIsSelected(true);
 }
 
 void OptionsMenu::addCharacters()
@@ -75,20 +90,12 @@ void OptionsMenu::addCharacters()
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), AddCharacterWindow, SLOT(close()));
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), this, SLOT(activateOptionsMenu()));
 	connect(AddCharacterWindow, SIGNAL(characterIsOk()), this, SLOT(activateOptionsMenu()));
-	disconnect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	disconnect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	disconnect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	disconnect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 	this->setDisabled(true);
 }
 
 void OptionsMenu::activateOptionsMenu()
 {
 	setDisabled(false);
-	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(createNewList, SIGNAL(hovered(MenuButton *)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(changeList, SIGNAL(hovered(MenuButton *)), this, SLOT(setHoveredButton(MenuButton*)));
-	connect(back, SIGNAL(hovered(MenuButton *)), this, SLOT(setHoveredButton(MenuButton*)));
 }
 
 void OptionsMenu::showDialog()

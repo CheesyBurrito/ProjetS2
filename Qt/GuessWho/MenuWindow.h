@@ -20,7 +20,7 @@ class MenuWindow : public QWidget
 {
 	Q_OBJECT
 
-		public slots:
+public slots:
 	void createMenuWindow();
 	void setOnePlayerGame();
 	void setTwoPlayersGame();

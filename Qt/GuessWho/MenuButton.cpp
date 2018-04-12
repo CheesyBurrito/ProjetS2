@@ -2,6 +2,7 @@
 
 MenuButton::MenuButton(QWidget *parent, QString text, bool selected): QPushButton(parent)
 {
+	clickedSound = new QSound("./Sounds/portal_button_sound.wav", this);
 	setText(text);
 	setMouseTracking(true);
 	setFlat(true);
@@ -9,23 +10,40 @@ MenuButton::MenuButton(QWidget *parent, QString text, bool selected): QPushButto
 	setCursor(Qt::PointingHandCursor);
 	setFont(QFont("Walkway Bold", 30));
 	setFixedWidth(520);
+	connect(this, SIGNAL(clicked()), this, SLOT(playClickedSound()));
+	connect(this, SIGNAL(hovered()), this, SLOT(is_Selected()));
+	connect(this, SIGNAL(leaveHovered()), this, SLOT(not_Selected()));
 }
 
 MenuButton::~MenuButton()
 {
 }
 
-void MenuButton::setIsSelected(bool selected)
+void MenuButton::is_Selected()
 {
-	isSelected = selected;
-	if(selected == true)
-		setStyleSheet("background-image: url(./Photos/button_hovered.png); color : black; Text-align:left");
-	else
-		setStyleSheet("background-image: url(./Photos/button.png); color : white; Text-align:left");
+	isSelected = true;
+	setStyleSheet("background-image: url(./Photos/button_hovered.png); color : black; Text-align:left");
+}
+
+void MenuButton::not_Selected()
+{
+	isSelected = false;
+	setStyleSheet("background-image: url(./Photos/button.png); color : white; Text-align:left");
+}
+
+void MenuButton::playClickedSound()
+{
+	clickedSound->play();
 }
 
 void MenuButton::enterEvent(QEvent* e)
 {
-	emit hovered(this);
+	emit hovered();
+	QWidget::enterEvent(e);
+}
+
+void MenuButton::leaveEvent(QEvent* e)
+{
+	emit leaveHovered();
 	QWidget::enterEvent(e);
 }

@@ -24,6 +24,22 @@ void MainWindow::creatingObjects()
 	start = new StartWindow(this);
 	gameLogic = new Games();
 	menu = new MenuWindow(this);
+	electroCabello = new QSound("./Sounds/Electro_Cabello.wav", this);
+	epicSaxGuy = new QSound("./Sounds/epicsaxguy.wav", this);
+	luckyDay = new QSound("./Sounds/Jingle-Punks-Lucky-Day.wav", this);
+	weAreOne = new QSound("./Sounds/Vexento-WeAreOne.wav", this);
+	adventures = new QSound("./Sounds/adventures-A-Himitsu.wav", this);
+	summer = new QSound("./Sounds/bensound-summer.wav", this);
+	carefree = new QSound("./Sounds/Kevin_MacLeod_-_Carefree.wav", this);
+	electroCabello->setLoops(QSound::Infinite);
+	epicSaxGuy->setLoops(QSound::Infinite);
+	luckyDay->setLoops(QSound::Infinite);
+	weAreOne->setLoops(QSound::Infinite);
+	adventures->setLoops(QSound::Infinite);
+	summer->setLoops(QSound::Infinite);
+	carefree->setLoops(QSound::Infinite);
+	activeSong = "electroCabello";
+	electroCabello->play();
 	//Loading the default character list
 	gameLogic->get_character_manager()->importCharacters
 	(menu->getOptionsMenu()->getActiveList().toStdString());
@@ -93,6 +109,7 @@ void MainWindow::gameWindow()
 	numberGames = menu->getNumberGames();
 	player1Name = menu->getPlayer1Name();
 	player2Name = menu->getPlayer2Name();
+	disconnect(this, SIGNAL(escapeKeyPressed()), menu, SLOT(showMainMenu()));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -125,5 +142,99 @@ void MainWindow::quitGame() {
 	}
 	else { //No
 		this->game->getPauseMenu()->show();
+	}
+}
+
+void MainWindow::nextSong()
+{
+	if (activeSong == "electroCabello")
+	{
+		electroCabello->stop();
+		epicSaxGuy->play();
+		activeSong = "epicSaxGuy";
+	}
+	else if (activeSong == "epicSaxGuy")
+	{
+		epicSaxGuy->stop();
+		luckyDay->play();
+		activeSong = "luckyDay";
+	}
+	else if (activeSong == "luckyDay")
+	{
+		luckyDay->stop();
+		weAreOne->play();
+		activeSong = "weAreOne";
+	}
+	else if (activeSong == "weAreOne")
+	{
+		weAreOne->stop();
+		adventures->play();
+		activeSong = "adventures";
+	}
+	else if (activeSong == "adventures")
+	{
+		adventures->stop();
+		summer->play();
+		activeSong = "summer";
+	}
+	else if (activeSong == "summer")
+	{
+		summer->stop();
+		carefree->play();
+		activeSong = "carefree";
+	}
+	else if (activeSong == "carefree")
+	{
+		carefree->stop();
+		electroCabello->play();
+		activeSong = "electroCabello";
+	}
+}
+	
+	
+
+void  MainWindow::prevSong()
+{
+	if (activeSong == "electroCabello")
+	{
+		electroCabello->stop();
+		carefree->play();
+		activeSong = "carefree";
+	}
+	else if (activeSong == "carefree")
+	{
+		carefree->stop();
+		summer->play();
+		activeSong = "summer";
+	}
+	else if (activeSong == "summer")
+	{
+		summer->stop();
+		adventures->play();
+		activeSong = "adventures";
+	}
+	else if (activeSong == "adventures")
+	{
+		adventures->stop();
+		weAreOne->play();
+		activeSong = "weAreOne";
+	}
+	else if (activeSong == "weAreOne")
+	{
+		weAreOne->stop();
+		luckyDay->play();
+		activeSong = "luckyDay";
+	}
+	else if (activeSong == "luckyDay")
+	{
+		luckyDay->stop();
+		epicSaxGuy->play();
+		activeSong = "epicSaxGuy";
+	}
+	else if (activeSong == "epicSaxGuy")
+	{
+		epicSaxGuy->stop();
+		electroCabello->play();
+		activeSong = "electroCabello";
 	}
 }

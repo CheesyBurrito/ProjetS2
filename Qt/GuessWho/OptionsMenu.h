@@ -9,6 +9,7 @@
 #include <QLCDNumber>
 #include <QSlider>
 #include <QFileDialog>
+#include <QFormLayout>
 #include "MenuButton.h"
 #include "AddCharacter.h"
 
@@ -16,15 +17,15 @@ class OptionsMenu : public QWidget
 {
 	Q_OBJECT
 
-		public slots:
-	void setHoveredButton(MenuButton *button);
+public slots:
+	//void setHoveredButton(MenuButton *button);
 	void showDialog();
 	void addCharacters();
 	void activateOptionsMenu();
 	void createOptionsMenu();
 
 signals:
-	void hovered(MenuButton*);
+	//void hovered(MenuButton*);
 
 public:
 	OptionsMenu(QWidget* parent);
@@ -40,7 +41,7 @@ public:
 	QString getActiveList() { return activeList; }
 
 private:
-	QVBoxLayout * layout;
+	QFormLayout * layout;
 	int widthImage;
 	int heightImage;
 
@@ -52,4 +53,9 @@ private:
 	QString activeList = "Ressources/CharacterFiles/characterList.gw";
 	QLabel *list;
 	QLabel *emptySpace;
+	QPushButton *next;
+	QPushButton *prev;
+	QLabel *activeSong;
+	QLabel *music;
+	QHBoxLayout *mediaPlayer;
 };

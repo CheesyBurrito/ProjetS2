@@ -1,4 +1,5 @@
 #include "OnePlayerMenu.h"
+#include <QDebug>
 
 OnePlayerMenu::OnePlayerMenu(QWidget* parent) : QWidget(parent)
 {
@@ -20,6 +21,7 @@ void OnePlayerMenu::createOnePlayerMenu()
 	player1->setStyleSheet("background: white;");
 	player1->setFont(QFont("Walkway Bold", 20));
 	player1->setText("Joueur1");
+	player1->setFixedWidth(200);
 
 	name1 = new QLabel("Nom du Joueur1", this);
 	name1->setFont(QFont("Walkway Bold", 20));
@@ -29,14 +31,10 @@ void OnePlayerMenu::createOnePlayerMenu()
 	numGames->setFont(QFont("Walkway Bold", 20));
 	numGames->setStyleSheet("background: transparent; color : white");
 
-	ok = new QPushButton("Ok", this);
-	ok->setFlat(true);
-	ok->setStyleSheet("background: transparent; color : white; Text-align:right");
-	ok->setCursor(Qt::PointingHandCursor);
-	ok->setFont(QFont("Walkway Bold", 30));
+	ok = new MenuButton(this, " Commencer");
 
 	m_lcd = new QLCDNumber(this);
-	m_lcd->setFixedHeight(50);
+	m_lcd->setFixedSize(200,50);
 	m_lcd->setSegmentStyle(QLCDNumber::Flat);
 	m_lcd->setStyleSheet("background: white;");
 	m_lcd->display(1);
@@ -46,6 +44,7 @@ void OnePlayerMenu::createOnePlayerMenu()
 	m_slider->setValue(1);
 	m_slider->setSingleStep(2);
 	m_slider->setRange(1, 7);
+	m_slider->setFixedWidth(200);
 
 	connect(m_slider, SIGNAL(valueChanged(int)), m_lcd, SLOT(display(int)));
 	layout->addWidget(name1, 0, 0, 1, 1);
@@ -53,10 +52,9 @@ void OnePlayerMenu::createOnePlayerMenu()
 	layout->addWidget(numGames, 1, 0, 1, 1);
 	layout->addWidget(m_lcd, 1, 1, 1, 2);
 	layout->addWidget(m_slider, 2, 1, 1, 2);
-	layout->addWidget(ok, 3, 0, 1, 2, Qt::AlignRight);
+	layout->addWidget(ok, 3, 0, 1, 2);
 
 	setLayout(layout);
-
 
 	hide();
 }

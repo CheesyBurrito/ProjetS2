@@ -10,9 +10,6 @@ class PauseMenu : public QWidget
 {
 	Q_OBJECT
 
-public slots:
-	void setHoveredButton(MenuButton *button);
-	
 private:
 	QGridLayout * layout;
 	MenuButton * quitButton;
@@ -22,7 +19,6 @@ private:
 
 signals :
 	void escapeKeyPressed();
-	void hovered(MenuButton*);
 
 public:
 	PauseMenu(QWidget* parent);

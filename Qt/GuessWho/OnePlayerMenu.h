@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QLCDNumber>
 #include <QSlider>
+#include "MenuButton.h"
 
 class OnePlayerMenu : public QWidget
 {
@@ -21,7 +22,7 @@ public:
 
 	QString getPlayer1Name() { return player1->text(); }
 	int getNumberGames() { return m_lcd->value(); }
-	QPushButton* getOkButton() { return ok; }
+	MenuButton* getOkButton() { return ok; }
 
 private:
 	QGridLayout * layout;
@@ -31,7 +32,7 @@ private:
 	QLabel *numGames;
 	QLabel *name1;
 	QLineEdit *player1;
-	QPushButton *ok;
+	MenuButton *ok;
 	QLCDNumber *m_lcd;
 	QSlider *m_slider;
 

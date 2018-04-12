@@ -8,6 +8,7 @@
 #include <vector>
 #include "PauseMenu.h"
 #include <QKeyEvent>
+#include <QSound>
 #include "PauseMenu.h"
 
 class GameWindow : public QWidget
@@ -24,6 +25,7 @@ private:
 	bool zoomMode = false;
 	int height, width;
 	QWidget* parent;
+	QSound *pauseSound;
 
 	public slots :
 	void togglePauseMenu();

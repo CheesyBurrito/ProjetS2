@@ -1,7 +1,5 @@
 #include "GameWindow.h"
 
-
-
 GameWindow::GameWindow(QWidget *parent) : QWidget(parent)
 {
 	height = parent->height();
@@ -50,6 +48,7 @@ void GameWindow::setupWidgets() {
 	lowerBar = new LowerBar(this, width, height - grid->getGridHeight());
 	sideMenu = new SideMenu(this, height, width - grid->getGridWidth());
 	pauseMenu = new PauseMenu(this);
+	pauseSound = new QSound("./Sounds/pause.wav", this);
 
 	QPixmap zoomCursorPix("./Photos/zoom.png");
 	zoomCursor = QCursor(zoomCursorPix.scaled(30, 30));
@@ -98,10 +97,12 @@ void GameWindow::togglePauseMenu() {
 	if (isPaused) {
 		pauseMenu->hide();
 		this->setEnabled(true);
+		pauseSound->play();
 	}
 	else {
 		pauseMenu->show();
 		this->setEnabled(false);
+		pauseSound->play();
 	}
 
 	isPaused = !isPaused;

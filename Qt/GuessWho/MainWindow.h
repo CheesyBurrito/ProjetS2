@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QSound>
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
@@ -35,6 +36,8 @@ public slots:
 	void gameWindow();
 	void returnToMenu();
 	void quitGame();
+	void nextSong();
+	void prevSong();
 
 signals:
 	void escapeKeyPressed();
@@ -49,6 +52,14 @@ private:
 	Games *gameLogic;
 	QString player1Name;
 	QString player2Name;
+	QSound *electroCabello;
+	QSound *epicSaxGuy;
+	QSound *luckyDay;
+	QSound *weAreOne;
+	QSound *adventures;
+	QSound *summer;
+	QSound *carefree;
+	QString activeSong;
 	
 };
 	
