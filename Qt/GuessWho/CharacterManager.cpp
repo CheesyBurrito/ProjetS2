@@ -263,6 +263,39 @@ void CharacterManager::propertyPrinter(int propertyID)
 
 }
 
+void CharacterManager::propertyPrinterSpecificCharacteristics(int propertyID, int characteristicsID)
+{
+
+	switch (propertyID)
+	{
+	case 0: {
+			cout << printPhysicalTraitsColorProperties(characteristicsID) << endl;
+	}break;
+	case 1: {
+			cout << printPhysicalTraitsColorProperties(characteristicsID) << endl;
+	}break;
+	case 2: {
+			cout << printPhysicalTraitsProperties(characteristicsID) << endl;
+	}break;
+	case 3: {
+			cout << printPhysicalTraitsColorProperties(characteristicsID) << endl;
+	}break;
+	case 4: {
+			cout << printPhysicalTraitsProperties(characteristicsID) << endl;
+	}break;
+	case 5: {
+			cout << printPhysicalTraitsProperties(characteristicsID) << endl;
+	}break;
+	case 6: {
+			cout << printPhysicalTraitsProperties(characteristicsID) << endl;
+	}break;
+	case 7: {
+			cout << printPhysicalTraitsProperties(characteristicsID) << endl;
+	}break;
+	}
+}
+
+
 string CharacterManager::printPhysicalTraitsColorProperties(int colorIndex)
 {
 	switch (colorIndex)

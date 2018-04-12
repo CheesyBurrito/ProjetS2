@@ -4,10 +4,9 @@
 #include <QtGui>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QTreeWidgetItem>
 #include "CharacterManager.h"
-#include <array>
 #include "QTreeWidgetItemPropertiesIndex.h"
+using namespace std;
 
 class QuestionMenuBar : public QWidget
 {
@@ -23,11 +22,19 @@ private:
 	QTreeWidgetItemPropertiesIndex* ageTreeItem[3];
 	QTreeWidgetItemPropertiesIndex* genderTreeItem[3];
 
+	vector<QTreeWidgetItemPropertiesIndex*> parentWidgetsTree;
+
 	//DOES NOT CONTAIN ANY CHARACTERS, IT IS ONLY THERE TO BE USED FOR ITS METHODS
 	CharacterManager characterMangagerDummy;
 	
 	public slots:
-	void treeWidgetItemClicked(QTreeWidgetItem* item);
+	void treeWidgetItemClicked();
+	void goUpTreeWidgetItem();
+	void goDownTreeWidgetItem();
+
+	signals:
+	void sendQuestion(std::vector<int>);
+	
 
 public:
 	//Constructors and deconstructor

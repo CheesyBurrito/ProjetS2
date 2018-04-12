@@ -66,6 +66,7 @@ public:
 	void shuffleCharacters(); //Shuffles all of the characters present in the vector
 	bool smartCharacterCreation(const Character *c); // Generates characters that have logical traits, ie bald and white haire
 	void propertyPrinter(int propertyID);
+	void propertyPrinterSpecificCharacteristics(int propertyID, int characteristicsID);
 	string printPhysicalTraitsColorProperties(int colorIndex);
 	string printPhysicalTraitsProperties(int traitIndex);
 	void hideCharacterAfterQuestion(int characteristicsSlected, int propertyID);

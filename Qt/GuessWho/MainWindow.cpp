@@ -67,8 +67,8 @@ void MainWindow::settingMainWindow()
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	this->setGeometry(100, 100, 1366, 768);
-	showFullScreen();
-	//show();
+	//showFullScreen();
+	show();
 }
 
 void MainWindow::deleteStart()
@@ -118,6 +118,10 @@ void MainWindow::gameWindow()
 	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1Reference());
 	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2Reference());
 	
+	connect(this, SIGNAL(wKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(goUpTreeWidgetItem()));
+	connect(this, SIGNAL(sKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(goDownTreeWidgetItem()));
+	//connect(this, SIGNAL(enterKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(treeWidgetItemClicked()));
+
 	//Connects the pause menu buttons
 	connect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	connect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
@@ -144,6 +148,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 	if (event->key() == Qt::Key_Escape) {
 		emit escapeKeyPressed();
 	}
+	if(event->key() == Qt::Key_W)
+	{
+		emit wKeyPressed();
+	}
+	if (event->key() == Qt::Key_S)
+	{
+		emit sKeyPressed();
+	}
+	/*
+	if (event->key() == Qt::Key_Enter)
+	{
+		cout << "Hey there!" << endl;
+		emit enterKeyPressed();
+	}*/
 }
 
 void MainWindow::returnToMenu() {

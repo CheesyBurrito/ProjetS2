@@ -52,6 +52,9 @@ public slots:
 	//void p2_answerQuestionNo();
 
 signals:
+	void wKeyPressed();
+	void sKeyPressed();
+	void enterKeyPressed();
 	void escapeKeyPressed();
 	void keyPressed();
 
