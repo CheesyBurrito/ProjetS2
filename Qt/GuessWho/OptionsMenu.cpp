@@ -12,10 +12,23 @@ OptionsMenu::~OptionsMenu()
 
 void OptionsMenu::createOptionsMenu()
 {
-	layout = new QFormLayout;
+
+	media_Player = new MediaPlayer(this);
+	layout = new QVBoxLayout(this);
 	layout->setSpacing(0);
 	layout->setAlignment(Qt::AlignCenter);
 	setLayout(layout);
+
+	options_menu = new QWidget(this);
+
+	layout_menu = new QVBoxLayout(this);
+	layout_menu->setSpacing(0);
+	layout_menu->setAlignment(Qt::AlignBottom);
+
+	options_menu->setLayout(layout_menu);
+
+	layout->addWidget(options_menu);
+	layout->addWidget(media_Player);
 
 	addCharacter = new MenuButton(this, " Ajouter un personnage");
 	addCharacter->setToolTip("Le personnage sera ajouté à la liste active");
@@ -35,51 +48,19 @@ void OptionsMenu::createOptionsMenu()
 	active_List->setText(activeList);
 	active_List->setReadOnly(true);
 
-	emptySpace = new QLabel("", this);
-	emptySpace->setFont(QFont("Walkway Bold", 20));
-	emptySpace->setStyleSheet("background: transparent");
+	emptySpace = new QSpacerItem(520,30);
 
 	list = new QLabel("Liste Active:", this);
 	list->setFont(QFont("Walkway Bold", 20));
 	list->setStyleSheet("background: transparent; color : white");
-
-	mediaPlayer = new QHBoxLayout(this);
-
-	music = new QLabel("Musique", this);
-	music->setFont(QFont("Walkway Bold", 20));
-	music->setStyleSheet("background: transparent; color : white");
-
-	next = new QPushButton(this);
-	next->setFlat(true);
-	next->setStyleSheet("background-image: url(./Photos/next.png);");
-	next->setCursor(Qt::PointingHandCursor);
-	next->setFixedSize(52, 52);
-
-	activeSong = new QLabel("Electro Cabello - Kevin MacLeod", this);
-	activeSong->setFont(QFont("Walkway Bold", 20));
-	activeSong->setStyleSheet("background: transparent; color : white");
-	activeSong->setFixedWidth(450);
-
-	prev = new QPushButton(this);
-	prev->setFlat(true);
-	prev->setStyleSheet("background-image: url(./Photos/prev.png);");
-	prev->setCursor(Qt::PointingHandCursor);
-	prev->setFixedSize(52,52);
-
-	mediaPlayer->addWidget(prev);
-	mediaPlayer->addWidget(activeSong);
-	mediaPlayer->addWidget(next);
-
-	layout->addRow(addCharacter);
-	layout->addRow(createNewList);
-	layout->addRow(changeList);
-	layout->addRow(back);
-	layout->addRow(emptySpace);
-	layout->addRow(list);
-	layout->addRow(active_List);
-	layout->addRow(emptySpace);
-	layout->addRow(music);
-	layout->addRow(mediaPlayer); 
+	
+	layout_menu->addWidget(addCharacter);
+	layout_menu->addWidget(createNewList);
+	layout_menu->addWidget(changeList);
+	layout_menu->addWidget(back);
+	layout_menu->addItem(emptySpace);
+	layout_menu->addWidget(list);
+	layout_menu->addWidget(active_List);
 
 	hide();
 }

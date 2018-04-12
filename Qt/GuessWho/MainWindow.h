@@ -30,6 +30,7 @@ protected:
 	void connectSignals();
 	void settingWidgets();
 	void settingMainWindow();
+	void settingSounds();
 
 	void connectP1ToTree();
 	void disconnectP1ToTree();
@@ -44,6 +45,7 @@ public slots:
 	void quitGame();
 	void nextSong();
 	void prevSong();
+	void playPause();
 
 	//GameFunctions
 	void p1_chooseCharacter();
@@ -67,27 +69,32 @@ signals:
 private:
 	int numberGames;
 	int numberPlayer;
+	int activeSong;
+	bool secondPlayerIsBot;
+	bool play;
+	QString soundsFileExtension = ".wav";
+	QString defaultSongPath = "./Sounds/"; //Default path of the sosund effect
+	//Variables for storing the sound effects
+	std::vector<QSound*> soundEffect;
+	std::vector<string> soundEffectNames;
+	//Variables for the game music
+	std::vector<QSound*> songPlaylist;
+	std::vector<QString> songNames;
+	
 	StartWindow *start;
 	MenuWindow *menu;
 	GameWindow *player1GameWindow;
 	GameWindow *player2GameWindow;
 	Games *gameLogic;
 	QString player1Name;
-	QString player2Name;
 	bool secondPlayerIsBot;
-	QSound *electroCabello;
-	QSound *epicSaxGuy;
-	QSound *luckyDay;
-	QSound *weAreOne;
-	QSound *adventures;
-	QSound *summer;
-	QSound *carefree;
-	QString activeSong;
-
+	QString player2Name;
 	bool p2_lastAnswer;
 	bool p1_lastAnswer;
-	std::vector<int> p2_lastQuestion;
 	std::vector<int> p1_lastQuestion;
+	std::vector<int> p2_lastQuestion;
+	QString activeSong;
+	
 	
 };
 	
