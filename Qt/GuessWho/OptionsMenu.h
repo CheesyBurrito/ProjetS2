@@ -9,25 +9,24 @@
 #include <QLCDNumber>
 #include <QSlider>
 #include <QFileDialog>
+#include <QSpacerItem>
 #include <QFormLayout>
+#include <QString>
 #include "MenuButton.h"
 #include "AddCharacter.h"
 #include "CharacterManager.h"
+#include "MediaPlayer.h"
 
 class OptionsMenu : public QWidget
 {
 	Q_OBJECT
 
 public slots:
-	//void setHoveredButton(MenuButton *button);
 	void showDialog();
 	void addCharacters();
 	void activateOptionsMenu();
 	void createOptionsMenu();
 	void newList();
-
-signals:
-	//void hovered(MenuButton*);
 
 public:
 	OptionsMenu(QWidget* parent, CharacterManager* characterManager);
@@ -39,13 +38,18 @@ public:
 	MenuButton* getCreateNewListButton() { return createNewList; }
 	MenuButton* getChangeListButton() { return changeList; }
 	MenuButton* getBackButton() { return back; }
-	QPushButton* getNextButton() { return next; }
-	QPushButton* getPrevButton() { return prev; }
+	QPushButton* getNextButton() { return media_Player->getNextButton(); }
+	QPushButton* getPrevButton() { return media_Player->getPrevButton(); }
+	QPushButton * getMuteButton() { return media_Player->getMuteButton(); }
+	QLabel* getActiveSongLabel() { return media_Player->getActiveSongLabel(); }
 
 	QString getActiveList() { return activeList; }
 
 private:
-	QFormLayout * layout;
+	QVBoxLayout * layout;
+	QWidget* options_menu;
+	QVBoxLayout * layout_menu;
+
 	int widthImage;
 	int heightImage;
 	CharacterManager* c_manager;
@@ -56,10 +60,6 @@ private:
 	QLineEdit *active_List;
 	QString activeList = "Ressources/CharacterFiles/characterList.gw";
 	QLabel *list;
-	QLabel *emptySpace;
-	QPushButton *next;
-	QPushButton *prev;
-	QLabel *activeSong;
-	QLabel *music;
-	QHBoxLayout *mediaPlayer;
+	QSpacerItem *emptySpace;
+	MediaPlayer *media_Player;
 };

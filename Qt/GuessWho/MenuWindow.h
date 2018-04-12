@@ -37,9 +37,11 @@ public:
 	QPushButton* getOkTwoPlayersButton() { return twoPlayersMenu->getOkButton(); }
 	QPushButton* getNextButton() { return optionsMenu->getNextButton(); }
 	QPushButton* getPrevButton() { return optionsMenu->getPrevButton(); }
+	QPushButton * getMuteButton() { return optionsMenu->getMuteButton(); }
 	OptionsMenu* getOptionsMenu() { return optionsMenu; }
 	MainMenu* getMainMenu() { return mainMenu; }
 	int getNumberPlayers() { return numberPlayers; }
+	QLabel* getActiveSongLabel() { return optionsMenu->getActiveSongLabel(); }
 
 private:
 	MainMenu * mainMenu;

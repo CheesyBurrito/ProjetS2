@@ -106,6 +106,8 @@ void SideMenu::setupLayouts() {
 	layout->addLayout(hLayout, 2, 2);
 	layout->addLayout(tempLayout, 3, 2);
 
+	connect(tempBtn, SIGNAL(clicked()), this, SLOT(debugBtnClick()));
+
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 	this->setFixedWidth(menuWidth);
@@ -128,4 +130,15 @@ void SideMenu::switchZoomIcon() {
 		zoomButton->setIcon(normalModeIcon);
 
 	zoomMode = !zoomMode;
+}
+
+void SideMenu::debugBtnClick() {
+	std::vector<int> q;
+	q.push_back(spinBox1->value());
+	q.push_back(spinBox2->value());
+	emit sendQuestion(q);
+}
+
+void SideMenu::setNbHiddenCharacter(int nb) {
+	this->nbHiddenCharactersLabel->setText(QString::number(nb) + "/20");
 }

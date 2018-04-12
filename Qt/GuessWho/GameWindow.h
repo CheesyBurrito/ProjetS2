@@ -51,5 +51,6 @@ public:
 	PauseMenu* getPauseMenu() { return pauseMenu; }
 	SideMenu* getSideMenu() { return sideMenu; }
 	LowerBar* getLowerBar() { return lowerBar; }
+	CharacterGrid* getGrid() { return grid; }
 	bool getSelectMode() { return selectMode; }
 };
