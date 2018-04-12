@@ -87,13 +87,11 @@ private:
 	GameWindow *player2GameWindow;
 	Games *gameLogic;
 	QString player1Name;
-	bool secondPlayerIsBot;
 	QString player2Name;
 	bool p2_lastAnswer;
 	bool p1_lastAnswer;
 	std::vector<int> p1_lastQuestion;
 	std::vector<int> p2_lastQuestion;
-	QString activeSong;
 	
 	
 };
