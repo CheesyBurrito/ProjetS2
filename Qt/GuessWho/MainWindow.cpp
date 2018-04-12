@@ -66,9 +66,9 @@ void MainWindow::settingMainWindow()
 	//Setting the MainWindow
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	this->setGeometry(100, 100, 1366, 768);
-	showFullScreen();
-	//show();
+	this->setGeometry(100, 100, 1300, 600);
+	//showFullScreen();
+	show();
 }
 
 void MainWindow::deleteStart()
@@ -276,6 +276,13 @@ void MainWindow::questionMenuSetup()
 	player1GameWindow->getSideMenu()->getQuestionMenuBar();
 }
 
+std::string MainWindow::convertBoolToString(bool answer) {
+	if (answer == true)
+		return "Oui";
+	else
+		return "Non";
+}
+
 void MainWindow::p1_chooseCharacter() {
 	setCentralWidget(player1GameWindow);
 
@@ -287,53 +294,182 @@ void MainWindow::p1_chooseCharacter() {
 void MainWindow::p2_chooseCharacter() {
 	player1GameWindow->toggleSelectMode(); //Resets to normal mode
 	player2GameWindow->toggleSelectMode(); //Sets to select mode
-
+	disconnect(player1GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p2_chooseCharacter()));
 	if (secondPlayerIsBot) {
 		gameLogic->getPlayer2Reference()->generateRandomCharacter();
-		p1_askQuestion();
+		p1_askFirstQuestion();
 	}
 	else {
 		player1GameWindow->hide();
 		takeCentralWidget();
 		setCentralWidget(player2GameWindow);
+		player2GameWindow->show();
 
 		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : Veuillez choisir votre personnage", OK_MODE);
-		connect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p1_askQuestion()));
+		connect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p1_askFirstQuestion()));
 	}
 }
 
-void MainWindow::p1_askQuestion() {
+void MainWindow::p1_askFirstQuestion() {
 	if (!secondPlayerIsBot) {
 		player2GameWindow->hide();
 		takeCentralWidget();
 		setCentralWidget(player1GameWindow);
+		player1GameWindow->show();
+
+		player1GameWindow->getGrid()->getCharacters()->at(20)->flipCard();
+		player2GameWindow->getGrid()->getCharacters()->at(20)->flipCard();
 	}
 
-	if(player2GameWindow->getSelectMode() == true)
+	if (player2GameWindow->getSelectMode() == true)
 		player2GameWindow->toggleSelectMode(); //Resets to normal mode
 
 	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
-	//Connect question onClick() to p2_answerQuestion(vector)
-	//Only for testing
-	std::vector<int> q;
-	q.push_back(0);
-	q.push_back(0);
-	p2_answerQuestion(q);
+	connectP1ToTree();
+}
+
+void MainWindow::p1_askQuestion() {
+	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
+
+	connectP1ToTree();
+}
+
+void MainWindow::p2_askQuestion() {
+	if (secondPlayerIsBot) {
+		p1_answerQuestion(gameLogic->getPlayer2Reference()->cpuQuestionGeneretor(50, gameLogic->getPlayer1()));
+	}
+	else {
+		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
+
+		connectP2ToTree();
+	}
 }
 
 void MainWindow::p2_answerQuestion(std::vector<int> q) {
+	disconnectP2ToTree();
+	
+	p1_lastQuestion = q;
+
 	if (secondPlayerIsBot) {
-		bool answer = gameLogic->getAnswerToQuestion(q.at(0), q.at(1), gameLogic->getPlayer1Reference(), gameLogic->getPlayer2Reference());
-		cout << answer << endl;
+		p2_lastAnswer = gameLogic->getAnswerToQuestion(q.at(0), q.at(1), gameLogic->getPlayer1Reference(), gameLogic->getPlayer2Reference());
+		p2_getLastAnswer();
 	}
 	else {
 		player1GameWindow->hide();
 		takeCentralWidget();
 		setCentralWidget(player2GameWindow);
+		player2GameWindow->show();
 
-		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
-		//connect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
-		//connect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : " + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
+		connect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
+		connect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
 	}
+}
+
+void MainWindow::p1_answerQuestion(std::vector<int> q) {
+	p2_lastQuestion = q;
+
+	if (!secondPlayerIsBot) {
+		player2GameWindow->hide();
+		takeCentralWidget();
+		setCentralWidget(player1GameWindow);
+		player1GameWindow->show();
+
+		disconnectP1ToTree();
+	}
+		
+		player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : " + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
+		connect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
+		connect(player1GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionNo()));
+
+}
+
+void MainWindow::p2_answerQuestionYes() {
+	disconnect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
+	disconnect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+
+	p2_lastAnswer = true;
+	p2_getLastAnswer();
+}
+
+void MainWindow::p2_answerQuestionNo() {
+	disconnect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
+	disconnect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+
+	p2_lastAnswer = false;
+	p2_getLastAnswer();
+}
+
+void MainWindow::p1_answerQuestionYes() {
+	disconnect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
+	disconnect(player1GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionNo()));
+
+	p1_lastAnswer = true;
+	p1_getLastAnswer();
+}
+
+void MainWindow::p1_answerQuestionNo() {
+	disconnect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
+	disconnect(player1GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionNo()));
+
+	p1_lastAnswer = false;
+	p1_getLastAnswer();
+}
+
+void MainWindow::p2_getLastAnswer(){
+	if (secondPlayerIsBot) {
+		if (p2_lastQuestion.size() > 0) {
+			if (p1_lastAnswer == true)
+				gameLogic->getPlayer2Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(p2_lastQuestion.at(0), p2_lastQuestion.at(1));
+			else
+				gameLogic->getPlayer2Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(p2_lastQuestion.at(0), p2_lastQuestion.at(1));
+		}
+		p2_askQuestion();
+	}
+	else {
+		//If there is a question, show it
+		if (p2_lastQuestion.size() > 0) {
+			player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : à la question : " +
+				gameLogic->convertQuestionToString(p2_lastQuestion.at(0), p2_lastQuestion.at(1)) +
+				" la réponse est : " + convertBoolToString(p1_lastAnswer), OK_MODE);
+
+			connect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p2_askQuestion()));
+		}
+		else {
+			p2_askQuestion();
+		}
+	}
+}
+
+void MainWindow::p1_getLastAnswer() {
+
+		//If there is a question, show it
+		if (p1_lastQuestion.size() > 0) {
+			player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : à la question : " +
+				gameLogic->convertQuestionToString(p1_lastQuestion.at(0), p1_lastQuestion.at(1)) +
+				" la réponse est : " + convertBoolToString(p2_lastAnswer), OK_MODE);
+
+			connect(player1GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p1_askQuestion()));
+		}
+		else {
+			p1_askQuestion();
+		}
+	
+}
+
+void MainWindow::connectP1ToTree() {
+	connect(player1GameWindow->getSideMenu(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+}
+
+void MainWindow::disconnectP1ToTree() {
+	disconnect(player2GameWindow->getSideMenu(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+}
+
+void MainWindow::connectP2ToTree() {
+	connect(player2GameWindow->getSideMenu(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
+}
+
+void MainWindow::disconnectP2ToTree() {
+	disconnect(player1GameWindow->getSideMenu(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }

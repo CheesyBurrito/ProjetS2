@@ -38,9 +38,11 @@ private:
 public slots:
 	void setTraits(std::string newTraits);
 	void switchZoomIcon();
+	void debugBtnClick();
 
 signals:
 	void lowerBarTest(std::string, int);
+	void sendQuestion(std::vector<int>);
 
 public:
 	SideMenu(QWidget *parent, int height, int width);

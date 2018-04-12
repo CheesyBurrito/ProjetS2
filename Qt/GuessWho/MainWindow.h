@@ -1,4 +1,3 @@
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -22,6 +21,7 @@ public:
 	~MainWindow();
 	void keyPressEvent(QKeyEvent *event);
 	void questionMenuSetup();
+	std::string convertBoolToString(bool answer);
 
 //Methods that should only be called by the constructor
 protected:
@@ -30,6 +30,11 @@ protected:
 	void connectSignals();
 	void settingWidgets();
 	void settingMainWindow();
+
+	void connectP1ToTree();
+	void disconnectP1ToTree();
+	void connectP2ToTree();
+	void disconnectP2ToTree();
 		
 public slots:
 	void deleteStart();
@@ -42,14 +47,18 @@ public slots:
 
 	//GameFunctions
 	void p1_chooseCharacter();
+	void p1_askFirstQuestion();
 	void p1_askQuestion();
-	//void p1_getAnswer();
-	//void p1_answerQuestion(std::vector<int>);
+	void p1_answerQuestion(std::vector<int>);
+	void p1_answerQuestionYes();
+	void p1_answerQuestionNo();
 	void p2_chooseCharacter();
-	//void p2_askQuestion();
+	void p1_getLastAnswer();
+	void p2_askQuestion();
 	void p2_answerQuestion(std::vector<int>);
-	//void p2_answerQuestionYes();
-	//void p2_answerQuestionNo();
+	void p2_answerQuestionYes();
+	void p2_answerQuestionNo();
+	void p2_getLastAnswer();
 
 signals:
 	void escapeKeyPressed();
@@ -74,6 +83,11 @@ private:
 	QSound *summer;
 	QSound *carefree;
 	QString activeSong;
+
+	bool p2_lastAnswer;
+	bool p1_lastAnswer;
+	std::vector<int> p2_lastQuestion;
+	std::vector<int> p1_lastQuestion;
 	
 };
 	
