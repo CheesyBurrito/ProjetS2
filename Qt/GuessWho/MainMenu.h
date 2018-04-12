@@ -29,7 +29,6 @@ public:
 private:
 	QVBoxLayout * layout;
 	int numberPlayer;
-
 	MenuButton *onePlayer;
 	MenuButton *twoPlayers;
 	MenuButton *optionsButton;

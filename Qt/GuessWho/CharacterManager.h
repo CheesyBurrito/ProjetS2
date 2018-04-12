@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <QDir>
 #include "Character.h"
 using namespace std;
 
@@ -83,6 +84,7 @@ public:
 	string get_path_to_file() const;
 	void set_path_to_file(string path_to_file);
 	vector<Character*> get_character_vector() const;
+	int get_next_id(); //Gets the id of the next character to add to the list
 
 };
 

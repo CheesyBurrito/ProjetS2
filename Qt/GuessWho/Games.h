@@ -38,11 +38,12 @@ public:
 	void reinitialize();//restart the game with the same player
 	void copyCharacterManagerToPlayer(Player player, string path); //Called when a copy of the character manager has to be done
 	void playerPreperations(Player &player); //Prepares the player object, by modifying the name and if it is an AI
-	void searchPlayerCharacteristicsQuestion(int characteristicsSlected, int input, Player &player, Player &otherPlayer); //Search for the characters with the specific characteristic
+	bool getAnswerToQuestion(int characteristicsSlected, int input, Player *player, Player *otherPlayer); //Search for the characters with the specific characteristic
 	void checkEndGameConditions(Player &player,Player &otherPlayer); //Method to check if the end game has been met
 	void answerBotQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer); //Method that will ask the user to answer a bots question
 	int fpgaCommunicationInputHandler(); //Method to read the input of the player, if fails, will switch to manual mode
-	
+	string convertQuestionToString(int characteristicsSlected, int input); //Creates a string based on question IDs
+
 	//Setters and Getters
 	Player getPlayer1() { return player1; }
 	Player getPlayer2() { return player2; }

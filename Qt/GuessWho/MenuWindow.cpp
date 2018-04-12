@@ -1,7 +1,8 @@
 #include "MenuWindow.h"
 
-MenuWindow::MenuWindow(QWidget* parent) : QWidget(parent)
+MenuWindow::MenuWindow(QWidget* parent, CharacterManager* characterManager) : QWidget(parent)
 {
+	c_manager = characterManager;
 	widthImage = parent->width() - 520;
 	heightImage = parent->height() * 2 / 3;
 
@@ -25,7 +26,7 @@ void MenuWindow::createMenuWindow()
 	image->setPixmap(logo.scaled(widthImage, heightImage, Qt::KeepAspectRatio));
 
 	mainMenu = new MainMenu(this);
-	optionsMenu = new OptionsMenu(this);
+	optionsMenu = new OptionsMenu(this, c_manager);
 	onePlayerMenu = new OnePlayerMenu(this);
 	twoPlayersMenu = new TwoPlayersMenu(this);
 
@@ -44,8 +45,7 @@ void MenuWindow::createMenuWindow()
 	layout->addWidget(optionsMenu);
 
 	connect(optionsMenu->getAddCharacterButton(), SIGNAL(clicked()), optionsMenu, SLOT(addCharacters()));
-	connect(optionsMenu->getCreateNewListButton(), SIGNAL(clicked()), optionsMenu, SLOT(hide()));
-	connect(optionsMenu->getCreateNewListButton(), SIGNAL(clicked()), mainMenu, SLOT(show()));
+	connect(optionsMenu->getCreateNewListButton(), SIGNAL(clicked()), optionsMenu, SLOT(newList()));
 	connect(optionsMenu->getChangeListButton(), SIGNAL(clicked()), optionsMenu, SLOT(showDialog()));
 	connect(optionsMenu->getBackButton(), SIGNAL(clicked()), optionsMenu, SLOT(hide()));
 	connect(optionsMenu->getBackButton(), SIGNAL(clicked()), mainMenu, SLOT(show()));
@@ -68,13 +68,15 @@ void MenuWindow::setOnePlayerGame()
 	player1Name = onePlayerMenu->getPlayer1Name();
 	player2Name = "AI";
 	numberGames = onePlayerMenu->getNumberGames();
+	numberPlayers = 1;
 }
 
 void MenuWindow::setTwoPlayersGame()
 {
 	player1Name = twoPlayersMenu->getPlayer1Name();
-	player1Name = twoPlayersMenu->getPlayer2Name();
+	player2Name = twoPlayersMenu->getPlayer2Name();
 	numberGames = twoPlayersMenu->getNumberGames();
+	numberPlayers = 2;
 }
 
 void MenuWindow::showMainMenu()

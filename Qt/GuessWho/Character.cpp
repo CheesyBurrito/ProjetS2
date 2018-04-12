@@ -4,21 +4,28 @@
 Character::Character()
 {
 	ID = -1;
-	picturePath = "Insert Path to dummy Picture";
+	picturePath = "/Photos/BlankCharacter.png";
 	characterTraits = new CharacterTraits();
 }
 
 Character::Character(int ID1)
 {
 	ID = ID1;
-	picturePath = "Insert Path to dummy Picture";
+	picturePath = to_string(ID) + ".png";
 	characterTraits = new CharacterTraits();
 }
 
 Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, vector<int> accessories1, int facialHair1, int age1, string name1)
 {
 	ID = ID1;
-	picturePath = "Insert Path to dummy Picture";
+	picturePath = to_string(ID) + ".png";
+	characterTraits = new CharacterTraits(eyes1, hairColor1, hairCharacteristics1, gender1, skinColor1, accessories1, facialHair1, age1, name1);
+}
+
+Character::Character(int ID1, int eyes1, int hairColor1, int hairCharacteristics1, int gender1, int skinColor1, vector<int> accessories1, int facialHair1, int age1, string name1, string picturePath1)
+{
+	ID = ID1;
+	picturePath = picturePath1;
 	characterTraits = new CharacterTraits(eyes1, hairColor1, hairCharacteristics1, gender1, skinColor1, accessories1, facialHair1, age1, name1);
 }
 
@@ -45,7 +52,7 @@ bool Character::exportCharacter(string path)
 	if (ID == -1)//Cant export character that doesnt have properties
 		return false;
 
-	ofstream file(path + to_string(ID) + ".txt"); //Exports to path/ID.txt
+	ofstream file(path + "/" + to_string(ID) + ".txt"); //Exports to path/ID.txt
 
 	if (file.is_open()) {
 		file << ID << endl;
@@ -77,6 +84,14 @@ bool Character::exportCharacter(string path)
 bool Character::importCharacterFromFile(string path)
 {
 	//cout << path << endl;
+	string p_path = path;
+	size_t foundSubstring = p_path.find(".txt");
+	if (foundSubstring != std::string::npos)
+	{
+		p_path.erase(foundSubstring, 4);
+	}
+
+	picturePath = p_path + ".png";
 
 	ifstream file(path);
 

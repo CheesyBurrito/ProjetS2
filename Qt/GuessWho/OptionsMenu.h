@@ -12,6 +12,7 @@
 #include <QFormLayout>
 #include "MenuButton.h"
 #include "AddCharacter.h"
+#include "CharacterManager.h"
 
 class OptionsMenu : public QWidget
 {
@@ -23,12 +24,13 @@ public slots:
 	void addCharacters();
 	void activateOptionsMenu();
 	void createOptionsMenu();
+	void newList();
 
 signals:
 	//void hovered(MenuButton*);
 
 public:
-	OptionsMenu(QWidget* parent);
+	OptionsMenu(QWidget* parent, CharacterManager* characterManager);
 	~OptionsMenu();
 
 	AddCharacter *AddCharacterWindow;
@@ -44,7 +46,7 @@ private:
 	QFormLayout * layout;
 	int widthImage;
 	int heightImage;
-
+	CharacterManager* c_manager;
 	MenuButton *addCharacter;
 	MenuButton *createNewList;
 	MenuButton *changeList;

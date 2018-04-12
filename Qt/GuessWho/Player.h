@@ -26,6 +26,7 @@ public:
 	void up_num_turn();
 	void up_num_win();
 	vector<int> cpuQuestionGeneretor(int target, Player player2);
+	void generateRandomCharacter();
 
 	//Setter and Getters
 	bool is_is_cpu() const;

@@ -10,6 +10,9 @@
 #include <QKeyEvent>
 #include <QSound>
 #include "PauseMenu.h"
+#include "CharacterManager.h"
+#include "Player.h"
+
 
 class GameWindow : public QWidget
 {
@@ -23,16 +26,22 @@ private:
 	PauseMenu *pauseMenu;
 	bool isPaused = false;
 	bool zoomMode = false;
+	bool selectMode = false;
 	int height, width;
 	QWidget* parent;
 	QSound *pauseSound;
 
+	Player* player;
 	public slots :
 	void togglePauseMenu();
 	void toggleZoomMode();
+	void toggleSelectMode();
+
+	public slots:
+	void setChosenCharacter(Character* character);
 
 public:
-	GameWindow(QWidget *parent);
+	GameWindow(QWidget* parent,  Player* player1);
 	~GameWindow();
 
 	void setupLayouts();
@@ -40,5 +49,7 @@ public:
 	void setupConnections();
 
 	PauseMenu* getPauseMenu() { return pauseMenu; }
+	SideMenu* getSideMenu() { return sideMenu; }
+	LowerBar* getLowerBar() { return lowerBar; }
+	bool getSelectMode() { return selectMode; }
 };
-

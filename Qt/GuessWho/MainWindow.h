@@ -21,6 +21,7 @@ public:
 	MainWindow();
 	~MainWindow();
 	void keyPressEvent(QKeyEvent *event);
+	void questionMenuSetup();
 
 //Methods that should only be called by the constructor
 protected:
@@ -39,6 +40,17 @@ public slots:
 	void nextSong();
 	void prevSong();
 
+	//GameFunctions
+	void p1_chooseCharacter();
+	void p1_askQuestion();
+	//void p1_getAnswer();
+	//void p1_answerQuestion(std::vector<int>);
+	void p2_chooseCharacter();
+	//void p2_askQuestion();
+	void p2_answerQuestion(std::vector<int>);
+	//void p2_answerQuestionYes();
+	//void p2_answerQuestionNo();
+
 signals:
 	void escapeKeyPressed();
 	void keyPressed();
@@ -48,10 +60,12 @@ private:
 	int numberPlayer;
 	StartWindow *start;
 	MenuWindow *menu;
-	GameWindow *game;
+	GameWindow *player1GameWindow;
+	GameWindow *player2GameWindow;
 	Games *gameLogic;
 	QString player1Name;
 	QString player2Name;
+	bool secondPlayerIsBot;
 	QSound *electroCabello;
 	QSound *epicSaxGuy;
 	QSound *luckyDay;
