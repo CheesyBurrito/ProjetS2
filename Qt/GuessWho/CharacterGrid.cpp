@@ -76,3 +76,7 @@ void CharacterGrid::calculateGridDimensions(int w, int h) {
 		gridHeight = 3 * tempHeight;
 	}
 }
+
+int CharacterGrid::getNbHiddenCharacters() {
+
+}

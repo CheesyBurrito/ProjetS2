@@ -23,6 +23,7 @@ public:
 	void setupCharacters();
 	void setupLayouts();
 	void calculateGridDimensions(int height, int width);
+	int getNbHiddenCharacters();
 
 	int getGridWidth() { return gridWidth; }
 	int getGridHeight() { return gridHeight; }

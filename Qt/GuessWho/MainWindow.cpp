@@ -333,9 +333,7 @@ void MainWindow::p1_answerQuestion(std::vector<int> q) {
 
 		disconnectP1ToTree();
 	}
-	else {
-		player1GameWindow->getSideMenu()->setNbHiddenCharacter(gameLogic->getPlayer2().get_board_of_player()->get_character_manager()->get_num_character_hidden());
-	}
+	
 		
 		player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : " + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
 		connect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
@@ -377,12 +375,6 @@ void MainWindow::p1_answerQuestionNo() {
 
 void MainWindow::p2_getLastAnswer(){
 	if (secondPlayerIsBot) {
-		if (p2_lastQuestion.size() > 0) {
-			if (p1_lastAnswer == true)
-				gameLogic->getPlayer2Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(p2_lastQuestion.at(0), p2_lastQuestion.at(1));
-			else
-				gameLogic->getPlayer2Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(p2_lastQuestion.at(0), p2_lastQuestion.at(1));
-		}
 		p2_askQuestion();
 	}
 	else {
@@ -401,6 +393,16 @@ void MainWindow::p2_getLastAnswer(){
 }
 
 void MainWindow::p1_getLastAnswer() {
+
+		if(secondPlayerIsBot) {
+			if (p2_lastQuestion.size() > 0) {
+				if (p1_lastAnswer == true)
+					gameLogic->getPlayer2Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(p2_lastQuestion.at(0), p2_lastQuestion.at(1));
+				else
+					gameLogic->getPlayer2Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(p2_lastQuestion.at(0), p2_lastQuestion.at(1));
+			}
+			player1GameWindow->getSideMenu()->setNbHiddenCharacter(gameLogic->getPlayer2().get_board_of_player()->get_character_manager()->get_num_character_hidden());
+		}
 
 		//If there is a question, show it
 		if (p1_lastQuestion.size() > 0) {
