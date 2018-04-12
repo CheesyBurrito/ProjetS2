@@ -15,16 +15,16 @@ MediaPlayer::MediaPlayer(QWidget* parent) : QWidget(parent)
 	mute->setFlat(true);
 	mute->setStyleSheet("background-image: url(./Photos/soundon.png);");
 	mute->setCursor(Qt::PointingHandCursor);
-	mute->setFixedSize(60, 60);
+	mute->setFixedSize(40, 40);
 
 	next = new QPushButton(this);
 	next->setFlat(true);
 	next->setStyleSheet("background-image: url(./Photos/next.png);");
 	next->setCursor(Qt::PointingHandCursor);
-	next->setFixedSize(60, 60);
+	next->setFixedSize(40, 40);
 
 	activeSongLabel = new QLabel(this);
-	activeSongLabel->setFont(QFont("Walkway Bold", 15));
+	activeSongLabel->setFont(QFont("Walkway Bold", 16));
 	activeSongLabel->setStyleSheet("background: transparent; color : white;");
 	activeSongLabel->setAlignment(Qt::AlignCenter);
 	activeSongLabel->setFixedWidth(400);
@@ -33,7 +33,7 @@ MediaPlayer::MediaPlayer(QWidget* parent) : QWidget(parent)
 	prev->setFlat(true);
 	prev->setStyleSheet("background-image: url(./Photos/prev.png);");
 	prev->setCursor(Qt::PointingHandCursor);
-	prev->setFixedSize(60, 60);
+	prev->setFixedSize(40, 40);
 
 	layout_mediaPlayer->addWidget(mute);
 	layout_mediaPlayer->addWidget(prev);
