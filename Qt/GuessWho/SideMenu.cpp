@@ -67,14 +67,12 @@ void SideMenu::setupWidgets() {
 	infoText->setAlignment(Qt::AlignTop);
 	infoText->setStyleSheet("background:transparent; color:white");
 	infoText->setFont(QFont("Walkway Bold", 12));
-
-	//
 	
-	tempBtn = new QPushButton("OK", this);
-	spinBox1 = new QSpinBox(this);
-	spinBox2 = new QSpinBox(this);
-	
-	//tempLayout->setAlignment(Qt::AlignBottom);
+	guessWhoButton = new QPushButton("Guess Who", this);
+	guessWhoButton->setFlat(false);
+	guessWhoButton->setStyleSheet("background: white; color : black");
+	guessWhoButton->setCursor(Qt::PointingHandCursor);
+	guessWhoButton->setFont(QFont("Walkway Bold", 16));
 
 }
 
@@ -85,8 +83,8 @@ void SideMenu::setupLayouts() {
 
 	layout->setColumnMinimumWidth(0, menuWidth - 300); //Sets blank space before the actual menubar
 	layout->setColumnMinimumWidth(1, 20); //Moves content away from border
-	layout->addWidget(background, 0, 1, 2, 2);
-	layout->addWidget(cornerBackground, 2, 1, 2, 2);
+	layout->addWidget(background, 0, 1, 3, 2);
+	layout->addWidget(cornerBackground, 3, 1, 1, 2);
 
 	questionMenuBar->setMaximumHeight(500);
 
@@ -96,17 +94,10 @@ void SideMenu::setupLayouts() {
 	scoreLayout->setAlignment(Qt::AlignHCenter);
 	hLayout->addLayout(scoreLayout);
 
-	tempLayout = new QHBoxLayout(this);
-	tempLayout->addWidget(spinBox1);
-	tempLayout->addWidget(spinBox2);
-	tempLayout->addWidget(tempBtn);
-
 	layout->addWidget(questionMenuBar, 0, 2);
-	layout->addWidget(characteristics, 1, 2);
-	layout->addLayout(hLayout, 2, 2);
-	layout->addLayout(tempLayout, 3, 2);
-
-	connect(tempBtn, SIGNAL(clicked()), this, SLOT(debugBtnClick()));
+	layout->addWidget(guessWhoButton, 1, 2);
+	layout->addWidget(characteristics, 2, 2);
+	layout->addLayout(hLayout, 3, 2);
 
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
@@ -132,12 +123,6 @@ void SideMenu::switchZoomIcon() {
 	zoomMode = !zoomMode;
 }
 
-void SideMenu::debugBtnClick() {
-	std::vector<int> q;
-	q.push_back(spinBox1->value());
-	q.push_back(spinBox2->value());
-	emit sendQuestion(q);
-}
 
 void SideMenu::setNbHiddenCharacter(int nb) {
 	this->nbHiddenCharactersLabel->setText(QString::number(nb) + "/20");

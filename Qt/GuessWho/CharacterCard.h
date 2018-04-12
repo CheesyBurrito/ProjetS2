@@ -49,5 +49,6 @@ public:
 	~CharacterCard();
 	void setupRessources();
 	int getCardHeight();
+	bool getIsFlipped() { return isFlipped; }
 };
 

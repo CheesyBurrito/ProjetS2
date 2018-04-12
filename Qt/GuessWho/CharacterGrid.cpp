@@ -78,5 +78,11 @@ void CharacterGrid::calculateGridDimensions(int w, int h) {
 }
 
 int CharacterGrid::getNbHiddenCharacters() {
-	return 0;
+	int nb = 0;
+	for (int i = 0; i < 20; i++) {
+		if (this->characters->at(i)->getIsFlipped())
+			nb++;
+	}
+
+	return nb;
 }

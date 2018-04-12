@@ -86,6 +86,7 @@ public:
 	void set_path_to_file(string path_to_file);
 	vector<Character*> get_character_vector() const;
 	int get_next_id(); //Gets the id of the next character to add to the list
+	string get_name_from_id(int id);
 
 };
 

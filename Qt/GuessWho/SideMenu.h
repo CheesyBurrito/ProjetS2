@@ -30,19 +30,14 @@ private:
 	QuestionMenuBar * questionMenuBar;
 	int menuHeight, menuWidth;
 
-	QHBoxLayout* tempLayout;
-	QPushButton* tempBtn;
-	QSpinBox* spinBox1;
-	QSpinBox* spinBox2;
+	QPushButton * guessWhoButton;
 
 public slots:
 	void setTraits(std::string newTraits);
 	void switchZoomIcon();
-	void debugBtnClick();
 
 signals:
 	void lowerBarTest(std::string, int);
-	void sendQuestion(std::vector<int>);
 
 public:
 	SideMenu(QWidget *parent, int height, int width);
@@ -54,6 +49,7 @@ public:
 
 	QuestionMenuBar* getQuestionMenuBar() { return questionMenuBar; }
 	QPushButton* getZoomButton() { return zoomButton; }
+	QPushButton* getGuessWhoButton() { return guessWhoButton; }
 
 
 };

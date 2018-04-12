@@ -300,15 +300,19 @@ void MainWindow::p1_askFirstQuestion() {
 	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
 	connectP1ToTree();
+	gameLogic->getPlayer1Reference()->up_num_turn();
 }
 
 void MainWindow::p1_askQuestion() {
 	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
 	connectP1ToTree();
+	gameLogic->getPlayer1Reference()->up_num_turn();
 }
 
 void MainWindow::p2_askQuestion() {
+	gameLogic->getPlayer2Reference()->up_num_turn();
+
 	if (secondPlayerIsBot) {
 		p1_answerQuestion(gameLogic->getPlayer2Reference()->cpuQuestionGeneretor(50, gameLogic->getPlayer1()));
 	}
@@ -317,11 +321,12 @@ void MainWindow::p2_askQuestion() {
 
 		connectP2ToTree();
 	}
+
 }
 
 void MainWindow::p2_answerQuestion(std::vector<int> q) {
 	disconnectP2ToTree();
-	
+
 	p1_lastQuestion = q;
 
 	if (secondPlayerIsBot) {
@@ -329,6 +334,8 @@ void MainWindow::p2_answerQuestion(std::vector<int> q) {
 		p2_getLastAnswer();
 	}
 	else {
+		player2GameWindow->getSideMenu()->setNbHiddenCharacter(player1GameWindow->getGrid()->getNbHiddenCharacters());
+
 		player1GameWindow->hide();
 		takeCentralWidget();
 		setCentralWidget(player2GameWindow);
@@ -350,6 +357,8 @@ void MainWindow::p1_answerQuestion(std::vector<int> q) {
 		player1GameWindow->show();
 
 		disconnectP1ToTree();
+
+		player1GameWindow->getSideMenu()->setNbHiddenCharacter(player2GameWindow->getGrid()->getNbHiddenCharacters());
 	}
 	
 		
@@ -408,10 +417,12 @@ void MainWindow::p2_getLastAnswer(){
 			p2_askQuestion();
 		}
 	}
+
+	if (checkEndGameCondition())
+		return;
 }
 
 void MainWindow::p1_getLastAnswer() {
-
 		if(secondPlayerIsBot) {
 			if (p2_lastQuestion.size() > 0) {
 				if (p1_lastAnswer == true)
@@ -424,6 +435,12 @@ void MainWindow::p1_getLastAnswer() {
 
 		//If there is a question, show it
 		if (p1_lastQuestion.size() > 0) {
+
+			if (p1_lastAnswer == true)
+				gameLogic->getPlayer1Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestion(p1_lastQuestion.at(0), p1_lastQuestion.at(1));
+			else
+				gameLogic->getPlayer1Reference()->get_board_of_player()->get_character_manager()->hideCharacterAfterQuestionOpposite(p1_lastQuestion.at(0), p1_lastQuestion.at(1));
+
 			player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : à la question : " +
 				gameLogic->convertQuestionToString(p1_lastQuestion.at(0), p1_lastQuestion.at(1)) +
 				" la réponse est : " + convertBoolToString(p2_lastAnswer), OK_MODE);
@@ -433,21 +450,88 @@ void MainWindow::p1_getLastAnswer() {
 		else {
 			p1_askQuestion();
 		}
-	
+
+		if (checkEndGameCondition())
+			return;
 }
 
 void MainWindow::connectP1ToTree() {
+	connect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
 	connect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+	connect(player1GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::disconnectP1ToTree() {
-	disconnect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+	disconnect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
+	disconnect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+	disconnect(player1GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::connectP2ToTree() {
+	connect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
 	connect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
+	connect(player2GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::disconnectP2ToTree() {
-	disconnect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+	disconnect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
+	disconnect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
+	disconnect(player2GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
+}
+
+void MainWindow::gameOver(QString winner) {
+	disconnect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
+	disconnect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
+	player1GameWindow->close();
+	player2GameWindow->close();
+	delete player1GameWindow;
+	delete player2GameWindow;
+
+	showMenuWindow();
+	QMessageBox::information(NULL, "Game over", "Le gagant est: " + winner, QMessageBox::Ok);
+}
+
+bool MainWindow::checkEndGameCondition() {
+	int p1 = 0;
+	int p2 = 0;
+
+	if (p1_lastQuestion.at(0) == 8) { //P1 made a guess
+		if (p2_lastAnswer == true)
+			p1++;
+		else
+			p2 = 2;
+	}
+	if (p2_lastQuestion.size() > 0 && p2_lastQuestion.at(0) == 8) { //P2 made a guess
+		if (p1_lastAnswer == true)
+			p2++;
+		else
+			p1 = 2;
+	}
+
+	if (p1 == 2) { //GameOver
+		gameOver(player1Name);
+		return true;
+	}
+	else if (p2 == 2) {//GameOver
+		gameOver(player2Name);
+		return true;
+	}
+	else if (p1 == 1 && p2 == 1) { //Tie
+		gameOver("Égalité");
+		return true;
+	}
+	else if (p2 == 1) { //P2 wins
+		gameOver(player2Name);
+		return true;
+	}
+	else if (p1 == 1) {
+		if (gameLogic->getPlayer1().get_num_turn() + 1 > gameLogic->getPlayer2().get_num_turn()) //P2 still has a turn
+			return false;
+		else { //P1 wins
+			gameOver(player1Name);
+			return true;
+		}
+
+	}
+	return false;
 }

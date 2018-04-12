@@ -32,13 +32,18 @@ private:
 	QSound *pauseSound;
 
 	Player* player;
+
 	public slots :
 	void togglePauseMenu();
 	void toggleZoomMode();
 	void toggleSelectMode();
 
-	public slots:
 	void setChosenCharacter(Character* character);
+	void guessWhoMode();
+	void emitGuessWho(Character* c);
+
+signals:
+	void guessWho(std::vector<int>);
 
 public:
 	GameWindow(QWidget* parent,  Player* player1);

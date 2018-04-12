@@ -777,3 +777,12 @@ int CharacterManager::get_next_id() {
 
 	return maxID+1;
 }
+
+string CharacterManager::get_name_from_id(int id) {
+	for (int i = 0; i < characterVector.size(); i++) {
+		if (characterVector.at(i)->get_id() == id)
+			return characterVector.at(i)->get_character_traits()->getName();
+	}
+
+	return "ERROR INVALID ID";
+}

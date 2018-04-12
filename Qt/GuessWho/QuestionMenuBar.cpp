@@ -127,12 +127,12 @@ void QuestionMenuBar::setupTreeView()
 	parentWidgetsTree[7] = ageTreeItem[0];
 	parentWidgetsTree[8] = genderTreeItem[0];
 	*/
-	treeView->setStyleSheet("color:black");
+	treeView->setStyleSheet("color:white");
 	//treeView->findItems("Genre", Qt::MatchExactly , 0).at(0)->setSelected(true);
 	//eyesTreeItem[0]->setSelected(true);
 	treeView->setFocusPolicy(Qt::NoFocus);
 	//cout << "ITEM: " << treeView->findItems("Yeux", Qt::MatchExactly, 0).size() << endl;
-	treeView->expandAll();
+	//treeView->expandAll();
 }
 
 void QuestionMenuBar::setupLayout()

@@ -36,6 +36,7 @@ protected:
 	void disconnectP1ToTree();
 	void connectP2ToTree();
 	void disconnectP2ToTree();
+	bool checkEndGameCondition();
 		
 public slots:
 	void deleteStart();
@@ -61,6 +62,7 @@ public slots:
 	void p2_answerQuestionYes();
 	void p2_answerQuestionNo();
 	void p2_getLastAnswer();
+	void gameOver(QString winner);
 
 signals:
 	void wKeyPressed();
