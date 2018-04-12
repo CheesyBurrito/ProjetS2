@@ -48,4 +48,5 @@ public:
 	PauseMenu* getPauseMenu() { return pauseMenu; }
 	SideMenu* getSideMenu() { return sideMenu; }
 	LowerBar* getLowerBar() { return lowerBar; }
+	bool getSelectMode() { return selectMode; }
 };

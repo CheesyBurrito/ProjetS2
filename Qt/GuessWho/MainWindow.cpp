@@ -108,16 +108,15 @@ void MainWindow::gameWindow()
 	if (menu->getNumberPlayers() == 1) { //Second player is AI 
 		player1Name = menu->getPlayer1Name();
 		player2Name = "BOT";
+		secondPlayerIsBot = true;
 		gameLogic->getPlayer2Reference()->set_is_cpu(true);
 	}
 	else {
 		player2Name = menu->getPlayer2Name();
+		secondPlayerIsBot = false;
 	}
 
-	setCentralWidget(player1GameWindow);
-
-	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + "Veuillez choisir votre personnage", OK_MODE);
-	player1GameWindow->toggleSelectMode();
+	p1_chooseCharacter();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -162,4 +161,66 @@ void MainWindow::quitGame() {
 void MainWindow::questionMenuSetup()
 {
 	player1GameWindow->getSideMenu()->getQuestionMenuBar();
+}
+
+void MainWindow::p1_chooseCharacter() {
+	setCentralWidget(player1GameWindow);
+
+	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez choisir votre personnage", OK_MODE);
+	player1GameWindow->toggleSelectMode();
+	connect(player1GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p2_chooseCharacter()));
+}
+
+void MainWindow::p2_chooseCharacter() {
+	player1GameWindow->toggleSelectMode(); //Resets to normal mode
+	player2GameWindow->toggleSelectMode(); //Sets to select mode
+
+	if (secondPlayerIsBot) {
+		gameLogic->getPlayer2Reference()->generateRandomCharacter();
+		p1_askQuestion();
+	}
+	else {
+		player1GameWindow->hide();
+		takeCentralWidget();
+		setCentralWidget(player2GameWindow);
+
+		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : Veuillez choisir votre personnage", OK_MODE);
+		connect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p1_askQuestion()));
+	}
+}
+
+void MainWindow::p1_askQuestion() {
+	if (!secondPlayerIsBot) {
+		player2GameWindow->hide();
+		takeCentralWidget();
+		setCentralWidget(player1GameWindow);
+	}
+
+	if(player2GameWindow->getSelectMode() == true)
+		player2GameWindow->toggleSelectMode(); //Resets to normal mode
+
+	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
+
+	//Connect question onClick() to p2_answerQuestion(vector)
+	//Only for testing
+	std::vector<int> q;
+	q.push_back(0);
+	q.push_back(0);
+	p2_answerQuestion(q);
+}
+
+void MainWindow::p2_answerQuestion(std::vector<int> q) {
+	if (secondPlayerIsBot) {
+		bool answer = gameLogic->getAnswerToQuestion(q.at(0), q.at(1), gameLogic->getPlayer1Reference(), gameLogic->getPlayer2Reference());
+		cout << answer << endl;
+	}
+	else {
+		player1GameWindow->hide();
+		takeCentralWidget();
+		setCentralWidget(player2GameWindow);
+
+		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
+		//connect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
+		//connect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+	}
 }

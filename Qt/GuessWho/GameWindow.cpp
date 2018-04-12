@@ -38,7 +38,7 @@ void GameWindow::setupConnections() {
 	connect(pauseMenu->getResumeButton(), SIGNAL(clicked()), this, SLOT(togglePauseMenu()));
 
 	//Test signal
-	connect(sideMenu, SIGNAL(lowerBarTest(std::string, int)), lowerBar, SLOT(changeText(std::string, int)));
+	//connect(sideMenu, SIGNAL(lowerBarTest(std::string, int)), lowerBar, SLOT(changeText(std::string, int)));
 }
 
 void GameWindow::setupWidgets() {
@@ -74,7 +74,7 @@ void GameWindow::toggleSelectMode() {
 	if (selectMode) {
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(setChosenCharacter(Character*)));
-			connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 		}
 		connect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 	}
@@ -82,7 +82,7 @@ void GameWindow::toggleSelectMode() {
 	//Disconect click to flip and connect clic to choose instead
 	else {
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
-			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(setChosenCharacter(Character*)));
 		}
 		disconnect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
@@ -97,10 +97,10 @@ void GameWindow::toggleZoomMode() {
 	if (zoomMode) {
 		this->setCursor(Qt::ArrowCursor);
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
-			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
-			connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
+			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 		}
-		disconnect(this->grid->getCharacters()->at(20), SIGNAL(clicked()), this->grid->getCharacters()->at(20), SLOT(zoomCard()));
+		disconnect(this->grid->getCharacters()->at(20), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(20), SLOT(zoomCard()));
 		connect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 	}
 
@@ -108,11 +108,11 @@ void GameWindow::toggleZoomMode() {
 	else {
 		this->setCursor(zoomCursor);
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
-			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(flipCard()));
-			connect(this->grid->getCharacters()->at(i), SIGNAL(clicked()), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
+			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
 		}
 		disconnect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
-		connect(this->grid->getCharacters()->at(20), SIGNAL(clicked()), this->grid->getCharacters()->at(20), SLOT(zoomCard()));
+		connect(this->grid->getCharacters()->at(20), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(20), SLOT(zoomCard()));
 	}
 
 	zoomMode = !zoomMode;

@@ -72,7 +72,7 @@ void MenuWindow::setOnePlayerGame()
 void MenuWindow::setTwoPlayersGame()
 {
 	player1Name = twoPlayersMenu->getPlayer1Name();
-	player1Name = twoPlayersMenu->getPlayer2Name();
+	player2Name = twoPlayersMenu->getPlayer2Name();
 	numberGames = twoPlayersMenu->getNumberGames();
 	numberPlayers = 2;
 }

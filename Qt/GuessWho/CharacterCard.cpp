@@ -83,6 +83,7 @@ void CharacterCard::mouseDoubleClickEvent(QMouseEvent* event) {
 
 void CharacterCard::mousePressEvent(QMouseEvent* event) {
 	emit clickedCharacter(character);
+	QWidget::mousePressEvent(event);
 }
 
 void CharacterCard::zoomCard() {

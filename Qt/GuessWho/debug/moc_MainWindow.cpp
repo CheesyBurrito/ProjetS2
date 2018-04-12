@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[9];
-    char stringdata0[100];
+    QByteArrayData data[14];
+    char stringdata0[188];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,12 +39,19 @@ QT_MOC_LITERAL(4, 40, 11), // "deleteStart"
 QT_MOC_LITERAL(5, 52, 14), // "showMenuWindow"
 QT_MOC_LITERAL(6, 67, 10), // "gameWindow"
 QT_MOC_LITERAL(7, 78, 12), // "returnToMenu"
-QT_MOC_LITERAL(8, 91, 8) // "quitGame"
+QT_MOC_LITERAL(8, 91, 8), // "quitGame"
+QT_MOC_LITERAL(9, 100, 18), // "p1_chooseCharacter"
+QT_MOC_LITERAL(10, 119, 14), // "p1_askQuestion"
+QT_MOC_LITERAL(11, 134, 18), // "p2_chooseCharacter"
+QT_MOC_LITERAL(12, 153, 17), // "p2_answerQuestion"
+QT_MOC_LITERAL(13, 171, 16) // "std::vector<int>"
 
     },
     "MainWindow\0escapeKeyPressed\0\0keyPressed\0"
     "deleteStart\0showMenuWindow\0gameWindow\0"
-    "returnToMenu\0quitGame"
+    "returnToMenu\0quitGame\0p1_chooseCharacter\0"
+    "p1_askQuestion\0p2_chooseCharacter\0"
+    "p2_answerQuestion\0std::vector<int>"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +61,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,15 +69,19 @@ static const uint qt_meta_data_MainWindow[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x06 /* Public */,
-       3,    0,   50,    2, 0x06 /* Public */,
+       1,    0,   69,    2, 0x06 /* Public */,
+       3,    0,   70,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   51,    2, 0x0a /* Public */,
-       5,    0,   52,    2, 0x0a /* Public */,
-       6,    0,   53,    2, 0x0a /* Public */,
-       7,    0,   54,    2, 0x0a /* Public */,
-       8,    0,   55,    2, 0x0a /* Public */,
+       4,    0,   71,    2, 0x0a /* Public */,
+       5,    0,   72,    2, 0x0a /* Public */,
+       6,    0,   73,    2, 0x0a /* Public */,
+       7,    0,   74,    2, 0x0a /* Public */,
+       8,    0,   75,    2, 0x0a /* Public */,
+       9,    0,   76,    2, 0x0a /* Public */,
+      10,    0,   77,    2, 0x0a /* Public */,
+      11,    0,   78,    2, 0x0a /* Public */,
+      12,    1,   79,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -82,6 +93,10 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 13,    2,
 
        0        // eod
 };
@@ -99,6 +114,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->gameWindow(); break;
         case 5: _t->returnToMenu(); break;
         case 6: _t->quitGame(); break;
+        case 7: _t->p1_chooseCharacter(); break;
+        case 8: _t->p1_askQuestion(); break;
+        case 9: _t->p2_chooseCharacter(); break;
+        case 10: _t->p2_answerQuestion((*reinterpret_cast< std::vector<int>(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -118,7 +137,6 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject MainWindow::staticMetaObject = {
@@ -146,13 +164,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 11;
     }
     return _id;
 }

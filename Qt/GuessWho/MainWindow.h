@@ -38,6 +38,17 @@ public slots:
 	void returnToMenu();
 	void quitGame();
 
+	//GameFunctions
+	void p1_chooseCharacter();
+	void p1_askQuestion();
+	//void p1_getAnswer();
+	//void p1_answerQuestion(std::vector<int>);
+	void p2_chooseCharacter();
+	//void p2_askQuestion();
+	void p2_answerQuestion(std::vector<int>);
+	//void p2_answerQuestionYes();
+	//void p2_answerQuestionNo();
+
 signals:
 	void escapeKeyPressed();
 	void keyPressed();
@@ -52,6 +63,7 @@ private:
 	Games *gameLogic;
 	QString player1Name;
 	QString player2Name;
+	bool secondPlayerIsBot;
 	
 };
 	

@@ -178,6 +178,12 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 	return question;
 }
 
+void Player::generateRandomCharacter()
+{
+	int randomIndex = rand() % (boardOfPlayer->get_character_manager()->get_total_character());
+	characterSelection(boardOfPlayer->get_character_manager()->get_character_vector().at(randomIndex)->get_id());
+}
+
 void Player::up_num_turn()
 {
 	numTurn++;
