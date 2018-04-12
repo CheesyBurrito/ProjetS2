@@ -333,6 +333,9 @@ void MainWindow::p1_answerQuestion(std::vector<int> q) {
 
 		disconnectP1ToTree();
 	}
+	else {
+		player1GameWindow->getSideMenu()->setNbHiddenCharacter(gameLogic->getPlayer2().get_board_of_player()->get_character_manager()->get_num_character_hidden());
+	}
 		
 		player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : " + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
 		connect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));

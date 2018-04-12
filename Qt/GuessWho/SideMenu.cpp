@@ -138,3 +138,7 @@ void SideMenu::debugBtnClick() {
 	q.push_back(spinBox2->value());
 	emit sendQuestion(q);
 }
+
+void SideMenu::setNbHiddenCharacter(int nb) {
+	this->nbHiddenCharactersLabel->setText(QString::number(nb) + "/20");
+}

@@ -50,6 +50,7 @@ public:
 
 	void setupLayouts();
 	void setupWidgets();
+	void setNbHiddenCharacter(int nb);
 
 	QuestionMenuBar* getQuestionMenuBar() { return questionMenuBar; }
 	QPushButton* getZoomButton() { return zoomButton; }
