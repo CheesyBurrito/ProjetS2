@@ -67,6 +67,15 @@ void SideMenu::setupWidgets() {
 	infoText->setAlignment(Qt::AlignTop);
 	infoText->setStyleSheet("background:transparent; color:white");
 	infoText->setFont(QFont("Walkway Bold", 12));
+
+	//
+	
+	tempBtn = new QPushButton("OK", this);
+	spinBox1 = new QSpinBox(this);
+	spinBox2 = new QSpinBox(this);
+	
+	//tempLayout->setAlignment(Qt::AlignBottom);
+
 }
 
 void SideMenu::setupLayouts() {
@@ -77,7 +86,7 @@ void SideMenu::setupLayouts() {
 	layout->setColumnMinimumWidth(0, menuWidth - 300); //Sets blank space before the actual menubar
 	layout->setColumnMinimumWidth(1, 20); //Moves content away from border
 	layout->addWidget(background, 0, 1, 2, 2);
-	layout->addWidget(cornerBackground, 2, 1, 1, 2);
+	layout->addWidget(cornerBackground, 2, 1, 2, 2);
 
 	questionMenuBar->setMaximumHeight(500);
 
@@ -87,9 +96,15 @@ void SideMenu::setupLayouts() {
 	scoreLayout->setAlignment(Qt::AlignHCenter);
 	hLayout->addLayout(scoreLayout);
 
+	tempLayout = new QHBoxLayout(this);
+	tempLayout->addWidget(spinBox1);
+	tempLayout->addWidget(spinBox2);
+	tempLayout->addWidget(tempBtn);
+
 	layout->addWidget(questionMenuBar, 0, 2);
 	layout->addWidget(characteristics, 1, 2);
 	layout->addLayout(hLayout, 2, 2);
+	layout->addLayout(tempLayout, 3, 2);
 
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);

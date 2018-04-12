@@ -7,6 +7,7 @@
 #include <string>
 #include <QPushButton>
 #include <QIcon>
+#include <QSpinBox>
 #include "QuestionMenuBar.h"
 
 class SideMenu : public QWidget
@@ -28,6 +29,11 @@ private:
 	QLabel * nbHiddenCharactersLabel;
 	QuestionMenuBar * questionMenuBar;
 	int menuHeight, menuWidth;
+
+	QHBoxLayout* tempLayout;
+	QPushButton* tempBtn;
+	QSpinBox* spinBox1;
+	QSpinBox* spinBox2;
 
 public slots:
 	void setTraits(std::string newTraits);
