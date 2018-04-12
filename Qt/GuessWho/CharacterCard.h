@@ -13,6 +13,7 @@ private:
 	int cardWidth;
 	int cardHeight;
 	bool isFlipped = false;
+	bool isSet = true;
 	bool isChosenCharacter;
 
 	QPixmap picture;
@@ -28,14 +29,17 @@ private:
 public slots:
 	void flipCard();
 	void zoomCard();
+	void setChosenCharacter(Character* character);
 
 signals:
 	void hovered(std::string traits);
 	void doubleClicked();
+	void clickedCharacter(Character*);
 
 protected:
 	virtual void enterEvent(QEvent* e);
 	virtual void mouseDoubleClickEvent(QMouseEvent* event);
+	virtual void mousePressEvent(QMouseEvent* event);
 
 
 public:
@@ -43,7 +47,6 @@ public:
 	CharacterCard(QWidget *parent, int width, QString path, string characterPath, bool chosenCharacter = false);
 	CharacterCard(QWidget *parent, int width, Character* character = NULL, bool chosenCharacter = false);
 	~CharacterCard();
-	void setChosenCharacter(Character* character);
 	void setupRessources();
 	int getCardHeight();
 };

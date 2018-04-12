@@ -95,16 +95,29 @@ void MainWindow::gameWindow()
 	//GUI ************************
 	menu->hide();
 	takeCentralWidget();
-	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1().get_board_of_player()->get_character_manager());
-	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2().get_board_of_player()->get_character_manager());
-	//Escape Key
+
+	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1Reference());
+	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2Reference());
+	
+	//Connects the pause menu buttons
 	connect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	connect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
-
-	setCentralWidget(player1GameWindow);
 	numberGames = menu->getNumberGames();
 	player1Name = menu->getPlayer1Name();
-	player2Name = menu->getPlayer2Name();
+
+	if (menu->getNumberPlayers() == 1) { //Second player is AI 
+		player1Name = menu->getPlayer1Name();
+		player2Name = "BOT";
+		gameLogic->getPlayer2Reference()->set_is_cpu(true);
+	}
+	else {
+		player2Name = menu->getPlayer2Name();
+	}
+
+	setCentralWidget(player1GameWindow);
+
+	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + "Veuillez choisir votre personnage", OK_MODE);
+	player1GameWindow->toggleSelectMode();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {

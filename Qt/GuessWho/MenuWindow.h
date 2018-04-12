@@ -36,6 +36,8 @@ public:
 	QPushButton* getOkOnePlayerButton() { return onePlayerMenu->getOkButton(); }
 	QPushButton* getOkTwoPlayersButton() { return twoPlayersMenu->getOkButton(); }
 	OptionsMenu* getOptionsMenu() { return optionsMenu; }
+	MainMenu* getMainMenu() { return mainMenu; }
+	int getNumberPlayers() { return numberPlayers; }
 
 private:
 	MainMenu * mainMenu;
@@ -50,5 +52,6 @@ private:
 	CharacterManager* c_manager;
 	QString player1Name;
 	QString player2Name;
+	int numberPlayers;
 };
 #endif 

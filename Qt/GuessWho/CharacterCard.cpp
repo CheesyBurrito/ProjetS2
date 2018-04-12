@@ -5,60 +5,12 @@ CharacterCard::CharacterCard(QWidget *parent, int width, Character* character, b
 	cardWidth = width;
 	cardHeight = 1.4*width;
 	isChosenCharacter = chosenCharacter;
+	if (isChosenCharacter)
+		isSet = false;
 
 	setupRessources();
 	this->setMouseTracking(true);
 }
-
-CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string characterPath, bool chosenCharacter):QPushButton(parent)
-{
-	cardWidth = width;
-	cardHeight = 1.4*width;
-	isChosenCharacter = chosenCharacter;
-
-	traits.importCharacterFromFile(characterPath);
-
-	if (isChosenCharacter) {
-		QImage background("./Photos/header_logo.png");
-		QImage back("./Photos/BlankCharacter.png");
-
-		QImage front("./Photos/emptyFrame.png");
-
-		QPixmap combined(front.size());
-		QPainter p(&combined);
-		p.drawImage(QPoint(0, 0), background);
-		p.drawImage(QPoint(0, 0), back); 
-		p.drawImage(QPoint(0, 0), front); 
-		p.end();
-
-		picture = combined;
-		//picture.load("./Photos/emptyFrame.png");
-		flippedCard.load("./Photos/red_turned_card.png");
-	}
-
-	else {
-		picture.load(path);
-		flippedCard.load("./Photos/turned_card.png");
-	}
-
-	pictureIcon.addPixmap(picture.scaled(width, cardHeight));
-	flippedCardIcon.addPixmap(flippedCard.scaled(width, cardHeight));
-
-	
-	this->setIcon(pictureIcon);
-
-	this->setIconSize(QSize(width, cardHeight));
-	this->setFixedSize(QSize(width, cardHeight));
-
-	/*QPixmap loopCursorPix("./Photos/zoom.png");
-	QCursor loopCursor(loopCursorPix.scaled(25,25));
-	this->setCursor(loopCursor);*/
-
-	this->setMouseTracking(true);
-	//connect(this, SIGNAL(clicked()), this, SLOT(flipCard()));
-	//connect(this, SIGNAL(doubleClicked()), this, SLOT(zoomCard()));
-}
-
 
 CharacterCard::~CharacterCard()
 {
@@ -116,8 +68,10 @@ void CharacterCard::enterEvent(QEvent* e)
 		emit hovered(this->traits.convertPropertiesToString());
 	*/
 	//NEW VERSION
-	if (!isFlipped && this->traits.getEyes() != -1)
-		emit hovered(this->character->get_character_traits()->convertPropertiesToString());
+	if (!isFlipped && isSet){
+		std::string traits = this->character->get_character_traits()->convertPropertiesToString();
+		emit hovered(traits);
+	}
 	
 
 	QWidget::enterEvent(e);
@@ -125,6 +79,10 @@ void CharacterCard::enterEvent(QEvent* e)
 
 void CharacterCard::mouseDoubleClickEvent(QMouseEvent* event) {
 	emit doubleClicked();
+}
+
+void CharacterCard::mousePressEvent(QMouseEvent* event) {
+	emit clickedCharacter(character);
 }
 
 void CharacterCard::zoomCard() {
@@ -145,6 +103,7 @@ void CharacterCard::zoomCard() {
 }
 
 void CharacterCard::setChosenCharacter(Character* character) {
+	isSet = true;
 	this->character = character;
 	QImage background("./Photos/header_logo.png");
 	QImage back(QString::fromStdString(character->get_picture_path()));
