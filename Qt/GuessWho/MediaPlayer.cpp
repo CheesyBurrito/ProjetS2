@@ -27,7 +27,7 @@ MediaPlayer::MediaPlayer(QWidget* parent) : QWidget(parent)
 	activeSongLabel->setFont(QFont("Walkway Bold", 16));
 	activeSongLabel->setStyleSheet("background: transparent; color : white;");
 	activeSongLabel->setAlignment(Qt::AlignCenter);
-	activeSongLabel->setFixedWidth(400);
+	activeSongLabel->setFixedWidth(350);
 
 	prev = new QPushButton(this);
 	prev->setFlat(true);

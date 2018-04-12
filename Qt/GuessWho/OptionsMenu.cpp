@@ -24,6 +24,7 @@ void OptionsMenu::createOptionsMenu()
 	layout_menu = new QVBoxLayout(this);
 	layout_menu->setSpacing(0);
 	layout_menu->setAlignment(Qt::AlignBottom);
+	layout_menu->setContentsMargins(0, 0, 0, 0);
 
 	options_menu->setLayout(layout_menu);
 
@@ -46,6 +47,7 @@ void OptionsMenu::createOptionsMenu()
 	active_List->setStyleSheet("background: white;");
 	active_List->setFont(QFont("Walkway Bold", 20));
 	active_List->setText(activeList);
+	active_List->setFixedWidth(520);
 	active_List->setReadOnly(true);
 
 	emptySpace = new QSpacerItem(520,30);
