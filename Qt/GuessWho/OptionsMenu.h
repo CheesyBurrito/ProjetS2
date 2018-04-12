@@ -39,6 +39,8 @@ public:
 	MenuButton* getCreateNewListButton() { return createNewList; }
 	MenuButton* getChangeListButton() { return changeList; }
 	MenuButton* getBackButton() { return back; }
+	QPushButton* getNextButton() { return next; }
+	QPushButton* getPrevButton() { return prev; }
 
 	QString getActiveList() { return activeList; }
 

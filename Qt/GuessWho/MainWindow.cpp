@@ -24,6 +24,7 @@ void MainWindow::creatingObjects()
 	start = new StartWindow(this);
 	gameLogic = new Games();
 	menu = new MenuWindow(this, gameLogic->get_character_manager());
+	//Songs
 	electroCabello = new QSound("./Sounds/Electro_Cabello.wav", this);
 	epicSaxGuy = new QSound("./Sounds/epicsaxguy.wav", this);
 	luckyDay = new QSound("./Sounds/Jingle-Punks-Lucky-Day.wav", this);
@@ -49,6 +50,8 @@ void MainWindow::connectSignals()
 {
 	//Connecting the signals
 	connect(this, SIGNAL(keyPressed()), this, SLOT(deleteStart()));
+	connect(menu->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
+	connect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 }
 
 void MainWindow::settingWidgets()
@@ -220,7 +223,6 @@ void MainWindow::nextSong()
 		activeSong = "electroCabello";
 	}
 }
-	
 	
 
 void  MainWindow::prevSong()

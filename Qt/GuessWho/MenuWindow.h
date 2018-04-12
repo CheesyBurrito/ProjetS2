@@ -35,6 +35,8 @@ public:
 	QString  getPlayer2Name() { return player2Name; }
 	QPushButton* getOkOnePlayerButton() { return onePlayerMenu->getOkButton(); }
 	QPushButton* getOkTwoPlayersButton() { return twoPlayersMenu->getOkButton(); }
+	QPushButton* getNextButton() { return optionsMenu->getNextButton(); }
+	QPushButton* getPrevButton() { return optionsMenu->getPrevButton(); }
 	OptionsMenu* getOptionsMenu() { return optionsMenu; }
 	MainMenu* getMainMenu() { return mainMenu; }
 	int getNumberPlayers() { return numberPlayers; }
