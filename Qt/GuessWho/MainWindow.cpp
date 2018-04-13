@@ -66,8 +66,8 @@ void MainWindow::settingMainWindow()
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	this->setGeometry(100, 100, 1300, 600);
-	showFullScreen();
-	//show();
+	//showFullScreen();
+	show();
 }
 
 void MainWindow::settingSounds() 
@@ -132,6 +132,9 @@ void MainWindow::gameWindow()
 	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer1(), menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer2(), menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->reinitializeBoard();
+
+	p1_lastQuestion.empty();
+	p2_lastQuestion.empty();
 	//gameLogic->getPlayer1Reference()->set_name_of_player(menu->);
 
 
@@ -160,7 +163,6 @@ void MainWindow::gameWindow()
 	//Connects the pause menu buttons
 	connect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	connect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
-	numberGames = menu->getNumberGames();
 	player1Name = menu->getPlayer1Name();
 
 	if (menu->getNumberPlayers() == 1) { //Second player is AI 
@@ -320,7 +322,10 @@ void MainWindow::p2_chooseCharacter() {
 }
 
 void MainWindow::p1_askFirstQuestion() {
+	cout << "P1 ask first" << endl;
 	if (!secondPlayerIsBot) {
+		disconnect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p1_askFirstQuestion()));
+
 		player2GameWindow->hide();
 		takeCentralWidget();
 		setCentralWidget(player1GameWindow);
@@ -340,6 +345,8 @@ void MainWindow::p1_askFirstQuestion() {
 }
 
 void MainWindow::p1_askQuestion() {
+	cout << "P1 ask" << endl;
+	disconnect(player1GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p1_askQuestion()));
 	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
 	gameLogic->getPlayer1Reference()->up_num_turn();
@@ -351,13 +358,16 @@ void MainWindow::p1_askQuestion() {
 }
 
 void MainWindow::p2_askQuestion() {
+	cout << "P2 ask" << endl;
 	
+
 	gameLogic->getPlayer2Reference()->up_num_turn();
 
 	if (secondPlayerIsBot) {
 		p1_answerQuestion(gameLogic->getPlayer2Reference()->cpuQuestionGeneretor(50, gameLogic->getPlayer1()));
 	}
 	else {
+		disconnect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p2_askQuestion()));
 		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
 		connectP2ToTree();
@@ -366,7 +376,8 @@ void MainWindow::p2_askQuestion() {
 }
 
 void MainWindow::p2_answerQuestion(std::vector<int> q) {
-	disconnectP2ToTree();
+	cout << "P2 answer" << endl;
+	disconnectP1ToTree();
 
 	p1_lastQuestion = q;
 
@@ -389,6 +400,7 @@ void MainWindow::p2_answerQuestion(std::vector<int> q) {
 }
 
 void MainWindow::p1_answerQuestion(std::vector<int> q) {
+	cout << "P1 answer" << endl;
 	p2_lastQuestion = q;
 
 	if (!secondPlayerIsBot) {
@@ -397,7 +409,7 @@ void MainWindow::p1_answerQuestion(std::vector<int> q) {
 		setCentralWidget(player1GameWindow);
 		player1GameWindow->show();
 
-		disconnectP1ToTree();
+		disconnectP2ToTree();
 
 		player1GameWindow->getSideMenu()->setNbHiddenCharacter(player2GameWindow->getGrid()->getNbHiddenCharacters());
 	}
@@ -442,11 +454,14 @@ void MainWindow::p1_answerQuestionNo() {
 }
 
 void MainWindow::p2_getLastAnswer() {
-	checkEndGameCondition();
-	if (winner != "") {
-		gameOver(winner);
+	cout << "P2 get last" << endl;
+	if (p1_lastQuestion.at(0) == 8) { //If P1 made a guess
+		if (p2_lastAnswer == true)
+			player1GameOver = GAME_OVER_WON;
+		else
+			player1GameOver = GAME_OVER_LOST;
 
-		return;
+		checkEndGameCondition();
 	}
 
 	if (secondPlayerIsBot) {
@@ -468,11 +483,17 @@ void MainWindow::p2_getLastAnswer() {
 }
 
 void MainWindow::p1_getLastAnswer() {
-	checkEndGameCondition();
-		if (winner != "") {
-			gameOver(winner);
-			return;
-		}
+	cout << "P1 get last" << endl;
+	if (p2_lastQuestion.at(0) == 8) { //If P2 made a guess
+		if (p1_lastAnswer == true)
+			player2GameOver = GAME_OVER_WON;
+		else
+			player2GameOver = GAME_OVER_LOST;
+
+		checkEndGameCondition();
+	}
+	if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
+		checkEndGameCondition();
 
 		if(secondPlayerIsBot) {
 			if (p2_lastQuestion.size() > 0) {
@@ -538,6 +559,7 @@ void MainWindow::exitAfterGameOver() {
 	disconnect(player1GameWindow->getGameOverMenu()->getQuitButton(), SIGNAL(clicked()), this, SLOT(exitAfterGameOver()));
 
 	player1GameWindow->getGameOverMenu()->close();
+	player1GameWindow->getPauseMenu()->close();
 	player1GameWindow->close();
 	player2GameWindow->close();
 	delete player1GameWindow;
@@ -551,46 +573,30 @@ void MainWindow::exitAfterGameOver() {
 }
 
 bool MainWindow::checkEndGameCondition() {
-	int p1 = 0;
-	int p2 = 0;
 
-	if (p1_lastQuestion.at(0) == 8) { //P1 made a guess
-		if (p2_lastAnswer == true)
-			p1 = 1;
-		else
-			p2 = 2;
+	if (player1GameOver == GAME_OVER_LOST) {
+		gameOver(player2Name);
+		return true;
 	}
-	if (p2_lastQuestion.size() > 0 && p2_lastQuestion.at(0) == 8) { //P2 made a guess
-		if (p1_lastAnswer == true)
-			p2 = 1;
-		else
-			p1 = 2;
+	else if (player2GameOver == GAME_OVER_LOST) {
+		gameOver(player1Name);
+		return true;
 	}
 
-	if (p1 == 2) { //GameOver
-		winner = player1Name;
+	if (player1GameOver == GAME_OVER_WON && player2GameOver == GAME_OVER_WON) {
+		gameOver("Égalité");
 		return true;
 	}
-	else if (p2 == 2) {//GameOver
-		winner = player2Name;
+	else if (player2GameOver == GAME_OVER_WON) {
+		gameOver(player2Name);
 		return true;
 	}
-	else if (p1 == 1 && p2 == 1) { //Tie
-		winner = "Égalité";
-		return true;
-	}
-	else if (p2 == 1) { //P2 wins
-		winner = player2Name;
-		return true;
-	}
-	else if (p1 == 1) {
-		if ((gameLogic->getPlayer1().get_num_turn() + 1) > gameLogic->getPlayer2().get_num_turn()) //P2 still has a turn
+	else {
+		if (gameLogic->getPlayer1().get_num_turn() > gameLogic->getPlayer2().get_num_turn()) //Player 2 still has a turn to take a guess
 			return false;
-		else { //P1 wins
-			winner = player1Name;
+		else {
+			gameOver(player1Name);
 			return true;
 		}
-
 	}
-	return false;
 }

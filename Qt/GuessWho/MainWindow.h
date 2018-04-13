@@ -25,6 +25,9 @@ MainWindow.h
 #include "GameWindow.h"
 #include "Games.h"
 
+#define GAME_OVER_WON 2
+#define GAME_OVER_LOST 1
+#define GAME_OVER_NOT 0
 
 class MainWindow : public QMainWindow
 {
@@ -90,6 +93,8 @@ private:
 	int numberGames;
 	int numberPlayer;
 	int activeSong;
+	int player1GameOver = GAME_OVER_NOT;
+	int player2GameOver = GAME_OVER_NOT;
 	bool secondPlayerIsBot;
 	bool play;
 	bool gameWindowCreate = false;

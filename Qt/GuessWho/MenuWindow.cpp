@@ -82,7 +82,6 @@ void MenuWindow::setOnePlayerGame()
 {
 	player1Name = onePlayerMenu->getPlayer1Name();
 	player2Name = "AI";
-	numberGames = onePlayerMenu->getNumberGames();
 	numberPlayers = 1;
 }
 
@@ -90,7 +89,6 @@ void MenuWindow::setTwoPlayersGame()
 {
 	player1Name = twoPlayersMenu->getPlayer1Name();
 	player2Name = twoPlayersMenu->getPlayer2Name();
-	numberGames = twoPlayersMenu->getNumberGames();
 	numberPlayers = 2;
 }
 

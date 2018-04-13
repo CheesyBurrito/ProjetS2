@@ -43,7 +43,6 @@ public slots:
 public:
 	MenuWindow(QWidget* parent, CharacterManager* characterManager);
 	~MenuWindow();
-	int getNumberGames() { return numberGames; }
 	QString  getPlayer1Name() { return player1Name; }
 	QString  getPlayer2Name() { return player2Name; }
 	QPushButton* getOkOnePlayerButton() { return onePlayerMenu->getOkButton(); }
@@ -65,7 +64,6 @@ private:
 	QLabel *image;
 	int widthImage;
 	int heightImage;
-	int numberGames;
 	CharacterManager* c_manager;
 	QString player1Name;
 	QString player2Name;
