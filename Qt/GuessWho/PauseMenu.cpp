@@ -6,20 +6,22 @@ PauseMenu::PauseMenu(QWidget* parent)
 
 	pauseBackground = new QLabel(this);
 	QPixmap pause_Pix("./Photos/pauseMenu.png");
-	pauseBackground->setPixmap(pause_Pix.scaled(600, 320));
+	pauseBackground->setPixmap(pause_Pix.scaled(700, 373));
 
 	layout = new QGridLayout(this);
 	quitButton = new MenuButton(this, " Quitter");
 	resumeButton = new MenuButton(this, " Retourner au jeu");
 	cancelGameButton = new MenuButton(this, " Retourner au menu");
+	media_Player = new MediaPlayer(this);
 
 	this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
 	layout->setAlignment(Qt::AlignCenter);
 	layout->setSpacing(0);
-	layout->addWidget(pauseBackground,0,0,5,1,Qt::AlignCenter);
-	layout->addWidget(resumeButton,1,0, Qt::AlignCenter);
-	layout->addWidget(cancelGameButton,2,0, Qt::AlignCenter);
-	layout->addWidget(quitButton,3,0, Qt::AlignCenter);
+	layout->addWidget(pauseBackground,0,0,10,1,Qt::AlignCenter);
+	layout->addWidget(resumeButton,3,0, Qt::AlignCenter);
+	layout->addWidget(cancelGameButton,4,0, Qt::AlignCenter);
+	layout->addWidget(quitButton,5,0, Qt::AlignCenter);
+	layout->addWidget(media_Player, 7, 0, Qt::AlignCenter);
 	this->setLayout(layout);
 	
 }

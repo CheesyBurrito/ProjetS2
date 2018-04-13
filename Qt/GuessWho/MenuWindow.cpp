@@ -20,6 +20,8 @@ void MenuWindow::createMenuWindow()
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 
 	layout = new QHBoxLayout(this);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(0);
 
 	image = new QLabel(this);
 	QPixmap logo("./Photos/logo.png");

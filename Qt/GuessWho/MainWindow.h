@@ -77,6 +77,7 @@ private:
 	int activeSong;
 	bool secondPlayerIsBot;
 	bool play;
+	bool gameWindowCreate = false;
 	QString soundsFileExtension = ".wav";
 	QString defaultSongPath = "./Sounds/"; //Default path of the sosund effect
 	//Variables for storing the sound effects

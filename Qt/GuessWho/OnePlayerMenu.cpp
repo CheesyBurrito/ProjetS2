@@ -12,6 +12,7 @@ OnePlayerMenu::~OnePlayerMenu()
 
 void OnePlayerMenu::createOnePlayerMenu()
 {
+	setFixedWidth(620);
 	layout = new QGridLayout(this);
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(10);
@@ -19,16 +20,16 @@ void OnePlayerMenu::createOnePlayerMenu()
 
 	player1 = new QLineEdit(this);
 	player1->setStyleSheet("background: white;");
-	player1->setFont(QFont("Walkway Bold", 20));
+	player1->setFont(QFont("Walkway Bold", 18));
 	player1->setText("Joueur1");
 	player1->setFixedWidth(200);
 
 	name1 = new QLabel("Nom du Joueur1", this);
-	name1->setFont(QFont("Walkway Bold", 20));
+	name1->setFont(QFont("Walkway Bold", 18));
 	name1->setStyleSheet("background: transparent; color : white");
 
 	numGames = new QLabel("Nombre de parties", this);
-	numGames->setFont(QFont("Walkway Bold", 20));
+	numGames->setFont(QFont("Walkway Bold", 18));
 	numGames->setStyleSheet("background: transparent; color : white");
 
 	ok = new MenuButton(this, " Commencer");

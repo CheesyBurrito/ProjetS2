@@ -129,6 +129,17 @@ void MainWindow::gameWindow()
 
 	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1Reference());
 	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2Reference());
+	gameWindowCreate = true;
+
+	//connect media player
+	player1GameWindow->getActiveSongLabel()->setText(songNames.at(activeSong));
+	if (play == true)
+		player1GameWindow->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundon.png);");
+	else
+		player1GameWindow->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundoff.png);");
+	connect(player1GameWindow->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
+	connect(player1GameWindow->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
+	connect(player1GameWindow->getMuteButton(), SIGNAL(clicked()), this, SLOT(playPause()));
 	
 	connect(this, SIGNAL(wKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(goUpTreeWidgetItem()));
 	connect(this, SIGNAL(sKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(goDownTreeWidgetItem()));
@@ -190,6 +201,7 @@ void MainWindow::returnToMenu() {
 		this->player2GameWindow->close();
 		delete player2GameWindow;
 		this->showMenuWindow();
+		gameWindowCreate = false;
 	}
 	else { //No
 		this->player1GameWindow->getPauseMenu()->show();
@@ -217,6 +229,8 @@ void MainWindow::nextSong()
 	}
 	songPlaylist.at(activeSong)->play();
 	menu->getActiveSongLabel()->setText(songNames.at(activeSong));
+	if(gameWindowCreate)
+		player1GameWindow->getActiveSongLabel()->setText(songNames.at(activeSong));
 }
 	
 void  MainWindow::prevSong()
@@ -228,6 +242,8 @@ void  MainWindow::prevSong()
 	}
 	songPlaylist.at(activeSong)->play();
 	menu->getActiveSongLabel()->setText(songNames.at(activeSong));
+	if (gameWindowCreate)
+		player1GameWindow->getActiveSongLabel()->setText(songNames.at(activeSong));
 }
 
 void MainWindow::playPause()
@@ -236,11 +252,29 @@ void MainWindow::playPause()
 	{
 		songPlaylist.at(activeSong)->play();
 		play = true;
+		connect(menu->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
+		connect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
+		if (gameWindowCreate)
+		{
+			connect(player1GameWindow->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
+			connect(player1GameWindow->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
+			player1GameWindow->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundon.png);");
+		}
+		menu->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundon.png);");
 	}
 	else
 	{
 		songPlaylist.at(activeSong)->stop();
 		play = false;
+		disconnect(menu->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
+		disconnect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
+		if (gameWindowCreate)
+		{
+			disconnect(player1GameWindow->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
+			disconnect(player1GameWindow->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
+			player1GameWindow->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundoff.png);");
+		}
+		menu->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundoff.png);");
 	}
 }
 
@@ -484,6 +518,7 @@ void MainWindow::gameOver(QString winner) {
 	player2GameWindow->close();
 	delete player1GameWindow;
 	delete player2GameWindow;
+	gameWindowCreate = false;
 
 	showMenuWindow();
 	QMessageBox::information(NULL, "Game over", "Le gagant est: " + winner, QMessageBox::Ok);

@@ -58,4 +58,8 @@ public:
 	LowerBar* getLowerBar() { return lowerBar; }
 	CharacterGrid* getGrid() { return grid; }
 	bool getSelectMode() { return selectMode; }
+	QPushButton* getNextButton() { return pauseMenu->getNextButton(); }
+	QPushButton* getPrevButton() { return pauseMenu->getPrevButton(); }
+	QPushButton * getMuteButton() { return pauseMenu->getMuteButton(); }
+	QLabel* getActiveSongLabel() { return pauseMenu->getActiveSongLabel(); }
 };
