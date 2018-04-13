@@ -1,3 +1,16 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+GameWindow.h
+*****************************************/
+
 #pragma once
 #include <QWidget>
 #include "CharacterGrid.h"
@@ -10,6 +23,7 @@
 #include <QKeyEvent>
 #include <QSound>
 #include "PauseMenu.h"
+#include "GameOverMenu.h"
 #include "CharacterManager.h"
 #include "Player.h"
 
@@ -24,6 +38,7 @@ private:
 	SideMenu *sideMenu;
 	QCursor zoomCursor;
 	PauseMenu *pauseMenu;
+	GameOverMenu *gameOverMenu;
 	bool isPaused = false;
 	bool zoomMode = false;
 	bool selectMode = false;
@@ -35,6 +50,7 @@ private:
 
 	public slots :
 	void togglePauseMenu();
+	void showGameOver();
 	void toggleZoomMode();
 	void toggleSelectMode();
 
@@ -54,6 +70,7 @@ public:
 	void setupConnections();
 
 	PauseMenu* getPauseMenu() { return pauseMenu; }
+	GameOverMenu* getGameOverMenu() { return gameOverMenu; }
 	SideMenu* getSideMenu() { return sideMenu; }
 	LowerBar* getLowerBar() { return lowerBar; }
 	CharacterGrid* getGrid() { return grid; }

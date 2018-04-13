@@ -1,3 +1,16 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+OnePlayerMenu.cpp
+*****************************************/
+
 #include "OnePlayerMenu.h"
 #include <QDebug>
 

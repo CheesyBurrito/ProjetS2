@@ -1,3 +1,17 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+MainWindow.h
+*****************************************/
+
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -43,6 +57,7 @@ public slots:
 	void showMenuWindow();
 	void gameWindow();
 	void returnToMenu();
+	void exitAfterGameOver();
 	void quitGame();
 	void nextSong();
 	void prevSong();
@@ -78,6 +93,7 @@ private:
 	bool secondPlayerIsBot;
 	bool play;
 	bool gameWindowCreate = false;
+	QString winner = "";
 	QString soundsFileExtension = ".wav";
 	QString defaultSongPath = "./Sounds/"; //Default path of the sosund effect
 	//Variables for storing the sound effects

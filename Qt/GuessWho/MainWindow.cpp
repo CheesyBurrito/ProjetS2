@@ -1,3 +1,16 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+MainWindow.cpp
+*****************************************/
+
 #include "MainWindow.h"
 #include <QDebug>
 
@@ -322,21 +335,23 @@ void MainWindow::p1_askFirstQuestion() {
 
 	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
-	connectP1ToTree();
 	gameLogic->getPlayer1Reference()->up_num_turn();
+	connectP1ToTree();
 }
 
 void MainWindow::p1_askQuestion() {
 	player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : Veuillez poser votre question", EMPTY_MODE);
 
-	connectP1ToTree();
 	gameLogic->getPlayer1Reference()->up_num_turn();
 
 	gameLogic->getPlayer1Reference()->get_board_of_player()->get_character_manager()->set_num_character_hidden(
 		player1GameWindow->getGrid()->getNbHiddenCharacters());
+
+	connectP1ToTree();
 }
 
 void MainWindow::p2_askQuestion() {
+	
 	gameLogic->getPlayer2Reference()->up_num_turn();
 
 	if (secondPlayerIsBot) {
@@ -426,7 +441,14 @@ void MainWindow::p1_answerQuestionNo() {
 	p1_getLastAnswer();
 }
 
-void MainWindow::p2_getLastAnswer(){
+void MainWindow::p2_getLastAnswer() {
+	checkEndGameCondition();
+	if (winner != "") {
+		gameOver(winner);
+
+		return;
+	}
+
 	if (secondPlayerIsBot) {
 		p2_askQuestion();
 	}
@@ -443,12 +465,15 @@ void MainWindow::p2_getLastAnswer(){
 			p2_askQuestion();
 		}
 	}
-
-	if (checkEndGameCondition())
-		return;
 }
 
 void MainWindow::p1_getLastAnswer() {
+	checkEndGameCondition();
+		if (winner != "") {
+			gameOver(winner);
+			return;
+		}
+
 		if(secondPlayerIsBot) {
 			if (p2_lastQuestion.size() > 0) {
 				if (p1_lastAnswer == true)
@@ -471,9 +496,6 @@ void MainWindow::p1_getLastAnswer() {
 		else {
 			p1_askQuestion();
 		}
-
-		if (checkEndGameCondition())
-			return;
 }
 
 void MainWindow::connectP1ToTree() {
@@ -501,16 +523,31 @@ void MainWindow::disconnectP2ToTree() {
 }
 
 void MainWindow::gameOver(QString winner) {
+
+	player1GameWindow->togglePauseMenu();
 	disconnect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	disconnect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
+
+	player1GameWindow->getGameOverMenu()->setWinner(winner);
+	player1GameWindow->showGameOver();
+	connect(player1GameWindow->getGameOverMenu()->getQuitButton(), SIGNAL(clicked()), this, SLOT(exitAfterGameOver()));
+	
+}
+
+void MainWindow::exitAfterGameOver() {
+	disconnect(player1GameWindow->getGameOverMenu()->getQuitButton(), SIGNAL(clicked()), this, SLOT(exitAfterGameOver()));
+
+	player1GameWindow->getGameOverMenu()->close();
 	player1GameWindow->close();
 	player2GameWindow->close();
 	delete player1GameWindow;
 	delete player2GameWindow;
-	gameWindowCreate = false;
 
 	showMenuWindow();
-	QMessageBox::information(NULL, "Game over", "Le gagant est: " + winner, QMessageBox::Ok);
+
+	gameWindowCreate = false;
+
+	
 }
 
 bool MainWindow::checkEndGameCondition() {
@@ -531,26 +568,26 @@ bool MainWindow::checkEndGameCondition() {
 	}
 
 	if (p1 == 2) { //GameOver
-		gameOver(player1Name);
+		winner = player1Name;
 		return true;
 	}
 	else if (p2 == 2) {//GameOver
-		gameOver(player2Name);
+		winner = player2Name;
 		return true;
 	}
 	else if (p1 == 1 && p2 == 1) { //Tie
-		gameOver("Égalité");
+		winner = "Égalité";
 		return true;
 	}
 	else if (p2 == 1) { //P2 wins
-		gameOver(player2Name);
+		winner = player2Name;
 		return true;
 	}
 	else if (p1 == 1) {
 		if ((gameLogic->getPlayer1().get_num_turn() + 1) > gameLogic->getPlayer2().get_num_turn()) //P2 still has a turn
 			return false;
 		else { //P1 wins
-			gameOver(player1Name);
+			winner = player1Name;
 			return true;
 		}
 

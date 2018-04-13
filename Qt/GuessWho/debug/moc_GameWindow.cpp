@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GameWindow_t {
-    QByteArrayData data[13];
-    char stringdata0[154];
+    QByteArrayData data[14];
+    char stringdata0[167];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,21 +36,22 @@ QT_MOC_LITERAL(1, 11, 8), // "guessWho"
 QT_MOC_LITERAL(2, 20, 0), // ""
 QT_MOC_LITERAL(3, 21, 16), // "std::vector<int>"
 QT_MOC_LITERAL(4, 38, 15), // "togglePauseMenu"
-QT_MOC_LITERAL(5, 54, 14), // "toggleZoomMode"
-QT_MOC_LITERAL(6, 69, 16), // "toggleSelectMode"
-QT_MOC_LITERAL(7, 86, 18), // "setChosenCharacter"
-QT_MOC_LITERAL(8, 105, 10), // "Character*"
-QT_MOC_LITERAL(9, 116, 9), // "character"
-QT_MOC_LITERAL(10, 126, 12), // "guessWhoMode"
-QT_MOC_LITERAL(11, 139, 12), // "emitGuessWho"
-QT_MOC_LITERAL(12, 152, 1) // "c"
+QT_MOC_LITERAL(5, 54, 12), // "showGameOver"
+QT_MOC_LITERAL(6, 67, 14), // "toggleZoomMode"
+QT_MOC_LITERAL(7, 82, 16), // "toggleSelectMode"
+QT_MOC_LITERAL(8, 99, 18), // "setChosenCharacter"
+QT_MOC_LITERAL(9, 118, 10), // "Character*"
+QT_MOC_LITERAL(10, 129, 9), // "character"
+QT_MOC_LITERAL(11, 139, 12), // "guessWhoMode"
+QT_MOC_LITERAL(12, 152, 12), // "emitGuessWho"
+QT_MOC_LITERAL(13, 165, 1) // "c"
 
     },
     "GameWindow\0guessWho\0\0std::vector<int>\0"
-    "togglePauseMenu\0toggleZoomMode\0"
-    "toggleSelectMode\0setChosenCharacter\0"
-    "Character*\0character\0guessWhoMode\0"
-    "emitGuessWho\0c"
+    "togglePauseMenu\0showGameOver\0"
+    "toggleZoomMode\0toggleSelectMode\0"
+    "setChosenCharacter\0Character*\0character\0"
+    "guessWhoMode\0emitGuessWho\0c"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,7 +61,7 @@ static const uint qt_meta_data_GameWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,15 +69,16 @@ static const uint qt_meta_data_GameWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   52,    2, 0x0a /* Public */,
-       5,    0,   53,    2, 0x0a /* Public */,
-       6,    0,   54,    2, 0x0a /* Public */,
-       7,    1,   55,    2, 0x0a /* Public */,
-      10,    0,   58,    2, 0x0a /* Public */,
-      11,    1,   59,    2, 0x0a /* Public */,
+       4,    0,   57,    2, 0x0a /* Public */,
+       5,    0,   58,    2, 0x0a /* Public */,
+       6,    0,   59,    2, 0x0a /* Public */,
+       7,    0,   60,    2, 0x0a /* Public */,
+       8,    1,   61,    2, 0x0a /* Public */,
+      11,    0,   64,    2, 0x0a /* Public */,
+      12,    1,   65,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -85,9 +87,10 @@ static const uint qt_meta_data_GameWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 8,    9,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 8,   12,
+    QMetaType::Void, 0x80000000 | 9,   10,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 9,   13,
 
        0        // eod
 };
@@ -100,11 +103,12 @@ void GameWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->guessWho((*reinterpret_cast< std::vector<int>(*)>(_a[1]))); break;
         case 1: _t->togglePauseMenu(); break;
-        case 2: _t->toggleZoomMode(); break;
-        case 3: _t->toggleSelectMode(); break;
-        case 4: _t->setChosenCharacter((*reinterpret_cast< Character*(*)>(_a[1]))); break;
-        case 5: _t->guessWhoMode(); break;
-        case 6: _t->emitGuessWho((*reinterpret_cast< Character*(*)>(_a[1]))); break;
+        case 2: _t->showGameOver(); break;
+        case 3: _t->toggleZoomMode(); break;
+        case 4: _t->toggleSelectMode(); break;
+        case 5: _t->setChosenCharacter((*reinterpret_cast< Character*(*)>(_a[1]))); break;
+        case 6: _t->guessWhoMode(); break;
+        case 7: _t->emitGuessWho((*reinterpret_cast< Character*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -144,13 +148,13 @@ int GameWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

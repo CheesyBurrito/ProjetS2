@@ -1,3 +1,16 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+GameWindow.cpp
+*****************************************/
+
 #include "GameWindow.h"
 
 
@@ -46,6 +59,8 @@ void GameWindow::setupWidgets() {
 	lowerBar = new LowerBar(this, width, height - grid->getGridHeight());
 	sideMenu = new SideMenu(this, height, width - grid->getGridWidth());
 	pauseMenu = new PauseMenu(this);
+	gameOverMenu = new GameOverMenu();
+	this->gameOverMenu->hide();
 	pauseSound = new QSound("./Sounds/pause.wav", this);
 
 	QPixmap zoomCursorPix("./Photos/zoom.png");
@@ -153,6 +168,11 @@ void GameWindow::togglePauseMenu() {
 	}
 
 	isPaused = !isPaused;
+}
+
+void GameWindow::showGameOver() {
+	this->gameOverMenu->show();
+	this->setEnabled(true);
 }
 
 
