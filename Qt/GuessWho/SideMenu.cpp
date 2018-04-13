@@ -47,7 +47,7 @@ void SideMenu::setupWidgets() {
 
 	//Characteristics view
 	characteristics->setText("");
-	characteristics->setMaximumWidth(200);
+	characteristics->setMaximumWidth(250);
 	characteristics->setWordWrap(true);
 	characteristics->setAttribute(Qt::WA_TranslucentBackground);
 	characteristics->setAlignment(Qt::AlignLeft);
