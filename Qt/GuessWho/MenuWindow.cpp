@@ -3,7 +3,7 @@
 MenuWindow::MenuWindow(QWidget* parent, CharacterManager* characterManager) : QWidget(parent)
 {
 	c_manager = characterManager;
-	widthImage = parent->width() - 800;
+	widthImage = parent->width() - 620;
 	heightImage = parent->height();
 
 	createMenuWindow();
