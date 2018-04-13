@@ -13,20 +13,18 @@ OptionsMenu::~OptionsMenu()
 void OptionsMenu::createOptionsMenu()
 {
 
-	media_Player = new MediaPlayer(this);
 	layout = new QVBoxLayout(this);
+	media_Player = new MediaPlayer(this);
 	layout->setSpacing(0);
 	layout->setAlignment(Qt::AlignCenter);
-	setLayout(layout);
 
 	options_menu = new QWidget(this);
 
-	layout_menu = new QVBoxLayout(this);
+	layout_menu = new QVBoxLayout(options_menu);
+	options_menu->setLayout(layout_menu);
 	layout_menu->setSpacing(0);
 	layout_menu->setAlignment(Qt::AlignBottom);
 	layout_menu->setContentsMargins(0, 0, 0, 0);
-
-	options_menu->setLayout(layout_menu);
 
 	layout->addWidget(options_menu);
 	layout->addWidget(media_Player);

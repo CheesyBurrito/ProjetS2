@@ -85,7 +85,7 @@ void LowerBar::setupWidgets() {
 
 void LowerBar::setupLayouts() {
 	layout = new QGridLayout(this);
-	hLayout = new QHBoxLayout(this);
+	hLayout = new QHBoxLayout;
 
 	hLayout->addWidget(infoText);
 	hLayout->addWidget(yesButton);
@@ -101,5 +101,4 @@ void LowerBar::setupLayouts() {
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 
-	this->setLayout(layout);
 }

@@ -28,8 +28,7 @@ void MainWindow::creatingObjects()
 	menu = new MenuWindow(this, gameLogic->get_character_manager());
 	
 	//Loading the default character list
-	gameLogic->get_character_manager()->importCharacters
-	(menu->getOptionsMenu()->getActiveList().toStdString());
+	gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
 }
 
 void MainWindow::connectSignals()
@@ -227,7 +226,8 @@ void MainWindow::nextSong()
 	if (activeSong > songPlaylist.size() - 1) {
 		activeSong = 0;
 	}
-	songPlaylist.at(activeSong)->play();
+	if(play)
+		songPlaylist.at(activeSong)->play();
 	menu->getActiveSongLabel()->setText(songNames.at(activeSong));
 	if(gameWindowCreate)
 		player1GameWindow->getActiveSongLabel()->setText(songNames.at(activeSong));
@@ -240,7 +240,8 @@ void  MainWindow::prevSong()
 	if (activeSong < 0) {
 		activeSong = songPlaylist.size() - 1;
 	}
-	songPlaylist.at(activeSong)->play();
+	if (play)
+		songPlaylist.at(activeSong)->play();
 	menu->getActiveSongLabel()->setText(songNames.at(activeSong));
 	if (gameWindowCreate)
 		player1GameWindow->getActiveSongLabel()->setText(songNames.at(activeSong));
@@ -252,28 +253,16 @@ void MainWindow::playPause()
 	{
 		songPlaylist.at(activeSong)->play();
 		play = true;
-		connect(menu->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
-		connect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 		if (gameWindowCreate)
-		{
-			connect(player1GameWindow->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
-			connect(player1GameWindow->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 			player1GameWindow->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundon.png);");
-		}
 		menu->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundon.png);");
 	}
 	else
 	{
 		songPlaylist.at(activeSong)->stop();
 		play = false;
-		disconnect(menu->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
-		disconnect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 		if (gameWindowCreate)
-		{
-			disconnect(player1GameWindow->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
-			disconnect(player1GameWindow->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 			player1GameWindow->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundoff.png);");
-		}
 		menu->getMuteButton()->setStyleSheet("background-image: url(./Photos/soundoff.png);");
 	}
 }

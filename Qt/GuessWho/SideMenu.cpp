@@ -22,7 +22,7 @@ SideMenu::~SideMenu()
 void SideMenu::setupWidgets() {
 	background = new QLabel(this);
 	cornerBackground = new QLabel(this);
-	characteristics = new QLabel(background);
+	characteristics = new QLabel(this);
 	zoomButton = new QPushButton(this);
 	questionMenuBar = new QuestionMenuBar(this);
 
@@ -78,8 +78,8 @@ void SideMenu::setupWidgets() {
 
 void SideMenu::setupLayouts() {
 	layout = new QGridLayout(this);
-	scoreLayout = new QVBoxLayout(this);
-	hLayout = new QHBoxLayout(this);
+	hLayout = new QHBoxLayout;
+	scoreLayout = new QVBoxLayout;
 
 	layout->setColumnMinimumWidth(0, menuWidth - 300); //Sets blank space before the actual menubar
 	layout->setColumnMinimumWidth(1, 20); //Moves content away from border
@@ -103,7 +103,6 @@ void SideMenu::setupLayouts() {
 	layout->setSpacing(0);
 	this->setFixedWidth(menuWidth);
 	this->setGeometry(0, 0, menuWidth, menuHeight);
-	this->setLayout(layout);
 }
 
 void SideMenu::setTraits(std::string newTraits) {
