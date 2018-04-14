@@ -81,11 +81,12 @@ void SideMenu::setupWidgets() {
 	infoText->setStyleSheet("background:transparent; color:white");
 	infoText->setFont(QFont("Walkway Bold", 12));
 	
-	guessWhoButton = new QPushButton("Guess Who", this);
+	guessWhoButton = new QPushButton(this);
 	guessWhoButton->setFlat(false);
-	guessWhoButton->setStyleSheet("background: white; color : black");
+	guessWhoButton->setStyleSheet("background-image: url(./Photos/boutonGuess.png);");
 	guessWhoButton->setCursor(Qt::PointingHandCursor);
 	guessWhoButton->setFont(QFont("Walkway Bold", 16));
+	guessWhoButton->setFixedSize(280, 85);
 
 }
 

@@ -70,26 +70,23 @@ void LowerBar::setupWidgets() {
 	infoText->setStyleSheet("background:transparent; color:white");
 	infoText->setFont(QFont("Walkway Bold", 16));
 
-	yesButton = new QPushButton("Oui", this);
+	yesButton = new QPushButton(this);
 	yesButton->setFlat(false);
-	yesButton->setStyleSheet("background: green; color : white");
+	yesButton->setStyleSheet("background-image: url(./Photos/yesButton.png);");
 	yesButton->setCursor(Qt::PointingHandCursor);
-	yesButton->setFont(QFont("Walkway Bold", 30));
-	yesButton->setFixedSize(100, 50);
+	yesButton->setFixedSize(140, 70);
 
-	noButton = new QPushButton("Non", this);
+	noButton = new QPushButton(this);
 	noButton->setFlat(false);
-	noButton->setStyleSheet("background: red; color : white");
+	noButton->setStyleSheet("background-image: url(./Photos/noButton.png);");
 	noButton->setCursor(Qt::PointingHandCursor);
-	noButton->setFont(QFont("Walkway Bold", 30));
-	noButton->setFixedSize(100, 50);
+	noButton->setFixedSize(140, 70);
 
-	okButton = new QPushButton("Ok", this);
+	okButton = new QPushButton(this);
 	okButton->setFlat(false);
-	okButton->setStyleSheet("background: green; color : white");
+	okButton->setStyleSheet("background-image: url(./Photos/okButton.png);");
 	okButton->setCursor(Qt::PointingHandCursor);
-	okButton->setFont(QFont("Walkway Bold", 30));
-	okButton->setFixedSize(100, 50);
+	okButton->setFixedSize(140, 70);
 
 	yesButton->hide();
 	noButton->hide();

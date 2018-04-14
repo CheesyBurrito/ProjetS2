@@ -347,7 +347,7 @@ string CharacterManager::printPhysicalTraitsColorProperties(int colorIndex)
 	}
 	case 8:
 	{
-		return "Basane";
+		return "Basané";
 	}
 	case 9:
 	{
@@ -398,11 +398,11 @@ string CharacterManager::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 8:
 	{
-		return "Rase";
+		return "Rasé";
 	}
 	case 9:
 	{
-		return "Barbe Plein";
+		return "Barbe";
 	}
 	case 10:
 	{
@@ -422,11 +422,11 @@ string CharacterManager::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 14:
 	{
-		return "Etudiant";
+		return "Étudiant";
 	}
 	case 15:
 	{
-		return "Professeur";
+		return "Personnel";
 	}
 	}
 	return "Invalid property value!";

@@ -113,14 +113,14 @@ string CharacterTraits::convertPropertiesToString()
 	string output;
 
 	output += "\n Nom : " + name + "\n";
-	output += " Yeux :" + printPhysicalTraitsColorProperties(eyes) + "\n";
-	output += " Cheveux :" + printPhysicalTraitsProperties(hairCharacteristics) + ", " + printPhysicalTraitsColorProperties(hairColor) + "\n";
-	output += " Accessoires :\n";
+	output += " Yeux : " + printPhysicalTraitsColorProperties(eyes) + "\n";
+	output += " Cheveux : " + printPhysicalTraitsProperties(hairCharacteristics) + ", " + printPhysicalTraitsColorProperties(hairColor) + "\n";
+	output += " Accessoires : \n";
 	output += printAccessories() + "\n";
-	output += " Sexe :" + printPhysicalTraitsProperties(gender) + "\n";
-	output += " Age :" + printPhysicalTraitsProperties(age) + "\n";
-	output += " Pilosité :" + printPhysicalTraitsProperties(facialHair) + "\n";
-	output += " Couleur de peau :" + printPhysicalTraitsColorProperties(skinColor) + "\n";
+	output += " Sexe : " + printPhysicalTraitsProperties(gender) + "\n";
+	output += " Age : " + printPhysicalTraitsProperties(age) + "\n";
+	output += " Pilosité : " + printPhysicalTraitsProperties(facialHair) + "\n";
+	output += " Couleur de peau : " + printPhysicalTraitsColorProperties(skinColor) + "\n";
 
 	return output;
 }
@@ -155,43 +155,43 @@ string CharacterTraits::printPhysicalTraitsColorProperties(int colorIndex)
 	{
 	case 0:
 		{
-		return " Brun";
+		return "Brun";
 		}
 	case 1:
 	{
-		return " Vert";
+		return "Vert";
 	}
 	case 2:
 	{
-		return " Bleu";
+		return "Bleu";
 	}
 	case 3:
 	{
-		return " Rouge";
+		return "Rouge";
 	}
 	case 4:
 	{
-		return " Roux";
+		return "Roux";
 	}
 	case 5:
 	{
-		return " Blond";
+		return "Blond";
 	}
 	case 6:
 	{
-		return " Noir";
+		return "Noir";
 	}
 	case 7:
 	{
-		return " Blanc";
+		return "Blanc";
 	}
 	case 8:
 	{
-		return " Basané";
+		return "Basané";
 	}
 	case 9:
 	{
-		return " Autre";
+		return "Autre";
 	}
 	default:
 		{
@@ -206,67 +206,67 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	{
 	case 0:
 	{
-		return " -Rien";
+		return "-Rien";
 	}
 	case 1:
 	{
-		return " Chauve";
+		return "Chauve";
 	}
 	case 2:
 	{
-		return " Courts";
+		return "Courts";
 	}
 	case 3:
 	{
-		return " Longs";
+		return "Longs";
 	}
 	case 4:
 	{
-		return " -Piercing";
+		return "-Piercing";
 	}
 	case 5:
 	{
-		return " -Chapeau";
+		return "-Chapeau";
 	}
 	case 6:
 	{
-		return " -Lunettes";
+		return "-Lunettes";
 	}
 	case 7:
 	{
-		return " -Tattoo";
+		return "-Tattoo";
 	}
 	case 8:
 	{
-		return " Rasé";
+		return "Rasé";
 	}
 	case 9:
 	{
-		return " Barbe";
+		return "Barbe";
 	}
 	case 10:
 	{
-		return " Moustache";
+		return "Moustache";
 	}
 	case 11:
 	{
-		return " Bouc";
+		return "Bouc";
 	}
 	case 12:
 	{
-		return " Homme";
+		return "Homme";
 	}
 	case 13:
 	{
-		return " Femme";
+		return "Femme";
 	}
 	case 14:
 	{
-		return " Étudiant";
+		return "Étudiant";
 	}
 	case 15:
 	{
-		return " Personnel";
+		return "Personnel";
 	}
 	}
 	return "Invalid property value!";

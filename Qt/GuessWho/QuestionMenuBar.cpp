@@ -141,6 +141,7 @@ void QuestionMenuBar::setupTreeView()
 	parentWidgetsTree[8] = genderTreeItem[0];
 	*/
 	treeView->setStyleSheet("color:white");
+	treeView->setFont(QFont("Walkway Bold", 12));
 	//treeView->findItems("Genre", Qt::MatchExactly , 0).at(0)->setSelected(true);
 	//eyesTreeItem[0]->setSelected(true);
 	treeView->setFocusPolicy(Qt::NoFocus);

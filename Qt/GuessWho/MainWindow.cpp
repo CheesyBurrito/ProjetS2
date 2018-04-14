@@ -12,7 +12,6 @@ MainWindow.cpp
 *****************************************/
 
 #include "MainWindow.h"
-#include <QDebug>
 
 MainWindow::MainWindow() : QMainWindow()
 {
@@ -136,9 +135,6 @@ void MainWindow::gameWindow()
 
 
 	//GUI ************************
-	menu->hide();
-	takeCentralWidget();
-
 	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1Reference());
 	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2Reference());
 	gameWindowCreate = true;
@@ -173,6 +169,9 @@ void MainWindow::gameWindow()
 		player2Name = menu->getPlayer2Name();
 		secondPlayerIsBot = false;
 	}
+
+	menu->hide();
+	takeCentralWidget();
 
 	p1_chooseCharacter();
 	disconnect(this, SIGNAL(escapeKeyPressed()), menu, SLOT(showMainMenu()));

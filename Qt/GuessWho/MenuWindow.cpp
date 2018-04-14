@@ -19,6 +19,7 @@ MenuWindow::MenuWindow(QWidget* parent, CharacterManager* characterManager) : QW
 	widthImage = parent->width() - 620;
 	heightImage = parent->height();
 
+	settingLoadingMenu();
 	createMenuWindow();
 }
 
@@ -71,11 +72,29 @@ void MenuWindow::createMenuWindow()
 	layout->addWidget(twoPlayersMenu);
 	connect(twoPlayersMenu->getOkButton(), SIGNAL(clicked()), this, SLOT(setTwoPlayersGame()));
 
+	layout->addWidget(loading);
+
 	optionsMenu->hide();
 	onePlayerMenu->hide();
 	twoPlayersMenu->hide();
 
 	setLayout(layout);
+}
+
+void MenuWindow::settingLoadingMenu()
+{
+	loading = new QWidget(this);
+	loadingImage = new QLabel(loading);
+	loadingLayout = new QHBoxLayout(loading);
+	QPixmap logo("./Photos/loading.png");
+	loadingImage->setPixmap(logo.scaled(620, 1080, Qt::KeepAspectRatio));
+	loadingLayout->addWidget(loadingImage);
+	loadingLayout->setContentsMargins(0, 0, 0, 0);
+	loadingLayout->setSpacing(0);
+	loadingLayout->setAlignment(Qt::AlignCenter);
+	loading->setStyleSheet("background: transparent;");
+	loading->setLayout(loadingLayout);
+	loading->hide();
 }
 
 void MenuWindow::setOnePlayerGame()
@@ -84,6 +103,8 @@ void MenuWindow::setOnePlayerGame()
 	player2Name = "AI";
 	numberGames = onePlayerMenu->getNumberGames();
 	numberPlayers = 1;
+	onePlayerMenu->hide();
+	loading->show();
 }
 
 void MenuWindow::setTwoPlayersGame()
@@ -92,6 +113,8 @@ void MenuWindow::setTwoPlayersGame()
 	player2Name = twoPlayersMenu->getPlayer2Name();
 	numberGames = twoPlayersMenu->getNumberGames();
 	numberPlayers = 2;
+	twoPlayersMenu->hide();
+	loading->show();
 }
 
 void MenuWindow::showMainMenu()
@@ -100,6 +123,7 @@ void MenuWindow::showMainMenu()
 	optionsMenu->hide();
 	onePlayerMenu->hide();
 	twoPlayersMenu->hide();
+	loading->hide();
 	mainMenu->show();
 	connect(this->parent(), SIGNAL(escapeKeyPressed()), this, SLOT(showMainMenu()));
 }
