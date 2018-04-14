@@ -569,24 +569,28 @@ void MainWindow::p1_getLastAnswer() {
 
 void MainWindow::connectP1ToTree() {
 	connect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
+	connect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(setGuessMode()));
 	connect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 	connect(player1GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::disconnectP1ToTree() {
 	disconnect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
+	disconnect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(setGuessMode()));
 	disconnect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 	disconnect(player1GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::connectP2ToTree() {
 	connect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
+	connect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(setGuessMode()));
 	connect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 	connect(player2GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::disconnectP2ToTree() {
 	disconnect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
+	disconnect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(setGuessMode()));
 	disconnect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 	disconnect(player2GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 }

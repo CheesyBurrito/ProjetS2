@@ -34,7 +34,6 @@ GameWindow::~GameWindow()
 void GameWindow::setupConnections() {
 	//Zoom button
 	connect(sideMenu->getZoomButton(), SIGNAL(clicked()), this, SLOT(toggleZoomMode()));
-	connect(sideMenu->getGuessWhoButton(), SIGNAL(clicked()), this, SLOT(setGuessMode()));
 
 	//Character cards : click to zoom and hover to show characteristics
 	for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
