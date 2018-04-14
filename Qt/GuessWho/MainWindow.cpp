@@ -21,7 +21,6 @@ MainWindow::MainWindow() : QMainWindow()
 MainWindow::~MainWindow()
 {
 	delete menu;
-	delete fpgaComm;
 }
 
 void MainWindow::constructorLogic()
@@ -40,8 +39,7 @@ void MainWindow::creatingObjects()
 	gameLogic = new Games();
 	menu = new MenuWindow(this, gameLogic->get_character_manager());
 
-	fpgaComm = new FPGA();
-	fpgaComm->loadPhonemesFromFile("Phonemes.csv");
+	fpgaComm.loadPhonemesFromFile("Phonemes.csv");
 	timer.setInterval(FPGA_READ_INTERVAL);
 	timer.start();
 	
@@ -57,8 +55,8 @@ void MainWindow::connectSignals()
 	connect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 	connect(menu->getMuteButton(), SIGNAL(clicked()), this, SLOT(playPause()));
 
-	connect(this, SIGNAL(phonemeKeyPressed()), fpgaComm, SLOT(toggleReadMode()));
-	connect(&timer, SIGNAL(timeout()), fpgaComm, SLOT(readSlot()));
+	connect(this, SIGNAL(phonemeKeyPressed()), &fpgaComm, SLOT(toggleReadMode()));
+	connect(&timer, SIGNAL(timeout()), &fpgaComm, SLOT(readSlot()));
 
 	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
 }
@@ -172,15 +170,15 @@ void MainWindow::gameWindow()
 	connect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 
 	//Initialize FPGA communication
-	connect(fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
-	connect(fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
-	connect(fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
-	connect(fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
-	connect(fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
-	connect(fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
+	connect(&fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
+	connect(&fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
+	connect(&fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
+	connect(&fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
+	connect(&fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
+	connect(&fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
 
-	fpgaComm->checkCardStatus();
-	fpgaComm->setReadMode(false);
+	fpgaComm.checkCardStatus();
+	fpgaComm.setReadMode(false);
 
 
 	player1Name = menu->getPlayer1Name();
@@ -649,12 +647,12 @@ bool MainWindow::checkEndGameCondition() {
 }
 
 void MainWindow::disconnectFPGA() {
-	disconnect(fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
-	disconnect(fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
+	disconnect(&fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
+	disconnect(&fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
 
-	disconnect(fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
-	disconnect(fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
+	disconnect(&fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
+	disconnect(&fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
 
-	disconnect(fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
-	disconnect(fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
+	disconnect(&fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
+	disconnect(&fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
 }

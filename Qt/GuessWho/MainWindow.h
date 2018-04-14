@@ -127,7 +127,7 @@ private:
 	bool p1_lastAnswer;
 	std::vector<int> p1_lastQuestion;
 	std::vector<int> p2_lastQuestion;
-	FPGA *fpgaComm;
+	FPGA fpgaComm;
 	QTimer timer;
 	
 	
