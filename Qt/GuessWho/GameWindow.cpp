@@ -65,6 +65,9 @@ void GameWindow::setupWidgets() {
 
 	QPixmap zoomCursorPix("./Photos/zoom.png");
 	zoomCursor = QCursor(zoomCursorPix.scaled(30, 30));
+
+	QPixmap guessCursorPix("./Photos/guessCursor.png");
+	guessCursor = QCursor(guessCursorPix.scaled(80, 80,Qt::KeepAspectRatio));
 }
 
 void GameWindow::setupLayouts() {
@@ -125,7 +128,7 @@ void GameWindow::guessWhoMode() {
 
 
 	//Disconect click to flip and connect clic to choose instead
-	
+		this->setCursor(guessCursor);
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(emitGuessWho(Character*)));

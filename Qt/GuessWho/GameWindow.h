@@ -37,6 +37,7 @@ private:
 	LowerBar *lowerBar;
 	SideMenu *sideMenu;
 	QCursor zoomCursor;
+	QCursor guessCursor;
 	PauseMenu *pauseMenu;
 	GameOverMenu *gameOverMenu;
 	bool isPaused = false;

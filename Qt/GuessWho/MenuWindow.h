@@ -43,7 +43,8 @@ public slots:
 public:
 	MenuWindow(QWidget* parent, CharacterManager* characterManager);
 	~MenuWindow();
-	int getNumberGames() { return numberGames; }
+	void settingLoadingMenu();
+	//int getNumberGames() { return numberGames; }
 	QString  getPlayer1Name() { return player1Name; }
 	QString  getPlayer2Name() { return player2Name; }
 	QPushButton* getOkOnePlayerButton() { return onePlayerMenu->getOkButton(); }
@@ -76,5 +77,3 @@ private:
 	QHBoxLayout *loadingLayout;
 };
 #endif 
-	void settingLoadingMenu();
-	int getNumberGames() { return numberGames; }
