@@ -31,7 +31,7 @@ MainWindow.h
 #define GAME_OVER_LOST 1
 #define GAME_OVER_NOT 0
 
-#define FPGA_READ_INTERVAL 100
+#define FPGA_READ_INTERVAL 200
 #define PHONEME_KEY Qt::Key_M
 
 class MainWindow : public QMainWindow

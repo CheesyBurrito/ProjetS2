@@ -84,6 +84,7 @@ public:
 	void printRead();
 	bool loadPhonemesFromFile(string filename);
 	void checkCardStatus();
+	void setReadMode(bool mode) { readMode = mode; }
 
 	int getPhoneme();
 

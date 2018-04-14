@@ -21,6 +21,7 @@ MainWindow::MainWindow() : QMainWindow()
 MainWindow::~MainWindow()
 {
 	delete menu;
+	delete fpgaComm;
 }
 
 void MainWindow::constructorLogic()
@@ -168,17 +169,16 @@ void MainWindow::gameWindow()
 	connect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	connect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 
-	//Connect the FPGA icon and check if the card is working
+	//Initialize FPGA communication
 	connect(fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
 	connect(fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
-
 	connect(fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
 	connect(fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
-
 	connect(fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
 	connect(fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
 
 	fpgaComm->checkCardStatus();
+	fpgaComm->setReadMode(false);
 
 
 	player1Name = menu->getPlayer1Name();

@@ -201,7 +201,7 @@ FPGA::FPGA(int delay)
 {
 	cardStatus = fpgaCard.estOk();
 
-	cardStatus = switchToConnected();
+	//cardStatus = switchToConnected();
 
 	readingDelay = 10;
 	burstDelay = delay;
