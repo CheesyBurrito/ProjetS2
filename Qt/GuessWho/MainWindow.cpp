@@ -145,8 +145,8 @@ void MainWindow::gameWindow()
 	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer2(), menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->reinitializeBoard();
 
-	p1_lastQuestion.empty();
-	p2_lastQuestion.empty();
+	p1_lastQuestion.clear();
+	p2_lastQuestion.clear();
 	//gameLogic->getPlayer1Reference()->set_name_of_player(menu->);
 
 
