@@ -16,7 +16,6 @@ Games.h
 #include "Board.h"
 #include "Player.h"
 #include <vector>
-#include "FPGA.h"
 #include <time.h>
 
 class Games
@@ -34,7 +33,6 @@ private:
 	int numOfGames = 0;
 	int numOfGamesPlayed = 0;
 	string winner;
-	FPGA fpgaCommunication;
 public:
 	Games();
 	~Games();
@@ -54,7 +52,7 @@ public:
 	bool getAnswerToQuestion(int characteristicsSlected, int input, Player *player, Player *otherPlayer); //Search for the characters with the specific characteristic
 	void checkEndGameConditions(Player &player,Player &otherPlayer); //Method to check if the end game has been met
 	void answerBotQuestion(int characteristicsSlected, int input, Player& player, Player& otherPlayer); //Method that will ask the user to answer a bots question
-	int fpgaCommunicationInputHandler(); //Method to read the input of the player, if fails, will switch to manual mode
+	//int fpgaCommunicationInputHandler(); //Method to read the input of the player, if fails, will switch to manual mode
 	string convertQuestionToString(int characteristicsSlected, int input); //Creates a string based on question IDs
 
 	//Setters and Getters

@@ -17,7 +17,7 @@ Games.cpp
 Games::Games()
 {
 	srand(time(NULL));
-	fpgaCommunication.loadPhonemesFromFile("Phonemes.csv");
+	//fpgaCommunication.loadPhonemesFromFile("Phonemes.csv");
 }
 
 Games::~Games()
@@ -306,7 +306,7 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 			<< "4 - Accessoires" << endl << "5 - Poils faciaux" << endl
 			<< "6 - Age" << endl << "7 - Genre" << endl << "8 - Deviner tout de suite" << endl;
 		int input = 0;
-		input = fpgaCommunicationInputHandler();
+		//input = fpgaCommunicationInputHandler();
 		/*
 		if(input == fpgaCommunication.FPGA_READING_ERROR)
 		{
@@ -316,14 +316,14 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 		if (input == 8)
 		{
 			cout << "Enter the character ID: " << endl;
-			input = fpgaCommunicationInputHandler();
+			//input = fpgaCommunicationInputHandler();
 			getAnswerToQuestion(characteristicsSlected, input, &player, &otherPlayer);
 
 		}
 		else
 		{
 			player.get_board_of_player()->get_character_manager()->propertyPrinter(input);
-			input = fpgaCommunicationInputHandler();
+			//input = fpgaCommunicationInputHandler();
 			getAnswerToQuestion(characteristicsSlected, input, &player, &otherPlayer);
 
 		}
@@ -436,43 +436,131 @@ string Games::convertQuestionToString(int characteristicsSlected, int input) {
 	switch (characteristicsSlected)
 	{
 	case 0:
-		question += "Est-ce que votre personnage a les yeux ";
-		question += CharacterTraits::printPhysicalTraitsColorProperties(input);
+		switch (input) {
+		case 0:
+			question = "Est-ce que votre personnage a les yeux bruns?";
+				break;
+		case 1:
+			question = "Est-ce que votre personnage a les yeux verts?";
+				break;
+		case 2:
+			question = "Est-ce que votre personnage a les yeux bleus?";
+				break;
+		case 3:
+			question = "Est-ce que votre personnage a les yeux rouges";
+				break;
+		}
 		break;
 
 	case 1:
-		question += "Est-ce que votre personnage a les cheveux ";
-		question += CharacterTraits::printPhysicalTraitsColorProperties(input);
+		switch (input) {
+		case 0:
+			question = "Est-ce que votre personnage a les cheveux bruns?";
+			break;
+		case 4:
+			question = "Est-ce que votre personnage a les cheveux roux?";
+			break;
+		case 5:
+			question = "Est-ce que votre personnage a les cheveux blonds?";
+			break;
+		case 6:
+			question = "Est-ce que votre personnage a les cheveux noirs?";
+			break;
+		case 7:
+			question = "Est-ce que votre personnage a les cheveux blancs?";
+			break;
+		case 9:
+			question = "Est-ce que votre personnage a les cheveux d'une couleur anormale?";
+			break;
+		}
 		break;
 
 	case 2:
-		question += "Est-ce que votre personnage a les cheveux ";
-		question += CharacterTraits::printPhysicalTraitsProperties(input);
+		switch (input) {
+		case 1:
+			question = "Est-ce que votre personnage est chauve?";
+			break;
+		case 2:
+			question = "Est-ce que votre personnage a les cheveux courts?";
+			break;
+		case 3:
+			question = "Est-ce que votre personnage a les cheveux longs?";
+			break;
+		}
 		break;
 
 	case 3:
-		question += "Est-ce que votre personnage a la peau ";
-		question += CharacterTraits::printPhysicalTraitsColorProperties(input);
+		switch (input) {
+		case 6:
+			question = "Est-ce que votre personnage a la peau noire?";
+			break;
+		case 7:
+			question = "Est-ce que votre personnage a la peau blanche?";
+			break;
+		case 8:
+			question = "Est-ce que votre personnage est basané?";
+			break;
+		}
+		break;
 		break;
 
 	case 4:
-		question += "Est-ce que votre personnage a un/des ";
-		question += CharacterTraits::printPhysicalTraitsProperties(input);
+		switch (input) {
+		case 0:
+			question = "Est-ce que votre personnage n'a aucun accessoire?";
+			break;
+		case 4:
+			question = "Est-ce que votre personnage a un piercing?";
+			break;
+		case 5:
+			question = "Est-ce que votre personnage porte un chapeau?";
+			break;
+		case 6:
+			question = "Est-ce que votre personnage porte des lunettes?";
+			break;
+		case 7:
+			question = "Est-ce que votre personnage a un tattoo?";
+			break;
+		}
 		break;
 
 	case 5:
-		question += "Est-ce que votre personnage a un(e)/des ";
-		question += CharacterTraits::printPhysicalTraitsProperties(input);
+		switch (input) {
+		case 8:
+			question = "Est-ce que votre personnage est rasé?";
+			break;
+		case 9:
+			question = "Est-ce que votre personnage a une barbe?";
+			break;
+		case 10:
+			question = "Est-ce que votre personnage a une moustache?";
+			break;
+		case 11:
+			question = "Est-ce que votre personnage a un bouc?";
+			break;
+		}
 		break;
 
 	case 6:
-		question += "Est-ce que votre personnage est un(e) ";
-		question += CharacterTraits::printPhysicalTraitsProperties(input);
+		switch (input) {
+		case 14:
+			question = "Est-ce que votre personnage est étudiant?";
+			break;
+		case 15:
+			question = "Est-ce que votre personnage a un membre du personnel?";
+			break;
+		}
 		break;
 
 	case 7:
-		question += "Est-ce que votre personnage est un(e) ";
-		question += CharacterTraits::printPhysicalTraitsProperties(input);
+		switch (input) {
+		case 12:
+			question = "Est-ce que votre personnage est un homme?";
+			break;
+		case 13:
+			question = "Est-ce que votre personnage a une femme?";
+			break;
+		}
 		break;
 
 	case 8:
@@ -626,7 +714,7 @@ bool Games::getAnswerToQuestion(int characteristicsSlected, int input, Player* p
 	}
 }
 
-int Games::fpgaCommunicationInputHandler()
+/*int Games::fpgaCommunicationInputHandler()
 {
 	cout << "Parler dans le micro pour entendre votre belle voix et controler le menu! AFFICHER ICI LES PHONEMES ET LEUR FONCTION!!!" << endl;
 	int fpgaReadingInput = 0; 
@@ -674,7 +762,7 @@ int Games::fpgaCommunicationInputHandler()
 		}
 	}
 	return userVoiceInput;
-}
+}*/
 
 bool Games::is_game_over() const
 {
