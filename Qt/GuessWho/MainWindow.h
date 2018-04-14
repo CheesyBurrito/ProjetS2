@@ -71,6 +71,7 @@ public slots:
 	void nextSong();
 	void prevSong();
 	void playPause();
+	void emulateMouseClick();
 
 	//GameFunctions
 	void p1_chooseCharacter();
@@ -129,7 +130,7 @@ private:
 	bool p1_lastAnswer;
 	std::vector<int> p1_lastQuestion;
 	std::vector<int> p2_lastQuestion;
-	FPGA *fpgaComm;
+	FPGA fpgaComm;
 	QTimer timer;
 	
 	
