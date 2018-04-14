@@ -540,7 +540,7 @@ void MainWindow::p1_getLastAnswer() {
 
 		checkEndGameCondition();
 	}
-	if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
+	else if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
 		checkEndGameCondition();
 
 		if(secondPlayerIsBot) {
@@ -593,7 +593,7 @@ void MainWindow::disconnectP2ToTree() {
 
 void MainWindow::gameOver(QString winner) {
 
-	player1GameWindow->togglePauseMenu();
+	player1GameWindow->getPauseMenu()->hide();
 	disconnect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	disconnect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 
@@ -639,7 +639,7 @@ bool MainWindow::checkEndGameCondition() {
 		return true;
 	}
 
-	if (player1GameOver == GAME_OVER_WON && player2GameOver == GAME_OVER_WON) {
+	else if (player1GameOver == GAME_OVER_WON && player2GameOver == GAME_OVER_WON) {
 		winPlayer1++;
 		winPlayer2++;
 		gameOver("Égalité");
