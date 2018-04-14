@@ -64,6 +64,16 @@ void SideMenu::setupWidgets() {
 	zoomButton->setIconSize(QSize(50, 50));
 	zoomButton->setFixedSize(50, 50);
 
+	//FPGA state icon
+	fpgaONIcon = QPixmap("./Photos/microVert.png");
+	fpgaONIcon = fpgaONIcon.scaled(50, 50, Qt::KeepAspectRatio);
+	fpgaOFFIcon = QPixmap("./Photos/microRouge.png");
+	fpgaOFFIcon = fpgaOFFIcon.scaled(50, 50, Qt::KeepAspectRatio);
+	fpgaErrorIcon = QPixmap("./Photos/microErreur.png");
+	fpgaErrorIcon = fpgaErrorIcon.scaled(50, 50, Qt::KeepAspectRatio);
+	fpgaStateIcon = new QLabel(this);
+	fpgaStateIcon->setPixmap(fpgaOFFIcon);
+
 	//Score
 	nbHiddenCharactersLabel = new QLabel(this);
 	nbHiddenCharactersLabel->setText("0/20");
@@ -106,7 +116,9 @@ void SideMenu::setupLayouts() {
 	scoreLayout->addWidget(nbHiddenCharactersLabel);
 	scoreLayout->addWidget(infoText);
 	scoreLayout->setAlignment(Qt::AlignHCenter);
+	hLayout->addWidget(fpgaStateIcon);
 	hLayout->addLayout(scoreLayout);
+	
 
 	layout->addWidget(questionMenuBar, 0, 2);
 	layout->addWidget(guessWhoButton, 1, 2);
@@ -139,4 +151,16 @@ void SideMenu::switchZoomIcon() {
 
 void SideMenu::setNbHiddenCharacter(int nb) {
 	this->nbHiddenCharactersLabel->setText(QString::number(nb) + "/20");
+}
+
+void SideMenu::fpgaError() {
+	fpgaStateIcon->setPixmap(fpgaErrorIcon);
+}
+
+void SideMenu::fpgaOn() {
+	fpgaStateIcon->setPixmap(fpgaONIcon);
+}
+
+void SideMenu::fpgaOff() {
+	fpgaStateIcon->setPixmap(fpgaOFFIcon);
 }

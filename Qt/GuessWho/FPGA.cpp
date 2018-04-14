@@ -29,6 +29,40 @@ int FPGA::getPhoneme() {
 
 }
 
+void FPGA::readSlot() {
+	if (readMode) {
+		if (cardStatus) {
+			if (readData()) {
+				int phoneme = convertDataToPhoneme();
+				if (phoneme != lastPhoneme) { //New phoneme detected
+
+					lastPhoneme = phoneme;
+					switch (phoneme) {
+					case 0 :
+						emit detectedPhoneme1();
+						break;
+					case 1:
+						emit detectedPhoneme2();
+						break;
+					case 2:
+						emit detectedPhoneme3();
+						break;
+					case 3:
+						emit detectedPhoneme4();
+						break;
+
+					}
+				}
+			}
+			else
+				emit cardFailed();
+		}
+		else {
+			emit cardFailed();
+		}
+	}
+}
+
 //Returns the position of a phoneme in the vector if detected, if not, returns -1
 int FPGA::convertDataToPhoneme() {
 
@@ -100,7 +134,7 @@ bool FPGA::readData() {
 		else
 			return false;
 
-		Sleep(burstDelay);
+		Sleep(readingDelay);
 	}
 
 	return true;
@@ -145,9 +179,30 @@ bool FPGA::loadPhonemesFromFile(string filename) {
 	file.close();
 }
 
+void FPGA::toggleReadMode() {
+	if (cardStatus) {
+		readMode = !readMode;
+		if (readMode)
+			emit cardOn();
+		else
+			emit cardOff();
+	}
+	else {
+		emit cardFailed();
+	}
+}
+
+void FPGA::checkCardStatus() {
+	if(!cardStatus)
+		emit cardFailed();
+}
+
 FPGA::FPGA(int delay)
 {
 	cardStatus = fpgaCard.estOk();
+
+	cardStatus = switchToConnected();
+
 	readingDelay = 10;
 	burstDelay = delay;
 	phonemeDetected = false;

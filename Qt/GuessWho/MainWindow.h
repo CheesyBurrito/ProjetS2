@@ -20,14 +20,19 @@ MainWindow.h
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QSound>
+#include <QTimer>
 #include "MenuWindow.h"
 #include "StartWindow.h"
 #include "GameWindow.h"
 #include "Games.h"
+#include "FPGA.h"
 
 #define GAME_OVER_WON 2
 #define GAME_OVER_LOST 1
 #define GAME_OVER_NOT 0
+
+#define FPGA_READ_INTERVAL 100
+#define PHONEME_KEY Qt::Key_M
 
 class MainWindow : public QMainWindow
 {
@@ -53,6 +58,7 @@ protected:
 	void disconnectP1ToTree();
 	void connectP2ToTree();
 	void disconnectP2ToTree();
+	void disconnectFPGA();
 	bool checkEndGameCondition();
 		
 public slots:
@@ -88,6 +94,7 @@ signals:
 	void enterKeyPressed();
 	void escapeKeyPressed();
 	void keyPressed();
+	void phonemeKeyPressed();
 
 private:
 	int numberGames;
@@ -119,6 +126,8 @@ private:
 	bool p1_lastAnswer;
 	std::vector<int> p1_lastQuestion;
 	std::vector<int> p2_lastQuestion;
+	FPGA *fpgaComm;
+	QTimer timer;
 	
 	
 };

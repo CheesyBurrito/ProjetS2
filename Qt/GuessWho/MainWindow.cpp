@@ -38,6 +38,11 @@ void MainWindow::creatingObjects()
 	start = new StartWindow(this);
 	gameLogic = new Games();
 	menu = new MenuWindow(this, gameLogic->get_character_manager());
+
+	fpgaComm = new FPGA();
+	fpgaComm->loadPhonemesFromFile("Phonemes.csv");
+	timer.setInterval(FPGA_READ_INTERVAL);
+	timer.start();
 	
 	//Loading the default character list
 	gameLogic->get_character_manager()->importCharacters(menu->getOptionsMenu()->getActiveList().toStdString());
@@ -50,6 +55,9 @@ void MainWindow::connectSignals()
 	connect(menu->getNextButton(), SIGNAL(clicked()), this, SLOT(nextSong()));
 	connect(menu->getPrevButton(), SIGNAL(clicked()), this, SLOT(prevSong()));
 	connect(menu->getMuteButton(), SIGNAL(clicked()), this, SLOT(playPause()));
+
+	connect(this, SIGNAL(phonemeKeyPressed()), fpgaComm, SLOT(toggleReadMode()));
+	connect(&timer, SIGNAL(timeout()), fpgaComm, SLOT(readSlot()));
 }
 
 void MainWindow::settingWidgets()
@@ -159,6 +167,20 @@ void MainWindow::gameWindow()
 	//Connects the pause menu buttons
 	connect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	connect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
+
+	//Connect the FPGA icon and check if the card is working
+	connect(fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
+	connect(fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
+
+	connect(fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
+	connect(fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
+
+	connect(fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
+	connect(fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
+
+	fpgaComm->checkCardStatus();
+
+
 	player1Name = menu->getPlayer1Name();
 
 	if (menu->getNumberPlayers() == 1) { //Second player is AI 
@@ -184,6 +206,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 	if (event->key() == Qt::Key_Escape) {
 		emit escapeKeyPressed();
 	}
+	if (event->key() == PHONEME_KEY) {
+		emit phonemeKeyPressed();
+	}
 	if(event->key() == Qt::Key_W)
 	{
 		emit wKeyPressed();
@@ -206,6 +231,8 @@ void MainWindow::returnToMenu() {
 	if (answer == QMessageBox::Yes) { //Yes
 		disconnect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 		disconnect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
+
+		disconnectFPGA();
 
 		this->player1GameWindow->getPauseMenu()->close();
 		this->player1GameWindow->close();
@@ -557,6 +584,8 @@ void MainWindow::gameOver(QString winner) {
 void MainWindow::exitAfterGameOver() {
 	disconnect(player1GameWindow->getGameOverMenu()->getQuitButton(), SIGNAL(clicked()), this, SLOT(exitAfterGameOver()));
 
+	disconnectFPGA();
+
 	player1GameWindow->getGameOverMenu()->close();
 	player1GameWindow->getPauseMenu()->close();
 	player1GameWindow->close();
@@ -598,4 +627,15 @@ bool MainWindow::checkEndGameCondition() {
 			return true;
 		}
 	}
+}
+
+void MainWindow::disconnectFPGA() {
+	disconnect(fpgaComm, SIGNAL(cardFailed()), player1GameWindow->getSideMenu(), SLOT(fpgaError()));
+	disconnect(fpgaComm, SIGNAL(cardFailed()), player2GameWindow->getSideMenu(), SLOT(fpgaError()));
+
+	disconnect(fpgaComm, SIGNAL(cardOn()), player1GameWindow->getSideMenu(), SLOT(fpgaOn()));
+	disconnect(fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
+
+	disconnect(fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
+	disconnect(fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
 }

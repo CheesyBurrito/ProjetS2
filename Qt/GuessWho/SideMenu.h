@@ -31,6 +31,10 @@ private:
 	QLabel * background;
 	QLabel * cornerBackground;
 	QLabel * characteristics;
+	QLabel * fpgaStateIcon;
+	QPixmap fpgaONIcon;
+	QPixmap fpgaOFFIcon;
+	QPixmap fpgaErrorIcon;
 	QGridLayout * layout;
 	QVBoxLayout * scoreLayout;
 	QHBoxLayout * hLayout;
@@ -48,6 +52,9 @@ private:
 public slots:
 	void setTraits(std::string newTraits);
 	void switchZoomIcon();
+	void fpgaError();
+	void fpgaOn();
+	void fpgaOff();
 
 signals:
 	void lowerBarTest(std::string, int);
