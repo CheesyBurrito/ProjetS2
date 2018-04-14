@@ -71,6 +71,7 @@ public slots:
 	void nextSong();
 	void prevSong();
 	void playPause();
+	void emulateMouseClick();
 
 	//GameFunctions
 	void p1_chooseCharacter();

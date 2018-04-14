@@ -59,6 +59,8 @@ void MainWindow::connectSignals()
 
 	connect(this, SIGNAL(phonemeKeyPressed()), fpgaComm, SLOT(toggleReadMode()));
 	connect(&timer, SIGNAL(timeout()), fpgaComm, SLOT(readSlot()));
+
+	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
 }
 
 void MainWindow::settingWidgets()
@@ -73,7 +75,7 @@ void MainWindow::settingMainWindow()
 	//Setting the MainWindow
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	this->setGeometry(100, 100, 1300, 600);
+	//this->setGeometry(100, 100, 1366, 768);
 	showFullScreen();
 	//show();
 }
@@ -223,6 +225,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 		cout << "Hey there!" << endl;
 		emit enterKeyPressed();
 	}*/
+}
+
+void MainWindow::emulateMouseClick() {
+
+	QPoint pos = this->mapFromGlobal(QCursor::pos()); //Get mouse position
+	QWidget *receiver = this->childAt(pos); //Find wich widget is there
+
+	//Emit button press + release
+	if (receiver) {
+		QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, pos, Qt::LeftButton,
+			Qt::LeftButton, Qt::NoModifier);
+		QCoreApplication::postEvent(receiver, e);
+		e = new QMouseEvent(QEvent::MouseButtonRelease, pos, Qt::LeftButton,
+			Qt::LeftButton, Qt::NoModifier);
+		QCoreApplication::postEvent(receiver, e);
+	}
 }
 
 void MainWindow::returnToMenu() {
