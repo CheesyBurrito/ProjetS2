@@ -145,8 +145,8 @@ void MainWindow::gameWindow()
 	gameLogic->copyCharacterManagerToPlayer(gameLogic->getPlayer2(), menu->getOptionsMenu()->getActiveList().toStdString());
 	gameLogic->reinitializeBoard();
 
-	p1_lastQuestion.empty();
-	p2_lastQuestion.empty();
+	p1_lastQuestion.clear();
+	p2_lastQuestion.clear();
 	//gameLogic->getPlayer1Reference()->set_name_of_player(menu->);
 
 
@@ -540,7 +540,7 @@ void MainWindow::p1_getLastAnswer() {
 
 		checkEndGameCondition();
 	}
-	if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
+	else if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
 		checkEndGameCondition();
 
 		if(secondPlayerIsBot) {
@@ -593,7 +593,7 @@ void MainWindow::disconnectP2ToTree() {
 
 void MainWindow::gameOver(QString winner) {
 
-	player1GameWindow->togglePauseMenu();
+	player1GameWindow->getPauseMenu()->hide();
 	disconnect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	disconnect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 
