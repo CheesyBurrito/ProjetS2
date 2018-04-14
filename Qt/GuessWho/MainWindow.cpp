@@ -638,8 +638,7 @@ bool MainWindow::checkEndGameCondition() {
 		gameOver(player1Name);
 		return true;
 	}
-
-	if (player1GameOver == GAME_OVER_WON && player2GameOver == GAME_OVER_WON) {
+	else if (player1GameOver == GAME_OVER_WON && player2GameOver == GAME_OVER_WON) {
 		winPlayer1++;
 		winPlayer2++;
 		gameOver("Égalité");

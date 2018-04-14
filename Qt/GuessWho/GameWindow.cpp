@@ -34,6 +34,7 @@ GameWindow::~GameWindow()
 void GameWindow::setupConnections() {
 	//Zoom button
 	connect(sideMenu->getZoomButton(), SIGNAL(clicked()), this, SLOT(toggleZoomMode()));
+	connect(sideMenu->getGuessWhoButton(), SIGNAL(clicked()), this, SLOT(setGuessMode()));
 
 	//Character cards : click to zoom and hover to show characteristics
 	for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
@@ -121,31 +122,50 @@ void GameWindow::enableOkButton() {
 	if (this->lowerBar->getOkButton()->isEnabled() == false)
 		this->lowerBar->getOkButton()->setEnabled(true);
 }
+void GameWindow::setGuessMode()
+{
+	guessMode = true;
+}
 
 void GameWindow::guessWhoMode() {
 	//change cursor
-	this->getLowerBar()->changeText("Cliquez sur votre choix", EMPTY_MODE);
 
-
-	//Disconect click to flip and connect clic to choose instead
+	if (guessMode == true) {
+		//Disconect click to flip and connect clic to choose instead
+		this->getLowerBar()->changeText("Cliquez sur votre choix", EMPTY_MODE);
 		this->setCursor(guessCursor);
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
 			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(emitGuessWho(Character*)));
 		}
 		disconnect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
-	
-
+	}
+	//Disconect clic to choose
+	else
+	{
+		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
+			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(emitGuessWho(Character*)));
+		}
+	}
 }
 
 void GameWindow::emitGuessWho(Character* c) {
 	std::vector<int> q = { 8, c->get_id() };
 	emit guessWho(q);
+	this->sideMenu->getZoomButton()->setDisabled(true);
 }
 
 void GameWindow::toggleZoomMode() {
 
 	//Disconect click to flip and connect clic to zoom instead
+	if (guessMode)
+	{
+		this->getLowerBar()->changeText("Veuillez poser votre question", EMPTY_MODE);
+		guessMode = false;
+		guessWhoMode();
+	}
+
 	if (zoomMode) {
 		this->setCursor(Qt::ArrowCursor);
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {

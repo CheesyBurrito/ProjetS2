@@ -43,6 +43,7 @@ private:
 	bool isPaused = false;
 	bool zoomMode = false;
 	bool selectMode = false;
+	bool guessMode = false;
 	int height, width;
 	QWidget* parent;
 	QSound *pauseSound;
@@ -58,6 +59,7 @@ private:
 
 	void setChosenCharacter(Character* character);
 	void guessWhoMode();
+	void setGuessMode();
 	void emitGuessWho(Character* c);
 
 signals:
