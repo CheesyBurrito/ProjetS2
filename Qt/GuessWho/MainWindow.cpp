@@ -115,6 +115,10 @@ void MainWindow::deleteStart()
 
 void MainWindow::showMenuWindow()
 {
+	numGames = 0;
+	numGamesPlayed = 0;
+	winPlayer1 = 0;
+	winPlayer2 = 0;
 	menu->show();
 	setCentralWidget(menu);
 	menu->showMainMenu();
@@ -182,6 +186,7 @@ void MainWindow::gameWindow()
 
 
 	player1Name = menu->getPlayer1Name();
+	numGames = menu->getNumGames();
 
 	if (menu->getNumberPlayers() == 1) { //Second player is AI 
 		player1Name = menu->getPlayer1Name();
@@ -575,7 +580,8 @@ void MainWindow::gameOver(QString winner) {
 	disconnect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 	disconnect(player1GameWindow->getPauseMenu(), SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
 
-	player1GameWindow->getGameOverMenu()->setWinner(winner);
+	numGamesPlayed++;
+	player1GameWindow->getGameOverMenu()->setWinner(winner,player1Name,player2Name,winPlayer1,winPlayer2,numGames,numGamesPlayed);
 	player1GameWindow->showGameOver();
 	connect(player1GameWindow->getGameOverMenu()->getQuitButton(), SIGNAL(clicked()), this, SLOT(exitAfterGameOver()));
 	
@@ -593,7 +599,10 @@ void MainWindow::exitAfterGameOver() {
 	delete player1GameWindow;
 	delete player2GameWindow;
 
-	showMenuWindow();
+	if (numGamesPlayed >= numGames)
+		showMenuWindow();
+	else
+		gameWindow();
 
 	gameWindowCreate = false;
 
@@ -603,19 +612,24 @@ void MainWindow::exitAfterGameOver() {
 bool MainWindow::checkEndGameCondition() {
 
 	if (player1GameOver == GAME_OVER_LOST) {
+		winPlayer2++;
 		gameOver(player2Name);
 		return true;
 	}
 	else if (player2GameOver == GAME_OVER_LOST) {
+		winPlayer1++;
 		gameOver(player1Name);
 		return true;
 	}
 
 	if (player1GameOver == GAME_OVER_WON && player2GameOver == GAME_OVER_WON) {
+		winPlayer1++;
+		winPlayer2++;
 		gameOver("Égalité");
 		return true;
 	}
 	else if (player2GameOver == GAME_OVER_WON) {
+		winPlayer2++;
 		gameOver(player2Name);
 		return true;
 	}
@@ -623,6 +637,7 @@ bool MainWindow::checkEndGameCondition() {
 		if (gameLogic->getPlayer1().get_num_turn() > gameLogic->getPlayer2().get_num_turn()) //Player 2 still has a turn to take a guess
 			return false;
 		else {
+			winPlayer1++;
 			gameOver(player1Name);
 			return true;
 		}

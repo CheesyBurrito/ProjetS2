@@ -102,6 +102,7 @@ void MenuWindow::setOnePlayerGame()
 	player1Name = onePlayerMenu->getPlayer1Name();
 	player2Name = "AI";
 	numberPlayers = 1;
+	numGames = onePlayerMenu->getNumGames();
 	onePlayerMenu->hide();
 	loading->show();
 }
@@ -111,6 +112,7 @@ void MenuWindow::setTwoPlayersGame()
 	player1Name = twoPlayersMenu->getPlayer1Name();
 	player2Name = twoPlayersMenu->getPlayer2Name();
 	numberPlayers = 2;
+	numGames = twoPlayersMenu->getNumGames();
 	twoPlayersMenu->hide();
 	loading->show();
 }

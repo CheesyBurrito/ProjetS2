@@ -47,6 +47,7 @@ public:
 	//int getNumberGames() { return numberGames; }
 	QString  getPlayer1Name() { return player1Name; }
 	QString  getPlayer2Name() { return player2Name; }
+	int getNumGames() { return numGames; }
 	QPushButton* getOkOnePlayerButton() { return onePlayerMenu->getOkButton(); }
 	QPushButton* getOkTwoPlayersButton() { return twoPlayersMenu->getOkButton(); }
 	QPushButton* getNextButton() { return optionsMenu->getNextButton(); }
@@ -69,6 +70,7 @@ private:
 	CharacterManager* c_manager;
 	QString player1Name;
 	QString player2Name;
+	int numGames;
 	int numberPlayers;
 
 	//Loading

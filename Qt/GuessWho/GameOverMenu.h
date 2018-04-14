@@ -15,22 +15,25 @@ GameOverMenu.h
 #include <QWidget>
 #include <QKeyEvent>
 #include <QGridLayout>
-#include <QPushButton>
+#include "MenuButton.h"
 #include <QLabel>
+
 
 class GameOverMenu : public QWidget
 {
 	Q_OBJECT
 
 	QGridLayout * layout;
-	QPushButton * quitButton;
+	MenuButton * quitButton;
 	QLabel *pauseBackground;
 	QLabel * text;
+	QLabel * score;
+	QLabel * num_games;
 
 public:
 	GameOverMenu();
 	~GameOverMenu();
-	QPushButton * getQuitButton() { return quitButton; }
-	void setWinner(QString winner);
+	MenuButton * getQuitButton() { return quitButton; }
+	void setWinner(QString winner,QString player1, QString player2, int win1, int win2, int games, int gamesPlayed);
 };
 

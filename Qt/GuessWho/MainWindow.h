@@ -97,7 +97,10 @@ signals:
 	void phonemeKeyPressed();
 
 private:
-	int numberGames;
+	int numGames;
+	int numGamesPlayed;
+	int winPlayer1;
+	int winPlayer2;
 	int numberPlayer;
 	int activeSong;
 	int player1GameOver = GAME_OVER_NOT;
