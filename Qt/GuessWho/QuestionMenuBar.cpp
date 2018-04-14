@@ -189,6 +189,7 @@ void QuestionMenuBar::treeWidgetItemClicked()
 	if (item->childCount() == 0)
 	{
 		vector<int> tempVector = { tempConversion->getPropertyCategoryIndex(), tempConversion->getPropertyIndex() };
+		//cout << "QESTION" << endl;
 		emit sendQuestion(tempVector);
 		characterMangagerDummy.propertyPrinterSpecificCharacteristics(tempConversion->getPropertyCategoryIndex(), tempConversion->getPropertyIndex());
 	}
@@ -241,7 +242,7 @@ void QuestionMenuBar::goDownTreeWidgetItem()
 	//If selection for question is made
 	if (treeView->selectedItems().size() <= 0)
 	{
-		cout << treeView->selectedItems().size() << endl;
+		//cout << treeView->selectedItems().size() << endl;
 		return;
 	}
 

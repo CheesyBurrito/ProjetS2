@@ -53,6 +53,7 @@ private:
 	void showGameOver();
 	void toggleZoomMode();
 	void toggleSelectMode();
+	void enableOkButton();
 
 	void setChosenCharacter(Character* character);
 	void guessWhoMode();

@@ -34,7 +34,6 @@ public:
 
 	QString getPlayer1Name() { return player1->text(); }
 	QString getPlayer2Name() { return player2->text(); }
-	int getNumberGames() { return m_lcd->value(); }
 	QPushButton* getOkButton() { return ok; }
 
 private:
@@ -48,7 +47,5 @@ private:
 	QLabel *name2;
 	QLineEdit *player2;
 	MenuButton *ok;
-	QLCDNumber *m_lcd;
-	QSlider *m_slider;
 
 };

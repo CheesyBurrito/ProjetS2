@@ -88,23 +88,35 @@ void GameWindow::toggleSelectMode() {
 
 	//Disconect click to choose and connect clic to flip instead
 	if (selectMode) {
+		this->sideMenu->getZoomButton()->setDisabled(false); //Enable the zoom button
+
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(setChosenCharacter(Character*)));
 			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
+			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(enableOkButton()));
 		}
 		connect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 	}
 
 	//Disconect click to flip and connect clic to choose instead
 	else {
+		this->lowerBar->getOkButton()->setDisabled(true); //Disable OK button until a character is chosen
+		this->sideMenu->getZoomButton()->setDisabled(true); //Disable the zoom button
+
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(setChosenCharacter(Character*)));
+			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(enableOkButton()));
 		}
 		disconnect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 	}
 
 	selectMode = !selectMode;
+}
+
+void GameWindow::enableOkButton() {
+	if (this->lowerBar->getOkButton()->isEnabled() == false)
+		this->lowerBar->getOkButton()->setEnabled(true);
 }
 
 void GameWindow::guessWhoMode() {
