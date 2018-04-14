@@ -75,7 +75,7 @@ void MainWindow::settingMainWindow()
 	//Setting the MainWindow
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	//this->setGeometry(100, 100, 1366, 768);
+	this->setGeometry(100, 100, 1300, 600);
 	showFullScreen();
 	//show();
 }
@@ -229,17 +229,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 
 void MainWindow::emulateMouseClick() {
 
-	QPoint pos = this->mapFromGlobal(QCursor::pos()); //Get mouse position
-	QWidget *receiver = this->childAt(pos); //Find wich widget is there
+	QPoint pos = QCursor::pos(); //Get mouse position
+	QWidget *receiver = this->childAt(this->mapFromGlobal(pos)); //Find wich widget is there
 
 	//Emit button press + release
 	if (receiver) {
-		QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, pos, Qt::LeftButton,
+		QMouseEvent *e =  new QMouseEvent(QEvent::MouseButtonPress, receiver->mapFromGlobal(pos), Qt::LeftButton,
 			Qt::LeftButton, Qt::NoModifier);
 		QCoreApplication::postEvent(receiver, e);
-		e = new QMouseEvent(QEvent::MouseButtonRelease, pos, Qt::LeftButton,
+
+		QMouseEvent *e2 = new QMouseEvent(QEvent::MouseButtonRelease, receiver->mapFromGlobal(pos), Qt::LeftButton,
 			Qt::LeftButton, Qt::NoModifier);
-		QCoreApplication::postEvent(receiver, e);
+		QCoreApplication::postEvent(receiver, e2);
 	}
 }
 
