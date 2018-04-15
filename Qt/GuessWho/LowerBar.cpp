@@ -1,25 +1,12 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-LowerBar.cpp
-*****************************************/
-
 #include "LowerBar.h"
 
 
-LowerBar::LowerBar(QWidget *parent, int width, int height) :QWidget(parent)
+LowerBar::LowerBar(QWidget *parent, int width, int height):QWidget(parent)
 {
 	this->setStyleSheet("background: transparent;");
-
+	
 	barHeight = height;
-	barWidth = width - 300;
+	barWidth = width-300;
 
 	setupWidgets();
 	setupLayouts();
@@ -70,23 +57,23 @@ void LowerBar::setupWidgets() {
 	infoText->setStyleSheet("background:transparent; color:white");
 	infoText->setFont(QFont("Walkway Bold", 16));
 
-	yesButton = new QPushButton(this);
+	yesButton = new QPushButton("Oui", this);
 	yesButton->setFlat(false);
-	yesButton->setStyleSheet("background-image: url(./Photos/yesButton.png);");
+	yesButton->setStyleSheet("background: green; color : white");
 	yesButton->setCursor(Qt::PointingHandCursor);
-	yesButton->setFixedSize(140, 70);
+	yesButton->setFont(QFont("Walkway Bold", 30));
 
-	noButton = new QPushButton(this);
+	noButton = new QPushButton("Non", this);
 	noButton->setFlat(false);
-	noButton->setStyleSheet("background-image: url(./Photos/noButton.png);");
+	noButton->setStyleSheet("background: red; color : white");
 	noButton->setCursor(Qt::PointingHandCursor);
-	noButton->setFixedSize(140, 70);
+	noButton->setFont(QFont("Walkway Bold", 30));
 
-	okButton = new QPushButton(this);
+	okButton = new QPushButton("Ok", this);
 	okButton->setFlat(false);
-	okButton->setStyleSheet("background-image: url(./Photos/okButton.png);");
+	okButton->setStyleSheet("background: green; color : white");
 	okButton->setCursor(Qt::PointingHandCursor);
-	okButton->setFixedSize(140, 70);
+	okButton->setFont(QFont("Walkway Bold", 30));
 
 	yesButton->hide();
 	noButton->hide();
@@ -95,7 +82,7 @@ void LowerBar::setupWidgets() {
 
 void LowerBar::setupLayouts() {
 	layout = new QGridLayout(this);
-	hLayout = new QHBoxLayout;
+	hLayout = new QHBoxLayout(this);
 
 	hLayout->addWidget(infoText);
 	hLayout->addWidget(yesButton);
@@ -111,4 +98,5 @@ void LowerBar::setupLayouts() {
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 
+	this->setLayout(layout);
 }

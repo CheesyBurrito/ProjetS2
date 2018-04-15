@@ -1,24 +1,8 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-AddCharacter.cpp
-*****************************************/
-
 #include "AddCharacter.h"
 
 
-AddCharacter::AddCharacter(QWidget* parent, CharacterManager* characterManager, QString activeList) 
+AddCharacter::AddCharacter(QWidget* parent) 
 {
-	c_manager = characterManager;
-	listSavePath = activeList;
-	ID = c_manager->get_next_id();
 	createAddCharacter();
 }
 
@@ -31,7 +15,8 @@ void AddCharacter::createAddCharacter()
 {
 	this->setMinimumHeight(700);
 	this->setWindowTitle("Ajouter un personnage");
-	this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+	this->setWindowFlag(Qt::WindowStaysOnTopHint);
+	this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
 
 	layout = new QVBoxLayout(this);
 
@@ -294,13 +279,13 @@ void AddCharacter::verifyAddCharacter()
 	}
 
 	if (shave->isChecked())
-		facialHair = 8;
+		gender = 8;
 	else if (beard->isChecked())
-		facialHair = 9;
+		gender = 9;
 	else if (mustache->isChecked())
-		facialHair = 10;
+		gender = 10;
 	else if (bouc->isChecked())
-		facialHair = 11;
+		gender = 11;
 	else
 	{
 		facialHairBox->setStyleSheet("QGroupBox {color : red} ");
@@ -334,36 +319,17 @@ void AddCharacter::verifyAddCharacter()
 		pictureBox->setStyleSheet("QGroupBox {color : red} ");
 		characterOk = false;
 	}
-	else //Adds the picture to resource path
+	else
 	{
-		string saveName = listSavePath.toStdString();
-		string fileExtension = ".gw";
-		size_t foundSubstring = saveName.find(fileExtension);
-		if (foundSubstring != std::string::npos)
-		{
-			saveName.erase(foundSubstring, fileExtension.length());
-		}
-
-		//Creates a folder if it does not exist yet
-		QDir dir(QString::fromStdString(saveName + "/"));
-		if (!dir.exists()) {
-			dir.mkpath(".");
-		}
-
-		newPicturePath = saveName + "/" + to_string(ID) + ".png";
-
-		QFile::copy(picturePath, QString::fromStdString(newPicturePath));
+		//Implement copie picture and change name for ID.png
 	}
 	
 	if (!characterOk)
 		QMessageBox::warning(NULL, "Formulaire incomplet", "Il manque des informations pour la création du personnage!", QMessageBox::Ok);
 	else if(num_accessories == 4)
 		QMessageBox::warning(NULL, "Trop d'accessoires", "Il y a trop d'accessoires! Le maximum est de 3!", QMessageBox::Ok);
-	else //Character is valid, emit a signal containing the character so it can be added to the current list
+	else
 	{
-		 c_manager->addCharacter(new Character(ID, eyes, hairColor, hairCharacteristics, gender, skinColor, accessories, facialHair, age, name.toStdString()));
-		 c_manager->exportCharacters(listSavePath.toStdString());
-
 		this->close();
 		emit characterIsOk();
 	}

@@ -1,16 +1,3 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-GuessWho.cpp
-*****************************************/
-
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>

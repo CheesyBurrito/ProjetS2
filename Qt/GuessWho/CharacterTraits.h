@@ -1,23 +1,9 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-CharacterTraits.h
-*****************************************/
-
 #pragma once
 #include <string>
 #include <iostream>
 #include <vector>
 #include <fstream>
 using namespace std;
-
 //The minimum number of accessories allowed by the game
 const int Min_NUM_OF_CHARACTER_ACCESSORIES = 1;
 //The maximum number of accessories allowed by the game
@@ -83,6 +69,7 @@ public:
 	void set_facial_hair(int facial_hair);
 	void set_age(int age);
 	void set_name(string name);
+
 	int get_num_of_accessories_on_character() const;
 	void set_num_of_accessories_on_character(int num_of_accessories_on_character);
 };

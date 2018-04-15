@@ -1,18 +1,6 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-CharacterTraits.cpp
-*****************************************/
-
 #include "CharacterTraits.h"
 
+using namespace std;
 
 CharacterTraits::CharacterTraits()
 {
@@ -112,15 +100,14 @@ string CharacterTraits::convertPropertiesToString()
 {
 	string output;
 
-	output += "\n Nom : " + name + "\n";
-	output += " Yeux : " + printPhysicalTraitsColorProperties(eyes) + "\n";
-	output += " Cheveux : " + printPhysicalTraitsProperties(hairCharacteristics) + ", " + printPhysicalTraitsColorProperties(hairColor) + "\n";
-	output += " Accessoires : \n";
-	output += printAccessories() + "\n";
-	output += " Sexe : " + printPhysicalTraitsProperties(gender) + "\n";
-	output += " Age : " + printPhysicalTraitsProperties(age) + "\n";
-	output += " Pilosité : " + printPhysicalTraitsProperties(facialHair) + "\n";
-	output += " Couleur de peau : " + printPhysicalTraitsColorProperties(skinColor) + "\n";
+	output += "Nom : " + name + "\n";
+	output += "Yeux : " + printPhysicalTraitsColorProperties(eyes) + "\n";
+	output += "Cheveux : " + printPhysicalTraitsProperties(hairCharacteristics) + ", " + printPhysicalTraitsColorProperties(hairColor) + "\n";
+	output += "Accessoires : " + printAccessories() + "\n";
+	output += "Sexe : " + printPhysicalTraitsProperties(gender) + "\n";
+	output += "Age : " + printPhysicalTraitsProperties(age) + "\n";
+	output += "Pilosité : " + printPhysicalTraitsProperties(facialHair) + "\n";
+	output += "Couleur de peau : " + printPhysicalTraitsColorProperties(skinColor) + "\n";
 
 	return output;
 }
@@ -141,7 +128,7 @@ string CharacterTraits::printAccessories()
 		}
 		else
 		{
-			accessoriesString += "\n";
+			accessoriesString += ", ";
 		}
 		
 	}
@@ -206,7 +193,7 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	{
 	case 0:
 	{
-		return "-Rien";
+		return "Rien";
 	}
 	case 1:
 	{
@@ -222,19 +209,19 @@ string CharacterTraits::printPhysicalTraitsProperties(int traitIndex)
 	}
 	case 4:
 	{
-		return "-Piercing";
+		return "Piercing";
 	}
 	case 5:
 	{
-		return "-Chapeau";
+		return "Chapeau";
 	}
 	case 6:
 	{
-		return "-Lunettes";
+		return "Lunettes";
 	}
 	case 7:
 	{
-		return "-Tattoo";
+		return "Tattoo";
 	}
 	case 8:
 	{
@@ -301,6 +288,7 @@ bool CharacterTraits::hasAccessory(int accessoryIndex)
 	}
 	return false;
 }
+
 
 int CharacterTraits::getEyes()
 {

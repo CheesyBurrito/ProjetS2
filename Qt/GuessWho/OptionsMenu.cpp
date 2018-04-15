@@ -1,21 +1,7 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-OptionsMenu.cpp
-*****************************************/
-
 #include "OptionsMenu.h"
 
-OptionsMenu::OptionsMenu(QWidget* parent, CharacterManager* characterManager) : QWidget(parent)
+OptionsMenu::OptionsMenu(QWidget* parent) : QWidget(parent)
 {
-	c_manager = characterManager;
 	createOptionsMenu();
 }
 
@@ -25,22 +11,9 @@ OptionsMenu::~OptionsMenu()
 
 void OptionsMenu::createOptionsMenu()
 {
-
-	layout = new QVBoxLayout(this);
-	media_Player = new MediaPlayer(this);
+	layout = new QVBoxLayout;
 	layout->setSpacing(0);
 	layout->setAlignment(Qt::AlignCenter);
-
-	options_menu = new QWidget(this);
-
-	layout_menu = new QVBoxLayout(options_menu);
-	options_menu->setLayout(layout_menu);
-	layout_menu->setSpacing(0);
-	layout_menu->setAlignment(Qt::AlignBottom);
-	layout_menu->setContentsMargins(0, 0, 0, 0);
-
-	layout->addWidget(options_menu);
-	layout->addWidget(media_Player);
 
 	addCharacter = new MenuButton(this, " Ajouter un personnage");
 	addCharacter->setToolTip("Le personnage sera ajouté à la liste active");
@@ -58,63 +31,73 @@ void OptionsMenu::createOptionsMenu()
 	active_List->setStyleSheet("background: white;");
 	active_List->setFont(QFont("Walkway Bold", 20));
 	active_List->setText(activeList);
-	active_List->setFixedWidth(520);
 	active_List->setReadOnly(true);
 
-	emptySpace = new QSpacerItem(520,30);
+	emptySpace = new QLabel("", this);
+	emptySpace->setFont(QFont("Walkway Bold", 20));
+	emptySpace->setStyleSheet("background: transparent");
 
 	list = new QLabel("Liste Active:", this);
 	list->setFont(QFont("Walkway Bold", 20));
 	list->setStyleSheet("background: transparent; color : white");
+
+	layout->addWidget(addCharacter);
+	layout->addWidget(createNewList);
+	layout->addWidget(changeList);
+	layout->addWidget(back);
+	layout->addWidget(emptySpace);
+	layout->addWidget(list);
+	layout->addWidget(active_List);
+
+	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 	
-	layout_menu->addWidget(addCharacter);
-	layout_menu->addWidget(createNewList);
-	layout_menu->addWidget(changeList);
-	layout_menu->addWidget(back);
-	layout_menu->addItem(emptySpace);
-	layout_menu->addWidget(list);
-	layout_menu->addWidget(active_List);
+	setLayout(layout); 
 
 	hide();
 }
 
+void OptionsMenu::setHoveredButton(MenuButton *button)
+{
+	addCharacter->setIsSelected(false);
+	createNewList->setIsSelected(false);
+	changeList->setIsSelected(false);
+	back->setIsSelected(false);
+	button->setIsSelected(true);
+}
+
 void OptionsMenu::addCharacters()
 {
-	AddCharacterWindow = new AddCharacter(this, c_manager, activeList);
+	AddCharacterWindow = new AddCharacter(this);
 	AddCharacterWindow->show();
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), AddCharacterWindow, SLOT(close()));
 	connect(AddCharacterWindow->getCancelButton(), SIGNAL(clicked()), this, SLOT(activateOptionsMenu()));
 	connect(AddCharacterWindow, SIGNAL(characterIsOk()), this, SLOT(activateOptionsMenu()));
+	disconnect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	disconnect(createNewList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	disconnect(changeList, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	disconnect(back, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 	this->setDisabled(true);
 }
 
 void OptionsMenu::activateOptionsMenu()
 {
 	setDisabled(false);
+	connect(addCharacter, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(createNewList, SIGNAL(hovered(MenuButton *)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(changeList, SIGNAL(hovered(MenuButton *)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(back, SIGNAL(hovered(MenuButton *)), this, SLOT(setHoveredButton(MenuButton*)));
 }
 
 void OptionsMenu::showDialog()
 {
 	QString selfilter = tr("GuessWho Files (*.gw)");
-	QString fileDialog = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Ressources/CharacterFiles", tr("GuessWho Files (*.gw)"), &selfilter);
-	if (fileDialog != "") //The list has been changed
+	QString fileDialog = QFileDialog::getOpenFileName(this, "Ouvrir une liste de personnages", "./Photos", tr("GuessWho Files (*.gw)"), &selfilter);
+	if (fileDialog != "")
 	{
 		activeList = fileDialog;
-		c_manager->importCharacters(fileDialog.toStdString()); //Change the current list
-	}
-	active_List->setText(activeList);
-}
-
-void OptionsMenu::newList() {
-	QString selfilter = tr("GuessWho Files (*.gw)");
-	QString fileDialog = QFileDialog::getSaveFileName(this, "Enregistrer une liste de personnages", "./Ressources/CharacterFiles", tr("GuessWho Files (*.gw)"), &selfilter);
-	if (fileDialog != "") //The list has been changed
-	{
-		activeList = fileDialog;
-		//Resets the list then exports the empty list to create the file
-		c_manager->clearCharacterVector();
-		c_manager->exportCharacters(fileDialog.toStdString());
-		//c_manager->importCharacters(fileDialog.toStdString()); //Change the current list
 	}
 	active_List->setText(activeList);
 }

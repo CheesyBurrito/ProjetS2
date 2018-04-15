@@ -1,16 +1,3 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-MainMenu.cpp
-*****************************************/
-
 #include "MainMenu.h"
 
 MainMenu::MainMenu(QWidget* parent) : QWidget(parent)
@@ -24,7 +11,6 @@ MainMenu::~MainMenu()
 
 void MainMenu::createMainMenu()
 {
-	setFixedWidth(620);
 	layout = new QVBoxLayout;
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
@@ -35,6 +21,10 @@ void MainMenu::createMainMenu()
 	optionsButton = new MenuButton(this, " Options");
 	quitButton = new MenuButton(this, " Quitter");
 
+	connect(onePlayer, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(twoPlayers, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(optionsButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
+	connect(quitButton, SIGNAL(hovered(MenuButton*)), this, SLOT(setHoveredButton(MenuButton*)));
 
 	layout->addWidget(onePlayer);
 	layout->addWidget(twoPlayers);
@@ -42,4 +32,13 @@ void MainMenu::createMainMenu()
 	layout->addWidget(quitButton);
 
 	setLayout(layout);
+}
+
+void MainMenu::setHoveredButton(MenuButton *button)
+{
+	onePlayer->setIsSelected(false);
+	twoPlayers->setIsSelected(false);
+	optionsButton->setIsSelected(false);
+	quitButton->setIsSelected(false);
+	button->setIsSelected(true);
 }

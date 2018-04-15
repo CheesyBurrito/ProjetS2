@@ -1,16 +1,3 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
-
-AddCharacter.h
-*****************************************/
-
 #pragma once
 #include <QWidget>
 #include <QKeyEvent>
@@ -24,10 +11,6 @@ AddCharacter.h
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QStyle>
-#include "Character.h"
-#include "CharacterManager.h"
-#include "QDir"
-#include "QFile"
 
 class AddCharacter : public QWidget
 {
@@ -50,8 +33,6 @@ private:
 	std::vector<int> accessories;
 	int facialHair;
 	int age;
-	string newPicturePath;
-
 	QString name;
 
 	QVBoxLayout * layout;
@@ -123,15 +104,12 @@ private:
 	QPushButton *okButton;
 	QPushButton *cancelButton;
 
-	Character* character;
-	CharacterManager* c_manager;
-	QString listSavePath;
 
 public:
-	AddCharacter(QWidget* parent, CharacterManager* characterManager, QString activeList);
+	AddCharacter(QWidget* parent);
 	~AddCharacter();
 	void createAddCharacter();
-	
+
 	QPushButton* getOkButton() { return okButton; }
 	QPushButton* getCancelButton() { return cancelButton; }
 	

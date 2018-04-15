@@ -1,25 +1,9 @@
-/****************************************
-GuessWho ProjetS2 - APP7Gi
-
-class CharacterGrid : public QWidget
-{
-private:
-	QGridLayout * characterGrid;
-	std::vector<CharacterCard*> *images;
-	int gridWidth;
-	int gridHeight;
-	CharacterCard* chosenCharacter;
-
-CharacterGrid.h
-*****************************************/
-
 #pragma once
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
 #include <vector>
 #include "CharacterCard.h"
-#include "CharacterManager.h"
 
 class CharacterGrid : public QWidget
 {
@@ -29,16 +13,14 @@ private:
 	int gridWidth;
 	int gridHeight;
 	CharacterCard* chosenCharacter;
-	CharacterManager* characterManager;
 
 public:
-	CharacterGrid(QWidget *parent, int height, int width, CharacterManager* characterManager = NULL);
+	CharacterGrid(QWidget *parent, int height, int width);
 	~CharacterGrid();
 
-	void setupCharacters();
+	void setupCharacters(); //TODO : use character manager to add characters
 	void setupLayouts();
 	void calculateGridDimensions(int height, int width);
-	int getNbHiddenCharacters();
 
 	int getGridWidth() { return gridWidth; }
 	int getGridHeight() { return gridHeight; }
@@ -46,19 +28,3 @@ public:
 	std::vector<CharacterCard*>* getCharacters() { return characters; }
 };
 
-	void calculateGridDimensions(int height, int width);
-
-	int getGridWidth() { return gridWidth; }
-	int getGridHeight() { return gridHeight; }
-	int getCardHeight();
-
-	std::vector<CharacterCard*>* getCharacters() { return images; }
-};
-
-
-P14
-William Adam-Grenier - adaw2602
-Charles Quesnel - quec2502
-Maxime St-Onge - stom2105
-
-Avril 2018
