@@ -81,7 +81,7 @@ int FPGA::convertDataToPhoneme() {
 }
 
 void FPGA::printRead() {
-	int min[4] = { 0,0,0,0 };
+	int min[4] = { 255,255,255,255 };
 	int max[4] = { 0,0,0,0 };
 
 	for (int i = 0; i < READINGS_PER_BURST; ++i) {

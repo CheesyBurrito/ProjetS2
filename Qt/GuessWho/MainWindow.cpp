@@ -61,6 +61,7 @@ void MainWindow::connectSignals()
 	connect(this, SIGNAL(sKeyPressed()), &fpgaComm, SLOT(readAndPrint()));
 
 	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
+	connect(&fpgaComm, SIGNAL(detectedPhoneme4()), this, SLOT(emulateMouseClick()));
 }
 
 void MainWindow::settingWidgets()
