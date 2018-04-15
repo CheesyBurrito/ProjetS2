@@ -68,6 +68,7 @@ signals:
 	public slots:
 	void readSlot();
 	void toggleReadMode();
+	void readAndPrint();
 
 public:
 	const int FPGA_READING_ERROR = -2;
