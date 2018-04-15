@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D12C2A84-F49A-3869-9686-71B62B4D86B2}</ProjectGuid>
+    <ProjectGuid>{8C4A8F56-BCE4-39BF-8437-94B3B22C42C5}</ProjectGuid>
     <RootNamespace>GuessWho</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
