@@ -73,9 +73,9 @@ void MainWindow::settingMainWindow()
 	//Setting the MainWindow
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
-	this->setGeometry(100, 100, 1300, 600);
-	showFullScreen();
-	//show();
+	this->setGeometry(100, 100, 1920, 1080);
+	//showFullScreen();
+	show();
 }
 
 void MainWindow::settingSounds() 
@@ -170,7 +170,7 @@ void MainWindow::gameWindow()
 	
 	connect(this, SIGNAL(wKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(goUpTreeWidgetItem()));
 	connect(this, SIGNAL(sKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(goDownTreeWidgetItem()));
-	//connect(this, SIGNAL(enterKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(treeWidgetItemClicked()));
+	connect(this, SIGNAL(enterKeyPressed()), player1GameWindow->getSideMenu()->getQuestionMenuBar(), SLOT(enterSubTree()));
 
 	//Connects the pause menu buttons
 	connect(this, SIGNAL(escapeKeyPressed()), player1GameWindow, SLOT(togglePauseMenu()));
@@ -228,12 +228,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 	{
 		emit sKeyPressed();
 	}
-	/*
-	if (event->key() == Qt::Key_Enter)
+	if (event->key() == Qt::Key_E)
 	{
-		cout << "Hey there!" << endl;
 		emit enterKeyPressed();
-	}*/
+	}
 }
 
 void MainWindow::emulateMouseClick() {

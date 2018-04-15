@@ -128,25 +128,11 @@ void QuestionMenuBar::setupTreeView()
 				characterMangagerDummy.propertiesGender[i])));
 	}
 
-	//parentWidgetsTree.push_back(eyesTreeItem[0]);
-	/*
-	parentWidgetsTree[0] = eyesTreeItem[0];
-	parentWidgetsTree[1] = hairTreeItem[0];
-	parentWidgetsTree[2] = hairTreeItem[1];
-	parentWidgetsTree[3] = hairTreeItem[2];
-	parentWidgetsTree[4] = skinTreeItem[0];
-	parentWidgetsTree[5] = accessoriesTreeItem[0];
-	parentWidgetsTree[6] = facialHairTreeItem[0];
-	parentWidgetsTree[7] = ageTreeItem[0];
-	parentWidgetsTree[8] = genderTreeItem[0];
-	*/
 	treeView->setStyleSheet("color:white");
 	treeView->setFont(QFont("Walkway Bold", 12));
-	//treeView->findItems("Genre", Qt::MatchExactly , 0).at(0)->setSelected(true);
-	//eyesTreeItem[0]->setSelected(true);
+	eyesTreeItem[0]->setSelected(true);
 	treeView->setFocusPolicy(Qt::NoFocus);
 	//cout << "ITEM: " << treeView->findItems("Yeux", Qt::MatchExactly, 0).size() << endl;
-	//treeView->expandAll();
 }
 
 void QuestionMenuBar::setupLayout()
@@ -201,20 +187,91 @@ void QuestionMenuBar::treeWidgetItemClicked()
 
 void QuestionMenuBar::goUpTreeWidgetItem()
 {
-	//cout << "Connected!" << endl;
 
 	//If selection for question is made
 	if (treeView->selectedItems().size() <= 0)
 	{
-		//cout << treeView->selectedItems().size() << endl;
 		return;
 	}
 
-	//QTreeWidgetItem* item = treeView->selectedItems().at(0);
-	//QObject *qobject1 = dynamic_cast<QObject*>(item);
-	//QTreeWidgetItemPropertiesIndex *tempConversion = qobject_cast<QTreeWidgetItemPropertiesIndex*>(qobject1);
+	QTreeWidgetItem* item = treeView->selectedItems().at(treeView->selectedItems().size() - 1);
+	QTreeWidgetItem* checkNextUpTree = treeView->itemAbove(item);
 
-	/*
+	if(checkNextUpTree == nullptr)
+	{
+		checkNextUpTree = genderTreeItem[0];
+	}
+	
+	QList<QTreeWidgetItem*> selectedList = treeView->selectedItems();
+	for(int i = 0; i < selectedList.size(); i++)
+	{
+		selectedList.at(i)->setSelected(false);
+	}
+	//If the next item is a parent selection item
+	if(item->childCount() == 0 && checkNextUpTree->childCount() >= 1)
+	{
+		treeView->collapseItem(checkNextUpTree);
+	}
+	if (item->childCount() > 0 && checkNextUpTree->childCount() >= 1)
+	{
+		treeView->collapseItem(item);
+	}
+	else if (checkNextUpTree == hairTreeItem[0])
+	{
+		treeView->collapseItem(checkNextUpTree);
+		treeView->collapseItem(skinTreeItem[0]);
+	}
+	checkNextUpTree->setSelected(true);
+}
+
+void QuestionMenuBar::goDownTreeWidgetItem()
+{
+
+	//If selection for question is made
+	if (treeView->selectedItems().size() <= 0)
+	{
+		return;
+	}
+
+	QTreeWidgetItem* item = treeView->selectedItems().at(treeView->selectedItems().size() - 1);
+	QTreeWidgetItem* checkNextDownTree = treeView->itemBelow(item);
+
+	if (checkNextDownTree == nullptr)
+	{
+		checkNextDownTree = eyesTreeItem[0];
+	}
+
+	QList<QTreeWidgetItem*> selectedList = treeView->selectedItems();
+	for (int i = 0; i < selectedList.size(); i++)
+	{
+		selectedList.at(i)->setSelected(false);
+	}
+	//If the next item is a parent selection item
+	if (item->childCount() == 0 && checkNextDownTree->childCount() >= 1)
+	{
+		treeView->collapseItem(item->parent());
+	}
+	if(checkNextDownTree == skinTreeItem[0])
+	{
+		treeView->collapseItem(hairTreeItem[0]);
+	}
+	checkNextDownTree->setSelected(true);
+}
+
+void QuestionMenuBar::enterSubTree()
+{
+	//If selection for question is made
+	if (treeView->selectedItems().size() <= 0)
+	{
+		return;
+	}
+
+	QTreeWidgetItem* item = treeView->selectedItems().at(treeView->selectedItems().size() - 1);
+	if(item->childCount() == 0)
+	{
+		return;
+	}
+
 	if (item->isExpanded())
 	{
 		item->setExpanded(false);
@@ -223,51 +280,4 @@ void QuestionMenuBar::goUpTreeWidgetItem()
 	{
 		item->setExpanded(true);
 	}
-	*/
-	QTreeWidgetItem* item = treeView->itemAbove(treeView->currentItem());
-	//treeView->clearSelection();
-	treeView->currentItem()->setSelected(false);
-	item->setSelected(true);
-	//treeView->itemBelow(treeView->currentItem())->setSelected(false);
-
-	
-	//treeView->currentItem()->setSelected(false);
-	
 }
-
-void QuestionMenuBar::goDownTreeWidgetItem()
-{
-	//cout << "Connected!" << endl;
-
-	//If selection for question is made
-	if (treeView->selectedItems().size() <= 0)
-	{
-		//cout << treeView->selectedItems().size() << endl;
-		return;
-	}
-
-	//QTreeWidgetItem* item = treeView->selectedItems().at(0);
-	//QObject *qobject1 = dynamic_cast<QObject*>(item);
-	//QTreeWidgetItemPropertiesIndex *tempConversion = qobject_cast<QTreeWidgetItemPropertiesIndex*>(qobject1);
-
-	/*
-	if (item->isExpanded())
-	{
-	item->setExpanded(false);
-	}
-	else
-	{
-	item->setExpanded(true);
-	}
-	*/
-	//item = treeView->currentItem();
-	//treeView->itemBelow(treeView->currentItem())->setSelected(true);
-	//treeView->itemAbove(treeView->currentItem())->setSelected(false);
-	//treeView->currentItem()->setSelected(false);
-	QTreeWidgetItem* item = treeView->itemBelow(treeView->currentItem());
-	treeView->currentItem()->setSelected(false);
-	//treeView->clearSelection();
-	item->setSelected(true);
-	
-}
-

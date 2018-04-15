@@ -35,8 +35,6 @@ private:
 	QTreeWidgetItemPropertiesIndex* ageTreeItem[3];
 	QTreeWidgetItemPropertiesIndex* genderTreeItem[3];
 
-	vector<QTreeWidgetItemPropertiesIndex*> parentWidgetsTree;
-
 	//DOES NOT CONTAIN ANY CHARACTERS, IT IS ONLY THERE TO BE USED FOR ITS METHODS
 	CharacterManager characterMangagerDummy;
 	
@@ -44,6 +42,7 @@ private:
 	void treeWidgetItemClicked();
 	void goUpTreeWidgetItem();
 	void goDownTreeWidgetItem();
+	void enterSubTree();
 
 	signals:
 	void sendQuestion(std::vector<int>);
