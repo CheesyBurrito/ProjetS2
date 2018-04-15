@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FPGA_t {
-    QByteArrayData data[11];
-    char stringdata0[124];
+    QByteArrayData data[12];
+    char stringdata0[137];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,13 +41,14 @@ QT_MOC_LITERAL(6, 49, 16), // "detectedPhoneme2"
 QT_MOC_LITERAL(7, 66, 16), // "detectedPhoneme3"
 QT_MOC_LITERAL(8, 83, 16), // "detectedPhoneme4"
 QT_MOC_LITERAL(9, 100, 8), // "readSlot"
-QT_MOC_LITERAL(10, 109, 14) // "toggleReadMode"
+QT_MOC_LITERAL(10, 109, 14), // "toggleReadMode"
+QT_MOC_LITERAL(11, 124, 12) // "readAndPrint"
 
     },
     "FPGA\0cardFailed\0\0cardOn\0cardOff\0"
     "detectedPhoneme1\0detectedPhoneme2\0"
     "detectedPhoneme3\0detectedPhoneme4\0"
-    "readSlot\0toggleReadMode"
+    "readSlot\0toggleReadMode\0readAndPrint"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +58,7 @@ static const uint qt_meta_data_FPGA[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,17 +66,18 @@ static const uint qt_meta_data_FPGA[] = {
        7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x06 /* Public */,
-       3,    0,   60,    2, 0x06 /* Public */,
-       4,    0,   61,    2, 0x06 /* Public */,
-       5,    0,   62,    2, 0x06 /* Public */,
-       6,    0,   63,    2, 0x06 /* Public */,
-       7,    0,   64,    2, 0x06 /* Public */,
-       8,    0,   65,    2, 0x06 /* Public */,
+       1,    0,   64,    2, 0x06 /* Public */,
+       3,    0,   65,    2, 0x06 /* Public */,
+       4,    0,   66,    2, 0x06 /* Public */,
+       5,    0,   67,    2, 0x06 /* Public */,
+       6,    0,   68,    2, 0x06 /* Public */,
+       7,    0,   69,    2, 0x06 /* Public */,
+       8,    0,   70,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    0,   66,    2, 0x0a /* Public */,
-      10,    0,   67,    2, 0x0a /* Public */,
+       9,    0,   71,    2, 0x0a /* Public */,
+      10,    0,   72,    2, 0x0a /* Public */,
+      11,    0,   73,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -87,6 +89,7 @@ static const uint qt_meta_data_FPGA[] = {
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -108,6 +111,7 @@ void FPGA::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 6: _t->detectedPhoneme4(); break;
         case 7: _t->readSlot(); break;
         case 8: _t->toggleReadMode(); break;
+        case 9: _t->readAndPrint(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -190,13 +194,13 @@ int FPGA::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

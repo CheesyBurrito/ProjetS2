@@ -63,6 +63,13 @@ void FPGA::readSlot() {
 	}
 }
 
+void FPGA::readAndPrint() {
+	if (cardStatus) {
+		readData();
+		printRead();
+	}
+}
+
 //Returns the position of a phoneme in the vector if detected, if not, returns -1
 int FPGA::convertDataToPhoneme() {
 
@@ -74,10 +81,25 @@ int FPGA::convertDataToPhoneme() {
 }
 
 void FPGA::printRead() {
+	int min[4] = { 0,0,0,0 };
+	int max[4] = { 0,0,0,0 };
+
 	for (int i = 0; i < READINGS_PER_BURST; ++i) {
-		cout << rawData[i][0] << '\t' << rawData[i][1] << '\t'
+		cout << i << ": \t" << rawData[i][0] << '\t' << rawData[i][1] << '\t'
 			<< rawData[i][2] << '\t' << rawData[i][3] << '\t' << endl;
+
+		for (int j = 0; j < 4; j++) {
+			if (rawData[i][j] < min[j])
+				min[j] = rawData[i][j];
+			if (rawData[i][j] > max[j])
+				max[j] = rawData[i][j];
+		}
 	}
+
+	cout << "MIN: \t" << min[0] << '\t' << min[1] << '\t'
+		<< min[2] << '\t' << min[3] << '\t' << endl;
+	cout << "MAX: \t" << max[0] << '\t' << max[1] << '\t'
+		<< max[2] << '\t' << max[3] << '\t' << endl;
 }
 
 void FPGA::readLoop() {

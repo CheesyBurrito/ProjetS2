@@ -58,6 +58,8 @@ void MainWindow::connectSignals()
 	connect(this, SIGNAL(phonemeKeyPressed()), &fpgaComm, SLOT(toggleReadMode()));
 	connect(&timer, SIGNAL(timeout()), &fpgaComm, SLOT(readSlot()));
 
+	connect(this, SIGNAL(sKeyPressed()), &fpgaComm, SLOT(readAndPrint()));
+
 	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
 }
 
