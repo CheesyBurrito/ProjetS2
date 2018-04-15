@@ -45,3 +45,7 @@
 *.filters
 
 *.rc
+
+Qt/GuessWho/debug/moc_MainMenu\.cpp
+
+Qt/GuessWho/debug/

@@ -1,3 +1,16 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+SideMenu.h
+*****************************************/
+
 #pragma once
 #include <QWidget>
 #include <QLabel>
@@ -7,6 +20,7 @@
 #include <string>
 #include <QPushButton>
 #include <QIcon>
+#include <QSpinBox>
 #include "QuestionMenuBar.h"
 
 class SideMenu : public QWidget
@@ -33,6 +47,10 @@ private:
 	QLabel * background;
 	QLabel * cornerBackground;
 	QLabel * characteristics;
+	QLabel * fpgaStateIcon;
+	QPixmap fpgaONIcon;
+	QPixmap fpgaOFFIcon;
+	QPixmap fpgaErrorIcon;
 	QGridLayout * layout;
 	QVBoxLayout * scoreLayout;
 	QHBoxLayout * hLayout;
@@ -44,5 +62,32 @@ private:
 	QLabel * nbHiddenCharactersLabel;
 	QuestionMenuBar * questionMenuBar;
 	int menuHeight, menuWidth;
+
+	QPushButton * guessWhoButton;
+
+public slots:
+	void setTraits(std::string newTraits);
+	void switchZoomIcon();
+	void fpgaError();
+	void fpgaOn();
+	void fpgaOff();
+	void setNormalCursor();
+
+signals:
+	void lowerBarTest(std::string, int);
+
+public:
+	SideMenu(QWidget *parent, int height, int width);
+	~SideMenu();
+
+	void setupLayouts();
+	void setupWidgets();
+	void setNbHiddenCharacter(int nb);
+
+	QuestionMenuBar* getQuestionMenuBar() { return questionMenuBar; }
+	QPushButton* getZoomButton() { return zoomButton; }
+	QPushButton* getGuessWhoButton() { return guessWhoButton; }
+
+
 };
 

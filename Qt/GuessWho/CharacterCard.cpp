@@ -1,5 +1,12 @@
-#include "CharacterCard.h"
+/****************************************
+GuessWho ProjetS2 - APP7Gi
 
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
 
 
 CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string characterPath, bool chosenCharacter):QPushButton(parent)
@@ -24,6 +31,7 @@ CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string ch
 		p.end();
 
 		picture = combined;
+		//picture.load("./Photos/emptyFrame.png");
 		flippedCard.load("./Photos/red_turned_card.png");
 	}
 
@@ -41,12 +49,67 @@ CharacterCard::CharacterCard(QWidget *parent, int width, QString path, string ch
 	this->setIconSize(QSize(width, cardHeight));
 	this->setFixedSize(QSize(width, cardHeight));
 
+	/*QPixmap loopCursorPix("./Photos/zoom.png");
+	QCursor loopCursor(loopCursorPix.scaled(25,25));
+	this->setCursor(loopCursor);*/
+
+	this->setMouseTracking(true);
+	//connect(this, SIGNAL(clicked()), this, SLOT(flipCard()));
+	//connect(this, SIGNAL(doubleClicked()), this, SLOT(zoomCard()));
+}
+CharacterCard.cpp
+*****************************************/
+
+#include "CharacterCard.h"
+
+CharacterCard::CharacterCard(QWidget *parent, int width, Character* character, bool chosenCharacter) {
+	this->character = character;
+	cardWidth = width;
+	cardHeight = 1.4*width;
+	isChosenCharacter = chosenCharacter;
+	if (isChosenCharacter)
+		isSet = false;
+
+	setupRessources();
 	this->setMouseTracking(true);
 }
 
-
 CharacterCard::~CharacterCard()
 {
+}
+
+void CharacterCard::setupRessources() {
+	//Sets the empty image with a red border for the 21st character
+	if (isChosenCharacter) {
+		QImage background("./Photos/header_logo.png");
+		QImage back("./Photos/BlankCharacter.png");
+
+		QImage front("./Photos/emptyFrame.png");
+
+		QPixmap combined(front.size());
+		QPainter p(&combined);
+		p.drawImage(QPoint(0, 0), background);
+		p.drawImage(QPoint(0, 0), back);
+		p.drawImage(QPoint(0, 0), front);
+		p.end();
+
+		picture = combined;
+		flippedCard.load("./Photos/red_turned_card.png");
+	}
+
+	else {
+		picture.load(QString::fromStdString(character->get_picture_path()));
+		flippedCard.load("./Photos/turned_card.png");
+	}
+
+	pictureIcon.addPixmap(picture.scaled(cardWidth, cardHeight));
+	flippedCardIcon.addPixmap(flippedCard.scaled(cardWidth, cardHeight));
+
+
+	this->setIcon(pictureIcon);
+
+	this->setIconSize(QSize(cardWidth, cardHeight));
+	this->setFixedSize(QSize(cardWidth, cardHeight));
 }
 
 void CharacterCard::flipCard() {
@@ -61,14 +124,28 @@ void CharacterCard::flipCard() {
 
 void CharacterCard::enterEvent(QEvent* e)
 {
-	if(!isFlipped && this->traits.getEyes() != -1) //TODO : CHANGE TRAIT FOR CHARACTER WHEN CLASS IS IMPLEMENTED
+	//OLD VERSION DELETE WHEN BACK-END IS CONNECTED
+	/*
+	if(!isFlipped && this->traits.getEyes() != -1)
 		emit hovered(this->traits.convertPropertiesToString());
+	*/
+	//NEW VERSION
+	if (!isFlipped && isSet){
+		std::string traits = this->character->get_character_traits()->convertPropertiesToString();
+		emit hovered(traits);
+	}
+	
 
 	QWidget::enterEvent(e);
 }
 
 void CharacterCard::mouseDoubleClickEvent(QMouseEvent* event) {
 	emit doubleClicked();
+}
+
+void CharacterCard::mousePressEvent(QMouseEvent* event) {
+	emit clickedCharacter(character);
+	QWidget::mousePressEvent(event);
 }
 
 void CharacterCard::zoomCard() {
@@ -88,9 +165,11 @@ void CharacterCard::zoomCard() {
 	}
 }
 
-void CharacterCard::setChosenCharacter(QString path) {
+void CharacterCard::setChosenCharacter(Character* character) {
+	isSet = true;
+	this->character = character;
 	QImage background("./Photos/header_logo.png");
-	QImage back(path);
+	QImage back(QString::fromStdString(character->get_picture_path()));
 
 	QImage front("./Photos/emptyFrame.png");
 
@@ -108,5 +187,4 @@ void CharacterCard::setChosenCharacter(QString path) {
 
 int CharacterCard::getCardHeight()
 {
-	return cardHeight;
-}
+	return cardHeight;

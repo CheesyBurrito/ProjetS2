@@ -1,3 +1,16 @@
+/****************************************
+GuessWho ProjetS2 - APP7Gi
+
+P14
+William Adam-Grenier - adaw2602
+Charles Quesnel - quec2502
+Maxime St-Onge - stom2105
+
+Avril 2018
+
+MainMenu.h
+*****************************************/
+
 #pragma once
 #include <QWidget>
 #include <QFont>
@@ -12,11 +25,7 @@ class MainMenu : public QWidget
 	Q_OBJECT
 
 public slots:
-	void setHoveredButton(MenuButton *button);
 	void createMainMenu();
-
-signals:
-	void hovered(MenuButton*);
 
 public:
 	MainMenu(QWidget* parent);
@@ -33,7 +42,6 @@ public:
 private:
 	QVBoxLayout * layout;
 	int numberPlayer;
-
 	MenuButton *onePlayer;
 	MenuButton *twoPlayers;
 	MenuButton *optionsButton;
