@@ -32,6 +32,9 @@ MainWindow.h
 #define GAME_OVER_NOT 0
 
 #define FPGA_READ_INTERVAL 100
+#define PHONEME_CLIC detectedPhoneme3() //I
+#define PHONEME_YES detectedPhoneme2() //A
+#define PHONEME_NO detectedPhoneme4() //E
 #define PHONEME_KEY Qt::Key_M
 
 class MainWindow : public QMainWindow
