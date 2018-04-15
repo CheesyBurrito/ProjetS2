@@ -57,7 +57,7 @@ bool Player::characterSelection(int characterID)
 	return false;
 }
 
-vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
+vector<int> Player::cpuQuestionGeneretor(int target, Player player2,int lastQuestion)
 {
 	srand(time(NULL));
 	int i, j;
@@ -83,7 +83,24 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 				question.at(1) = characters.at(i)->get_id();
 		}
 	}
-	else if (player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() >= totalCharacter - 1)
+	else if (lastQuestion == 8)
+	{
+		int randomCharacter = rand() % numPlayerVisible + 1;
+		int counter = 0;
+
+		askQuestion = false;
+		question.at(0) = 8;
+		for (i = 0; i < totalCharacter; i++)
+		{
+			if (characters.at(i)->is_is_hidden() == false)
+			{
+				counter++;
+				if (counter == randomCharacter)
+					question.at(1) = characters.at(i)->get_id();
+			}
+		}
+	}
+	/*else if (player2.get_board_of_player()->get_character_manager()->get_num_character_hidden() >= totalCharacter - 1)
 	{
 		bool randOk = false;
 		int randomCharacter = rand() % numPlayerVisible + 1;
@@ -112,7 +129,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2)
 				}
 			}
 		}
-	}
+	}*/
 	if(askQuestion == true)
 	{
 		//Initialize the value to 0

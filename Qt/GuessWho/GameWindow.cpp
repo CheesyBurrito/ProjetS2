@@ -146,6 +146,7 @@ void GameWindow::guessWhoMode() {
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(emitGuessWho(Character*)));
 		}
+		this->sideMenu->getZoomButton()->setDisabled(false);
 	}
 }
 
@@ -187,6 +188,18 @@ void GameWindow::toggleZoomMode() {
 	}
 
 	zoomMode = !zoomMode;
+}
+
+void GameWindow::setNormalMode(std::vector<int>)
+{
+	if(guessMode)
+	{ 
+		zoomMode = true; 
+		guessMode = false;
+		guessWhoMode();
+		sideMenu->setNormalCursor();
+		toggleZoomMode();
+	}
 }
 
 void GameWindow::togglePauseMenu() {

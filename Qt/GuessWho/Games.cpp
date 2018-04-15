@@ -290,7 +290,7 @@ void Games::inputGame(Player &player, Player &otherPlayer)
 		cout << "Nombre de personage caches (AI): " << player.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << player.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		cout << "Nombre de personage caches (vous): " << otherPlayer.get_board_of_player()->get_character_manager()->get_num_character_hidden() << "/" << otherPlayer.get_board_of_player()->get_character_manager()->get_total_character() << endl;
 		vector<int> question;
-		question = player.cpuQuestionGeneretor(50, otherPlayer);
+		question = player.cpuQuestionGeneretor(50, otherPlayer,0);
 
 		answerBotQuestion(question[0], question[1], player, otherPlayer);
 
@@ -547,7 +547,7 @@ string Games::convertQuestionToString(int characteristicsSlected, int input) {
 			question = "Est-ce que votre personnage est étudiant?";
 			break;
 		case 15:
-			question = "Est-ce que votre personnage a un membre du personnel?";
+			question = "Est-ce que votre personnage est un membre du personnel?";
 			break;
 		}
 		break;
@@ -558,7 +558,7 @@ string Games::convertQuestionToString(int characteristicsSlected, int input) {
 			question = "Est-ce que votre personnage est un homme?";
 			break;
 		case 13:
-			question = "Est-ce que votre personnage a une femme?";
+			question = "Est-ce que votre personnage est une femme?";
 			break;
 		}
 		break;

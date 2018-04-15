@@ -56,6 +56,7 @@ private:
 	void toggleZoomMode();
 	void toggleSelectMode();
 	void enableOkButton();
+	void setNormalMode(std::vector<int>);
 
 	void setChosenCharacter(Character* character);
 	void guessWhoMode();

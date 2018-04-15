@@ -38,7 +38,7 @@ public:
 	bool characterSelection(int characterID);
 	void up_num_turn();
 	void up_num_win();
-	vector<int> cpuQuestionGeneretor(int target, Player player2);
+	vector<int> cpuQuestionGeneretor(int target, Player player2, int lastQuestion);
 	void generateRandomCharacter();
 
 	//Setter and Getters

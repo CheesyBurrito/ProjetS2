@@ -135,6 +135,11 @@ void SideMenu::setTraits(std::string newTraits) {
 	characteristics->setText(QString::fromStdString(newTraits));
 }
 
+void SideMenu::setNormalCursor()
+{
+	zoomMode = true;
+	switchZoomIcon();
+}
 
 void SideMenu::switchZoomIcon() {
 

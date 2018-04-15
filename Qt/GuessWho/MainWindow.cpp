@@ -128,6 +128,9 @@ void MainWindow::gameWindow()
 {
 	//GAME LOGIC *******************
 	
+	player1GameOver = GAME_OVER_NOT;
+	player2GameOver = GAME_OVER_NOT;
+
 	//Checks if enough characters in the vector if not -> error
 	if (gameLogic->get_character_manager()->get_character_vector().size() < 20) {
 		QMessageBox::critical(NULL, "Erreur", "Il n'y a pas assez de personnages dans la liste (minimum 20)", QMessageBox::Ok);
@@ -180,6 +183,9 @@ void MainWindow::gameWindow()
 	connect(&fpgaComm, SIGNAL(cardOn()), player2GameWindow->getSideMenu(), SLOT(fpgaOn()));
 	connect(&fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
 	connect(&fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
+
+	connect(player1GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(checkEndGameCondition()));
+	connect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(checkEndGameCondition()));
 
 	fpgaComm.checkCardStatus();
 	fpgaComm.setReadMode(false);
@@ -412,7 +418,7 @@ void MainWindow::p2_askQuestion() {
 	gameLogic->getPlayer2Reference()->up_num_turn();
 
 	if (secondPlayerIsBot) {
-		p1_answerQuestion(gameLogic->getPlayer2Reference()->cpuQuestionGeneretor(50, gameLogic->getPlayer1()));
+		p1_answerQuestion(gameLogic->getPlayer2Reference()->cpuQuestionGeneretor(50, gameLogic->getPlayer1(), p1_lastQuestion.at(0)));
 	}
 	else {
 		disconnect(player2GameWindow->getLowerBar()->getOkButton(), SIGNAL(clicked()), this, SLOT(p2_askQuestion()));
@@ -506,10 +512,13 @@ void MainWindow::p2_getLastAnswer() {
 	if (p1_lastQuestion.at(0) == 8) { //If P1 made a guess
 		if (p2_lastAnswer == true)
 			player1GameOver = GAME_OVER_WON;
-		else
+		else {
 			player1GameOver = GAME_OVER_LOST;
+			if(!secondPlayerIsBot)
+				checkEndGameCondition();
+		}
 
-		checkEndGameCondition();
+		//checkEndGameCondition();
 	}
 
 	if (secondPlayerIsBot) {
@@ -537,11 +546,11 @@ void MainWindow::p1_getLastAnswer() {
 			player2GameOver = GAME_OVER_WON;
 		else
 			player2GameOver = GAME_OVER_LOST;
-
+		
 		checkEndGameCondition();
 	}
-	else if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
-		checkEndGameCondition();
+	//else if (p1_lastQuestion.at(0) == 8) //Player 2 has played their tie turn
+		//checkEndGameCondition();
 
 		if(secondPlayerIsBot) {
 			if (p2_lastQuestion.size() > 0) {
@@ -556,7 +565,7 @@ void MainWindow::p1_getLastAnswer() {
 		//If there is a question, show it
 		if (p1_lastQuestion.size() > 0) {
 
-			player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : à la question : " +
+			player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + ", à la question : " +
 				gameLogic->convertQuestionToString(p1_lastQuestion.at(0), p1_lastQuestion.at(1)) +
 				" la réponse est : " + convertBoolToString(p2_lastAnswer), OK_MODE);
 
@@ -568,8 +577,9 @@ void MainWindow::p1_getLastAnswer() {
 }
 
 void MainWindow::connectP1ToTree() {
-	connect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
 	connect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(setGuessMode()));
+	connect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
+	connect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), player1GameWindow, SLOT(setNormalMode(std::vector<int>)));
 	connect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 	connect(player1GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }
@@ -578,12 +588,14 @@ void MainWindow::disconnectP1ToTree() {
 	disconnect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(guessWhoMode()));
 	disconnect(player1GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player1GameWindow, SLOT(setGuessMode()));
 	disconnect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
+	disconnect(player1GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), player1GameWindow, SLOT(setNormalMode(std::vector<int>)));
 	disconnect(player1GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p2_answerQuestion(std::vector<int>)));
 }
 
 void MainWindow::connectP2ToTree() {
-	connect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
 	connect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(setGuessMode()));
+	connect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
+	connect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), player2GameWindow, SLOT(setNormalMode(std::vector<int>)));
 	connect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 	connect(player2GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 }
@@ -592,6 +604,7 @@ void MainWindow::disconnectP2ToTree() {
 	disconnect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(guessWhoMode()));
 	disconnect(player2GameWindow->getSideMenu()->getGuessWhoButton(), SIGNAL(clicked()), player2GameWindow, SLOT(setGuessMode()));
 	disconnect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
+	disconnect(player2GameWindow->getSideMenu()->getQuestionMenuBar(), SIGNAL(sendQuestion(std::vector<int>)), player2GameWindow, SLOT(setNormalMode(std::vector<int>)));
 	disconnect(player2GameWindow, SIGNAL(guessWho(std::vector<int>)), this, SLOT(p1_answerQuestion(std::vector<int>)));
 }
 
@@ -656,11 +669,11 @@ bool MainWindow::checkEndGameCondition() {
 	else {
 		if (gameLogic->getPlayer1().get_num_turn() > gameLogic->getPlayer2().get_num_turn()) //Player 2 still has a turn to take a guess
 			return false;
-		else {
+		/*else {
 			winPlayer1++;
 			gameOver(player1Name);
 			return true;
-		}
+		}*/
 	}
 }
 

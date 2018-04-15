@@ -59,7 +59,7 @@ protected:
 	void connectP2ToTree();
 	void disconnectP2ToTree();
 	void disconnectFPGA();
-	bool checkEndGameCondition();
+	//bool checkEndGameCondition();
 		
 public slots:
 	void deleteStart();
@@ -88,6 +88,7 @@ public slots:
 	void p2_answerQuestionNo();
 	void p2_getLastAnswer();
 	void gameOver(QString winner);
+	bool checkEndGameCondition();
 
 signals:
 	void wKeyPressed();

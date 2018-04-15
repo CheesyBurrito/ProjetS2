@@ -55,6 +55,7 @@ public slots:
 	void fpgaError();
 	void fpgaOn();
 	void fpgaOff();
+	void setNormalCursor();
 
 signals:
 	void lowerBarTest(std::string, int);
