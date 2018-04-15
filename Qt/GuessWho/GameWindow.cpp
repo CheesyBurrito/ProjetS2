@@ -136,7 +136,8 @@ void GameWindow::guessWhoMode() {
 		for (int i = 0; i < grid->getCharacters()->size() - 1; i++) {
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(flipCard()));
 			disconnect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this->grid->getCharacters()->at(i), SLOT(zoomCard()));
-			connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(emitGuessWho(Character*)));
+			if(!this->grid->getCharacters()->at(i)->getIsFlipped())
+				connect(this->grid->getCharacters()->at(i), SIGNAL(clickedCharacter(Character*)), this, SLOT(emitGuessWho(Character*)));
 		}
 		disconnect(this->grid->getCharacters()->at(20), SIGNAL(doubleClicked()), this->grid->getCharacters()->at(20), SLOT(flipCard()));
 	}
@@ -151,6 +152,7 @@ void GameWindow::guessWhoMode() {
 }
 
 void GameWindow::emitGuessWho(Character* c) {
+
 	std::vector<int> q = { 8, c->get_id() };
 	emit guessWho(q);
 	this->sideMenu->getZoomButton()->setDisabled(true);
