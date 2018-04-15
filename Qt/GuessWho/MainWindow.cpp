@@ -76,8 +76,8 @@ void MainWindow::settingMainWindow()
 	setWindowTitle("Guess Who?");
 	setStyleSheet("background-image: url(./Photos/header_logo.png)");
 	this->setGeometry(100, 100, 1920, 1080);
-	//showFullScreen();
-	show();
+	showFullScreen();
+	//show();
 }
 
 void MainWindow::settingSounds() 
