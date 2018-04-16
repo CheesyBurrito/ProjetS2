@@ -108,6 +108,7 @@ public slots:
 	bool checkEndGameCondition();
 
 signals:
+	void spaceKeyPressed();
 	void wKeyPressed();
 	void sKeyPressed();
 	void enterKeyPressed();
@@ -122,8 +123,8 @@ private:
 	int winPlayer2;
 	int numberPlayer;
 	int activeSong;
-	int colorMenuPlayer1 = 0;
-	int colorMenuPlayer2 = 4;
+	int colorMenuPlayer1=0;
+	int colorMenuPlayer2=4;
 	int player1GameOver = GAME_OVER_NOT;
 	int player2GameOver = GAME_OVER_NOT;
 	bool secondPlayerIsBot;

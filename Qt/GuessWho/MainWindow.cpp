@@ -60,7 +60,7 @@ void MainWindow::connectSignals()
 
 	connect(this, SIGNAL(sKeyPressed()), &fpgaComm, SLOT(readAndPrint()));
 
-	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
+	connect(this, SIGNAL(spaceKeyPressed()), this, SLOT(emulateMouseClick()));
 	connect(&fpgaComm, SIGNAL(PHONEME_CLIC), this, SLOT(emulateMouseClick()));
 
 	//Connecting Color Menu
@@ -260,6 +260,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 	if (event->key() == Qt::Key_E)
 	{
 		emit enterKeyPressed();
+	}
+	if (event->key() == Qt::Key_Space)
+	{
+		emit spaceKeyPressed();
 	}
 }
 
