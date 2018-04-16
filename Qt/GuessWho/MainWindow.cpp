@@ -58,7 +58,10 @@ void MainWindow::connectSignals()
 	connect(this, SIGNAL(phonemeKeyPressed()), &fpgaComm, SLOT(toggleReadMode()));
 	connect(&timer, SIGNAL(timeout()), &fpgaComm, SLOT(readSlot()));
 
+	connect(this, SIGNAL(sKeyPressed()), &fpgaComm, SLOT(readAndPrint()));
+
 	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
+	connect(&fpgaComm, SIGNAL(PHONEME_CLIC), this, SLOT(emulateMouseClick()));
 
 	//Connecting Color Menu
 	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1(), SIGNAL(escapeKeyPressed()), menu->getOnePlayerMenu(), SLOT(set_Enabled()));
@@ -474,6 +477,8 @@ void MainWindow::p2_answerQuestion(std::vector<int> q) {
 		player2GameWindow->getLowerBar()->changeText(player2Name.toStdString() + " : " + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
 		connect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
 		connect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+		connect(&fpgaComm, SIGNAL(PHONEME_YES), this, SLOT(p2_answerQuestionYes()));
+		connect(&fpgaComm, SIGNAL(PHONEME_NO), this, SLOT(p2_answerQuestionNo()));
 	}
 }
 
@@ -496,12 +501,16 @@ void MainWindow::p1_answerQuestion(std::vector<int> q) {
 		player1GameWindow->getLowerBar()->changeText(player1Name.toStdString() + " : " + gameLogic->convertQuestionToString(q.at(0), q.at(1)), YES_NO_MODE);
 		connect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
 		connect(player1GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionNo()));
+		connect(&fpgaComm, SIGNAL(PHONEME_YES), this, SLOT(p1_answerQuestionYes()));
+		connect(&fpgaComm, SIGNAL(PHONEME_NO), this, SLOT(p2_answerQuestionNo()));
 
 }
 
 void MainWindow::p2_answerQuestionYes() {
 	disconnect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
 	disconnect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_YES), this, SLOT(p2_answerQuestionYes()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_NO), this, SLOT(p2_answerQuestionNo()));
 
 	p2_lastAnswer = true;
 	p2_getLastAnswer();
@@ -510,6 +519,8 @@ void MainWindow::p2_answerQuestionYes() {
 void MainWindow::p2_answerQuestionNo() {
 	disconnect(player2GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionYes()));
 	disconnect(player2GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p2_answerQuestionNo()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_YES), this, SLOT(p2_answerQuestionYes()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_NO), this, SLOT(p2_answerQuestionNo()));
 
 	p2_lastAnswer = false;
 	p2_getLastAnswer();
@@ -518,6 +529,8 @@ void MainWindow::p2_answerQuestionNo() {
 void MainWindow::p1_answerQuestionYes() {
 	disconnect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
 	disconnect(player1GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionNo()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_YES), this, SLOT(p1_answerQuestionYes()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_NO), this, SLOT(p1_answerQuestionNo()));
 
 	p1_lastAnswer = true;
 	p1_getLastAnswer();
@@ -526,6 +539,8 @@ void MainWindow::p1_answerQuestionYes() {
 void MainWindow::p1_answerQuestionNo() {
 	disconnect(player1GameWindow->getLowerBar()->getYesButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionYes()));
 	disconnect(player1GameWindow->getLowerBar()->getNoButton(), SIGNAL(clicked()), this, SLOT(p1_answerQuestionNo()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_YES), this, SLOT(p1_answerQuestionYes()));
+	disconnect(&fpgaComm, SIGNAL(PHONEME_NO), this, SLOT(p1_answerQuestionNo()));
 
 	p1_lastAnswer = false;
 	p1_getLastAnswer();
