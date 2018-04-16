@@ -46,6 +46,9 @@ private:
 	QLabel * nbHiddenCharactersLabel;
 	QuestionMenuBar * questionMenuBar;
 	int menuHeight, menuWidth;
+	int color;
+	QString backgroundSideMenuPath;
+	QString backgroundCornerPath;
 
 	QPushButton * guessWhoButton;
 
@@ -61,7 +64,7 @@ signals:
 	void lowerBarTest(std::string, int);
 
 public:
-	SideMenu(QWidget *parent, int height, int width);
+	SideMenu(QWidget *parent, int height, int width, int menuColor);
 	~SideMenu();
 
 	void setupLayouts();

@@ -14,12 +14,13 @@ LowerBar.cpp
 #include "LowerBar.h"
 
 
-LowerBar::LowerBar(QWidget *parent, int width, int height) :QWidget(parent)
+LowerBar::LowerBar(QWidget *parent, int width, int height, int menuColor) :QWidget(parent)
 {
 	this->setStyleSheet("background: transparent;");
 
 	barHeight = height;
 	barWidth = width - 300;
+	color = menuColor;
 
 	setupWidgets();
 	setupLayouts();
@@ -60,7 +61,9 @@ void LowerBar::setupWidgets() {
 	background = new QLabel(this);
 	infoText = new QLabel(this);
 
-	QPixmap img("./Photos/Red.png");
+	backgroundPath = "./Photos/lower_bar"+ QString::number(color) +".png";
+
+	QPixmap img(backgroundPath);
 	background->setPixmap(img.scaled(barWidth, 100));
 
 	infoText->setText("Charles, est-ce que votre personnage porte un chapeau?");

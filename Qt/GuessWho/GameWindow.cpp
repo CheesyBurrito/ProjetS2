@@ -14,8 +14,9 @@ GameWindow.cpp
 #include "GameWindow.h"
 
 
-GameWindow::GameWindow(QWidget* parent,  Player* player1) : QWidget(parent)
+GameWindow::GameWindow(QWidget* parent,  Player* player1, int menuColor) : QWidget(parent)
 {
+	color = menuColor;
 	height = parent->height();
 	width = parent->width();
 	player = player1;
@@ -56,8 +57,8 @@ void GameWindow::setupConnections() {
 
 void GameWindow::setupWidgets() {
 	grid = new CharacterGrid(this, height - 100, width - 300, player->get_board_of_player()->get_character_manager());
-	lowerBar = new LowerBar(this, width, height - grid->getGridHeight());
-	sideMenu = new SideMenu(this, height, width - grid->getGridWidth());
+	lowerBar = new LowerBar(this, width, height - grid->getGridHeight(), color);
+	sideMenu = new SideMenu(this, height, width - grid->getGridWidth(), color);
 	pauseMenu = new PauseMenu(this);
 	gameOverMenu = new GameOverMenu();
 	this->gameOverMenu->hide();

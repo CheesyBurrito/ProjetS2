@@ -39,12 +39,14 @@ private:
 
 	int barHeight;
 	int barWidth;
+	int color;
+	QString backgroundPath;
 
 	public slots:
 	void changeText(std::string text, int mode);
 
 public:
-	LowerBar(QWidget *parent, int width, int height);
+	LowerBar(QWidget *parent, int width, int height, int menuColor);
 	~LowerBar();
 
 	void setupLayouts();

@@ -13,11 +13,13 @@ MenuWindow.cpp
 
 #include "MenuWindow.h"
 
-MenuWindow::MenuWindow(QWidget* parent, CharacterManager* characterManager) : QWidget(parent)
+MenuWindow::MenuWindow(QWidget* parent, CharacterManager* characterManager,int colorPlayer1, int colorPlayer2) : QWidget(parent)
 {
 	c_manager = characterManager;
 	widthImage = parent->width() - 620;
 	heightImage = parent->height();
+	color1 = colorPlayer1;
+	color2 = colorPlayer2;
 
 	settingLoadingMenu();
 	createMenuWindow();
@@ -43,8 +45,8 @@ void MenuWindow::createMenuWindow()
 
 	mainMenu = new MainMenu(this);
 	optionsMenu = new OptionsMenu(this, c_manager);
-	onePlayerMenu = new OnePlayerMenu(this);
-	twoPlayersMenu = new TwoPlayersMenu(this);
+	onePlayerMenu = new OnePlayerMenu(this,color1);
+	twoPlayersMenu = new TwoPlayersMenu(this,color1,color2);
 
 
 	layout->addWidget(image);
@@ -67,10 +69,13 @@ void MenuWindow::createMenuWindow()
 	connect(optionsMenu->getBackButton(), SIGNAL(clicked()), mainMenu, SLOT(show()));
 
 	layout->addWidget(onePlayerMenu);
+	connect(onePlayerMenu->getOkButton(), SIGNAL(clicked()), onePlayerMenu, SLOT(setOnePlayerGame()));
 	connect(onePlayerMenu->getOkButton(), SIGNAL(clicked()), this, SLOT(setOnePlayerGame()));
 
 	layout->addWidget(twoPlayersMenu);
+	connect(twoPlayersMenu->getOkButton(), SIGNAL(clicked()), twoPlayersMenu, SLOT(setTwoPlayersGame()));
 	connect(twoPlayersMenu->getOkButton(), SIGNAL(clicked()), this, SLOT(setTwoPlayersGame()));
+
 
 	layout->addWidget(loading);
 

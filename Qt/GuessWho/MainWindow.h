@@ -72,7 +72,21 @@ public slots:
 	void prevSong();
 	void playPause();
 	void emulateMouseClick();
+	//Set ColorMenu
+	void setColorPlayer();
+	void setColorPlayer1_0();
+	void setColorPlayer1_1();
+	void setColorPlayer1_2();
+	void setColorPlayer1_3();
+	void setColorPlayer1_4();
+	void setColorPlayer1_5();
 
+	void setColorPlayer2_0();
+	void setColorPlayer2_1();
+	void setColorPlayer2_2();
+	void setColorPlayer2_3();
+	void setColorPlayer2_4();
+	void setColorPlayer2_5();
 	//GameFunctions
 	void p1_chooseCharacter();
 	void p1_askFirstQuestion();
@@ -105,6 +119,8 @@ private:
 	int winPlayer2;
 	int numberPlayer;
 	int activeSong;
+	int colorMenuPlayer1 = 0;
+	int colorMenuPlayer2 = 4;
 	int player1GameOver = GAME_OVER_NOT;
 	int player2GameOver = GAME_OVER_NOT;
 	bool secondPlayerIsBot;

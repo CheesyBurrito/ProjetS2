@@ -15,11 +15,12 @@ SideMenu.cpp
 
 
 
-SideMenu::SideMenu(QWidget *parent, int height, int width) :QWidget(parent)
+SideMenu::SideMenu(QWidget *parent, int height, int width, int menuColor) :QWidget(parent)
 {
 	this->setStyleSheet("background: transparent;");
 	menuHeight = height;
 	menuWidth = width;
+	color = menuColor;
 
 	setupWidgets();
 	setupLayouts();
@@ -40,8 +41,11 @@ void SideMenu::setupWidgets() {
 	questionMenuBar = new QuestionMenuBar(this);
 
 	//Backgrounds
-	QPixmap pix("./Photos/side_menu.png");
-	QPixmap pix_corner("./Photos/corner_frame.png");
+	backgroundCornerPath = "./Photos/corner_frame" + QString::number(color) + ".png";
+	backgroundSideMenuPath = "./Photos/side_menu" + QString::number(color) + ".png";
+
+	QPixmap pix(backgroundSideMenuPath);
+	QPixmap pix_corner(backgroundCornerPath);
 	background->setPixmap(pix.scaled(300, menuHeight - 100));
 	cornerBackground->setPixmap(pix_corner.scaled(300, 100));
 

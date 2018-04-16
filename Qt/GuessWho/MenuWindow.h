@@ -41,7 +41,7 @@ public slots:
 	void showMainMenu();
 
 public:
-	MenuWindow(QWidget* parent, CharacterManager* characterManager);
+	MenuWindow(QWidget* parent, CharacterManager* characterManager, int color1, int color2);
 	~MenuWindow();
 	void settingLoadingMenu();
 	//int getNumberGames() { return numberGames; }
@@ -54,6 +54,8 @@ public:
 	QPushButton* getPrevButton() { return optionsMenu->getPrevButton(); }
 	QPushButton * getMuteButton() { return optionsMenu->getMuteButton(); }
 	OptionsMenu* getOptionsMenu() { return optionsMenu; }
+	OnePlayerMenu *getOnePlayerMenu() { return onePlayerMenu; }
+	TwoPlayersMenu *getTwoPlayersMenu() { return twoPlayersMenu; }
 	MainMenu* getMainMenu() { return mainMenu; }
 	int getNumberPlayers() { return numberPlayers; }
 	QLabel* getActiveSongLabel() { return optionsMenu->getActiveSongLabel(); }
@@ -72,6 +74,8 @@ private:
 	QString player2Name;
 	int numGames;
 	int numberPlayers;
+	int color1;
+	int color2;
 
 	//Loading
 	QWidget *loading;

@@ -37,7 +37,7 @@ void MainWindow::creatingObjects()
 	//Creating the objects for the GUI and Game
 	start = new StartWindow(this);
 	gameLogic = new Games();
-	menu = new MenuWindow(this, gameLogic->get_character_manager());
+	menu = new MenuWindow(this, gameLogic->get_character_manager(),colorMenuPlayer1,colorMenuPlayer2);
 
 	fpgaComm.loadPhonemesFromFile("Phonemes.csv");
 	timer.setInterval(FPGA_READ_INTERVAL);
@@ -59,6 +59,32 @@ void MainWindow::connectSignals()
 	connect(&timer, SIGNAL(timeout()), &fpgaComm, SLOT(readSlot()));
 
 	connect(this, SIGNAL(wKeyPressed()), this, SLOT(emulateMouseClick()));
+
+	//Connecting Color Menu
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1(), SIGNAL(escapeKeyPressed()), menu->getOnePlayerMenu(), SLOT(set_Enabled()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1(), SIGNAL(escapeKeyPressed()), menu->getTwoPlayersMenu(), SLOT(set_Enabled()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2(), SIGNAL(escapeKeyPressed()), menu->getTwoPlayersMenu(), SLOT(set_Enabled()));
+
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1()->getColor0Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_0()));
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1()->getColor1Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_1()));
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1()->getColor2Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_2()));
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1()->getColor3Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_3()));
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1()->getColor4Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_4()));
+	connect(menu->getOnePlayerMenu()->getColorMenuPlayer1()->getColor5Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_5()));
+
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1()->getColor0Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_0()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1()->getColor1Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_1()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1()->getColor2Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_2()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1()->getColor3Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_3()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1()->getColor4Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_4()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer1()->getColor5Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer1_5()));
+
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2()->getColor0Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer2_0()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2()->getColor1Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer2_1()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2()->getColor2Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer2_2()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2()->getColor3Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer2_3()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2()->getColor4Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer2_4()));
+	connect(menu->getTwoPlayersMenu()->getColorMenuPlayer2()->getColor5Button(), SIGNAL(clicked()), this, SLOT(setColorPlayer2_5()));
 }
 
 void MainWindow::settingWidgets()
@@ -154,8 +180,8 @@ void MainWindow::gameWindow()
 
 
 	//GUI ************************
-	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1Reference());
-	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2Reference());
+	player1GameWindow = new GameWindow(this, gameLogic->getPlayer1Reference(), colorMenuPlayer1);
+	player2GameWindow = new GameWindow(this, gameLogic->getPlayer2Reference(), colorMenuPlayer2);
 	gameWindowCreate = true;
 
 	//connect media player
@@ -684,4 +710,90 @@ void MainWindow::disconnectFPGA() {
 
 	disconnect(&fpgaComm, SIGNAL(cardOff()), player1GameWindow->getSideMenu(), SLOT(fpgaOff()));
 	disconnect(&fpgaComm, SIGNAL(cardOff()), player2GameWindow->getSideMenu(), SLOT(fpgaOff()));
+}
+
+void MainWindow::setColorPlayer()
+{
+	menu->getOnePlayerMenu()->setDisabled(false);
+	menu->getTwoPlayersMenu()->setDisabled(false);
+	menu->getOnePlayerMenu()->getColorMenuPlayer1()->hide();
+	menu->getTwoPlayersMenu()->getColorMenuPlayer1()->hide();
+	menu->getTwoPlayersMenu()->getColorMenuPlayer2()->hide();
+	menu->getOnePlayerMenu()->setColorButton(colorMenuPlayer1);
+	menu->getTwoPlayersMenu()->setColorButton(colorMenuPlayer1, colorMenuPlayer2);
+}
+
+void MainWindow::setColorPlayer1_0()
+{
+	colorMenuPlayer1 = 0;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer1_1()
+{
+	colorMenuPlayer1 = 1;
+	setColorPlayer();
+}
+	
+
+void MainWindow::setColorPlayer1_2()
+{
+	colorMenuPlayer1 = 2;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer1_3()
+{
+	colorMenuPlayer1 = 3;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer1_4()
+{
+	colorMenuPlayer1 = 4;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer1_5()
+{
+	colorMenuPlayer1 = 5;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer2_0()
+{
+	colorMenuPlayer2 = 0;
+	setColorPlayer();
+	
+}
+
+void MainWindow::setColorPlayer2_1()
+{
+	colorMenuPlayer2 = 1;
+	setColorPlayer();
+	
+}
+
+void MainWindow::setColorPlayer2_2()
+{
+	colorMenuPlayer2 = 2;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer2_3()
+{
+	colorMenuPlayer2 = 3;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer2_4()
+{
+	colorMenuPlayer2 = 4;
+	setColorPlayer();
+}
+
+void MainWindow::setColorPlayer2_5()
+{
+	colorMenuPlayer2 = 5;
+	setColorPlayer();
 }

@@ -67,7 +67,7 @@ signals:
 	void guessWho(std::vector<int>);
 
 public:
-	GameWindow(QWidget* parent,  Player* player1);
+	GameWindow(QWidget* parent,  Player* player1, int menuColor);
 	~GameWindow();
 
 	void setupLayouts();
@@ -84,4 +84,5 @@ public:
 	QPushButton* getPrevButton() { return pauseMenu->getPrevButton(); }
 	QPushButton * getMuteButton() { return pauseMenu->getMuteButton(); }
 	QLabel* getActiveSongLabel() { return pauseMenu->getActiveSongLabel(); }
+	int color;
 };
