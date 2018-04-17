@@ -42,10 +42,10 @@ void FPGA::readSlot() {
 						emit detectedPhoneme1();
 						break;
 					case 1:
-						emit detectedPhoneme2();
+						emit detectedPhoneme3();
 						break;
 					case 2:
-						emit detectedPhoneme3();
+						emit detectedPhoneme2();
 						break;
 					case 3:
 						emit detectedPhoneme4();

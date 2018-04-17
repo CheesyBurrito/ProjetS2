@@ -585,7 +585,7 @@ void MainWindow::p2_getLastAnswer() {
 
 void MainWindow::p1_getLastAnswer() {
 	cout << "P1 get last" << endl;
-	if (p2_lastQuestion.at(0) == 8) { //If P2 made a guess
+	if (p2_lastQuestion.size()!=0 && p2_lastQuestion.at(0) == 8) { //If P2 made a guess
 		if (p1_lastAnswer == true)
 			player2GameOver = GAME_OVER_WON;
 		else
