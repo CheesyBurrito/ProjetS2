@@ -112,6 +112,7 @@ void MainWindow::settingSounds()
 	songNames.push_back("Electro Cabello - Kevin MacLeod");
 	songNames.push_back("Epic Sax Guy");
 	songNames.push_back("Shooting Stars");
+	songNames.push_back("Yodeling Kid Remix");
 	songNames.push_back("Summer - Bensound");
 	songNames.push_back("Adventures - A Himitsu");
 	songNames.push_back("We Are One - Vexento");

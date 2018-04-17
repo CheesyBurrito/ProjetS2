@@ -61,6 +61,7 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2,int lastQues
 {
 	srand(time(NULL));
 	int i, j;
+	int checkIdentical = 0;
 	int rand_num1, rand_num2;
 	float difference = 100;
 	bool questionOk = false;
@@ -164,6 +165,10 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2,int lastQues
 				characterTraitsCounter[i][j] /= (float)numPlayerVisible;
 				characterTraitsCounter[i][j] *= 100.0;
 
+				if (characterTraitsCounter[i][j] == 100 || characterTraitsCounter[i][j] == 0)
+				{
+					checkIdentical++;
+				}
 				if (target != -1)
 				{
 					if (abs(characterTraitsCounter[i][j] - target) < difference && characterTraitsCounter[i][j] > 0 && characterTraitsCounter[i][j] < 100)
@@ -172,6 +177,23 @@ vector<int> Player::cpuQuestionGeneretor(int target, Player player2,int lastQues
 						question.at(0) = i;
 						question.at(1) = j;
 					}
+				}
+			}
+		}
+		if (checkIdentical == 128)
+		{
+			int randomCharacter = rand() % numPlayerVisible + 1;
+			int counter = 0;
+
+			askQuestion = false;
+			question.at(0) = 8;
+			for (i = 0; i < totalCharacter; i++)
+			{
+				if (characters.at(i)->is_is_hidden() == false)
+				{
+					counter++;
+					if (counter == randomCharacter)
+						question.at(1) = characters.at(i)->get_id();
 				}
 			}
 		}
